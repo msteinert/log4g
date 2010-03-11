@@ -1,0 +1,19 @@
+General
+=======
+
+    * Serialization (needed for network appenders)
+    * A lot more documentation is needed
+    * Possibly switch to gtk-doc
+    * Many more tests need to be written
+    * Implement a plugin system for non-core appenders/layout/filters
+    * Add an Autotools build system
+
+Appenders
+=========
+
+    * Log4gDailyRollingFileAppender
+    * Log4gTelnetAppender
+    * Log4gSMTPAppender
+    * Log4gSocketAppender
+    * Log4gDatabaseAppender (libgda)
+    * Log4gGIOAppender

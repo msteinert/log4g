@@ -1,0 +1,47 @@
+<!-- Author: Michael Steinert -->
+<!-- Version: 1.0 -->
+<!-- ... -->
+<!ELEMENT log4g:configuration (appender*, logger*, root?)>
+<!-- ... -->
+<!ATTLIST log4g:configuration
+    xmlns:log4g CDATA #FIXED "http://www.gnome.org/log4g/1.0/"
+    threshold (all|trace|debug|info|warn|error|fatal|off|null) "null"
+    debug (true|false|null) "null"
+    reset (true|false) "false"
+>
+<!-- ... -->
+<!ELEMENT appender (property*|layout?|filter*|appender*)*>
+<!ATTLIST appender
+    type CDATA #IMPLIED
+    name CDATA #IMPLIED
+>
+<!-- ... -->
+<!ELEMENT layout (property*)>
+<!ATTLIST layout
+    type CDATA #REQUIRED
+>
+<!-- ... -->
+<!ELEMENT filter (property*)>
+<!ATTLIST filter
+    type CDATA #REQUIRED
+>
+<!-- ... -->
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED
+>
+<!-- ... -->
+<!ELEMENT level (param*)>
+<!ATTLIST level
+    type CDATA #IMPLIED
+    value CDATA #REQUIRED
+>
+<!-- ... -->
+<!ELEMENT logger (level?|appender*)*>
+<!ATTLIST logger
+    name CDATA #REQUIRED
+    additivity (true|false) "true"
+>
+<!-- ... -->
+<!ELEMENT root (property*|level?|appender*)*>

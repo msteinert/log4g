@@ -1,0 +1,140 @@
+#!/bin/sh
+
+# Revision History
+# 12-9-2009 Mike Steinert
+#  -initial creation (version 0.1)
+
+# set program name & version
+package=`basename "$0"`
+version=0.1
+
+# set the top source directory
+source=`dirname "$0"`
+
+# source project settings
+[ -e "$source/.defaults" ] && . $source/.defaults
+
+# customizable options
+[ -z "$build" ] && build=NONE
+[ -z "$cmake" ] && cmake=cmake
+[ -z "$host" ] && host=NONE
+[ -z "$options" ] && options=" -DCMAKE_MODULE_PATH=$source/cmake"
+[ -z "$prefix" ] && prefix=NONE
+
+# other options
+execute=yes
+help=no
+verbose=no
+
+# parse options
+prev=
+for option; do
+    if test -n "$prev"; then
+        eval "$prev=\$option"
+        prev=
+        continue
+    fi
+
+    optarg=`expr "x$option" : 'x[^=]*=\(.*\)'`
+
+    case $option in
+    --build-type)
+        prev=build-type ;;
+    --build-type=*)
+        build=$optarg ;;
+
+    --cmake)
+        prev=cmake ;;
+    --cmake=*)
+        cmake=$optarg ;;
+
+    --host | --platform)
+        prev=host ;;
+    --host=* | --platform=*)
+        host=$optarg ;;
+
+    -n | --no-create)
+        execute=no ;;
+
+    --prefix)
+        prev=prefix ;;
+    --prefix=*)
+        prefix=$optarg ;;
+
+    -h | -h=* | --help | --help=*)
+        help=yes ;;
+
+    -v | -v=* | --verbose | --verbose=*)
+        verbose=yes ;;
+
+    -V | -V=* | --version | --version=*)
+        cat <<EOF
+$package/$version
+Copyright (C) 2009 Mike Steinert
+EOF
+        { (exit 0); exit 0; } ;;
+
+    --) shift; break ;;
+
+    -*) { echo "$package: error: unrecognized option: $option
+Try \`$0 --help' for more information." >&2
+        { (exit 1); exit 1; }; }
+        ;;
+    esac
+    shift
+done
+
+# check for --help
+if test "x$help" = "xyes"; then
+    cat <<EOF
+$package/$version boostraps a Cmake project.
+
+Usage: $0 [OPTION]... [-- [-DTYPE=VALUE]...]
+
+Options after \`--' are passed directly to cmake. Defaults for the options
+are specified in brackets. 
+
+Options:
+      --build-type=TYPE  set the build type [$build]
+      --cmake=COMMAND    set the Cmake command to be executed [$cmake]
+  -h, --help             display this help and exit
+      --nost=HOST        set the host system [$host]
+  -n, --no-create        do not create output files (do not run cmake)
+      --prefix=DIR       set the installation prefix [$prefix]
+  -V, --version          display version information and exit
+
+Report \`$package' bugs to <mike.steinert@gmail.com>"
+EOF
+    { (exit 0); exit 0; }
+fi
+
+# check for --host
+if test "x$host" != "xNONE"; then
+    if test -e "$source/cmake/$host.cmake"; then
+        options="$options -DCMAKE_TOOLCHAIN_FILE=$source/cmake/$host.cmake"
+    else
+        echo "$package: error: cannot find platform toolchain for host \"$host\""
+        { (exit 1); exit 1; }
+    fi
+fi
+
+# check for --prefix
+[ "x$prefix" != "xNONE" ] && options="$options -DCMAKE_INSTALL_PREFIX=$prefix"
+
+# check for --build-type
+[ "x$build" != "xNONE" ] && options="$options -DCMAKE_BUILD_TYPE=$build"
+
+# check for --verbose
+[ "x$verbose" = "xyes" ] && options="$options -DCMAKE_VERBOSE_MAKEFILE=$verbose"
+
+# add literal options
+[ -n "$@" ] &&  options="$options $@"
+
+# run cmake
+if test "x$execute" = "xyes"; then
+    $cmake$options $source
+    { (exit $?); exit $?; }
+else
+    echo "$cmake$options $source"
+    { (exit 0); exit 0; }
+fi

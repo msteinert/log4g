@@ -1,0 +1,17 @@
+#                                      -*- sh -*-
+# CMake project defaults (for `bootstrap' script)
+
+# Set the default build type, e.g. NONE (default), RelWithDebInfo
+build=RelWithDebInfo
+
+# Set the cmake executable, e.g. cmake (default), ccmake
+#cmake=cmake
+
+# Set the default host type, e.g. NONE (default)
+#host=NONE
+
+# Set the default CMake options, e.g. -DENABLE_FOOBAR
+#options=
+
+# Set the install prefix, e.g. NONE (default), $HOME
+#prefix=NONE

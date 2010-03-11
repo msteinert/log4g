@@ -1,0 +1,107 @@
+Log4g - A GObject-based logging utility
+=======================================
+
+This is Log4g, a port of Log4j to the GObject framework. For more information
+on Log4j, see:
+
+    http://logging.apache.org/log4j/
+
+The initial intent of this project was to learn the GObject framework (and
+indirectly some Java) by porting Log4j classes directly to GObject classes.
+Hopefully some users of GLib and GObject will find this library useful.
+
+Official website:
+    http://github.com/msteinert/log4g
+
+To report bugs:
+    http://github.com/msteinert/log4g/issues
+
+Installation
+============
+
+See INSTALL for detailed build and installation instructions.
+
+Quickstart
+==========
+
+Setting up Log4g in your application requires three simple steps:
+
+1. Include the main Log4g header file
+
+    #include <log4g/log4g.h>
+
+2. Initialize the Log4g system
+
+    log4g_init(&argc, &argv);
+
+The initialization function should be called before you use the logging API.
+If you plan to use threads in your program you must initialize the GLib
+threading API before you initialize Log4g. If the threading system has not
+been initialized before calling log4g_init() then Log4g will not perform
+any locking or attempt to use any threading features.
+
+3. Insert logging statements into your application
+
+    log4g_error("program failure: %s", error->message);
+
+Log4g supports the notion of logging levels. There are 5 default logging
+levels in Log4g (custom logging levels are also supported). The default log
+levels are:
+
+    * TRACE: log4g_trace()
+    * DEBUG: log4g_debug()
+    * INFO: log4g_info()
+    * WARN: log4g_warn()
+    * ERROR: log4g_error()
+    * FATAL: log4g_fatal()
+
+If you would like to use a logger other than the root logger, you can
+define the macro LOG4G_LOG_DOMAIN before including the Log4g header file:
+
+    #define LOG4G_LOG_DOMAIN ("org.gnome.test")
+    #include <log4g/log4g.h>
+
+This sets the Log4g logging domain for the duration of that file. To use
+multiple logger instances from within the same file you will need to use a
+slightly different API:
+
+    log4g_logger_error(log4g_get_logger("org.gnome.foo"),
+            "program failure: %s", error->message);
+
+    log4g_logger_warn(log4g_get_logger("org.gnome.bar"),
+            "you had better watch out %s", name);
+
+These two log statements would use the "org.gnome.foo" & "org.gnome.bar"
+loggers respectively. Logger names use a class hierarchy in which classes
+are separated by the dot (".") character.
+
+3.1 Cleanup the logger hierarchy
+
+    log4g_finalize();
+
+It is not strictly necessary to call finalize, however this will destroy the
+logger hierarchy. This may become important if you are using an asynchronous
+logger. Destroying the hierarchy will ensure that any pending asynchronous
+log messages are flushed before your application exits.
+
+If you have used the default configuration (as in this example), log messages
+will be printed to stdout using the TTCC layout. For information on how to
+configure Log4g refer to the detailed documentation.
+
+Copyright & License
+===================
+
+Copyright 2010 Michael Steinert
+
+Log4g is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 2.1 of the License, or (at your option)
+any later version.
+
+Log4g is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Log4g. If not, see <http://www.gnu.org/licenses/>.
