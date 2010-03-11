@@ -125,8 +125,8 @@ log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
     }
     priv = GET_PRIVATE(self);
     if (priv->guard && (guard != priv->guard)) {
-        g_debug(Q_("attempted to reset the Log4gRepositorySelector without "
-                   "possessing the guard"));
+        log4g_error(Q_("attempted to reset the Log4gRepositorySelector "
+                "without possessing the guard"));
         return;
     }
     if (priv->guard) {
@@ -160,8 +160,8 @@ log4g_log_manager_get_logger_repository(void)
             g_object_unref(instance->guard);
             instance->guard = NULL;
         }
-        g_debug(Q_("RepositorySelector was NULL likely due to error in class "
-                   "reloading, using Log4gNOPLoggerRepository"));
+        log4g_warn(Q_("RepositorySelector was NULL likely due to error "
+                "in class reloading, using Log4gNOPLoggerRepository"));
     }
 #endif
     return log4g_repository_selector_get_logger_repository(priv->selector);

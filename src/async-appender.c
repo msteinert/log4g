@@ -330,7 +330,7 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
         g_object_ref(event);
         g_thread_pool_push(priv->pool, event, &error);
         if (error) {
-            g_debug("g_thread_pool_push(): %s", error->message);
+            log4g_error("g_thread_pool_push(): %s", error->message);
             g_error_free(error);
             discard = TRUE;
         }

@@ -170,13 +170,12 @@ log4g_pattern_parser_extract_precision_option(Log4gPatternParser *self)
         r = strtol(option, NULL, 10);
         if (errno) {
             if (EINVAL) {
-                g_debug(
-                    Q_("category option \"%s\" is not a decimal number: %s"),
-                    option, g_strerror(errno));
+                log4g_error(Q_("category option \"%s\" is not a decimal "
+                        "number: %s"), option, g_strerror(errno));
             }
         }
         if (r <= 0) {
-            g_debug(Q_("precision option (%s) is not a positive integer"),
+            log4g_error(Q_("precision option (%s) is not a positive integer"),
                     option);
             r = 0;
         }
@@ -272,8 +271,8 @@ log4g_pattern_parser_parse(Log4gPatternParser *self)
                 priv->formatting.max = c - '0';
                 priv->state = MAX_STATE;
             } else {
-                g_debug(Q_("error occurred in position %d\nwas expecting "
-                           "digit, instead got char %c"), priv->i, c);
+                log4g_error(Q_("error occurred in position %d\nwas expecting "
+                        "digit, instead got char %c"), priv->i, c);
                 priv->state = LITERAL_STATE;
             }
             break;
@@ -372,8 +371,8 @@ log4g_pattern_parser_finalize_converter(Log4gPatternParser *self, gchar c)
         break;
     }
     default:
-        g_debug(Q_("unexpected char [%c] at position %d in conversion pattern"),
-                c, priv->i);
+        log4g_error(Q_("unexpected char [%c] at position %d in "
+                "conversion pattern"), c, priv->i);
         pc = log4g_literal_pattern_converter_new(priv->buffer->str);
         break;
     }

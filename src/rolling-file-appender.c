@@ -101,7 +101,7 @@ set_file_full(Log4gAppender *base, const gchar *file, gboolean append,
         Log4gQuietWriter *qw = log4g_writer_appender_get_quiet_writer(base);
         if (stat(file, &buf)) {
             if (ENOENT != errno) {
-                g_debug("stat(): %s", g_strerror(errno));
+                log4g_error("stat(): %s", g_strerror(errno));
                 return;
             }
         }

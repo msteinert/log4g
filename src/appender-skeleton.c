@@ -74,7 +74,7 @@ do_append(Log4gAppender *base, Log4gLoggingEvent *event)
     gint decision;
     g_mutex_lock(priv->lock);
     if (priv->closed) {
-        g_debug(Q_("attempted to append to closed appender named [%s]"),
+        log4g_warn(Q_("attempted to append to closed appender named [%s]"),
                 priv->name);
         goto exit;
     }

@@ -35,7 +35,7 @@ enum _properties_t {
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_DATE_LAYOUT, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
     Log4gDateLayoutType type;
@@ -49,7 +49,7 @@ activate_options(Log4gOptionHandler *base)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->tz) {
         if (setenv("TZ", priv->tz, 1)) {
-            g_debug("setenv(): %s", g_strerror(errno));
+            log4g_error("setenv(): %s", g_strerror(errno));
         }
     }
 }
@@ -186,7 +186,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
     if (priv->format) {
         time = tv->tv_sec;
         if (!localtime_r(&time, &tm)) {
-            g_debug("localtime_r(): %s", g_strerror(errno));
+            log4g_error("localtime_r(): %s", g_strerror(errno));
             return;
         }
         if (!strftime(buffer, sizeof(buffer), priv->format, &tm)) {
@@ -201,7 +201,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
             break;
         }
         default:
-            g_debug(Q_("unrecognized date layout type: %d"), priv->type);
+            log4g_error(Q_("unrecognized date layout type: %d"), priv->type);
             return;
         }
     }

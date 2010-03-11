@@ -32,7 +32,7 @@ G_DEFINE_TYPE(Log4gCountingQuietWriter, log4g_counting_quiet_writer,
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_COUNTING_QUIET_WRITER, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
     gulong count;

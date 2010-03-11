@@ -26,8 +26,7 @@
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
-                                 LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, \
-                                 struct Log4gPrivate))
+            LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, struct Log4gPrivate))
 
 struct Log4gPrivate {
     Log4gLoggerRepository *repository;
@@ -46,9 +45,9 @@ static void repository_selector_init(
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gDefaultRepositorySelector,
-                        log4g_default_repository_selector, G_TYPE_OBJECT,
+        log4g_default_repository_selector, G_TYPE_OBJECT,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_REPOSITORY_SELECTOR,
-                              repository_selector_init))
+                repository_selector_init))
 
 static void
 log4g_default_repository_selector_init(Log4gDefaultRepositorySelector *self)

@@ -36,7 +36,7 @@ enum _properties_t {
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_FILE_APPENDER, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
     gboolean append;
@@ -53,23 +53,24 @@ activate_options(Log4gOptionHandler *base)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
     if (G_UNLIKELY(!priv->file)) {
-        g_debug(Q_("file option not set for appender [%s]"),
+        log4g_warn(Q_("file option not set for appender [%s]"),
                 log4g_appender_get_name(LOG4G_APPENDER(base)));
-        g_debug(Q_("are you using FileAppender instead of ConsoleAppender?"));
+        log4g_warn(Q_("are you using FileAppender instead "
+                "of ConsoleAppender?"));
         goto exit;
     }
     ostream = fopen(priv->file, (priv->append ? "a" : "w"));
     if (!ostream) {
-        g_debug("%s: %s", priv->file, g_strerror(errno));
+        log4g_error("%s: %s", priv->file, g_strerror(errno));
         goto exit;
     }
     if (priv->buffered) {
         if (setvbuf(ostream, NULL, _IOFBF, priv->size)) {
-            g_debug("%s: %s", priv->file, g_strerror(errno));
+            log4g_error("%s: %s", priv->file, g_strerror(errno));
         }
     } else {
         if (setvbuf(ostream, NULL, _IONBF, 0)) {
-            g_debug("%s: %s", priv->file, g_strerror(errno));
+            log4g_error("%s: %s", priv->file, g_strerror(errno));
         }
     }
     log4g_file_appender_set_qw_for_files(LOG4G_APPENDER(base), ostream);

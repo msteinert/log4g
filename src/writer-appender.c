@@ -211,7 +211,7 @@ log4g_writer_appender_check_entry_conditions(Log4gAppender *base)
 {
     g_return_val_if_fail(LOG4G_IS_WRITER_APPENDER(base), FALSE);
     if (log4g_appender_skeleton_get_closed(base)) {
-        g_debug(Q_("not allowed to write to a closed appender"));
+        log4g_warn(Q_("not allowed to write to a closed appender"));
         return FALSE;
     }
     if (!GET_PRIVATE(base)->writer) {

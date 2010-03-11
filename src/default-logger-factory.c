@@ -36,8 +36,8 @@ logger_factory_init(Log4gLoggerFactoryInterface *interface, gpointer data)
     interface->make_new_logger_instance = make_new_logger_instance;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gDefaultLoggerFactory, log4g_default_logger_factory,
-                        G_TYPE_OBJECT,
+G_DEFINE_TYPE_WITH_CODE(Log4gDefaultLoggerFactory,
+        log4g_default_logger_factory, G_TYPE_OBJECT,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_LOGGER_FACTORY, logger_factory_init))
 
 static void

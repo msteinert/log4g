@@ -26,7 +26,7 @@
 #include "log4g/interface/option-handler.h"
 
 G_DEFINE_INTERFACE(Log4gErrorHandler, log4g_error_handler,
-                   LOG4G_TYPE_OPTION_HANDLER)
+        LOG4G_TYPE_OPTION_HANDLER)
 
 static void
 log4g_error_handler_default_init(Log4gErrorHandlerInterface *klass)
@@ -36,7 +36,7 @@ log4g_error_handler_default_init(Log4gErrorHandlerInterface *klass)
 
 void
 log4g_error_handler_set_logger(Log4gErrorHandler *self,
-                               Log4gLogger *logger)
+        Log4gLogger *logger)
 {
     Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
@@ -46,7 +46,7 @@ log4g_error_handler_set_logger(Log4gErrorHandler *self,
 
 void
 log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
-                          const char *message, ...)
+        const char *message, ...)
 {
     va_list ap;
     Log4gErrorHandlerInterface *interface;
@@ -59,7 +59,7 @@ log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
 
 void
 log4g_error_handler_set_appender(Log4gErrorHandler *self,
-                                 Log4gAppender *appender)
+        Log4gAppender *appender)
 {
     Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
@@ -69,7 +69,7 @@ log4g_error_handler_set_appender(Log4gErrorHandler *self,
 
 void
 log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
-                                        Log4gAppender *appender)
+        Log4gAppender *appender)
 {
     Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));

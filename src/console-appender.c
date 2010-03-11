@@ -130,8 +130,8 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         } else if (g_ascii_strcasecmp(target, klass->SYSTEM_ERR)) {
             priv->target = klass->SYSTEM_ERR;
         } else {
-            g_debug(Q_("[%s] should be stdout or stderr"), target);
-            g_debug(Q_("using previously set target, stdout by default"));
+            log4g_warn(Q_("[%s] should be stdout or stderr"), target);
+            log4g_warn(Q_("using previously set target, stdout by default"));
             if (!priv->target) {
                 priv->target = klass->SYSTEM_OUT;
             }

@@ -364,11 +364,11 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
     }
     time = tv->tv_sec;
     if (!localtime_r(&time, &tm)) {
-        g_debug("localtime_r(): %s", g_strerror(errno));
+        log4g_error("localtime_r(): %s", g_strerror(errno));
         return NULL;
     }
     if (!strftime(priv->buffer, sizeof(priv->buffer), priv->format, &tm)) {
-        g_debug(Q_("strftime() returned zero (0)"));
+        log4g_error(Q_("strftime() returned zero (0)"));
         return NULL;
     }
     return priv->buffer;

@@ -137,7 +137,7 @@ void
 log4g_quiet_writer_set_error_handler(Log4gQuietWriter *self, gpointer error)
 {
     if (!error) {
-        g_debug(Q_("attempted to set NULL error handler"));
+        log4g_warn(Q_("attempted to set NULL error handler"));
     } else {
         struct Log4gPrivate *priv;
         g_return_if_fail(LOG4G_IS_ERROR_HANDLER(error));

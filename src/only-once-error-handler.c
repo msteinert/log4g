@@ -57,7 +57,7 @@ error(Log4gErrorHandler *base, Log4gLoggingEvent *event,
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->first) {
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, message, ap);
+        log4g_errorv(message, ap);
         priv->first = FALSE;
     }
 }

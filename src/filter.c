@@ -43,7 +43,7 @@ G_DEFINE_TYPE_WITH_CODE(Log4gFilter, log4g_filter, G_TYPE_OBJECT,
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_FILTER, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
     Log4gFilter *next;
