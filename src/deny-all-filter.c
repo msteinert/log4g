@@ -32,11 +32,10 @@ log4g_deny_all_filter_init(Log4gDenyAllFilter *self)
     /* do nothing */
 }
 
-static gint
+static Log4gFilterDecision
 decide(Log4gFilter *self, Log4gLoggingEvent *event)
 {
-    Log4gFilterClass *klass = LOG4G_FILTER_GET_CLASS(self);
-    return klass->DENY;
+    return LOG4G_FILTER_DENY;
 }
 
 static void

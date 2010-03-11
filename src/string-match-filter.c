@@ -89,19 +89,18 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     }
 }
 
-static gint
+static Log4gFilterDecision
 decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gFilterClass *filter = LOG4G_FILTER_GET_CLASS(base);
     const gchar *message = log4g_logging_event_get_rendered_message(event);
     if (!message || !priv->string) { 
-        return filter->NEUTRAL;
+        return LOG4G_FILTER_NEUTRAL;
     }
     if (!g_strstr_len(message, -1, priv->string)) {
-        return filter->NEUTRAL;
+        return LOG4G_FILTER_NEUTRAL;
     } else {
-        return (priv->accept ? filter->ACCEPT : filter->DENY);
+        return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);
     }
 }
 

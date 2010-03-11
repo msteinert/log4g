@@ -91,20 +91,19 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     }
 }
 
-static gint
+static Log4gFilterDecision
 decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
-    Log4gFilterClass *filter = LOG4G_FILTER_GET_CLASS(base);
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLevel *level;
     if (!priv->level) { 
-        return filter->NEUTRAL;
+        return LOG4G_FILTER_NEUTRAL;
     }
     level = log4g_logging_event_get_level(event);
     if (log4g_level_equals(priv->level, level)) {
-        return filter->NEUTRAL;
+        return LOG4G_FILTER_NEUTRAL;
     } else {
-        return (priv->accept ? filter->ACCEPT : filter->DENY);
+        return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);
     }
 }
 

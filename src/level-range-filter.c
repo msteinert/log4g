@@ -112,23 +112,22 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     }
 }
 
-static gint
+static Log4gFilterDecision
 decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gFilterClass *filter = LOG4G_FILTER_GET_CLASS(base);
     Log4gLevel *level = log4g_logging_event_get_level(event);
     if (priv->min) { 
         if (!log4g_level_is_greater_or_equal(level, priv->min)) {
-            return filter->DENY;
+            return LOG4G_FILTER_DENY;
         }
     }
     if (priv->max) {
         if (log4g_level_to_int(level) > log4g_level_to_int(priv->max)) {
-            return filter->DENY;
+            return LOG4G_FILTER_DENY;
         }
     }
-    return (priv->accept ? filter->ACCEPT : filter->DENY);
+    return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);
 }
 
 static void

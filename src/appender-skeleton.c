@@ -84,14 +84,13 @@ do_append(Log4gAppender *base, Log4gLoggingEvent *event)
     }
     if (priv->head) {
         Log4gFilter *filter = priv->head;
-        Log4gFilterClass *filter_class = LOG4G_FILTER_GET_CLASS(filter);
         while (filter) {
             decision = log4g_filter_decide(filter, event);
-            if (filter_class->DENY == decision) {
+            if (LOG4G_FILTER_DENY == decision) {
                 goto exit;
-            } else if (filter_class->ACCEPT == decision) {
+            } else if (LOG4G_FILTER_ACCEPT == decision) {
                 break;
-            } else if (filter_class->NEUTRAL == decision) {
+            } else if (LOG4G_FILTER_NEUTRAL == decision) {
                 filter = log4g_filter_get_next(filter);
             }
         }

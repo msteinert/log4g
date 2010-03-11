@@ -77,10 +77,6 @@ log4g_filter_class_init(Log4gFilterClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gFilter class */
     klass->decide = NULL;
-    /* initialize class data */
-    klass->ACCEPT = 1;
-    klass->NEUTRAL = 0;
-    klass->DENY = -1;
 }
 
 void
@@ -92,7 +88,7 @@ log4g_filter_activate_options(Log4gFilter *self)
     interface->activate_options(LOG4G_OPTION_HANDLER(self));
 }
 
-gint
+Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event)
 {
     g_return_val_if_fail(LOG4G_IS_FILTER(self), 0);

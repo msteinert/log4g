@@ -13,5 +13,5 @@ if(DOXYGEN_FOUND)
         set(HAVE_DOT NO)
     endif(DOXYGEN_DOT_EXECUTABLE)
     # configure Doxyfile
-    configure_file(Doxyfile.in Doxyfile)
+    configure_file(Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 endif(DOXYGEN_FOUND)
