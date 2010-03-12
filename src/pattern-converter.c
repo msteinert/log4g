@@ -364,11 +364,11 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
     }
     time = tv->tv_sec;
     if (!localtime_r(&time, &tm)) {
-        log4g_error("localtime_r(): %s", g_strerror(errno));
+        log4g_log_error("localtime_r(): %s", g_strerror(errno));
         return NULL;
     }
     if (!strftime(priv->buffer, sizeof(priv->buffer), priv->format, &tm)) {
-        log4g_error(Q_("strftime() returned zero (0)"));
+        log4g_log_error(Q_("strftime() returned zero (0)"));
         return NULL;
     }
     return priv->buffer;
@@ -378,7 +378,8 @@ static void
 log4g_date_pattern_converter_class_init(Log4gDatePatternConverterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gPatternConverterClass *pc_class = LOG4G_PATTERN_CONVERTER_CLASS(klass);
+    Log4gPatternConverterClass *pc_class =
+        LOG4G_PATTERN_CONVERTER_CLASS(klass);
     /* initialize GObject class */
     gobject_class->finalize = date_pattern_converter_finalize;
     /* initialize private data */

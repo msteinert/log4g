@@ -242,13 +242,13 @@ log4g_async_appender_init(Log4gAsyncAppender *self)
         GError *error = NULL;
         priv->pool = g_thread_pool_new(_run, self, 1, TRUE, &error);
         if (error) {
-            log4g_warn("g_thread_pool_new(): %s", error->message);
+            log4g_log_warn("g_thread_pool_new(): %s", error->message);
             g_error_free(error);
         }
         priv->lock = g_mutex_new();
         priv->discard = g_mutex_new();
     } else {
-        log4g_warn("you must call g_thread_init() before log4g_init()"
+        log4g_log_warn("you must call g_thread_init() before log4g_init() "
                 "if you plan to use Log4gAsyncAppender");
     }
 }
@@ -319,7 +319,7 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     gboolean discard = FALSE;
     GError *error = NULL;
     if (!g_thread_supported()) {
-        log4g_warn("Log4gAsyncAppender: threading is not enabled "
+        log4g_log_warn("Log4gAsyncAppender: threading is not enabled "
                 "(message discarded)");
         return;
     }
@@ -339,7 +339,7 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
         g_object_ref(event);
         g_thread_pool_push(priv->pool, event, &error);
         if (error) {
-            log4g_error("g_thread_pool_push(): %s", error->message);
+            log4g_log_error("g_thread_pool_push(): %s", error->message);
             g_error_free(error);
             discard = TRUE;
         }

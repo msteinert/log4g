@@ -53,24 +53,24 @@ activate_options(Log4gOptionHandler *base)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
     if (G_UNLIKELY(!priv->file)) {
-        log4g_warn(Q_("file option not set for appender [%s]"),
+        log4g_log_warn(Q_("file option not set for appender [%s]"),
                 log4g_appender_get_name(LOG4G_APPENDER(base)));
-        log4g_warn(Q_("are you using FileAppender instead "
+        log4g_log_warn(Q_("are you using FileAppender instead "
                 "of ConsoleAppender?"));
         goto exit;
     }
     ostream = fopen(priv->file, (priv->append ? "a" : "w"));
     if (!ostream) {
-        log4g_error("%s: %s", priv->file, g_strerror(errno));
+        log4g_log_error("%s: %s", priv->file, g_strerror(errno));
         goto exit;
     }
     if (priv->buffered) {
         if (setvbuf(ostream, NULL, _IOFBF, priv->size)) {
-            log4g_error("%s: %s", priv->file, g_strerror(errno));
+            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
         }
     } else {
         if (setvbuf(ostream, NULL, _IONBF, 0)) {
-            log4g_error("%s: %s", priv->file, g_strerror(errno));
+            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
         }
     }
     log4g_file_appender_set_qw_for_files(LOG4G_APPENDER(base), ostream);
@@ -86,7 +86,7 @@ option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gFileAppender, log4g_file_appender,
-                        LOG4G_TYPE_WRITER_APPENDER,
+        LOG4G_TYPE_WRITER_APPENDER,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 static void
@@ -149,7 +149,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         g_atomic_int_set(&priv->buffered, g_value_get_boolean(value));
         if (g_atomic_int_get(&priv->buffered)) {
             log4g_writer_appender_set_immediate_flush(LOG4G_APPENDER(priv),
-                                                      FALSE);
+                    FALSE);
         }
         break;
     case PROP_BUFFER_SIZE:
@@ -163,7 +163,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 
 static void
 set_file_full(Log4gAppender *base, const gchar *file, gboolean append,
-              gboolean buffered, guint size)
+        gboolean buffered, guint size)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->buffered) {
@@ -206,7 +206,8 @@ static void
 log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gWriterAppenderClass *writer_class = LOG4G_WRITER_APPENDER_CLASS(klass);
+    Log4gWriterAppenderClass *writer_class =
+        LOG4G_WRITER_APPENDER_CLASS(klass);
     /* initialize GObject */
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
@@ -235,7 +236,7 @@ log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 
 Log4gAppender *
 log4g_file_appender_new(Log4gLayout *layout, const gchar *file,
-                        gboolean append, gboolean buffered)
+        gboolean append, gboolean buffered)
 {
     struct Log4gPrivate *priv;
     Log4gAppender *self = g_object_new(LOG4G_TYPE_FILE_APPENDER, NULL);
@@ -246,18 +247,18 @@ log4g_file_appender_new(Log4gLayout *layout, const gchar *file,
     priv->append = append;
     priv->buffered = buffered;
     log4g_appender_set_layout(self, layout);
-    log4g_file_appender_set_file_full(self, file, append, buffered, priv->size);
+    log4g_file_appender_set_file_full(self, file, append,
+            buffered, priv->size);
     return self;
 }
 
 void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
-                                  gboolean append, gboolean buffered,
-                                  guint size)
+        gboolean append, gboolean buffered, guint size)
 {
     g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    LOG4G_FILE_APPENDER_GET_CLASS(base)->set_file_full(base, file, append,
-                                                       buffered, size);
+    LOG4G_FILE_APPENDER_GET_CLASS(base)->
+        set_file_full(base, file, append, buffered, size);
 }
 
 void

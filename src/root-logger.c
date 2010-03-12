@@ -54,7 +54,7 @@ static void
 set_level(Log4gLogger *self, Log4gLevel *level)
 {
     if (!level) {
-        log4g_warn(Q_("you have tried to set a NULL level to root"));
+        log4g_log_warn(Q_("you have tried to set a NULL level to root"));
         return;
     }
     LOG4G_LOGGER_CLASS(log4g_root_logger_parent_class)->set_level(self, level);

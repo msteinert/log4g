@@ -114,7 +114,7 @@ update_parents(Log4gHierarchy *self, Log4gLogger *logger)
             Log4gProvisionNode *node = LOG4G_PROVISION_NODE(object);
             log4g_provision_node_add_element(node, logger);
         } else {
-            log4g_warn(Q_("internal error: unexpected object type"));
+            log4g_log_warn(Q_("internal error: unexpected object type"));
         }
     }
     if (!found) {
@@ -305,7 +305,7 @@ set_threshold_string(Log4gLoggerRepository *base, const gchar *string)
 {
     Log4gLevel *level = log4g_level_string_to_level(string);
     if (!level) {
-        log4g_warn(Q_("could not convert [%s] to level."), string);
+        log4g_log_warn(Q_("could not convert [%s] to level."), string);
         return;
     }
     log4g_logger_repository_set_threshold(base, level);
@@ -318,9 +318,9 @@ emit_no_appender_warning(Log4gLoggerRepository *base, Log4gLogger *logger)
     if (priv->warning) {
         return;
     }
-    log4g_warn(Q_("no appenders could be found for logger (%s)"),
+    log4g_log_warn(Q_("no appenders could be found for logger (%s)"),
             log4g_logger_get_name(logger));
-    log4g_warn(Q_("please initialize the log4g system properly"));
+    log4g_log_warn(Q_("please initialize the log4g system properly"));
     priv->warning = TRUE;
 }
 

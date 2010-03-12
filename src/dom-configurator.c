@@ -52,18 +52,18 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
     GParamSpec *spec = NULL;
     name = xmlGetProp(node, (const xmlChar *)"name");
     if (!name) {
-        log4g_error(Q_("properties must have a `name' attribute"));
+        log4g_log_error(Q_("properties must have a `name' attribute"));
         goto exit;
     }
     value = xmlGetProp(node, (const xmlChar *)"value");
     if (!value) {
-        log4g_error(Q_("properties must have a `value' attribute"));
+        log4g_log_error(Q_("properties must have a `value' attribute"));
         goto exit;
     }
     spec = g_object_class_find_property(
                 G_OBJECT_GET_CLASS(object), (gchar *)name);
     if (!spec) {
-        log4g_error(Q_("object does not have the property `%s'"),
+        log4g_log_error(Q_("object does not have the property `%s'"),
                 (gchar *)name);
         goto exit;
     }
@@ -75,18 +75,18 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         } else if (!g_ascii_strcasecmp((const gchar *)value, "false")) {
             g_object_set(object, (const gchar *)name, FALSE, NULL);
         } else {
-            log4g_error(Q_("%s: not a boolean value (true|false)"), value);
+            log4g_log_error(Q_("%s: not a boolean value (true|false)"), value);
             goto exit;
         }
     } else if (G_TYPE_CHAR == spec->value_type) {
         if (1 != strlen((const char *)value)) {
-            log4g_error(Q_("%s: not a char"), value);
+            log4g_log_error(Q_("%s: not a char"), value);
             goto exit;
         }
         g_object_set(object, (const gchar *)value, *value, NULL);
     } else if (G_TYPE_UCHAR == spec->value_type) {
         if (1 != strlen((const char *)value)) {
-            log4g_error(Q_("%s: not a uchar"), value);
+            log4g_log_error(Q_("%s: not a uchar"), value);
             goto exit;
         }
         g_object_set(object, (const gchar *)value, *value, NULL);
@@ -95,7 +95,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not an int"), value);
+            log4g_log_error(Q_("%s: not an int"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (gint)i, NULL);
@@ -104,7 +104,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoull((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not an uint"), value);
+            log4g_log_error(Q_("%s: not an uint"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (guint)i, NULL);
@@ -113,7 +113,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not a long"), value);
+            log4g_log_error(Q_("%s: not a long"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (glong)i, NULL);
@@ -122,7 +122,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoull((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not an ulong"), value);
+            log4g_log_error(Q_("%s: not an ulong"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (gulong)i, NULL);
@@ -131,7 +131,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not a uint64"), value);
+            log4g_log_error(Q_("%s: not a uint64"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (glong)i, NULL);
@@ -140,7 +140,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoull((const char *)value, NULL, 10);
         if (errno) {
-            log4g_error(Q_("%s: not an uint64"), value);
+            log4g_log_error(Q_("%s: not an uint64"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, i, NULL);
@@ -149,7 +149,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         d = g_ascii_strtod((gchar *)value, NULL);
         if (errno) {
-            log4g_error(Q_("%s: not a float"), value);
+            log4g_log_error(Q_("%s: not a float"), value);
             goto exit;
         }
         g_object_set(object, (const gchar *)name, (gfloat)d, NULL);
@@ -158,12 +158,12 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         d = g_ascii_strtod((gchar *)value, NULL);
         if (errno) {
-            log4g_error(Q_("%s: not a double"), value);
+            log4g_log_error(Q_("%s: not a double"), value);
             goto exit;
         }
         g_object_set(object, (const gchar *)name, d, NULL);
     } else {
-        log4g_warn(Q_("%s: property cannot be set via DOM configuration"),
+        log4g_log_warn(Q_("%s: property cannot be set via DOM configuration"),
                 name);
         goto exit;
     }
@@ -188,7 +188,7 @@ parse_layout(Log4gConfigurator *base, xmlNodePtr node)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     type = xmlGetProp(node, (const xmlChar *)"type");
     if (!type) {
-        log4g_error(Q_("layouts must have a `type'"));
+        log4g_log_error(Q_("layouts must have a `type'"));
         goto exit;
     }
     g_string_set_size(priv->scratch, 0);
@@ -196,16 +196,16 @@ parse_layout(Log4gConfigurator *base, xmlNodePtr node)
     g_string_append(priv->scratch, "_get_type");
     get_type = dlsym(priv->handle, priv->scratch->str);
     if (!get_type) {
-        log4g_error(Q_("%s: invalid `type'"), type);
+        log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
     layout = g_object_new(get_type(), NULL);
     if (!layout) {
-        log4g_error(Q_("%s: g_object_new() returned NULL"), type);
+        log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
         goto exit;
     }
     if (!LOG4G_IS_LAYOUT(layout)) {
-        log4g_error(Q_("%s: not an instance of log4g_layout"), type);
+        log4g_log_error(Q_("%s: not an instance of log4g_layout"), type);
         g_object_unref(layout);
         layout = NULL;
         goto exit;
@@ -215,11 +215,11 @@ parse_layout(Log4gConfigurator *base, xmlNodePtr node)
         if (!xmlStrcmp(node->name, (const xmlChar *)"property")) {
             parse_property(base, node, layout);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
@@ -240,7 +240,7 @@ parse_filter(Log4gConfigurator *base, xmlNodePtr node)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     type = xmlGetProp(node, (const xmlChar *)"type");
     if (!type) {
-        log4g_error(Q_("filters must have a `type'"));
+        log4g_log_error(Q_("filters must have a `type'"));
         goto exit;
     }
     g_string_set_size(priv->scratch, 0);
@@ -248,16 +248,16 @@ parse_filter(Log4gConfigurator *base, xmlNodePtr node)
     g_string_append(priv->scratch, "_get_type");
     get_type = dlsym(priv->handle, priv->scratch->str);
     if (!get_type) {
-        log4g_error(Q_("%s: invalid `type'"), type);
+        log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
     filter = g_object_new(get_type(), NULL);
     if (!filter) {
-        log4g_error(Q_("%s: g_object_new() returned NULL"), type);
+        log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
         goto exit;
     }
     if (!LOG4G_IS_FILTER(filter)) {
-        log4g_error(Q_("%s: not an instance of log4g_filter"), type);
+        log4g_log_error(Q_("%s: not an instance of log4g_filter"), type);
         g_object_unref(filter);
         filter = NULL;
         goto exit;
@@ -267,11 +267,11 @@ parse_filter(Log4gConfigurator *base, xmlNodePtr node)
         if (!xmlStrcmp(node->name, (const xmlChar *)"property")) {
             parse_property(base, node, filter);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
@@ -298,16 +298,16 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
         g_string_append(priv->scratch, "_get_type");
         get_type = dlsym(priv->handle, priv->scratch->str);
         if (!get_type) {
-            log4g_error(Q_("%s: invalid `type'"), type);
+            log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
         appender = g_object_new(get_type(), NULL);
         if (!appender) {
-            log4g_error(Q_("%s: g_object_new() returned NULL"), type);
+            log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
             goto exit;
         }
         if (!LOG4G_IS_APPENDER(appender)) {
-            log4g_error(Q_("%s: not an instance of log4g_appender"), type);
+            log4g_log_error(Q_("%s: not an instance of log4g_appender"), type);
             g_object_unref(appender);
             appender = NULL;
             goto exit;
@@ -325,12 +325,13 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
             appender =
                 LOG4G_APPENDER(g_hash_table_lookup(priv->appenders, name));
             if (!appender) {
-                log4g_error(Q_("%s: no such appender"), name);
+                log4g_log_error(Q_("%s: no such appender"), name);
                 goto exit;
             }
             g_object_ref(appender);
         } else {
-            log4g_error(Q_("appenders without a `type' must have a `name'"));
+            log4g_log_error(Q_("appenders without a `type' must "
+                        "have a `name'"));
             goto exit;
         }
     }
@@ -359,21 +360,21 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
                     g_object_unref(child);
                 }
             } else {
-                log4g_error(Q_("%s: does not implement "
+                log4g_log_error(Q_("%s: does not implement "
                         "log4g_appender_attachable"), type);
             }
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
     if (log4g_appender_requires_layout(appender)) {
         if (!log4g_appender_get_layout(appender)) {
-            log4g_error(Q_("%s: appender requires a layout"), type);
+            log4g_log_error(Q_("%s: appender requires a layout"), type);
             g_object_unref(appender);
             appender = NULL;
             goto exit;
@@ -406,7 +407,7 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
         g_string_append(priv->scratch, "_get_type");
         get_type = dlsym(priv->handle, priv->scratch->str);
         if (!get_type) {
-            log4g_error(Q_("%s: invalid `type'"), type);
+            log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
         klass = g_type_class_ref(get_type());
@@ -414,16 +415,17 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
         klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     }
     if (!klass) {
-        log4g_error(Q_("g_type_class_ref() returned NULL"));
+        log4g_log_error(Q_("g_type_class_ref() returned NULL"));
         goto exit;
     }
     value = xmlGetProp(node, (const xmlChar *)"value");
     if (!value) {
-        log4g_error(Q_("levels require a `value'"));
+        log4g_log_error(Q_("levels require a `value'"));
         goto exit;
     }
     if (!klass->string_to_level) {
-        log4g_error(Q_("Log4gLevel virtual method string_to_level() is NULL"));
+        log4g_log_error(Q_("Log4gLevel virtual method "
+                    "string_to_level() is NULL"));
         goto exit;
     }
     level = klass->string_to_level((gchar *)value);
@@ -432,11 +434,11 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
         if (!xmlStrcmp(node->name, (const xmlChar *)"property")) {
             parse_property(base, node, level);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
@@ -461,7 +463,7 @@ parse_logger(Log4gConfigurator *base, xmlNodePtr node)
     xmlChar *name = NULL;
     name = xmlGetProp(node, (const xmlChar *)"name");
     if (!name) {
-        log4g_error(Q_("loggers require a `name'"));
+        log4g_log_error(Q_("loggers require a `name'"));
         goto exit;
     }
     logger = log4g_log_manager_get_logger((const gchar *)name);
@@ -475,7 +477,7 @@ parse_logger(Log4gConfigurator *base, xmlNodePtr node)
         } else if (!xmlStrcmp(additivity , (const xmlChar *)"false")) {
             log4g_logger_set_additivity(logger, FALSE);
         } else {
-            log4g_error(Q_("%s: `additivity' must be a boolean value"),
+            log4g_log_error(Q_("%s: `additivity' must be a boolean value"),
                     additivity);
         }
         xmlFree(additivity);
@@ -493,11 +495,11 @@ parse_logger(Log4gConfigurator *base, xmlNodePtr node)
                 g_object_unref(appender);
             }
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
@@ -527,11 +529,11 @@ parse_root(Log4gConfigurator *base, xmlNodePtr node)
                 g_object_unref(appender);
             }
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }
@@ -546,7 +548,7 @@ error_handler(void *ctx, const char *format, ...)
     g_string_append_vprintf(string, format, ap);
     if (string->str[string->len - 1] == '\n') {
         string->str[string->len - 1] = '\0';
-        log4g_warn(string->str);
+        log4g_log_warn(string->str);
         g_string_set_size(string, 0);
     }
     va_end(ap);
@@ -607,9 +609,10 @@ do_configure(Log4gConfigurator *base, const char *uri,
         } else if (!xmlStrcmp(att, (const xmlChar *)"false")) {
             priv->debug = FALSE;
         } else if (!xmlStrcmp(att, (const xmlChar *)"null")) {
-            log4g_warn(Q_("%s: ignoring `debug' attribute"), att);
+            log4g_log_warn(Q_("%s: ignoring `debug' attribute"), att);
         } else {
-            log4g_error(Q_("%s: invalid value for attribute `debug'"), att);
+            log4g_log_error(Q_("%s: invalid value for attribute `debug'"),
+                    att);
         }
         xmlFree(att);
     }
@@ -644,7 +647,7 @@ do_configure(Log4gConfigurator *base, const char *uri,
         } else if (!xmlStrcmp(att, (const xmlChar *)"null")) {
             level = NULL;
         } else {
-            log4g_error(Q_("%s: invalid repository threshold"), att);
+            log4g_log_error(Q_("%s: invalid repository threshold"), att);
             level = NULL;
         }
         if (level) {
@@ -665,11 +668,11 @@ do_configure(Log4gConfigurator *base, const char *uri,
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"root")) {
             parse_root(base, node);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-            log4g_warn(Q_("invalid text element"));
+            log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
             /* do nothing */
         } else {
-            log4g_warn(Q_("%s: invalid element"), node->name);
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
         }
         node = node->next;
     }

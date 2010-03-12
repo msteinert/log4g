@@ -32,32 +32,32 @@ G_BEGIN_DECLS
 /**
  */
 void
-log4g_debug(const gchar *format, ...);
+log4g_log_debug(const gchar *format, ...);
 
 /**
  */
 void
-log4g_debugv(const gchar *format, va_list ap);
+log4g_log_debugv(const gchar *format, va_list ap);
 
 /**
  */
 void
-log4g_warn(const gchar *format, ...);
+log4g_log_warn(const gchar *format, ...);
 
 /**
  */
 void
-log4g_warnv(const gchar *format, va_list ap); 
+log4g_log_warnv(const gchar *format, va_list ap); 
 
 /**
  */
 void
-log4g_error(const gchar *format, ...);
+log4g_log_error(const gchar *format, ...);
 
 /**
  */
 void
-log4g_errorv(const gchar *format, va_list ap); 
+log4g_log_errorv(const gchar *format, va_list ap); 
 
 /**
  */

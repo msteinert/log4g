@@ -31,7 +31,8 @@ static gboolean debug = FALSE;
 static gboolean quiet = FALSE;
 
 static void
-log4g_log(FILE *stream, const gchar *prefix, const gchar *format, va_list ap)
+log4g_log_log(FILE *stream, const gchar *prefix,
+        const gchar *format, va_list ap)
 {
 #ifdef _POSIX_THREAD_SAFE_FUNCTIONS
         if (g_thread_supported()) {
@@ -49,65 +50,65 @@ log4g_log(FILE *stream, const gchar *prefix, const gchar *format, va_list ap)
 }
 
 void
-log4g_debug(const gchar *format, ...)
+log4g_log_debug(const gchar *format, ...)
 {
     if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap); */
-        log4g_log(stdout, "log4g: ", format, ap);
+        log4g_log_log(stdout, "log4g: ", format, ap);
         va_end(ap);
     }
 }
 
 void
-log4g_debugv(const gchar *format, va_list ap)
+log4g_log_debugv(const gchar *format, va_list ap)
 {
     if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap); */
-        log4g_log(stdout, "log4g: ", format, ap);
+        log4g_log_log(stdout, "log4g: ", format, ap);
     }
 }
 
 void
-log4g_warn(const gchar *format, ...)
+log4g_log_warn(const gchar *format, ...)
 {
     if (!g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap); */
-        log4g_log(stderr, "log4g:WARN ", format, ap);
+        log4g_log_log(stderr, "log4g:WARN ", format, ap);
         va_end(ap);
     }
 }
 
 void
-log4g_warnv(const gchar *format, va_list ap) 
+log4g_log_warnv(const gchar *format, va_list ap) 
 {
     if (!g_atomic_int_get(&quiet)) {
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap); */
-        log4g_log(stderr, "log4g:WARN ", format, ap);
+        log4g_log_log(stderr, "log4g:WARN ", format, ap);
     }
 }
 
 void
-log4g_error(const gchar *format, ...)
+log4g_log_error(const gchar *format, ...)
 {
     if (!g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap); */
-        log4g_log(stderr, "log4g:ERROR ", format, ap);
+        log4g_log_log(stderr, "log4g:ERROR ", format, ap);
         va_end(ap);
     }
 }
 
 void
-log4g_errorv(const gchar *format, va_list ap)
+log4g_log_errorv(const gchar *format, va_list ap)
 {
     if (!g_atomic_int_get(&quiet)) {
         /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap); */
-        log4g_log(stderr, "log4g:ERROR ", format, ap);
+        log4g_log_log(stderr, "log4g:ERROR ", format, ap);
     }
 }
 

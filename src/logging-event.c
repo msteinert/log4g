@@ -127,7 +127,7 @@ log4g_logging_event_class_init(Log4gLoggingEventClass *klass)
     /* initialize class data */
     if (gettimeofday(&start, NULL)) {
         klass->start = 0;
-        log4g_error("gettimeofday(): %s", g_strerror(errno));
+        log4g_log_error("gettimeofday(): %s", g_strerror(errno));
     } else {
         klass->start = (start.tv_sec * 1000) + (start.tv_usec * 0.001);
     }

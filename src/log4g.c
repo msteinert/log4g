@@ -28,6 +28,7 @@
 #include "log4g/dom-configurator.h"
 #include "log4g/helpers/thread.h"
 #include "log4g/log-manager.h"
+#include "log4g/log4g.h"
 #include <stdlib.h>
 
 /** \brief Indicates if log4g_init() has been called */
@@ -184,8 +185,8 @@ post_parse_hook(GOptionContext *context, GOptionGroup *group,
         GError *error = NULL;
         cfg = log4g_dom_configurator_configure(opt->configuration, &error);
         if (!cfg) {
-            log4g_warn("%s: %s", opt->configuration, error->message);
-            log4g_warn(Q_("using basic configurator for configuration"));
+            log4g_log_warn("%s: %s", opt->configuration, error->message);
+            log4g_log_warn(Q_("using basic configurator for configuration"));
             g_error_free(error);
         }
     }
@@ -203,22 +204,24 @@ log4g_get_option_group(void)
     GOptionGroup *group;
     if (!initialized) {
         if (!setlocale(LC_ALL, "")) {
-            log4g_warn(Q_("Locale not supported by C library.\n"
+            log4g_log_warn(Q_("Locale not supported by C library.\n"
                     "\tUsing the fallback 'C' locale.\n"));
         }
 #ifdef ENABLE_NLS
         if (!bindtextdomain(GETTEXT_PACKAGE, LOG4G_LOCALEDIR)) {
-            log4g_error("bindtextdomain(): %s", g_strerror(errno));
+            log4g_log_error("bindtextdomain(): %s", g_strerror(errno));
         }
         if (!bindtextdomain(GETTEXT_PACKAGE "-properties", LOG4G_LOCALEDIR)) {
-            log4g_error("bindtextdomain(): %s", g_strerror(errno));
+            log4g_log_error("bindtextdomain(): %s", g_strerror(errno));
         }
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
         if (!bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8")) {
-            log4g_error("bind_textdomain_codeset(): %s", g_strerror(errno));
+            log4g_log_error("bind_textdomain_codeset(): %s",
+                    g_strerror(errno));
         }
         if (!bind_textdomain_codeset(GETTEXT_PACKAGE "-properties", "UTF-8")) {
-            log4g_error("bind_textdomain_codeset(): %s", g_strerror(errno));
+            log4g_log_error("bind_textdomain_codeset(): %s",
+                    g_strerror(errno));
         }
 #endif
 #endif
@@ -257,7 +260,7 @@ log4g_init(int *argc, char ***argv)
     if (group) {
         g_option_context_set_main_group(context, group);
         if (!g_option_context_parse(context, argc, argv, &error)) {
-            log4g_warn("%s", error->message);
+            log4g_log_warn("%s", error->message);
             g_error_free(error);
         }
     }
