@@ -101,20 +101,20 @@ log4g_discard_summary_add(Log4gDiscardSummary *self, Log4gLoggingEvent *event)
  * create the logging event.
  * \param self [in] A discard summary object.
  * \param message [in] A log message format.
- * \param ...  [in] Format parameters.
+ * \param ... [in] Format parameters.
  * \return A new logging event.
  */
 static Log4gLoggingEvent *
 log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
-                                    const gchar *message, ...)
+        const gchar *message, ...)
 {
     va_list ap;
     Log4gLoggingEvent *event;
     va_start(ap, message);
     event = log4g_logging_event_new(
-                log4g_logging_event_get_logger_name(self->event),
-                log4g_logging_event_get_level(self->event), NULL, NULL, NULL,
-                message, ap);
+                    log4g_logging_event_get_logger_name(self->event),
+                    log4g_logging_event_get_level(self->event),
+                    NULL, NULL, NULL, message, ap);
     va_end(ap);
     return event;
 }
@@ -129,13 +129,13 @@ log4g_discard_summary_create_event(Log4gDiscardSummary *self)
 {
 
     return log4g_discard_summary_create_event0(self,
-            "Discarded %d message due to full event buffer including: %s",
-            self->count, log4g_logging_event_get_message(self->event));
+                "Discarded %d message due to full event buffer including: %s",
+                self->count, log4g_logging_event_get_message(self->event));
 }
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_ASYNC_APPENDER, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
     Log4gAppenderAttachable *appenders; /**< Asynchronous appenders */
@@ -190,10 +190,10 @@ appender_attachable_init(Log4gAppenderAttachableInterface *interface)
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gAsyncAppender, log4g_async_appender,
-                        LOG4G_TYPE_APPENDER_SKELETON,
+        LOG4G_TYPE_APPENDER_SKELETON,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER_ATTACHABLE,
-                              appender_attachable_init))
+                appender_attachable_init))
 
 static void
 _discarded(gpointer key, gpointer value, gpointer user_data)
@@ -204,8 +204,8 @@ _discarded(gpointer key, gpointer value, gpointer user_data)
         return;
     }
     g_mutex_lock(priv->lock);
-    log4g_appender_attachable_impl_append_loop_on_appenders(priv->appenders,
-                                                            event);
+    log4g_appender_attachable_impl_append_loop_on_appenders(
+            priv->appenders, event);
     g_object_unref(event);
     g_mutex_unlock(priv->lock);
 }
@@ -231,21 +231,25 @@ static void
 log4g_async_appender_init(Log4gAsyncAppender *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    GError *error = NULL;
-    priv->summary = NULL;
     priv->appenders = log4g_appender_attachable_impl_new();
-    priv->pool = g_thread_pool_new(_run, self, 1, TRUE, &error);
-    if (!priv->pool && error) {
-        g_error_free(error);
-    }
+    priv->summary = NULL;
+    priv->pool = NULL;
+    priv->lock = NULL;
+    priv->discard = NULL;
     priv->blocking = TRUE;
     priv->size = 128;
     if (g_thread_supported()) {
+        GError *error = NULL;
+        priv->pool = g_thread_pool_new(_run, self, 1, TRUE, &error);
+        if (error) {
+            log4g_warn("g_thread_pool_new(): %s", error->message);
+            g_error_free(error);
+        }
         priv->lock = g_mutex_new();
         priv->discard = g_mutex_new();
     } else {
-        priv->lock = NULL;
-        priv->discard = NULL;
+        log4g_warn("you must call g_thread_init() before log4g_init()"
+                "if you plan to use Log4gAsyncAppender");
     }
 }
 
@@ -314,6 +318,11 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     gint size = g_atomic_int_get(&priv->size);
     gboolean discard = FALSE;
     GError *error = NULL;
+    if (!g_thread_supported()) {
+        log4g_warn("Log4gAsyncAppender: threading is not enabled "
+                "(message discarded)");
+        return;
+    }
     log4g_logging_event_get_thread_copy(event);
     log4g_logging_event_get_ndc_copy(event);
     log4g_logging_event_get_mdc_copy(event);
@@ -371,7 +380,7 @@ log4g_async_appender_class_init(Log4gAsyncAppenderClass *klass)
             g_param_spec_boolean("blocking", Q_("Blocking"),
                     Q_("Toggle whether the caller blocks"),
                     TRUE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_BLOCKING,
+    g_object_class_install_property(gobject_class, PROP_BUFFER_SIZE,
             g_param_spec_int("buffer-size", Q_("Buffer Size"),
                     Q_("The size of the logging event queue"),
                     0, G_MAXINT, 128, G_PARAM_WRITABLE));
@@ -428,7 +437,8 @@ log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender)
     g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), FALSE);
     priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
-    attached = log4g_appender_attachable_is_attached(priv->appenders, appender);
+    attached =
+        log4g_appender_attachable_is_attached(priv->appenders, appender);
     g_mutex_unlock(priv->lock);
     return attached;
 }
@@ -446,7 +456,7 @@ log4g_async_appender_remove_all_appenders(Log4gAppender *base)
 
 void
 log4g_async_appender_remove_appender(Log4gAppender *base,
-                                     Log4gAppender *appender)
+        Log4gAppender *appender)
 {
     struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
@@ -458,7 +468,7 @@ log4g_async_appender_remove_appender(Log4gAppender *base,
 
 void
 log4g_async_appender_remove_appender_name(Log4gAppender *base,
-                                          const gchar *name)
+        const gchar *name)
 {
     struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
