@@ -17,9 +17,18 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Mapped data context.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * The MDC class provides mapped data contexts. A mapped data context (MDC for
+ * short) is an instrument for distinguishing interleaved log output from
+ * different sources. An example of interleaved log output may occur when a
+ * server handles multiple clients simultaneously.
+ *
+ * Mapped data context is managed on a per-thread basis. The main difference
+ * between Log4g MDCs and Log4j MDCs is that Log4g contexts are \e not
+ * inherited by child threads.
  */
 
 #ifndef LOG4G_MDC_H
@@ -55,38 +64,68 @@ typedef struct _Log4gMDCClass Log4gMDCClass;
 
 /** \brief Log4gMDCClass definition */
 struct _Log4gMDC {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gMDCClass definition */
 struct _Log4gMDCClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_mdc_get_type(void);
 
 /**
+ * \brief Retrieve the MDC instance object for currently executing thread.
+ *
+ * \return A mapped data context object.
+ *
+ * \note Log4g users do not need to call this function.
  */
 Log4gMDC *
 log4g_mdc_get_instance(void);
 
 /**
+ * \brief Put a context \e value as identified by a \e key into the current
+ *        thread's context map.
+ *
+ * If a context map has not been created for the current thread it will be
+ * created as a side-effect.
+ *
+ * \param key [in] The key to associate with \e value.
+ * \param value [in] The value to associate with \e key (accepts
+ *                   printf formats).
+ * \param ... [in] Format parameters.
  */
 void
 log4g_mdc_put(const gchar *key, const gchar *value, ...) G_GNUC_PRINTF(2, 3);
 
 /**
+ * \brief Retrieve a the context value associated with a \e key from the
+ *        current thread's context map.
+ *
+ * \param key [in] The key to retrieve.
+ *
+ * \return The context value associated with \e key.
  */
 const gchar *
 log4g_mdc_get(const gchar *key);
 
 /**
+ * \brief Remove a context value associated with a \e key from the current
+ *        thread's context map.
+ *
+ * \param key [in] The key to remove.
  */
 void
 log4g_mdc_remove(const gchar *key);
 
 /**
+ * \brief Get the current thread's MDC as a hash table.
+ *
+ * This function is intended for internal use.
+ *
+ * \return The current MDC context as a hash table.
  */
 const GHashTable *
 log4g_mdc_get_context(void);

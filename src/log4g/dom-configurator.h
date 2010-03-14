@@ -17,9 +17,24 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Use this class to initialize the Log4g environment using a DOM tree.
  * \author Mike Steinert
  * \date 2-23-2010
+ *
+ * The DTD is specified in \e log4g.dtd.
+ *
+ * If you wish to enable internal log messages by setting the \e LOG4G_FLAGS
+ * environment variable to \e "debug". For example (Bash):
+ * \code
+ * $ export LOG4G_FLAGS=debug
+ * \endcode
+ *
+ * Alternatively you may set the \e debug attribute in the
+ * \e log4g:configuration element:
+ * \code
+ * <log4g:configuration debug="true">
+ * </log4g:configuration>
+ * \endcode
  */
 
 #ifndef LOG4G_DOM_CONFIGURATOR_H
@@ -58,23 +73,33 @@ typedef struct _Log4gDOMConfiguratorClass Log4gDOMConfiguratorClass;
 
 /** \brief Log4gDOMConfiguratorClass definition */
 struct _Log4gDOMConfigurator {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gDOMConfiguratorClass definition */
 struct _Log4gDOMConfiguratorClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_dom_configurator_get_type(void);
 
 /**
+ * \brief Create a new DOM configurator.
+ *
+ * \return A new DOM configurator object.
  */
 Log4gConfigurator *
 log4g_dom_configurator_new(void);
 
 /**
+ * \brief Configure Log4g by reading a log4g.dtd compliant XML configuration
+ *        file.
+ *
+ * \param uri [in] A file or URI to load the configuration from.
+ * \param error [out] Returns any error messages.
+ *
+ * \return \e TRUE if the configuration was successful, \e FALSE otherwise.
  */
 gboolean
 log4g_dom_configurator_configure(const gchar *uri, GError **error);

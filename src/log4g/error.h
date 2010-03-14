@@ -17,7 +17,7 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Log4g error definition.
  * \author Mike Steinert
  * \date 1-29-2010
  */
@@ -27,17 +27,13 @@
 
 G_BEGIN_DECLS
 
-/** \brief ... */
 #define LOG4G_ERROR log4g_error_quark()
 
-/** \brief ... */
 typedef enum {
-    LOG4G_ERROR_FAILURE, /**< ... */
-    LOG4G_ERROR_MAX /**< ... */
+    LOG4G_ERROR_FAILURE, /**< General Log4g failure */
+    LOG4G_ERROR_MAX /**< Sentinel value */
 } Log4gError;
 
-/**
- */
 GQuark
 log4g_error_quark(void);
 

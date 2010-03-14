@@ -107,13 +107,16 @@ struct _Log4gFilterClass {
     GObjectClass parent_class;
     /**
      * \brief Implements the filter decision.
+     *
      * If the decision is \e LOG4G_FILTER_DENY, the even will be dropped. If
      * the decision is \e LOG4G_FILTER_ACCEPT, then any remaining filters
      * will * be invoked. If the decision is \e LOG4G_FILTER_ACCEPT the
      * event will be logged without consulting any other filters in the
      * chain.
+     *
      * \param self [in] A filter object.
      * \param event [in] A logging event.
+     *
      * \return A filter decision based upon the logging event.
      */
     Log4gFilterDecision
@@ -125,9 +128,12 @@ log4g_filter_get_type(void);
 
 /**
  * \brief Activate filter options.
+ *
  * Filters generally need to have their options activated before they can
  * be used. This class provides a do-nothing implementation for convenience.
+ *
  * \see log4g/interface/option-handler.h
+ *
  * \param self [in] A filter object.
  */
 void
@@ -135,8 +141,10 @@ log4g_filter_activate_options(Log4gFilter *self);
 
 /**
  * \brief Invokes the virutal function \e decide().
+ *
  * \param self [in] A filter object.
  * \param event [in] A logging event.
+ *
  * \return A filter decision based upon the logging event.
  */
 Log4gFilterDecision
@@ -144,9 +152,12 @@ log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event);
 
 /**
  * \brief Get the next filter in the chain.
+ *
  * Filters are chained together. This function returns the next filter in
  * the chain, or \e NULL if there are no more.
+ *
  * \param self [in] A filter object.
+ *
  * \return The next filter in the chain, or \e NULL if there are no more.
  */
 Log4gFilter *
@@ -154,8 +165,10 @@ log4g_filter_get_next(Log4gFilter *self);
 
 /**
  * \brief Set the next filter in the chain.
+ *
  * Filters are chained together. This function sets the filter that will
  * follow this one in the chain.
+ *
  * \brief self [in] A filter object.
  * \brief next [in] The filter to set as the next in the chain.
  */

@@ -17,9 +17,15 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Log event layout base class.
  * \author Mike Steinert
  * \date 2-5-2010
+ *
+ * Users may extend this class to implement custom log event layouts.
+ *
+ * Many appenders require a layout in order to log an event. Sub-classes
+ * must override the \e format() virtual function to implement custom
+ * formatting.
  */
 
 #ifndef LOG4G_LAYOUT_H
@@ -46,7 +52,8 @@ G_BEGIN_DECLS
     (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LAYOUT))
 
 #define LOG4G_LAYOUT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LAYOUT, Log4gLayoutClass))
+    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LAYOUT, \
+            Log4gLayoutClass))
 
 /** \brief Log4gLayout object type definition */
 typedef struct _Log4gLayout Log4gLayout;
@@ -56,45 +63,109 @@ typedef struct _Log4gLayoutClass Log4gLayoutClass;
 
 /** \brief Log4gLayoutClass definition */
 struct _Log4gLayout {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gLayoutClass definition */
 struct _Log4gLayoutClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
+    /**
+     * \brief Implement this function to create your own layout format.
+     *
+     * \param self [in] A layout object.
+     * \param event [in] A logging event object to be laid out.
+     *
+     * \return The formatted logging event.
+     */
     gchar *(*format)(Log4gLayout *self, Log4gLoggingEvent *event);
+    /**
+     * \brief Get the content type output by this layout.
+     *
+     * The base class returns "text/plain".
+     *
+     * \param self [in] A layout object.
+     *
+     * \return The layout content type.
+     */
     const gchar *(*get_content_type)(Log4gLayout *self);
+    /**
+     * \brief Get the header for the layout format.
+     *
+     * The base class returns \e NULL.
+     *
+     * \param self [in] A layout object.
+     *
+     * \return The layout header.
+     */
     const gchar *(*get_header)(Log4gLayout *self);
+    /**
+     * \brief Get the footer for the layout format.
+     *
+     * The base class returns \e NULL.
+     *
+     * \param self [in] A layout object.
+     *
+     * \return The layout footer.
+     */
     const gchar *(*get_footer)(Log4gLayout *self);
     /*< public >*/
-    gchar *LINE_SEP;
-    gint LINE_SEP_LEN;
+    gchar *LINE_SEP; /**< The line separator for this platform. */
+    gint LINE_SEP_LEN; /**< The length (bytes) of \e LINE_SEP. */
 };
 
 GType
 log4g_layout_get_type(void);
 
 /**
+ * \brief Invokes the virtual function \e format().
+ *
+ * \param self [in] A layout object.
+ * \param event [in] A logging event object to be laid out.
+ *
+ * \return The formatted logging event.
  */
 gchar *
 log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event);
 
 /**
+ * \brief Invokes the virtual function \e get_content_type().
+ *
+ * \param self [in] A layout object.
+ *
+ * \return The layout content type.
  */
 const gchar *
 log4g_layout_get_content_type(Log4gLayout *self);
 
 /**
+ * \brief Invokes the virtual function \e get_header().
+ *
+ * \param self [in] A layout object.
+ *
+ * \return The layout header.
  */
 const gchar *
 log4g_layout_get_header(Log4gLayout *self);
 
 /**
+ * \brief Invokes the virtual function get_footer().
+ *
+ * \param self [in] A layout object.
+ *
+ * \return The layout footer.
  */
 const gchar *
 log4g_layout_get_footer(Log4gLayout *self);
 
 /**
+ * \brief Activate layout options.
+ *
+ * Layouts generally need to have their options activated before they can be
+ * used. This class provides a do-nothing implementation for convenience.
+ *
+ * \see log4g/interface/option-handler.h
+ *
+ * \param self [in] A layout object.
  */
 void
 log4g_layout_activate_options(Log4gLayout *self);

@@ -17,9 +17,14 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Log repository temporary nodes.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * Provision nodes are place holders for non-instantiated loggers within the
+ * logger hierarchy.
+ *
+ * \see log4g/hierarhcy.h
  */
 
 #ifndef LOG4G_PROVISION_NODE_H
@@ -58,12 +63,12 @@ typedef struct _Log4gProvisionNodeClass Log4gProvisionNodeClass;
 
 /** \brief Log4gProvisionNodeClass definition */
 struct _Log4gProvisionNode {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gProvisionNodeClass definition */
 struct _Log4gProvisionNodeClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
@@ -71,23 +76,38 @@ log4g_provision_node_get_type(void);
 
 /**
  * \brief Create a Log4gProvisionNode object and adds an element.
+ *
  * \param object [in] The object to add to this provision node.
+ *
  * \return A new Log4gProvisionNode object.
  */
 Log4gProvisionNode *
 log4g_provision_node_new(gpointer object);
 
 /**
+ * \brief Add an element to a provision node.
+ *
+ * \param self [in] A provision node object.
+ * \param object [in] The object to add to \e self.
  */
 void
 log4g_provision_node_add_element(Log4gProvisionNode *self, gpointer object);
 
 /**
+ * \brief Retrieve the number of objects in a provision node.
+ *
+ * \param self [in] A provision node object.
  */
 guint
 log4g_provision_node_size(Log4gProvisionNode *self);
 
 /**
+ * \brief Retrieve an indexed element from a provision node.
+ *
+ * \param self [in] A provision node object.
+ * \param index [in] The object index to retrieve.
+ *
+ * \return The object at \e index or \e NULL if none exists.
  */
 gpointer
 log4g_provision_node_element_at(Log4gProvisionNode *self, guint index);

@@ -20,6 +20,7 @@
  * \brief The root logger
  * \author Mike Steinert
  * \date 2-10-2010
+ *
  * The root logger sits on top of the logger hierarchy. It is a normal logger
  * with the following conditions:
  * -# It may not be assigned a NULL level threshold
@@ -64,12 +65,12 @@ typedef struct _Log4gRootLoggerClass Log4gRootLoggerClass;
 
 /** \brief Log4gRootLoggerClass definition */
 struct _Log4gRootLogger {
-    Log4gLogger parent_instance; /**< parent instance */
+    Log4gLogger parent_instance;
 };
 
 /** \brief Log4gRootLoggerClass definition */
 struct _Log4gRootLoggerClass {
-    Log4gLoggerClass parent_class; /**< parent class */
+    Log4gLoggerClass parent_class;
 };
 
 GType
@@ -77,7 +78,9 @@ log4g_root_logger_get_type(void);
 
 /**
  * \brief Create a new root logger.
+ *
  * \param level [in] The level threshold of this root logger.
+ *
  * \return A new root logger object.
  */
 Log4gLogger *

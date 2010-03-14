@@ -17,7 +17,7 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Set the thread name for log messages.
  * \author Mike Steinert
  * \date 2-14-2010
  */
@@ -56,12 +56,12 @@ typedef struct _Log4gThreadClass Log4gThreadClass;
 
 /** \brief Log4gThreadClass definition */
 struct _Log4gThread {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gThreadClass definition */
 struct _Log4gThreadClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
@@ -75,16 +75,23 @@ Log4gThread *
 log4g_thread_get_instance(void);
 
 /**
+ * \brief Remove the instance of Log4gThread from the current thread.
  */
 void
 log4g_thread_remove_instance(void);
 
 /**
+ * \brief Get the name of the current thread.
+ *
+ * \return The name of the current thread.
  */
 const gchar *
 log4g_thread_get_name(void);
 
 /**
+ * \brief Set the name of the current thread.
+ *
+ * \param name [in] The new name of the current thread.
  */
 void
 log4g_thread_set_name(const gchar *name);

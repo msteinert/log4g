@@ -18,10 +18,10 @@
 /**
  * \file
  * \brief Use this interface to quickly configure log4g.
- *
- * For file based configuration, see log4g/dom-configurator.h.
  * \author Mike Steinert
  * \date 2-22-2010
+ *
+ * For file based configuration, see log4g/dom-configurator.h.
  */
 
 #ifndef LOG4G_BASIC_CONFIGURATOR_H
@@ -50,7 +50,7 @@ log4g_basic_configurator_configure_appender(Log4gAppender *appender);
  * \brief Reset the default hierarchy to its default state.
  */
 void
-log4g_basic_configurator_reset_configuration();
+log4g_basic_configurator_reset_configuration(void);
 
 G_END_DECLS
 

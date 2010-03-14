@@ -17,9 +17,26 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Maintain the logger hierarchy.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * This class specializes in retrieving loggers by name and maintaining the
+ * logger hierarchy.
+ *
+ * \note The casual user has no need to deal with this class directly.
+ *
+ * The structure of the logger hierarchy is maintained by the function
+ * log4g_logger_repository_get_logger() function. Children in the hierarchy
+ * link to their parent but parents do not have a pointer to their children.
+ * Descendant logger may be instantiated before their ancestors.
+ *
+ * In the case where a descendent is created before a particular ancestor
+ * a provision node (log4g/provision-node.h) is created for the ancestor and
+ * the descendant is added to the provision node. Other descendants of the
+ * same ancestor are added to the previously created provision node.
+ *
+ * \see log4g/interface/logger-repository.h
  */
 
 #ifndef LOG4G_HIERARCHY_H
@@ -70,11 +87,19 @@ GType
 log4g_hierarchy_get_type(void);
 
 /**
+ * \brief Create a new logger hierarchy.
+ *
+ * \param root [in] The root logger for the new hierarchy.
+ *
+ * \return A new logger hierarchy.
  */
 Log4gLoggerRepository *
 log4g_hierarchy_new(Log4gLogger *root);
 
 /**
+ * \brief Clear a logger hierarchy.
+ *
+ * \param base [in] The logger hierarchy to clear.
  */
 void
 log4g_hierarchy_clear(Log4gLoggerRepository *base);
