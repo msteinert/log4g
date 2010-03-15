@@ -172,6 +172,15 @@ log4g_get_option_group(void);
     _log4g_logger_trace(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log a \e TRACE message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_trace(), _log4g_logger_trace()
+ */
 #define log4g_logger_trace(logger, format, args...) \
     _log4g_logger_trace(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
@@ -196,6 +205,15 @@ log4g_get_option_group(void);
     _log4g_logger_debug(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log a \e DEBUG message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_debug(), _log4g_logger_debug()
+ */
 #define log4g_logger_debug(logger, format, args...) \
     _log4g_logger_debug(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
@@ -209,7 +227,7 @@ log4g_get_option_group(void);
     log4g_logger_is_info_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
 
 /**
- * \brief Log a \e INFO message.
+ * \brief Log an \e INFO message.
  *
  * \param format [in] A printf formatted message.
  * \param args... [in] Format parameters.
@@ -220,6 +238,15 @@ log4g_get_option_group(void);
     _log4g_logger_info(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log an \e INFO message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_info(), _log4g_logger_info()
+ */
 #define log4g_logger_info(logger, format, args...) \
     _log4g_logger_info(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
@@ -244,6 +271,15 @@ log4g_get_option_group(void);
     _log4g_logger_warn(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log a \e WARN message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_warn(), _log4g_logger_warn()
+ */
 #define log4g_logger_warn(logger, format, args...) \
     _log4g_logger_warn(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
@@ -257,17 +293,26 @@ log4g_get_option_group(void);
     log4g_logger_is_error_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
 
 /**
- * \brief Log a \e WARN message.
+ * \brief Log an \e ERROR message.
  *
  * \param format [in] A printf formatted message.
  * \param args... [in] Format parameters.
  *
- * \see log4g_logger_warn(), _log4g_logger_warn()
+ * \see log4g_logger_error(), _log4g_logger_error()
  */
 #define log4g_error(format, args...) \
     _log4g_logger_error(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log an \e ERROR message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_error(), _log4g_logger_error()
+ */
 #define log4g_logger_error(logger, format, args...) \
     _log4g_logger_error(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
@@ -292,6 +337,15 @@ log4g_get_option_group(void);
     _log4g_logger_fatal(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
             G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
 
+/**
+ * \brief Log a \e FATAL message.
+ *
+ * \param logger [in] A logger object.
+ * \param format [in] A printf formatted message.
+ * \param args... [in] Format parameters.
+ *
+ * \see log4g_fatal(), _log4g_logger_fatal()
+ */
 #define log4g_logger_fatal(logger, format, args...) \
     _log4g_logger_fatal(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
             format, ##args)
