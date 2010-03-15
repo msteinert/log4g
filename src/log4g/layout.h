@@ -117,7 +117,7 @@ GType
 log4g_layout_get_type(void);
 
 /**
- * \brief Invokes the virtual function \e format().
+ * \brief Invokes the virtual function _Log4gLayoutClass::format().
  *
  * \param self [in] A layout object.
  * \param event [in] A logging event object to be laid out.
@@ -128,7 +128,7 @@ gchar *
 log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event);
 
 /**
- * \brief Invokes the virtual function \e get_content_type().
+ * \brief Invokes the virtual function _Log4gLayoutClass::get_content_type().
  *
  * \param self [in] A layout object.
  *
@@ -138,7 +138,7 @@ const gchar *
 log4g_layout_get_content_type(Log4gLayout *self);
 
 /**
- * \brief Invokes the virtual function \e get_header().
+ * \brief Invokes the virtual function _Log4gLayoutClass::get_header().
  *
  * \param self [in] A layout object.
  *
@@ -148,7 +148,7 @@ const gchar *
 log4g_layout_get_header(Log4gLayout *self);
 
 /**
- * \brief Invokes the virtual function get_footer().
+ * \brief Invokes the virtual function _Log4gLayoutClass::get_footer().
  *
  * \param self [in] A layout object.
  *
@@ -158,7 +158,8 @@ const gchar *
 log4g_layout_get_footer(Log4gLayout *self);
 
 /**
- * \brief Activate layout options.
+ * \brief Invokes the virtual function
+ *        _Log4gOptionHandlerInterface::activate_options().
  *
  * Layouts generally need to have their options activated before they can be
  * used. This class provides a do-nothing implementation for convenience.

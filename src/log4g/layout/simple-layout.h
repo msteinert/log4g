@@ -17,9 +17,18 @@
 
 /**
  * \file
- * \brief ...
+ * \brief A simple log layout.
  * \author Mike Steinert
  * \date 2-5-2010
+ *
+ * The simple layout consists of the level of a log statement and the log
+ * log message itself separated by " - ". For example:
+ *
+ * \code
+ * DEBUG - Hello, World!
+ * \endcode
+ *
+ * \see log4g/layout/pattern-layout.h
  */
 
 #ifndef LOG4G_SIMPLE_LAYOUT_H
@@ -58,18 +67,21 @@ typedef struct _Log4gSimpleLayoutClass Log4gSimpleLayoutClass;
 
 /** \brief Log4gSimpleLayoutClass definition */
 struct _Log4gSimpleLayout {
-    Log4gLayout parent_instance; /**< parent instance */
+    Log4gLayout parent_instance;
 };
 
 /** \brief Log4gSimpleLayoutClass definition */
 struct _Log4gSimpleLayoutClass {
-    Log4gLayoutClass parent_class; /**< parent class */
+    Log4gLayoutClass parent_class;
 };
 
 GType
 log4g_simple_layout_get_type(void);
 
 /**
+ * \brief Create a new simple layout object.
+ *
+ * \return A new simple layout object.
  */
 Log4gLayout *
 log4g_simple_layout_new(void);

@@ -17,9 +17,14 @@
 
 /**
  * \file
- * \brief ...
+ * \brief An implementation of the repository selector interface.
  * \author Mike Steinert
  * \date 2-11-2010
+ *
+ * This class provides the default repository selector implementation used
+ * by Log4g.
+ *
+ * \see log4g/interface/repository-selector.h
  */
 
 #ifndef LOG4G_DEFAULT_REPOSITORY_SELECTOR_H
@@ -62,18 +67,21 @@ typedef struct _Log4gDefaultRepositorySelectorClass
 
 /** \brief Log4gDefaultRepositorySelectorClass definition */
 struct _Log4gDefaultRepositorySelector {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gDefaultRepositorySelectorClass definition */
 struct _Log4gDefaultRepositorySelectorClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_default_repository_selector_get_type(void);
 
 /**
+ * \brief Create a new default repository selector object.
+ *
+ * \return A new default repository selector object.
  */
 Log4gRepositorySelector *
 log4g_default_repository_selector_new(Log4gLoggerRepository *repository);

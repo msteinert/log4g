@@ -17,9 +17,18 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Abstract superclass of appenders in the Log4g package.
  * \author Mike Steinert
  * \date 2-8-2010
+ *
+ * This class provides code for common functionality, such as support for
+ * threshold filtering and general filters.
+ *
+ * The appender skeleton accepts one property:
+ * -# threshold
+ *
+ * Setting the threshold property enables log level theshold filtering. By
+ * default this is no threshold filtering.
  */
 
 #ifndef LOG4G_APPENDER_SKELETON_H
@@ -58,12 +67,23 @@ typedef struct _Log4gAppenderSkeletonClass Log4gAppenderSkeletonClass;
 
 /** \brief Log4gAppenderSkeletonClass definition */
 struct _Log4gAppenderSkeleton {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gAppenderSkeletonClass definition */
 struct _Log4gAppenderSkeletonClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
+    /**
+     * \brief Perform actual logging.
+     *
+     * Sub-classes should implement this abstract virtual function to perform
+     * actual logging.
+     *
+     * \param base [in] An appender skeleton object.
+     * \param event [in] A log event.
+     *
+     * \see log4g/logging-event.h
+     */
     void (*append)(Log4gAppender *base, Log4gLoggingEvent *event);
 };
 
@@ -71,40 +91,83 @@ GType
 log4g_appender_skeleton_get_type(void);
 
 /**
+ * \brief Invokes the abstract virtual function
+ *        _Log4gAppenderSkeletonClass::append().
+ *
+ * \param base [in] An appender skeleton object.
+ * \param event [in] A log event.
  */
 void
 log4g_appender_skeleton_append(Log4gAppender *base, Log4gLoggingEvent *event);
 
 /**
+ * \brief Retrieve the first filter in the filter chain.
+ *
+ * \param base [in] An appender skeleton object.
+ *
+ * \return The first filter in the filter chain, or \e NULL if there is none.
  */
 Log4gFilter *
 log4g_appender_skeleton_get_first_filter(Log4gAppender *base);
 
 /**
- */
-Log4gLevel *
-log4g_appender_skeleton_get_threshold(Log4gAppender *base);
-
-/**
+ * \brief Determine if a log level is below the appender's threshold.
+ *
+ * If there is no threshold set then the return value is always \e TRUE.
+ *
+ * \param base [in] An appender skeleton object.
+ * \param level [in] A log level.
+ *
+ * \return \e TRUE if \e level is above the level threshold of \e base,
+ *         \e FALSE otherwise.
+ *
+ * \see log4g/level.h
  */
 gboolean
 log4g_appender_skeleton_is_as_severe_as(Log4gAppender *base,
         Log4gLevel *level);
 
 /**
+ * \brief Set the threshold property.
+ *
+ * \param base [in] A skeleton appender object.
+ * \param threshold [in] A string representation of a log level.
+ *
+ * \see log4g/level.h
  */
 void
 log4g_appender_skeleton_set_threshold(Log4gAppender *base,
         const gchar *threshold);
 
-/*< protected >*/
+/**
+ * \brief Get the threshold property.
+ *
+ * \param base [in] A skeleton appender object.
+ *
+ * \return The threshold value for \e base.
+ */
+Log4gLevel *
+log4g_appender_skeleton_get_threshold(Log4gAppender *base);
 
 /**
+ * \brief Determine if an appender has been closed.
+ *
+ * \param base [in] An appender skeleton object.
+ *
+ * \return \e TRUE if \e base is closed, \e FALSE otherwise.
  */
 gboolean
 log4g_appender_skeleton_get_closed(Log4gAppender *base);
 
 /**
+ * \brief Set the closed parameter.
+ *
+ * Appenders should set this value appropriately. The default value is
+ * \e FALSE.
+ * 
+ * \param base [in] An appender skeleton object.
+ *
+ * \return \e TRUE if \e base is closed, \e FALSE otherwise.
  */
 void
 log4g_appender_skeleton_set_closed(Log4gAppender *base, gboolean closed);

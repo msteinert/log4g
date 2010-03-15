@@ -17,9 +17,11 @@
 
 /**
  * \file
- * \brief ...
+ * \brief A do-nothing appender.
  * \author Mike Steinert
  * \date 2-8-2010
+ *
+ * The null appender merely exists; It never outputs any log messages..
  */
 
 #ifndef LOG4G_NULL_APPENDER_H
@@ -58,18 +60,24 @@ typedef struct _Log4gNullAppenderClass Log4gNullAppenderClass;
 
 /** \brief Log4gNullAppenderClass definition */
 struct _Log4gNullAppender {
-    Log4gAppenderSkeleton parent_instance; /**< parent instance */
+    Log4gAppenderSkeleton parent_instance;
 };
 
 /** \brief Log4gNullAppenderClass definition */
 struct _Log4gNullAppenderClass {
-    Log4gAppenderSkeletonClass parent_class; /**< parent class */
+    Log4gAppenderSkeletonClass parent_class;
 };
 
 GType
 log4g_null_appender_get_type(void);
 
 /**
+ * \brief Create a new null appender object.
+ *
+ * This class is actually a singleton. This function simply adds a reference
+ * the existing null appender object.
+ *
+ * \return A new null appender object.
  */
 Log4gAppender *
 log4g_null_appender_new(void);

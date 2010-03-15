@@ -17,9 +17,16 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Append to the local syslog
  * \author Mike Steinert
  * \date 2-11-2010
+ *
+ * This is a simple syslog appender that appends to the local syslog using
+ * the syslog(3) system call.
+ *
+ * \note This is a very basic implementation and could use some work.
+ *
+ * \see syslog(3)
  */
 
 #ifndef LOG4G_SYSLOG_APPENDER_H
@@ -69,6 +76,16 @@ struct _Log4gSyslogAppenderClass {
 GType log4g_syslog_appender_get_type(void);
 
 /**
+ * \brief Create a new syslog appender object.
+ *
+ * \param layout [in] The layout to use.
+ * \param ident [in] The value for "ident".
+ * \param option [in] Options to pass to syslog(3).
+ * \param facility [in] The facility to pass to syslog(3).
+ *
+ * \return A new syslog appender object.
+ *
+ * \see syslog(3)
  */
 Log4gAppender *
 log4g_syslog_appender_new(Log4gLayout *layout, const char *ident, gint option,

@@ -17,9 +17,23 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Format events into an HTML table.
  * \author Mike Steinert
  * \date 2-16-2010
+ *
+ * This layout formats log events into an HTML table.
+ *
+ * HTML layouts accept two properties:
+ * -# title
+ * -# location-info
+ *
+ * Setting the title property will change the title of the generated HTML
+ * document. If this property is not set then the title will be "Log4g Log
+ * Messages".
+ *
+ * Setting the location-info property to \e TRUE will cause the HTML layout
+ * to include the log message location, i.e. function(file:line). The default
+ * value is \e FALSE.
  */
 
 #ifndef LOG4G_HTML_LAYOUT_H
@@ -58,45 +72,59 @@ typedef struct _Log4gHTMLLayoutClass Log4gHTMLLayoutClass;
 
 /** \brief Log4gHTMLLayoutClass definition */
 struct _Log4gHTMLLayout {
-    Log4gLayout parent_instance; /**< parent instance */
-    /*< protected >*/
-    gint BUF_SIZE;
-    gint MAX_CAPACITY;
-    /*< private >*/
-    gchar *title;
-    GString *string;
-    gboolean info;
+    Log4gLayout parent_instance;
 };
 
 /** \brief Log4gHTMLLayoutClass definition */
 struct _Log4gHTMLLayoutClass {
-    Log4gLayoutClass parent_class; /**< parent class */
+    Log4gLayoutClass parent_class;
 };
 
 GType
 log4g_html_layout_get_type(void);
 
 /**
+ * \brief Create a new HTML layout object.
+ *
+ * \return A new HTML layout object.
  */
 Log4gLayout *
 log4g_html_layout_new(void);
 
 /**
+ * \brief Set the title property.
+ *
+ * \param base [in] An HTML layout object.
+ * \param title [in] The new title of \e base.
  */
 void
 log4g_html_layout_set_title(Log4gLayout *base, const gchar *title);
 
 /**
+ * \brief Get the title property.
+ *
+ * \param base [in] An HTML layout object.
+ *
+ * \return The current title of \e base.
  */
 const gchar *
 log4g_html_layout_get_title(Log4gLayout *base);
 
 /**
+ * \brief Set the location-info parameter.
+ *
+ * \param base [in] An HTML layout object.
+ * \param info [in] The new location-info for \e base.
  */
 void
 log4g_html_layout_set_location_info(Log4gLayout *base, gboolean info);
 
 /**
+ * \brief Get the location-info parameter.
+ *
+ * \param base [in] An HTML layout object.
+ *
+ * \return The location-info parameter for \e base.
  */
 gboolean
 log4g_html_layout_get_location_info(Log4gLayout *base);

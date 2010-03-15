@@ -264,7 +264,8 @@ exit:
 }
 
 void
-log4g_writer_appender_sub_append(Log4gAppender *base, Log4gLoggingEvent *event)
+log4g_writer_appender_sub_append(Log4gAppender *base,
+        Log4gLoggingEvent *event)
 {
     g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
     LOG4G_WRITER_APPENDER_GET_CLASS(base)->sub_append(base, event);

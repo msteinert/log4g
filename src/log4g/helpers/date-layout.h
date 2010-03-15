@@ -17,9 +17,23 @@
 
 /**
  * \file
- * \brief ...
+ * \brief A layout that formats dates.
  * \author Mike Steinert
  * \date 2-5-2010
+ *
+ * This is an abstract layout class that takes care of all date related
+ * options and formatting. This class understands date formats understood
+ * by strftime(3).
+ *
+ * Date layouts accept two properties:
+ * -# date-format
+ * -# time-zone
+ *
+ * The date-format property set the strftime(3) confversion pattern that will
+ * be used to format the date.
+ *
+ * The time-zone property can be used to explicitly set the timezone. The
+ * default is \e NULL.
  */
 
 #ifndef LOG4G_DATE_LAYOUT_H
@@ -53,7 +67,7 @@ G_BEGIN_DECLS
 /** \brief ... */
 typedef enum {
     INVALID_DATE_FORMAT = 0, /**< [private] Sentinel value */
-    RELATIVE_TIME_DATE_FORMAT, /**< ... */
+    RELATIVE_TIME_DATE_FORMAT, /**< Milliseconds since Log4g was initialized */
     MAX_DATE_FORMAT /**< [private] Sentinel value */
 } Log4gDateLayoutType;
 
@@ -81,26 +95,49 @@ GType
 log4g_date_layout_get_type(void);
 
 /**
+ * \brief Set the date-format property.
+ *
+ * \param self [in] A date format object.
+ * \param format [in] The new date format for \e self.
  */
 void
 log4g_date_layout_set_date_format(Log4gLayout *self, const char *format);
 
 /**
+ * \brief Get the date-format property.
+ *
+ * \param self [in] A date format object.
+ *
+ * \return The date format for \e self.
  */
 const char *
 log4g_date_layout_get_date_format(Log4gLayout *self);
 
 /**
+ * \brief Set the time-zone property.
+ *
+ * \param self [in] A date format object.
+ * \param tz [in] The new time zone for \e self.
  */
 void
 log4g_date_layout_set_time_zone(Log4gLayout *self, const char *tz);
 
 /**
+ * \brief Get the time-zone property.
+ *
+ * \param self [in] A date format object.
+ *
+ * \return The time zone for \e self.
  */
 const char *
 log4g_date_layout_get_time_zone(Log4gLayout *self);
 
 /**
+ * \brief Format a date layout for a log event info a buffer.
+ *
+ * \param self [in] A date format object.
+ * \param buffer [in] The buffer in which to layout the date.
+ * \param even [in] The log event to get the date from.
  */
 void
 log4g_date_layout_date_format(Log4gLayout *self, GString *buffer,

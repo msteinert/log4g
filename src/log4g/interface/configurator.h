@@ -17,9 +17,12 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Log4g configuration interface.
  * \author Mike Steinert
  * \date 2-5-2010
+ *
+ * This interface should be implemented by classes capable of configuring
+ * Log4g via a URI.
  */
 
 #ifndef LOG4G_CONFIGURATOR_H
@@ -46,13 +49,23 @@ G_BEGIN_DECLS
 /** \brief Log4gConfigurator object type definition */
 typedef struct _Log4gConfigurator Log4gConfigurator;
 
-/** \brief Log4gConfigurator class type definition */
+/** \brief Log4gConfigurator interface type definition */
 typedef struct _Log4gConfiguratorInterface
                     Log4gConfiguratorInterface;
 
-/** \brief Log4gConfiguratorClass definition */
+/** \brief Log4gConfiguratorInterface definition */
 struct _Log4gConfiguratorInterface {
-    GTypeInterface parent_interface; /**< parent interface */
+    GTypeInterface parent_interface;
+    /**
+     * \brief Interpret a resource pointed to a URI and configure Log4g.
+     *
+     * \param self [in] A configurator object.
+     * \param uri [in] The URI from which load configuration.
+     * \param repository [in] The repository to configure.
+     * \param error [out] Errors are returned here.
+     *
+     * \return \e TRUE if the configuration was successful, \e FALSE otherwise.
+     */
     gboolean (*do_configure)(Log4gConfigurator *self, const char *uri,
             Log4gLoggerRepository *repository, GError **error);
 };
@@ -60,6 +73,15 @@ struct _Log4gConfiguratorInterface {
 GType log4g_configurator_get_type(void);
 
 /**
+ * \brief Invokes the virtual function
+ *        _Log4gConfiguratorInterface::do_configure().
+ *
+ * \param self [in] A configurator object.
+ * \param uri [in] The URI from which load configuration.
+ * \param repository [in] The repository to configure.
+ * \param error [out] Errors are returned here.
+ *
+ * \return \e TRUE if the configuration was successful, \e FALSE otherwise.
  */
 gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *uri,

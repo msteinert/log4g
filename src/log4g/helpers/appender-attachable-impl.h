@@ -17,9 +17,14 @@
 
 /**
  * \file
- * \brief ...
+ * \brief An implementation of the appender attachable interface.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * This is a straightforward implementation of the appender attachable
+ * interface.
+ *
+ * \see log4g/interface/appender-attachable.
  */
 
 #ifndef LOG4G_APPENDER_ATTACHABLE_IMPL_H
@@ -61,23 +66,31 @@ typedef struct _Log4gAppenderAttachableImplClass
 
 /** \brief Log4gAppenderAttachableImplClass definition */
 struct _Log4gAppenderAttachableImpl {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gAppenderAttachableImplClass definition */
 struct _Log4gAppenderAttachableImplClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_appender_attachable_impl_get_type(void);
 
 /**
+ * \brief Create a new appender attachable impl object.
+ *
+ * \return A new appender attachable impl object.
  */
 Log4gAppenderAttachable *
 log4g_appender_attachable_impl_new(void);
 
 /**
+ * \brief Call the _Log4gAppenderInterface::do_append() virtual function for
+ *        all attached appenders.
+ *
+ * \param base [in] An appender attachable impl object.
+ * \param event [in] A log event to append.
  */
 guint
 log4g_appender_attachable_impl_append_loop_on_appenders(

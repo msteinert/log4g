@@ -17,9 +17,14 @@
 
 /**
  * \file
- * \brief ...
+ * \brief An implementation of logger factory interface.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * This class provides the default logger factory implementation used by
+ * Log4g.
+ *
+ * \see log4g/interface/logger-factory.h
  */
 
 #ifndef LOG4G_DEFAULT_LOGGER_FACTORY_H
@@ -61,17 +66,20 @@ typedef struct _Log4gDefaultLoggerFactoryClass
 
 /** \brief Log4gDefaultLoggerFactoryClass definition */
 struct _Log4gDefaultLoggerFactory {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gDefaultLoggerFactoryClass definition */
 struct _Log4gDefaultLoggerFactoryClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType log4g_default_logger_factory_get_type(void);
 
 /**
+ * \brief Create a new default logger factory object.
+ *
+ * \return A new default logger factory object.
  */
 Log4gLoggerFactory *
 log4g_default_logger_factory_new(void);

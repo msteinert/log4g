@@ -17,9 +17,19 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Emit an error only once.
  * \author Mike Steinert
  * \date 2-8-2010
+ *
+ * This class implements Log4g's default error handling policy. Only the first
+ * error will be logged, following errors will be ignored.
+ *
+ * The error message is printed on stderr.
+ *
+ * This policy is intended to prevent a working application from being
+ * flooded with errors if there is a failure within Log4g.
+ *
+ * \see stdio(3), log4g/interface/error-handler.h
  */
 
 #ifndef LOG4G_ONLY_ONCE_ERROR_HANDLER_H
@@ -60,18 +70,21 @@ typedef struct _Log4gOnlyOnceErrorHandlerClass Log4gOnlyOnceErrorHandlerClass;
 
 /** \brief Log4gOnlyOnceErrorHandlerClass definition */
 struct _Log4gOnlyOnceErrorHandler {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gOnlyOnceErrorHandlerClass definition */
 struct _Log4gOnlyOnceErrorHandlerClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_only_once_error_handler_get_type(void);
 
 /**
+ * \brief Create a new only once error handler object.
+ *
+ * \return A new only once error handler object.
  */
 Log4gErrorHandler *
 log4g_only_once_error_handler_new(void);

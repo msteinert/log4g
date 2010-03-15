@@ -233,7 +233,8 @@ gint
 log4g_level_to_int(Log4gLevel *self);
 
 /**
- * \brief Invokes the virtual static function \e string_to_level().
+ * \brief Invokes the virtual static function
+ *        _Log4gLevelClass::string_to_level().
  *
  * \param string [in] A string representation of a level.
  *
@@ -243,7 +244,8 @@ Log4gLevel *
 log4g_level_string_to_level(const gchar *string);
 
 /**
- * \brief Invokes the virtual static function \e string_to_level_default().
+ * \brief Invokes the virtual static function
+ *        _Log4gLevelClass::string_to_level_default().
  *
  * \param string [in] A string representation of a level.
  * \param def [in] The level to return if the conversion failed.
@@ -255,7 +257,7 @@ Log4gLevel *
 log4g_level_string_to_level_default(const gchar *string, Log4gLevel *def);
 
 /**
- * \brief Invokes the virtual static function \e int_to_level().
+ * \brief Invokes the virtual static function _Log4gLevelClass::int_to_level().
  *
  * \param level [in] An integer representation of a level.
  *
@@ -265,7 +267,8 @@ Log4gLevel *
 log4g_level_int_to_level(gint level);
 
 /**
- * \brief Invokes the virtual static function \e int_to_level_default().
+ * \brief Invokes the virtual static function
+ *        _Log4gLevelClass::int_to_level_default().
  *
  * \param level [in] An integer representation of a level.
  * \param def [in] The level to return if the conversion failed.

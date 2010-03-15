@@ -16,7 +16,8 @@
  */
 
 /**
- * \brief Disables log4g.
+ * \file
+ * \brief Disable logging.
  * \author Mike Steinert
  * \date 2-22-2010
  *

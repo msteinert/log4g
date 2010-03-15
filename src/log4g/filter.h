@@ -127,7 +127,8 @@ GType
 log4g_filter_get_type(void);
 
 /**
- * \brief Activate filter options.
+ * \brief Invokes the virtual function
+ *        _Log4gOptionHandlerInterface::activate_options().
  *
  * Filters generally need to have their options activated before they can
  * be used. This class provides a do-nothing implementation for convenience.
@@ -140,7 +141,7 @@ void
 log4g_filter_activate_options(Log4gFilter *self);
 
 /**
- * \brief Invokes the virutal function \e decide().
+ * \brief Invokes the virutal function _Log4gFilterClass::decide().
  *
  * \param self [in] A filter object.
  * \param event [in] A logging event.

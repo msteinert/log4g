@@ -127,7 +127,7 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
             return LOG4G_FILTER_DENY;
         }
     }
-    return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);
+    return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_NEUTRAL);
 }
 
 static void

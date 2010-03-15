@@ -17,9 +17,15 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Drop all logging events.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * This filter drops all logging events.
+ *
+ * Add this filter to the end of a filter chain to switch from the default
+ * behavior of "accept all unless instructed otherwise" to a "deny all unless
+ * instructed otherwise" behavior.
  */
 
 #ifndef LOG4G_DENY_ALL_FILTER_H
@@ -58,18 +64,21 @@ typedef struct _Log4gDenyAllFilterClass Log4gDenyAllFilterClass;
 
 /** \brief Log4gDenyAllFilterClass definition */
 struct _Log4gDenyAllFilter {
-    Log4gFilter parent_instance; /**< parent instance */
+    Log4gFilter parent_instance;
 };
 
 /** \brief Log4gDenyAllFilterClass definition */
 struct _Log4gDenyAllFilterClass {
-    Log4gFilterClass parent_class; /**< parent class */
+    Log4gFilterClass parent_class;
 };
 
 GType
 log4g_deny_all_filter_get_type(void);
 
 /**
+ * \brief Create a new deny all filter.
+ *
+ * \return A new deny all filter.
  */
 Log4gFilter *
 log4g_deny_all_filter_new(void);

@@ -17,9 +17,34 @@
 
 /**
  * \file
- * \brief ...
+ * \brief A filter based on level ranges.
  * \author Mike Steinert
  * \date 2-11-2010
+ *
+ * This is a simple filter which can reject message with levels outside a
+ * specified range.
+ *
+ * This filter accept three properties:
+ * -# level-min
+ * -# level-max
+ * -# accept-on-match
+ *
+ * If the level of the logging event is not between level-min and level-max
+ * (inclusive) then the decide() function returns \e DENY.
+ *
+ * If the logging logging event is within the specified range and
+ * accept-on-match is \e TRUE then the decide() function returns \e ACCEPT.
+ * If accept-on-match is set to \e FALSE then decide() will return \e NEUTRAL
+ * in this case.
+ *
+ * If level-min is not defined then there is no minimum level (a level is
+ * never rejected for being too low). If level-max is not defined then
+ * there is no maximum level (a level is never rejected for being too high).
+ *
+ * Refer to log4g_appender_skeleton_set_threshold() for a more convenient way
+ * to filter out log events by level.
+ *
+ * \see log4g/level.h
  */
 
 #ifndef LOG4G_LEVEL_RANGE_FILTER_H
@@ -59,49 +84,79 @@ typedef struct _Log4gLevelRangeFilterClass Log4gLevelRangeFilterClass;
 
 /** \brief Log4gLevelRangeFilterClass definition */
 struct _Log4gLevelRangeFilter {
-    Log4gFilter parent_instance; /**< parent instance */
+    Log4gFilter parent_instance;
 };
 
 /** \brief Log4gLevelRangeFilterClass definition */
 struct _Log4gLevelRangeFilterClass {
-    Log4gFilterClass parent_class; /**< parent class */
+    Log4gFilterClass parent_class;
 };
 
 GType
 log4g_level_range_filter_get_type(void);
 
 /**
+ * \brief Create a new level range filter.
+ *
+ * \return A new level range filter.
  */
 Log4gFilter *
 log4g_level_range_filter_new(void);
 
 /**
+ * \brief Set the level-min property.
+ *
+ * \param base [in] A level range filter object.
+ * \param level [in] A string representation of the new minimum level.
  */
 void
 log4g_level_range_filter_set_level_min(Log4gFilter *base, const gchar *level);
 
 /**
+ * \brief Get the level-min property.
+ *
+ * \param base [in] A level range filter object.
+ *
+ * \return The current minimum level for \e base.
  */
 Log4gLevel *
 log4g_level_range_filter_get_level_min(Log4gFilter *base);
 
 /**
+ * \brief Set the level-max property.
+ *
+ * \param base [in] A level range filter object.
+ * \param level [in] A string representation of the new maximum level.
  */
 void
 log4g_level_range_filter_set_level_max(Log4gFilter *base, const gchar *level);
 
 /**
+ * \brief Get the level-max property.
+ *
+ * \param base [in] A level range filter object.
+ *
+ * \return The current maximum level for \e base.
  */
 Log4gLevel *
 log4g_level_range_filter_get_level_max(Log4gFilter *base);
 
 /**
+ * \brief Set the accept-on-match property.
+ *
+ * \param base [in] A level range filter object.
+ * \param accept [in] The new accept on match value.
  */
 void
 log4g_level_range_filter_set_accept_on_range(Log4gFilter *base,
         gboolean accept);
 
 /**
+ * \brief Get the accept-on-match property.
+ *
+ * \param base [in] A level match filter object.
+ *
+ * \return The current accept on match value for \e base.
  */
 gboolean
 log4g_level_range_filter_get_accept_on_range(Log4gFilter *base);

@@ -170,7 +170,7 @@ log4g_date_layout_get_time_zone(Log4gLayout *base)
 
 void
 log4g_date_layout_date_format(Log4gLayout *base, GString *string,
-                              Log4gLoggingEvent *event)
+        Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));

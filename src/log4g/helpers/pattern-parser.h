@@ -17,9 +17,15 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Parse pattern layout conversion patterns.
  * \author Mike Steinert
  * \date 2-15-2010
+ *
+ * This class performs most of the work done by the pattern layout class.
+ * The conversion pattern is parsed and a chained list of pattern converters
+ * is created.
+ *
+ * \see log4g/layout/pattern-layout.h, log4g/helpers/pattern-converter.h
  */
 
 #ifndef LOG4G_PATTERN_PARSER_H
@@ -58,49 +64,89 @@ typedef struct _Log4gPatternParserClass Log4gPatternParserClass;
 
 /** \brief Log4gPatternParserClass definition */
 struct _Log4gPatternParser {
-    GObject parent_instance; /**< parent instance */
+    GObject parent_instance;
 };
 
 /** \brief Log4gPatternParserClass definition */
 struct _Log4gPatternParserClass {
-    GObjectClass parent_class; /**< parent class */
+    GObjectClass parent_class;
 };
 
 GType
 log4g_pattern_parser_get_type(void);
 
 /**
+ * \brief Create a new pattern parser object.
+ *
+ * \param pattern [in] The conversion pattern to parse.
+ *
+ * \return A new pattern parser object.
  */
 Log4gPatternParser *
 log4g_pattern_parser_new(const gchar *pattern);
 
 /**
+ * \brief Add a pattern converter to the current list.
+ *
+ * \param self [in] A pattern converter object.
+ * \param pc [in] The pattern converter to add to \e self.
+ *
+ * \see log4g/helpers/pattern-converter.h
  */
 void
 log4g_pattern_parser_add_to_list(Log4gPatternParser *self,
         Log4gPatternConverter *pc);
 
 /**
+ * \brief Extract a braced conversion pattern option.
+ *
+ * \param self [in] A pattern converter object.
+ *
+ * \return A conversion pattern option or \e NULL if none was found. The
+ *         caller must free the returned string with g_free().
  */
 gchar *
 log4g_pattern_parser_extract_option(Log4gPatternParser *self);
 
 /**
+ * \brief Extract a precision option from a conversion pattern.
+ *
+ * \param self [in] A pattern converter object.
+ *
+ * \return The precision value or zero if none was found.
  */
 gint
 log4g_pattern_parser_extract_precision_option(Log4gPatternParser *self);
 
 /**
+ * \brief Parse the conversion pattern.
+ *
+ * \param self [in] A pattern converter object.
+ *
+ * \return A chained list of pattern converters or \e NULL if none were
+ *         created.
+ *
+ * \see log4g/helpers/pattern-converter.h
  */
 Log4gPatternConverter *
 log4g_pattern_parser_parse(Log4gPatternParser *self);
 
 /**
+ * \brief Finalize the conversion pattern being parsed.
+ *
+ * \param self [in] A pattern converter object.
+ * \param c [in] The current conversion character.
  */
 void
 log4g_pattern_parser_finalize_converter(Log4gPatternParser *self, gchar c);
 
 /**
+ * \brief Add a pattern converter to a pattern parser object.
+ *
+ * \param self [in] A pattern converter object.
+ * \param pc [in] The pattern converter to add to \e self.
+ *
+ * \see log4g/helpers/pattern-converter.h
  */
 void
 log4g_pattern_parser_add_converter(Log4gPatternParser *self,

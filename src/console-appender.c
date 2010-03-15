@@ -38,7 +38,7 @@ enum _properties_t {
 
 struct Log4gPrivate {
     gchar *target;
-    gboolean follow; /**< ... */
+    gboolean follow;
 };
 
 static void

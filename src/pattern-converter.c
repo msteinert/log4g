@@ -159,8 +159,6 @@ log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
     }
 }
 
-/* -------------------------------------------------------------------------- */
-
 G_DEFINE_TYPE(Log4gBasicPatternConverter, log4g_basic_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)
 
@@ -236,8 +234,6 @@ log4g_basic_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     GET_BASIC_PRIVATE(self)->type = type;
     return LOG4G_PATTERN_CONVERTER(self);
 }
-
-/* -------------------------------------------------------------------------- */
 
 G_DEFINE_TYPE(Log4gLiteralPatternConverter, log4g_literal_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)
@@ -318,8 +314,6 @@ log4g_literal_pattern_converter_new(const gchar *pattern)
     }
     return LOG4G_PATTERN_CONVERTER(self);
 }
-
-/* -------------------------------------------------------------------------- */
 
 G_DEFINE_TYPE(Log4gDatePatternConverter, log4g_date_pattern_converter,
     LOG4G_TYPE_PATTERN_CONVERTER)
@@ -406,8 +400,6 @@ log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-/* -------------------------------------------------------------------------- */
-
 G_DEFINE_TYPE(Log4gMDCPatternConverter, log4g_mdc_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)
 
@@ -474,8 +466,6 @@ log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-/* -------------------------------------------------------------------------- */
-
 G_DEFINE_TYPE(Log4gLocationPatternConverter, log4g_location_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)
 
@@ -539,8 +529,6 @@ log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     GET_LOCATION_PRIVATE(self)->type = type;
     return LOG4G_PATTERN_CONVERTER(self);
 }
-
-/* -------------------------------------------------------------------------- */
 
 G_DEFINE_TYPE(Log4gCategoryPatternConverter, log4g_category_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)

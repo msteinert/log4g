@@ -17,9 +17,21 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Activate options set on a object.
  * \author Mike Steinert
  * \date 2-5-2010
+ *
+ * This interface allows objects to defer activation of options until all
+ * options have been set. This is required for components that have
+ * ambiguous options until all options are set.
+ *
+ * For example, file appenders (log4g/appender/file-appender.h) have the
+ * file and append properties, both of which are ambiguous until the other
+ * is set.
+ *
+ * Appender, filters and layouts all implement this interface.
+ *
+ * \see log4g/interface/appender.h, log4g/filter.h, log4g/layout.h
  */
 
 #ifndef LOG4G_OPTION_HANDLER_H
@@ -49,9 +61,14 @@ typedef struct _Log4gOptionHandler Log4gOptionHandler;
 /** \brief Log4gOptionHandler class type definition */
 typedef struct _Log4gOptionHandlerInterface Log4gOptionHandlerInterface;
 
-/** \brief Log4gOptionHandlerClass definition */
+/** \brief Log4gOptionHandlerInterface definition */
 struct _Log4gOptionHandlerInterface {
-    GTypeInterface parent_interface; /**< parent interface */
+    GTypeInterface parent_interface;
+    /**
+     * \brief Activate all options set for an object.
+     *
+     * \param self [in] An option handler object.
+     */
     void (*activate_options)(Log4gOptionHandler *self);
 };
 
@@ -59,6 +76,10 @@ GType
 log4g_option_handler_get_type(void);
 
 /**
+ * \brief Invokes the virtual function
+ *        _Log4gOptionHandlerInterface::activate_options().
+ *
+ * \param self [in] An option handler object.
  */
 void
 log4g_option_handler_activate_options(Log4gOptionHandler *self);

@@ -46,7 +46,7 @@ G_DEFINE_TYPE(Log4gRollingFileAppender, log4g_rolling_file_appender,
 struct Log4gPrivate {
     guint backup; /**< The number of backup indexes to keep */
     gulong max; /**< The maximum file size (default is 10MB) */
-    gulong next; /**< ... */
+    gulong next;
 };
 
 static void
@@ -79,7 +79,7 @@ static void
 sub_append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gQuietWriter *writer = log4g_writer_appender_get_quiet_writer(base);;
+    Log4gQuietWriter *writer = log4g_writer_appender_get_quiet_writer(base);
     LOG4G_WRITER_APPENDER_CLASS(log4g_rolling_file_appender_parent_class)->
             sub_append(base, event);
     if (log4g_file_appender_get_file(base) && writer) {
@@ -155,8 +155,8 @@ roll_over(Log4gAppender *base)
         if (rename(file, target->str) ? FALSE : TRUE) {
             g_string_printf(target, "%s", file);
             log4g_file_appender_set_file_full(base, target->str, TRUE,
-                                log4g_file_appender_get_buffered_io(base),
-                                log4g_file_appender_get_buffer_size(base));
+                    log4g_file_appender_get_buffered_io(base),
+                    log4g_file_appender_get_buffer_size(base));
         }
         g_string_free(target, TRUE);
     }
@@ -204,7 +204,7 @@ log4g_rolling_file_appender_new(Log4gLayout *layout, const gchar *file,
     }
     log4g_appender_set_layout(self, layout);
     log4g_file_appender_set_file_full(self, file, append, buffered,
-                                    log4g_file_appender_get_buffer_size(self));
+            log4g_file_appender_get_buffer_size(self));
     return self;
 }
 
@@ -217,7 +217,7 @@ log4g_rolling_file_appender_get_max_backup_index(Log4gAppender *base)
 
 void
 log4g_rolling_file_appender_set_max_backup_index(Log4gAppender *base,
-                                                 guint backup)
+        guint backup)
 {
     g_return_if_fail(LOG4G_IS_ROLLING_FILE_APPENDER(base));
     g_object_set(base, "max-backup-index", backup, NULL);

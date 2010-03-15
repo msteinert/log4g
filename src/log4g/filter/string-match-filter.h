@@ -17,9 +17,22 @@
 
 /**
  * \file
- * \brief ...
+ * \brief A filter based on string matching.
  * \author Mike Steinert
  * \date 2-11-2010
+ *
+ * A simple filter based on string matching.
+ *
+ * This filter accepts two parameters:
+ * -# string-to-match
+ * -# accept-on-match
+ *
+ * If there is a match between the string-to-match value and the log event
+ * message then the decide() function returns:
+ * - \e ACCEPT if accept-on-match is \e TRUE
+ * - \e DENY if accept-on-match is \e FALSE
+ *
+ * If there is no match \e NEUTRAL is returned.
  */
 
 #ifndef LOG4G_STRING_MATCH_FILTER_H
@@ -58,40 +71,59 @@ typedef struct _Log4gStringMatchFilterClass Log4gStringMatchFilterClass;
 
 /** \brief Log4gStringMatchFilterClass definition */
 struct _Log4gStringMatchFilter {
-    Log4gFilter parent_instance; /**< parent instance */
+    Log4gFilter parent_instance;
 };
 
 /** \brief Log4gStringMatchFilterClass definition */
 struct _Log4gStringMatchFilterClass {
-    Log4gFilterClass parent_class; /**< parent class */
+    Log4gFilterClass parent_class;
 };
 
 GType
 log4g_string_match_filter_get_type(void);
 
 /**
+ * \brief Create a new string match filter.
+ *
+ * \return A new string match filter object.
  */
 Log4gFilter *
 log4g_string_match_filter_new(void);
 
 /**
+ * \brief Set the string-to-match property.
+ *
+ * \param base [in] A string match filter object.
+ * \param string [in] The new string to match.
  */
 void
 log4g_string_match_filter_set_string_to_match(Log4gFilter *base,
         const gchar *string);
 
 /**
+ * \param base [in] A string match filter object.
+ *
+ * \return The current string to match for \e base.
  */
 const gchar *
 log4g_string_match_filter_get_string_to_match(Log4gFilter *base);
 
 /**
+ * \brief Set the accept-on-match property.
+ *
+ * \param base [in] A string match filter object.
+ * \param accept [in] The new accept on match value.
  */
 void
 log4g_string_match_filter_set_accept_on_match(Log4gFilter *base,
         gboolean accept);
 
 /**
+ * \brief Get the accept-on-match property.
+ *
+ * \param base [in] A string match filter object.
+ *
+ * \return The current accept on match value for \e base.
  */
 gboolean
 log4g_string_match_filter_get_accept_on_match(Log4gFilter *base);

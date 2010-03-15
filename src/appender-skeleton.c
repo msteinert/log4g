@@ -34,17 +34,17 @@ enum _properties_t {
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_APPENDER_SKELETON, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 struct Log4gPrivate {
-    Log4gLayout *layout; /**< ... */
-    gchar *name; /**< ... */
-    Log4gLevel *threshold; /**< ... */
-    gpointer error; /**< ... */
-    Log4gFilter *head; /**< ... */
-    Log4gFilter *tail; /**< ... */
-    gboolean closed; /**< ... */
-    GMutex *lock; /**< Synchronizes this appender */
+    Log4gLayout *layout;
+    gchar *name;
+    Log4gLevel *threshold;
+    gpointer error;
+    Log4gFilter *head;
+    Log4gFilter *tail;
+    gboolean closed;
+    GMutex *lock;
 };
 
 static void
@@ -187,7 +187,7 @@ option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gAppenderSkeleton, log4g_appender_skeleton,
-                        G_TYPE_OBJECT,
+        G_TYPE_OBJECT,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
@@ -277,7 +277,8 @@ log4g_appender_skeleton_class_init(Log4gAppenderSkeletonClass *klass)
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_THRESHOLD,
             g_param_spec_string("threshold", Q_("Threshold"),
-                    Q_("Threshold for this appender"), NULL, G_PARAM_WRITABLE));
+                    Q_("Threshold for this appender"), NULL,
+                    G_PARAM_WRITABLE));
 }
 
 void

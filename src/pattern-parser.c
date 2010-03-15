@@ -45,7 +45,6 @@ struct Log4gPrivate {
     gint state;
 };
 
-/** \brief ... */
 #define ESCAPE_CHAR '%'
 
 enum _PatternParserState {
@@ -56,8 +55,6 @@ enum _PatternParserState {
     MAX_STATE
 };
 
-/**
- */
 static void
 _formatting_info_reset(struct Log4gFormattingInfo *info)
 {
@@ -219,7 +216,7 @@ log4g_pattern_parser_parse(Log4gPatternParser *self)
                 default:
                     if (priv->buffer->len != 0) {
                         pc = log4g_literal_pattern_converter_new(
-                                                    priv->buffer->str);
+                                    priv->buffer->str);
                         if (pc) {
                             log4g_pattern_parser_add_to_list(self, pc);
                             g_object_unref(pc);
@@ -326,39 +323,39 @@ log4g_pattern_parser_finalize_converter(Log4gPatternParser *self, gchar c)
     }
     case 'F':
         pc = log4g_location_pattern_converter_new(&priv->formatting,
-                                                  FILE_LOCATION_CONVERTER);
+                    FILE_LOCATION_CONVERTER);
         break;
     case 'l':
         pc = log4g_location_pattern_converter_new(&priv->formatting,
-                                                  FULL_LOCATION_CONVERTER);
+                    FULL_LOCATION_CONVERTER);
         break;
     case 'L':
         pc = log4g_location_pattern_converter_new(&priv->formatting,
-                                                  LINE_LOCATION_CONVERTER);
+                    LINE_LOCATION_CONVERTER);
         break;
     case 'm':
         pc = log4g_basic_pattern_converter_new(&priv->formatting,
-                                               MESSAGE_CONVERTER);
+                    MESSAGE_CONVERTER);
         break;
     case 'M':
         pc = log4g_location_pattern_converter_new(&priv->formatting,
-                                                  METHOD_LOCATION_CONVERTER);
+                    METHOD_LOCATION_CONVERTER);
         break;
     case 'p':
         pc = log4g_basic_pattern_converter_new(&priv->formatting,
-                                               LEVEL_CONVERTER);
+                    LEVEL_CONVERTER);
         break;
     case 'r':
         pc = log4g_basic_pattern_converter_new(&priv->formatting,
-                                               RELATIVE_TIME_CONVERTER);
+                    RELATIVE_TIME_CONVERTER);
         break;
     case 't':
         pc = log4g_basic_pattern_converter_new(&priv->formatting,
-                                               THREAD_CONVERTER);
+                    THREAD_CONVERTER);
         break;
     case 'x':
         pc = log4g_basic_pattern_converter_new(&priv->formatting,
-                                               NDC_CONVERTER);
+                    NDC_CONVERTER);
         break;
     case 'X': {
         gchar *opt = log4g_pattern_parser_extract_option(self);

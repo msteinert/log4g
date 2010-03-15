@@ -17,9 +17,14 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Create a logger via a factory class.
  * \author Mike Steinert
  * \date 1-29-2010
+ *
+ * Implement this interface to create new instances of Log4gLogger or a
+ * sub-class of Log4gLogger.
+ *
+ * \see log4g/logger.h
  */
 
 #ifndef LOG4G_LOGGER_FACTORY_H
@@ -46,12 +51,20 @@ G_BEGIN_DECLS
 /** \brief Log4gLoggerFactory object type definition */
 typedef struct _Log4gLoggerFactory Log4gLoggerFactory;
 
-/** \brief Log4gLoggerFactory class type definition */
+/** \brief Log4gLoggerFactory interface type definition */
 typedef struct _Log4gLoggerFactoryInterface Log4gLoggerFactoryInterface;
 
-/** \brief Log4gLoggerFactoryClass definition */
+/** \brief Log4gLoggerFactoryInterface definition */
 struct _Log4gLoggerFactoryInterface {
-    GTypeInterface parent_interface; /**< parent interface */
+    GTypeInterface parent_interface;
+    /**
+     * \brief Create a new logger object.
+     *
+     * \param self [in] A logger factory object.
+     * \param name [in] The name of the logger to create.
+     *
+     * \return A new logger named \e name.
+     */
     Log4gLogger *(*make_new_logger_instance)(Log4gLoggerFactory *self,
             const gchar *name);
 };
@@ -60,7 +73,13 @@ GType
 log4g_logger_factory_get_type(void);
 
 /**
- * \brief 
+ * \brief Invokes the virtual function
+ *        _Log4gLoggerFactoryInterface::make_new_logger_instance().
+ *
+ * \param self [in] A logger factory object.
+ * \param name [in] The name of the logger to create.
+ *
+ * \return A new logger named \e name.
  */
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,

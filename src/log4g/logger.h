@@ -161,7 +161,8 @@ Log4gLevel *
 log4g_logger_get_level(Log4gLogger *self);
 
 /**
- * \brief Set the level theshold of a logger.
+ * \brief Invokes the virtual function _Log4gLoggerClass::set_level().
+ *
  * \param self [in] A logger object.
  * \param level [in] The new log level threshold for \e self.
  */
@@ -221,7 +222,8 @@ void
 log4g_logger_set_logger_repository(Log4gLogger *self, gpointer repository);
 
 /**
- * \brief Invokes the virtual function \e get_effective_level().
+ * \brief Invokes the virtual function
+ *        _Log4gLoggerClass::get_effective_level().
  *
  * \param self [in] A logger object.
  *

@@ -17,9 +17,13 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Counts the number of bytes written.
  * \author Mike Steinert
  * \date 2-17-2010
+ *
+ * A quiet writer that counts the number of bytes it has written.
+ *
+ * \see log4g/helpers/quiet-writer.h
  */
 
 #ifndef LOG4G_COUNTING_QUIET_WRITER_H
@@ -58,28 +62,48 @@ typedef struct _Log4gCountingQuietWriterClass Log4gCountingQuietWriterClass;
 
 /** \brief Log4gCountingQuietWriterClass definition */
 struct _Log4gCountingQuietWriter {
-    Log4gQuietWriter parent_instance; /**< parent instance */
+    Log4gQuietWriter parent_instance;
 };
 
 /** \brief Log4gCountingQuietWriterClass definition */
 struct _Log4gCountingQuietWriterClass {
-    Log4gQuietWriterClass parent_class; /**< parent class */
+    Log4gQuietWriterClass parent_class;
 };
 
 GType
 log4g_counting_quiet_writer_get_type(void);
 
 /**
+ * \brief Create a new counting quiet writer object.
+ *
+ * \param file [in] The an open stdio(3) stream to write to.
+ * \param error [in] The error handler to use.
+ *
+ * \return A new counting quiet writer object.
+ *
+ * \see stdio(3), log4g/interface/error-handler.h
  */
 Log4gQuietWriter *
 log4g_counting_quiet_writer_new(FILE *file, GObject *error);
 
 /**
+ * \brief Retrieve the number of bytes written.
+ *
+ * \param base [in] A counting quiet writer object.
+ *
+ * \return The number of bytes written by \e base.
  */
 gulong
 log4g_counting_quiet_writer_get_count(Log4gQuietWriter *base);
 
 /**
+ * \brief Set the number of bytes a counting quiet writer thinks it has
+ *        written.
+ *
+ * This function is mostly useful for resetting the count to zero.
+ *
+ * \param base [in] A counting quiet writer object.
+ * \param count [in] The number of bytes \e self will think it has written.
  */
 void
 log4g_counting_quiet_writer_set_count(Log4gQuietWriter *base, gulong count);

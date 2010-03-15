@@ -17,9 +17,24 @@
 
 /**
  * \file
- * \brief ...
+ * \brief Log events to stdout or stderr.
  * \author Mike Steinert
  * \date 2-8-2010
+ *
+ * The console appender logs events to \e stdout or \e stderr using a layout
+ * specified by the user. The default target is \e stdout.
+ *
+ * Console appenders accept two properties:
+ * -# target
+ * -# follow
+ *
+ * The value of target determines where the output will be logged. The value
+ * must be one of "stdout" or "stderr". The default is "stdout".
+ *
+ * The value of follow determines if the log output will follow reopens of
+ * the target stream.
+ *
+ * \see freopen(3)
  */
 
 #ifndef LOG4G_CONSOLE_APPENDER_H
@@ -58,12 +73,12 @@ typedef struct _Log4gConsoleAppenderClass Log4gConsoleAppenderClass;
 
 /** \brief Log4gConsoleAppenderClass definition */
 struct _Log4gConsoleAppender {
-    Log4gWriterAppender parent_instance; /**< parent instance */
+    Log4gWriterAppender parent_instance;
 };
 
 /** \brief Log4gConsoleAppenderClass definition */
 struct _Log4gConsoleAppenderClass {
-    Log4gWriterAppenderClass parent_class; /**< parent class */
+    Log4gWriterAppenderClass parent_class;
     /*< private >*/
     gchar *SYSTEM_OUT;
     gchar *SYSTEM_ERR;
@@ -73,26 +88,50 @@ GType
 log4g_console_appender_get_type(void);
 
 /**
+ * \brief Create a new console appender object.
+ *
+ * \param layout [in] The layout to use.
+ * \param target [in] The log output target ("stdout" or "stderr").
+ *
+ * \return A new console appender object.
  */
 Log4gAppender *
 log4g_console_appender_new(Log4gLayout *layout, const char *target);
 
 /**
+ * \brief Set the target property.
+ *
+ * \param base [in] A console appender object.
+ * \brief target [in] The new target for \e base ("stdout" or "stderr").
  */
 void
-log4g_console_appender_set_target(Log4gAppender *self, const gchar *target);
+log4g_console_appender_set_target(Log4gAppender *base, const gchar *target);
 
 /**
+ * \brief Get the target property.
+ *
+ * \param base [in] A console appender object.
+ *
+ * \return The target for \e base ("stdout" or "stderr").
  */
 const gchar *
-log4g_console_appender_get_target(Log4gAppender *self);
+log4g_console_appender_get_target(Log4gAppender *base);
 
 /**
+ * \brief Set the follow property.
+ *
+ * \param base [in] A console appender object.
+ * \param follow [in] The new follow value for \e base.
  */
 void
 log4g_console_appender_set_follow(Log4gAppender *base, gboolean follow);
 
 /**
+ * \brief Get the follow property.
+ *
+ * \param base [in] A console appender object.
+ *
+ * \return The follow value for \e base.
  */
 gboolean
 log4g_console_appender_get_follow(Log4gAppender *base);

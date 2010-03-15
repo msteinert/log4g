@@ -31,7 +31,7 @@ G_DEFINE_TYPE(Log4gMDC, log4g_mdc, G_TYPE_OBJECT)
             struct Log4gPrivate))
 
 struct Log4gPrivate {
-    GHashTable *table; /**< ... */
+    GHashTable *table;
 };
 
 /** \brief Thread specific data. */
