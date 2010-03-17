@@ -54,6 +54,149 @@
  * \see log4g/ndc.h, log4g/mdc.h
  */
 
+/**
+ * \mainpage
+ *
+ * \section overview Overview
+ *
+ * Log4g is a GObject-based logging utility. The design of Log4g is based on
+ * a port of the popular
+ * <a href="http://logging.apache.org/log4j/1.2/">Log4j 1.2</a> logging
+ * package. Log4j has been ported to many programming languages, including
+ * (but not limited to)
+ * <a href="http://logging.apache.org/log4cxx/">C</a><a href="http://log4cplus.sourceforge.net/">++</a>,
+ * <a href="http://mschilli.github.com/log4perl/">Perl</a> and
+ * <a href="http://docs.python.org/library/logging.html">Python</a>. Log4g
+ * brings this functionality to the
+ * C/<a href="http://library.gnome.org/devel/glib/stable/">GLib</a>/<a href="http://library.gnome.org/devel/gobject/stable/">GObject</a>
+ * programming stack.
+ *
+ * For more information on what the Log4g API can do for you, refer to the
+ * articles in the \ref references section of this document.
+ *
+ * \section description Description
+ *
+ * The core components of Log4g are \ref log4g/logger.h "loggers",
+ * \ref log4g/interface/appender.h "appenders" and
+ * \ref log4g/layout.h "layouts".
+ *
+ * Log4g elements (i.e. appenders, layouts and filter) are configured via
+ * <a href="http://library.gnome.org/devel/gobject/stable/gobject-properties.html">GObject properties</a>.
+ * For a summary of the properties available to each element refer to the
+ * API documentation.
+ *
+ * \subsection loggers Loggers
+ *
+ * Loggers are the central object in the Log4g package.
+ *
+ * Loggers are arranged in a named hierarchy. The naming convention used by
+ * Log4g is to separate logger "classes" with a dot (.). For example, the
+ * logger named "org.gnome" is an ancestor of the logger named
+ * "org.gnome.foo". Loggers can inherit the appenders of their ancestors by
+ * default. This means that any events logged to the logger named
+ * "org.gnome.foo" will also be logged to the appenders of "org.gnome". This
+ * property is known as logger \e additivity. By default all loggers are
+ * additive. This property can be disabled via a configuration file (the
+ * \e additivity property of loggers) or with log4g_logger_set_additivity().
+ *
+ * \subsection appenders Appenders
+ *
+ * Appenders determine how events are logged.
+ *
+ * Log4g ships with the following appenders:
+ *
+ * - \ref log4g/appender/async-appender.h "Asynchronous appender"
+ * - \ref log4g/appender/console-appender.h "Console appender"
+ * - \ref log4g/appender/file-appender.h "File appender"
+ * - \ref log4g/appender/rolling-file-appender.h "Rolling file appender"
+ * - \ref log4g/appender/syslog-appender.h "Syslog appender"
+ *
+ * \subsection Layouts
+ *
+ * Layouts determine the format of an event before it is logged by an
+ * appender.
+ *
+ * Log4g ships with the following layouts:
+ *
+ * - \ref log4g/layout/html-layout.h "HTML layout"
+ * - \ref log4g/layout/pattern-layout.h "Pattern layout"
+ * - \ref log4g/layout/simple-layout.h "Simple layout"
+ * - \ref log4g/layout/ttcc-layout.h "TTCC layout"
+ * - \ref log4g/layout/xml-layout.h "XML layout"
+ *
+ * \subsection filters Filters
+ *
+ * Log4g has builtin filtering rules, however custom filtering is also
+ * possible through the use of filters.
+ *
+ * Log4g package ships with the following filters:
+ *
+ * - \ref log4g/filter/deny-all-filter.h "Deny all filter"
+ * - \ref log4g/filter/level-match-filter.h "Level match filter"
+ * - \ref log4g/filter/level-range-filter.h "Level range filter"
+ * - \ref log4g/filter/string-match-filter.h "String match filter"
+ *
+ * \subsection configuration Configuration
+ *
+ * One powerful feature of Log4g is the ability to easily configure the
+ * package in different ways
+ * (via \ref log4g/interface/configurator.h "configurators") without
+ * recompiling your application.
+ *
+ * Log4g ships with the following configurators:
+ *
+ * - \ref log4g/basic-configurator.h "Basic configurator"
+ * - \ref log4g/dom-configurator.h "DOM configurator"
+ *
+ * \section examples Examples
+ *
+ * Log4g must be initialized before it can be used in an application. The
+ * documentation for log4g_init() & log4g_get_option_group() provides some
+ * initialization and usage examples.
+ *
+ * \see \ref log4g/log4g.h "The Log4g core API"
+ *
+ * \section license Copyright & License
+ *
+ * Copyright 2010 Michael Steinert
+ *
+ * Log4g is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * Log4g is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * \section references References
+ *
+ * -# <a href="http://logging.apache.org/log4j/1.2/manual.html">
+ *    Gulcu, Ceki. "Short introduction to log4j." Apache Software Foundation.
+ *    N.p., Mar. 2002. Web. 17 Mar. 2010.
+ *    </a>
+ * -# <a href="http://www.vipan.com/htdocs/log4jhelp.html">
+ *    Singla, Vipan. "Don't Use System.out.println! Use Log4j." Vipan.com.
+ *    N.p., 2001. Web. 17 Mar. 2010.
+ *    </a>
+ *
+ * \section other Other Implementations
+ *
+ * - <a href="http://log4c.sourceforge.net/">Log4c: Logging for C Library</a>
+ *
+ * \section thanks Thanks
+ *
+ * - <a href="http://ceki.blogspot.com/">Ceki Gulcu</a> and the
+ * developers of Log4j. This work is entirely based upon their effort.
+ * - The <a href="http://www.gtk.org/development.html#Team">GLib/GObject
+ *   development team</a>
+ * for their fantastic work.
+ */
+
 #ifndef LOG4G_H
 #define LOG4G_H
 #ifndef LOG4G_DISABLE
@@ -87,7 +230,7 @@ G_BEGIN_DECLS
 #else /* LOG4G_LOG_DOMAIN */
 /**
  * \internal
- * \brief Get the root logger if not set
+ * \brief Retrieve the root logger if not set
  */
 #define LOG4G_LOG_DOMAIN ("")
 /**
@@ -204,7 +347,7 @@ void
 log4g_finalize(void);
 
 /**
- * \brief Get the option group used by the Log4g package.
+ * \brief Retrieve the option group used by the Log4g package.
  *
  * If your application is using the GLib option parser then you may call
  * this function to retrieve the option group parsed by Log4g.

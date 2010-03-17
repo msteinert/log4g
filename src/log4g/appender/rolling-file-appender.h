@@ -21,8 +21,8 @@
  * \author Mike Steinert
  * \date 2-17-2010
  *
- * This class extends file appender to back log files when they reach a
- * specified size.
+ * This class extends \ref log4g/appender/file-appender.h "file appender" to
+ * backup log files when they reach a specified size.
  *
  * Rolling file appenders accept two properties:
  * -# max-backup-index
@@ -107,7 +107,7 @@ log4g_rolling_file_appender_new(Log4gLayout *layout, const char *file,
         gboolean append, gboolean buffered);
 
 /**
- * \brief Get the max-backup-index property.
+ * \brief Retrieve the max-backup-index property.
  *
  * \param base [in] A rolling file appender object.
  *
@@ -127,7 +127,7 @@ log4g_rolling_file_appender_set_max_backup_index(Log4gAppender *base,
         guint backup);
 
 /**
- * \brief Get the maximum-file-size property.
+ * \brief Retrieve the maximum-file-size property.
  *
  * \param base [in] A rolling file appender object.
  *

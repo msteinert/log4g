@@ -66,7 +66,7 @@ struct _Log4gLogger {
 struct _Log4gLoggerClass {
     GObjectClass parent_class;
     /**
-     * \brief Get the effective level threshold of a logger.
+     * \brief Retrieve the effective level threshold of a logger.
      *
      * Starting from this category, search the category hierarchy for a
      * \e non-NULL and return it. If a \e non-NULL level is not found, this
@@ -106,7 +106,7 @@ Log4gLogger *
 log4g_logger_new(const gchar *name);
 
 /**
- * \brief Get the fully-qualified name of a logger.
+ * \brief Retrieve the fully-qualified name of a logger.
  *
  * \param self [in] A logger object.
  *
@@ -151,7 +151,7 @@ void
 log4g_logger_set_parent(Log4gLogger *self, Log4gLogger *parent);
 
 /**
- * \brief Get the level threshold of a logger.
+ * \brief Retrieve the level threshold of a logger.
  *
  * \param self [in] A logger object.
  *

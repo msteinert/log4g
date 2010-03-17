@@ -104,7 +104,7 @@ void
 log4g_date_layout_set_date_format(Log4gLayout *self, const char *format);
 
 /**
- * \brief Get the date-format property.
+ * \brief Retrieve the date-format property.
  *
  * \param self [in] A date format object.
  *
@@ -123,7 +123,7 @@ void
 log4g_date_layout_set_time_zone(Log4gLayout *self, const char *tz);
 
 /**
- * \brief Get the time-zone property.
+ * \brief Retrieve the time-zone property.
  *
  * \param self [in] A date format object.
  *

@@ -35,8 +35,22 @@
  * The add-appender signal is invoked whenever an appender is added to a
  * logger in the repository.
  *
+ * The type signature for the add-appender signal is:
+ *
+ * \code
+ * typedef void
+ * (*add_appender)(Log4gLogger *logger, Log4gAppender *appender);
+ * \endcode
+ *
  * The remove-appender signal is invoked whenever an appender is removed from
  * a logger in the repository.
+ *
+ * The type signature for the remove-appender signal is:
+ *
+ * \code
+ * typedef void
+ * (*remove_appender)(Log4gLogger *logger, Log4gAppender *appender);
+ * \endcode
  *
  * \see log4g/logger.h
  */
@@ -83,7 +97,7 @@ struct _Log4gLoggerRepositoryInterface {
      */
     Log4gLogger *(*exists)(Log4gLoggerRepository *self, const gchar *name);
     /**
-     * \brief Get all loggers in the repository.
+     * \brief Retrieve all loggers in the repository.
      *
      * \param self [in] A logger repository object.
      *

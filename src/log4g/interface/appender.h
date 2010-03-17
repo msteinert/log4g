@@ -95,7 +95,7 @@ struct _Log4gAppenderInterface {
      */
     void (*do_append)(Log4gAppender *self, Log4gLoggingEvent *event);
     /**
-     * \brief Get the name an appender.
+     * \brief Retrieve the name an appender.
      *
      * This name uniquely identifies the appender.
      *
@@ -133,7 +133,7 @@ struct _Log4gAppenderInterface {
      */
     void (*set_layout)(Log4gAppender *self, Log4gLayout *layout);
     /**
-     * \brief Get the layout for an appender.
+     * \brief Retrieve the layout for an appender.
      *
      * \param self [in] An appender object.
      *

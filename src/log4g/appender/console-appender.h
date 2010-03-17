@@ -32,7 +32,7 @@
  * must be one of "stdout" or "stderr". The default is "stdout".
  *
  * The value of follow determines if the log output will follow reopens of
- * the target stream.
+ * the target stream. The default value is \e TRUE.
  *
  * \see freopen(3)
  */
@@ -108,7 +108,7 @@ void
 log4g_console_appender_set_target(Log4gAppender *base, const gchar *target);
 
 /**
- * \brief Get the target property.
+ * \brief Retrieve the target property.
  *
  * \param base [in] A console appender object.
  *
@@ -127,7 +127,7 @@ void
 log4g_console_appender_set_follow(Log4gAppender *base, gboolean follow);
 
 /**
- * \brief Get the follow property.
+ * \brief Retrieve the follow property.
  *
  * \param base [in] A console appender object.
  *

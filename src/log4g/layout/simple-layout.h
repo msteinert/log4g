@@ -22,7 +22,7 @@
  * \date 2-5-2010
  *
  * The simple layout consists of the level of a log statement and the log
- * log message itself separated by " - ". For example:
+ * message itself separated by " - ". For example:
  *
  * \code
  * DEBUG - Hello, World!

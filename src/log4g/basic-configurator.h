@@ -17,7 +17,7 @@
 
 /**
  * \file
- * \brief Use this interface to quickly configure log4g.
+ * \brief Quickly configure Log4g.
  * \author Mike Steinert
  * \date 2-22-2010
  *
@@ -32,22 +32,28 @@
 G_BEGIN_DECLS
 
 /**
- * \brief Add a console appender (log4g/console-appender.h) to the root
- *        logger that uses the TTCC layout (log4g/ttcc-layout.h) and prints
- *        to \e stderr.
+ * \brief Quickly configure Log4g.
+ *
+ * This function adds a
+ * \ref log4g/appender/console-appender.h "console appender" to the
+ * \ref log4g/root-logger.h "root logger" that uses the
+ * \ref log4g/layout/ttcc-layout.h "TTCC layout" and prints to \e stderr.
  */
 void
 log4g_basic_configurator_configure(void);
 
 /**
  * \brief Add an appender to the root category.
+ *
  * \param appender [in] The appender to add to the root category.
  */
 void
 log4g_basic_configurator_configure_appender(Log4gAppender *appender);
 
 /**
- * \brief Reset the default hierarchy to its default state.
+ * \brief Reset configuration.
+ *
+ * Reset the default hierarchy to its default state.
  */
 void
 log4g_basic_configurator_reset_configuration(void);

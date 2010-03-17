@@ -17,7 +17,7 @@
 
 /**
  * \file
- * \brief Defines the minimum set of logging levels recognized by the system.
+ * \brief Minimum set of logging levels recognized by the system.
  * \author Mike Steinert
  * \date 1-29-2010
  *
@@ -191,7 +191,7 @@ gboolean
 log4g_level_equals(Log4gLevel *self, Log4gLevel *level);
 
 /**
- * \brief Get the syslog(3) equivalent integer of level object.
+ * \brief Retrieve the syslog(3) equivalent integer of level object.
  *
  * \param self [in] A level object.
  *
@@ -213,7 +213,7 @@ gboolean
 log4g_level_is_greater_or_equal(Log4gLevel *self, Log4gLevel *level);
 
 /**
- * \brief Get the string representation of a level.
+ * \brief Retrieve the string representation of a level.
  *
  * \param self [in] A level object.
  *
@@ -223,7 +223,7 @@ const gchar *
 log4g_level_to_string(Log4gLevel *self);
 
 /**
- * \brief Get the integer representation of a level.
+ * \brief Retrieve the integer representation of a level.
  *
  * \param self [in] A level object.
  *

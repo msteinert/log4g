@@ -17,13 +17,46 @@
 
 /**
  * \file
- * \brief Use this class to initialize the Log4g environment using a DOM tree.
+ * \brief Initialize the Log4g environment using a DOM tree.
  * \author Mike Steinert
  * \date 2-23-2010
  *
- * The DTD is specified in \e log4g.dtd.
+ * The DTD is specified in \e log4g.dtd. The Log4g DTD differs in some small
+ * ways from the official Log4j DTD:
  *
- * If you wish to enable internal log messages by setting the \e LOG4G_FLAGS
+ * - Use "appender" everywhere instead of "appender-ref"
+ *     - Appenders may be declared inline to a logger. Appender references
+ *       simply use a named "appender" tag and do not define a new appender.
+ * - Use "property" instead of "param"
+ *     - The decision was made to use the keyword "property" instead of
+ *       "param" to reflect the underlying GLib/GObject implementation.
+ *
+ * The following configuration provides a cut-and-paste example:
+ *
+ * \code
+ * <?xml version="1.0" encoding="UTF-8" ?>
+ * <!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
+ *     "http://www.gnome.org/log4g/1.0/log4g.dtd">
+ * <log4g:configuration>
+ *     <appender name="A1" type="log4g_console_appender">
+ *         <layout type="log4g_pattern_layout">
+ *             <property name="conversion-pattern"
+ *                       value="%-4r [%t] %-5p %c %x - %m%n" />
+ *         </layout>
+ *     </appender>
+ *     <root>
+ *         <level value="DEBUG" />
+ *         <appender name="A1" />
+ *     </root>
+ * </log4g:configuration>
+ * \endcode
+ *
+ * In this example all events will be logged to the
+ * \ref log4g/appender/console-appender.h "console appender" (stdout by
+ * default) using the specified 
+ * \ref log4g/layout/pattern-layout.h "pattern layout".
+ *
+ * You may enable internal log messages by setting the \e LOG4G_FLAGS
  * environment variable to \e "debug". For example (Bash):
  * \code
  * $ export LOG4G_FLAGS=debug
@@ -35,6 +68,8 @@
  * <log4g:configuration debug="true">
  * </log4g:configuration>
  * \endcode
+ *
+ * \see log4g_init(), log4g_get_option_group()
  */
 
 #ifndef LOG4G_DOM_CONFIGURATOR_H

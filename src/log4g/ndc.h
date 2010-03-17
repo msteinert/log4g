@@ -95,7 +95,8 @@ GType
 log4g_ndc_get_type(void);
 
 /**
- * \brief Get the nested data context object for the current thread.
+ * \internal
+ * \brief Retrieve the nested data context object for the current thread.
  *
  * \return A nested data context object.
  *
@@ -141,7 +142,7 @@ void
 log4g_ndc_inherit(GArray *stack);
 
 /**
- * \brief Get the current diagnostic context formatted as a string.
+ * \brief Retrieve the current diagnostic context formatted as a string.
  *
  * \note You should call log4g_logging_event_get_ndc() instead of this
  *       function.
@@ -152,7 +153,7 @@ const gchar *
 log4g_ndc_get(void);
 
 /**
- * \brief Get the size (depth) of the current nested data context.
+ * \brief Retrieve the size (depth) of the current nested data context.
  *
  * \return The number of elements on the nested data context stack.
  */

@@ -125,7 +125,7 @@ void
 log4g_writer_appender_set_immediate_flush(Log4gAppender *base, gboolean flush);
 
 /**
- * \brief Get the immediate-flush property.
+ * \brief Retrieve the immediate-flush property.
  *
  * \param base [in] A writer appender object.
  *
@@ -202,7 +202,7 @@ void
 log4g_writer_appender_write_header(Log4gAppender *base);
 
 /**
- * \brief [protected] Get the current quiet writer object.
+ * \brief [protected] Retrieve the current quiet writer object.
  *
  * \param base [in] A writer appender object.
  *

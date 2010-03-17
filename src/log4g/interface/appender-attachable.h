@@ -67,7 +67,7 @@ struct _Log4gAppenderAttachableInterface {
     void (*add_appender)(Log4gAppenderAttachable *self,
             Log4gAppender *appender);
     /**
-     * \brief Get all previously attached appenders in an array.
+     * \brief Retrieve all previously attached appenders in an array.
      *
      * \param self [in] An appender attachable object.
      *
@@ -79,7 +79,7 @@ struct _Log4gAppenderAttachableInterface {
      */
     const GArray *(*get_all_appenders)(Log4gAppenderAttachable *self);
     /**
-     * \brief Get an attached appender by name.
+     * \brief Retrieve an attached appender by name.
      *
      * \param self [in] An appender attachable object.
      * \param name [in] The name of the appneder to retrieve.

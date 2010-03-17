@@ -32,7 +32,7 @@
     value CDATA #REQUIRED
 >
 <!-- ... -->
-<!ELEMENT level (param*)>
+<!ELEMENT level (property*)>
 <!ATTLIST level
     type CDATA #IMPLIED
     value CDATA #REQUIRED

@@ -28,7 +28,7 @@
  * -# threshold
  *
  * Setting the threshold property enables log level theshold filtering. By
- * default this is no threshold filtering.
+ * default there is no threshold filtering.
  */
 
 #ifndef LOG4G_APPENDER_SKELETON_H
@@ -140,7 +140,7 @@ log4g_appender_skeleton_set_threshold(Log4gAppender *base,
         const gchar *threshold);
 
 /**
- * \brief Get the threshold property.
+ * \brief Retrieve the threshold property.
  *
  * \param base [in] A skeleton appender object.
  *

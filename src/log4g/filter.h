@@ -152,7 +152,7 @@ Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event);
 
 /**
- * \brief Get the next filter in the chain.
+ * \brief Retrieve the next filter in the chain.
  *
  * Filters are chained together. This function returns the next filter in
  * the chain, or \e NULL if there are no more.

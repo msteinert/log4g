@@ -27,7 +27,7 @@
  * a complete XML document.
  *
  * For example, if "abc" is the name of the file where the XML layout output
- * is directed, a well-formed XML document file would be:
+ * is directed, a well-formed XML document would be:
  *
  * \code
  * <?xml version="1.0" ?>
@@ -118,7 +118,7 @@ void
 log4g_xml_layout_set_properties(Log4gLayout *base, gboolean properties);
 
 /**
- * \brief Get the properties property.
+ * \brief Retrieve the properties property.
  *
  * \param base [in] An XML layout object.
  *
@@ -137,7 +137,7 @@ void
 log4g_xml_layout_set_location_info(Log4gLayout *base, gboolean info);
 
 /**
- * \brief Get the location-info property.
+ * \brief Retrieve the location-info property.
  *
  * \param base [in] An XML layout object.
  *

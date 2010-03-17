@@ -24,7 +24,7 @@
  * This is a straightforward implementation of the appender attachable
  * interface.
  *
- * \see log4g/interface/appender-attachable.
+ * \see log4g/interface/appender-attachable.h
  */
 
 #ifndef LOG4G_APPENDER_ATTACHABLE_IMPL_H

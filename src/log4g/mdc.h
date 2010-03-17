@@ -76,6 +76,7 @@ GType
 log4g_mdc_get_type(void);
 
 /**
+ * \internal
  * \brief Retrieve the MDC instance object for currently executing thread.
  *
  * \return A mapped data context object.
@@ -121,7 +122,7 @@ void
 log4g_mdc_remove(const gchar *key);
 
 /**
- * \brief Get the current thread's MDC as a hash table.
+ * \brief Retrieve the current thread's MDC as a hash table.
  *
  * This function is intended for internal use.
  *

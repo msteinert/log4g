@@ -98,7 +98,7 @@ log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
         const gchar *message, va_list ap);
 
 /**
- * \brief Get the log level of a logging event.
+ * \brief Retrieve the log level of a logging event.
  *
  * \param self [in] A logging event object.
  *

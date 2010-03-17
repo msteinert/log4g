@@ -50,7 +50,7 @@
  *          appenders. The TTCC layout is not thread-safe when used in this
  *          way.
  *
- * \note The pattern layout (log4g/layout/pattern-layout.h) provides a much
+ * \note The \ref log4g/layout/pattern-layout.h "pattern layout" provides a
  *       more flexible alternative.
  */
 
@@ -123,7 +123,7 @@ void
 log4g_ttcc_set_thread_printing(Log4gLayout *base, gboolean thread);
 
 /**
- * \brief Get the thread-printing property.
+ * \brief Retrieve the thread-printing property.
  *
  * \param base [in] A TTCC layout object.
  *
@@ -142,7 +142,7 @@ void
 log4g_ttcc_set_category_prefixing(Log4gLayout *base, gboolean category);
 
 /**
- * \brief Get the category-prefixing property.
+ * \brief Retrieve the category-prefixing property.
  *
  * \param base [in] A TTCC layout object.
  *
@@ -161,7 +161,7 @@ void
 log4g_ttcc_set_context_printing(Log4gLayout *base, gboolean context);
 
 /**
- * \brief Get the context-printing property.
+ * \brief Retrieve the context-printing property.
  *
  * \param base [in] A TTCC layout object.
  *

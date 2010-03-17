@@ -163,7 +163,7 @@ void
 log4g_file_appender_set_file(Log4gAppender *base, const gchar *file);
 
 /**
- * \brief Get the file property.
+ * \brief Retrieve the file property.
  *
  * \param base [in] A file appender object.
  *
@@ -182,7 +182,7 @@ void
 log4g_file_appender_set_append(Log4gAppender *base, gboolean append);
 
 /**
- * \brief Get the append property.
+ * \brief Retrieve the append property.
  *
  * \param base [in] A file appender object.
  *
@@ -201,7 +201,7 @@ void
 log4g_file_appender_set_buffered_io(Log4gAppender *base, gboolean buffered);
 
 /**
- * \brief Get the buffered-io property.
+ * \brief Retrieve the buffered-io property.
  *
  * \param base [in] A file appender object.
  *
@@ -220,7 +220,7 @@ void
 log4g_file_appender_set_buffer_size(Log4gAppender *base, guint size);
 
 /**
- * \brief Get the buffer-size property.
+ * \brief Retrieve the buffer-size property.
  *
  * \param base [in] A file appender object.
  *

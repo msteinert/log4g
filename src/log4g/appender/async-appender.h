@@ -117,7 +117,7 @@ log4g_async_appender_add_appender(Log4gAppender *base,
         Log4gAppender *appender);
 
 /**
- * \brief Get an array of appenders attached to an async appender.
+ * \brief Retrieve an array of appenders attached to an async appender.
  *
  * \param base [in] An async appender object.
  *
@@ -131,7 +131,7 @@ const GArray *
 log4g_async_appender_get_all_appenders(Log4gAppender *base);
 
 /**
- * \brief Get an attached named appender.
+ * \brief Retrieve an attached named appender.
  *
  * \param base [in] An async appender object.
  * \param name [in] The name of the appender to look up.
@@ -200,7 +200,7 @@ void
 log4g_async_appender_set_blocking(Log4gAppender *base, gboolean blocking);
 
 /**
- * \brief Get the blocking property.
+ * \brief Retrieve the blocking property.
  *
  * \param base [in] An async appender object.
  *
@@ -219,7 +219,7 @@ void
 log4g_async_appender_set_buffer_size(Log4gAppender *base, gint size);
 
 /**
- * \brief Get the buffer-size property.
+ * \brief Retrieve the buffer-size property.
  *
  * \param base [in] An async appender object.
  *

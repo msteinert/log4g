@@ -32,6 +32,8 @@
  * - \e ACCEPT if accept-on-match is \e TRUE
  * - \e DENY if accept-on-match is \e FALSE
  *
+ * The default value for accept-on-match is \e TRUE.
+ *
  * If there is no match \e NEUTRAL is returned.
  */
 
@@ -119,7 +121,7 @@ log4g_string_match_filter_set_accept_on_match(Log4gFilter *base,
         gboolean accept);
 
 /**
- * \brief Get the accept-on-match property.
+ * \brief Retrieve the accept-on-match property.
  *
  * \param base [in] A string match filter object.
  *

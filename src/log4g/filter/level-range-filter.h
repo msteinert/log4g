@@ -37,6 +37,8 @@
  * If accept-on-match is set to \e FALSE then decide() will return \e NEUTRAL
  * in this case.
  *
+ * The default value for accept-on-match is \e TRUE.
+ *
  * If level-min is not defined then there is no minimum level (a level is
  * never rejected for being too low). If level-max is not defined then
  * there is no maximum level (a level is never rejected for being too high).
@@ -113,7 +115,7 @@ void
 log4g_level_range_filter_set_level_min(Log4gFilter *base, const gchar *level);
 
 /**
- * \brief Get the level-min property.
+ * \brief Retrieve the level-min property.
  *
  * \param base [in] A level range filter object.
  *
@@ -132,7 +134,7 @@ void
 log4g_level_range_filter_set_level_max(Log4gFilter *base, const gchar *level);
 
 /**
- * \brief Get the level-max property.
+ * \brief Retrieve the level-max property.
  *
  * \param base [in] A level range filter object.
  *
@@ -152,7 +154,7 @@ log4g_level_range_filter_set_accept_on_range(Log4gFilter *base,
         gboolean accept);
 
 /**
- * \brief Get the accept-on-match property.
+ * \brief Retrieve the accept-on-match property.
  *
  * \param base [in] A level match filter object.
  *

@@ -79,21 +79,25 @@ GType
 log4g_thread_get_type(void);
 
 /**
- * \brief Create a Log4gThread object.
+ * \internal
+ * \brief Retrieve a Log4gThread object.
  *
- * \return A new Log4gThread object.
+ * If one does not exist a new one will be created.
+ *
+ * \return A Log4gThread object.
  */
 Log4gThread *
 log4g_thread_get_instance(void);
 
 /**
+ * \internal
  * \brief Remove the instance of Log4gThread from the current thread.
  */
 void
 log4g_thread_remove_instance(void);
 
 /**
- * \brief Get the name of the current thread.
+ * \brief Retrieve the name of the current thread.
  *
  * \return The name of the current thread.
  */

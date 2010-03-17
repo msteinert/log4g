@@ -31,7 +31,7 @@
  * pattern. A conversion pattern is composed of literal text and format
  * control expressions called conversion specifiers.
  *
- * \note Any literal text may be inserted within the conversion pattern.
+ * \note Literal text can be inserted within the conversion pattern.
  *
  * Conversion specifiers start with a percent sign (%) and its optional format
  * modifiers followed by a conversion character. The conversion character
@@ -69,7 +69,7 @@
  * <table>
  * <tr>
  * <th>Conversion Character</th>
- * <th>Effect</th></tr>
+ * <th>Effect</th>
  * </tr>
  * <tr>
  * <td align="center"><b>c</b></td>
@@ -273,9 +273,7 @@
  *
  * <b>%%r [%%t] %%-5p %%c %%x - %%m%%n</b>
  *
- * This is essentially the TTCC layout.
- *
- * \see log4g/layout/ttcc-layout.h
+ * This is essentially the \ref log4g/layout/ttcc-layout.h "TTCC layout".
  *
  * <b>%%-6r [%%15.15t] %%-5p %%30.30c %%x - %%m%%n</b>
  *
@@ -372,7 +370,7 @@ log4g_pattern_layout_set_conversion_pattern(Log4gLayout *base,
         const gchar *pattern);
 
 /**
- * \brief Get the conversion-pattern property.
+ * \brief Retrieve the conversion-pattern property.
  *
  * \param base [in] A conversion pattern object.
  *

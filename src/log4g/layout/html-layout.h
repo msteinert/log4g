@@ -101,7 +101,7 @@ void
 log4g_html_layout_set_title(Log4gLayout *base, const gchar *title);
 
 /**
- * \brief Get the title property.
+ * \brief Retrieve the title property.
  *
  * \param base [in] An HTML layout object.
  *
@@ -120,7 +120,7 @@ void
 log4g_html_layout_set_location_info(Log4gLayout *base, gboolean info);
 
 /**
- * \brief Get the location-info parameter.
+ * \brief Retrieve the location-info parameter.
  *
  * \param base [in] An HTML layout object.
  *

@@ -76,7 +76,8 @@ GType
 log4g_log_manager_get_type(void);
 
 /**
- * \brief Get the current log manager instance.
+ * \internal
+ * \brief Retrieve the current log manager instance.
  *
  * If one does not exist it will be created.
  *
@@ -86,6 +87,7 @@ Log4gLogManager *
 log4g_log_manager_get_instance(void);
 
 /**
+ * \internal
  * \brief Remove the current log manager instance.
  *
  * \warning Do not call this function unless you really know what you

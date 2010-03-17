@@ -8,12 +8,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # include default settings
 include(Init)
 # set the project name
-project(log4g)
+project(Log4g)
 # set the project version
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
-set(VERSION_MICRO 0)
-set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO})
+set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
 # set the maintainer
 set(MAINTAINER "mike.steinert@gmail.com")
 # add sub-directories
@@ -53,6 +52,7 @@ install(DIRECTORY resources/dtd
 install(FILES
     resources/FindLog4g.cmake
     cmake/FindGLib-2.0.cmake
+    cmake/FindGModule-2.0.cmake
     cmake/FindGObject-2.0.cmake
     cmake/FindGThread-2.0.cmake
     cmake/FindLibXML-2.0.cmake

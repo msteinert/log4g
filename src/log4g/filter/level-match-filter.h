@@ -32,7 +32,8 @@
  * logging event then the decide() function returns \e ACCEPT.
  *
  * If the accept-on-match value is set to \e FALSE then the decide() function
- * will return \e DENY when there is a level match.
+ * will return \e DENY when there is a level match. The default value is
+ * \e TRUE.
  *
  * If there is no match then the decide() function returns \e NEUTRAL.
  *
@@ -109,7 +110,7 @@ log4g_level_match_filter_set_level_to_match(Log4gFilter *base,
         const gchar *level);
 
 /**
- * \brief Get the level-to-match property.
+ * \brief Retrieve the level-to-match property.
  *
  * \param base [in] A level match filter object.
  *
@@ -129,7 +130,7 @@ log4g_level_match_filter_set_accept_on_match(Log4gFilter *base,
         gboolean accept);
 
 /**
- * \brief Get the accept-on-match property.
+ * \brief Retrieve the accept-on-match property.
  *
  * \param base [in] A level match filter object.
  *

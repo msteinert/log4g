@@ -79,7 +79,7 @@ struct _Log4gLayoutClass {
      */
     gchar *(*format)(Log4gLayout *self, Log4gLoggingEvent *event);
     /**
-     * \brief Get the content type output by this layout.
+     * \brief Retrieve the content type output by this layout.
      *
      * The base class returns "text/plain".
      *
@@ -89,7 +89,7 @@ struct _Log4gLayoutClass {
      */
     const gchar *(*get_content_type)(Log4gLayout *self);
     /**
-     * \brief Get the header for the layout format.
+     * \brief Retrieve the header for the layout format.
      *
      * The base class returns \e NULL.
      *
@@ -99,7 +99,7 @@ struct _Log4gLayoutClass {
      */
     const gchar *(*get_header)(Log4gLayout *self);
     /**
-     * \brief Get the footer for the layout format.
+     * \brief Retrieve the footer for the layout format.
      *
      * The base class returns \e NULL.
      *
