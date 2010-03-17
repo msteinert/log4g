@@ -21,7 +21,9 @@
  * \date 2-5-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/interface/option-handler.h"
 
 G_DEFINE_INTERFACE(Log4gOptionHandler, log4g_option_handler, G_TYPE_INVALID)

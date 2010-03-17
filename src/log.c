@@ -21,7 +21,9 @@
  * \date 3-10-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include <stdio.h>
 
 /** \brief Indicates if internal debugging is enabled */
@@ -55,7 +57,9 @@ log4g_log_debug(const gchar *format, ...)
     if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
+#endif
         log4g_log_log(stdout, "log4g: ", format, ap);
         va_end(ap);
     }
@@ -65,7 +69,9 @@ void
 log4g_log_debugv(const gchar *format, va_list ap)
 {
     if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
+#endif
         log4g_log_log(stdout, "log4g: ", format, ap);
     }
 }
@@ -76,7 +82,9 @@ log4g_log_warn(const gchar *format, ...)
     if (!g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
+#endif
         log4g_log_log(stderr, "log4g:WARN ", format, ap);
         va_end(ap);
     }
@@ -86,7 +94,9 @@ void
 log4g_log_warnv(const gchar *format, va_list ap) 
 {
     if (!g_atomic_int_get(&quiet)) {
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
+#endif
         log4g_log_log(stderr, "log4g:WARN ", format, ap);
     }
 }
@@ -97,7 +107,9 @@ log4g_log_error(const gchar *format, ...)
     if (!g_atomic_int_get(&quiet)) {
         va_list ap;
         va_start(ap, format);
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
+#endif
         log4g_log_log(stderr, "log4g:ERROR ", format, ap);
         va_end(ap);
     }
@@ -107,7 +119,9 @@ void
 log4g_log_errorv(const gchar *format, va_list ap)
 {
     if (!g_atomic_int_get(&quiet)) {
-        /* g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap); */
+#if 0
+        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
+#endif
         log4g_log_log(stderr, "log4g:ERROR ", format, ap);
     }
 }

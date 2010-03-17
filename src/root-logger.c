@@ -21,7 +21,9 @@
  * \date 2-10-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/root-logger.h"
 
 G_DEFINE_TYPE(Log4gRootLogger, log4g_root_logger, LOG4G_TYPE_LOGGER)

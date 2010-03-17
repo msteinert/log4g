@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/level.h"
 #include <string.h>
 #include <syslog.h>

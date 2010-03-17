@@ -21,7 +21,9 @@
  * \date 2-8-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/interface/configurator.h"
 
 G_DEFINE_INTERFACE(Log4gConfigurator, log4g_configurator, G_TYPE_INVALID)

@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/interface/appender-attachable.h"
 
 G_DEFINE_INTERFACE(Log4gAppenderAttachable, log4g_appender_attachable,

@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/provision-node.h"
 
 G_DEFINE_TYPE(Log4gProvisionNode, log4g_provision_node, G_TYPE_OBJECT)

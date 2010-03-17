@@ -21,7 +21,9 @@
  * \date 2-10-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/helpers/default-repository-selector.h"
 #include "log4g/hierarchy.h"
 #include "log4g/log-manager.h"

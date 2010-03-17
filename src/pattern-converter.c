@@ -21,7 +21,9 @@
  * \date 2-15-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include <errno.h>
 #include "log4g/helpers/pattern-converter.h"
 #include <string.h>

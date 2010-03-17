@@ -21,7 +21,9 @@
  * \date 2-11-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/helpers/default-repository-selector.h"
 
 #define GET_PRIVATE(instance) \

@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/helpers/default-logger-factory.h"
 
 static Log4gLogger *

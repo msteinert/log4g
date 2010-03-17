@@ -21,7 +21,9 @@
  * \date 2-8-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/appender/console-appender.h"
 #include <unistd.h>
 

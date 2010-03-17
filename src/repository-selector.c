@@ -21,7 +21,9 @@
  * \date 2-11-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/interface/repository-selector.h"
 
 G_DEFINE_INTERFACE(Log4gRepositorySelector, log4g_repository_selector,

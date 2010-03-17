@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/interface/logger-factory.h"
 
 G_DEFINE_INTERFACE(Log4gLoggerFactory, log4g_logger_factory, G_TYPE_INVALID)

@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/filter/deny-all-filter.h"
 
 G_DEFINE_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter, LOG4G_TYPE_FILTER)

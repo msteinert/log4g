@@ -21,7 +21,9 @@
  * \date 2-14-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/helpers/thread.h"
 
 G_DEFINE_TYPE(Log4gThread, log4g_thread, G_TYPE_OBJECT)

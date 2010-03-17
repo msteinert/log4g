@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/filter.h"
 #include "log4g/helpers/pattern-converter.h"
 #include "log4g/interface/option-handler.h"

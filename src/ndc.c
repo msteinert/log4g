@@ -21,7 +21,9 @@
  * \date 2-3-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/helpers/thread.h"
 #include "log4g/ndc.h"
 #include <sys/types.h>

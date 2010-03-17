@@ -2,17 +2,19 @@
 # Process this file with cmake to produce build scripts.
 
 # find necessary packages
+find_package(GModule-2.0 REQUIRED)
 find_package(GObject-2.0 REQUIRED)
 find_package(LibXML-2.0 REQUIRED)
 # include directories
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}
+    ${GModule-2.0_INCLUDE_DIRS}
     ${GObject-2.0_INCLUDE_DIRS}
     ${LibXML-2.0_INCLUDE_DIRS}
 )
 # compiler switches
-add_definitions(-std=gnu99 -Wall -Werror)
+add_definitions(-std=gnu99 -Wall -Werror -DHAVE_CONFIG_H)
 # generate marshalling routines
 add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/support/marshal.h
     COMMAND ${GLib-2.0_GENMARSHAL} --header ${CMAKE_CURRENT_SOURCE_DIR}/support/marshal.list > ${CMAKE_CURRENT_SOURCE_DIR}/support/marshal.h
@@ -161,6 +163,7 @@ add_library(log4g SHARED
 )
 # linked libraries
 target_link_libraries(log4g
+    ${GModule-2.0_LIBRARIES}
     ${GObject-2.0_LIBRARIES}
     ${LibXML-2.0_LIBRARIES}
 )

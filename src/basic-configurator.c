@@ -21,7 +21,9 @@
  * \date 2-22-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/basic-configurator.h"
 #include "log4g/appender/console-appender.h"
 #include "log4g/layout/ttcc-layout.h"

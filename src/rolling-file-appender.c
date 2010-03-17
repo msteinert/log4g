@@ -21,7 +21,9 @@
  * \date 2-17-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include <errno.h>
 #include "log4g/appender/rolling-file-appender.h"
 #include "log4g/helpers/counting-quiet-writer.h"

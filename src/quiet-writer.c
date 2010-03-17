@@ -21,7 +21,9 @@
  * \date 1-29-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include <errno.h>
 #include "log4g/helpers/quiet-writer.h"
 #include "log4g/interface/error-handler.h"

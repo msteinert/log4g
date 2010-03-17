@@ -13,7 +13,7 @@ libfind_package(GObject-2.0 GLib-2.0)
 libfind_pkg_check_modules(GObject-2.0_PKGCONF gobject-2.0)
 # find the header file(s)
 find_path(GObject-2.0_INCLUDE_DIR
-    NAMES gobject/gobject.h
+    NAMES glib-object.h
     PATHS
     ${SEARCH_PATH}/include/glib-2.0
     ${GObject-2.0_PKGCONF_INCLUDE_DIRS}

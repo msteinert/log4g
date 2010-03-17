@@ -21,7 +21,9 @@
  * \date 2-17-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "log4g/layout/xml-layout.h"
 #include <time.h>
 
