@@ -2,11 +2,9 @@ General
 =======
 
     * Serialization (needed for network appenders)
-    * A lot more documentation is needed
-    * Possibly switch to gtk-doc
-    * Many more tests need to be written
     * Implement a plugin system for non-core appenders/layout/filters
-    * Add an Autotools build system
+    * Many more tests need to be written
+    * Possibly switch to gtk-doc
 
 Appenders
 =========

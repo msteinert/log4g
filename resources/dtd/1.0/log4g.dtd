@@ -1,47 +1,93 @@
+<!--
+Copyright 2010 Michael Steinert
+This file is part of Log4g.
+
+Log4g is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 2.1 of the License, or (at your option)
+any later version.
+
+Log4g is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Log4g. If not, see <http://www.gnu.org/licenses/>.
+-->
 <!-- Author: Michael Steinert -->
 <!-- Version: 1.0 -->
-<!-- ... -->
+<!-- configuration elements may contain appender elements, logger elements
+and an optional root logger element. -->
 <!ELEMENT log4g:configuration (appender*, logger*, root?)>
-<!-- ... -->
+<!-- The threshold attribute sets the level threshold for the entire logger
+hierarchy.
+
+The debug attribute is used to enable internal debugging. The default value
+for debug is NULL, meaning that the internal settings are not changed.
+
+The reset attribute causes the logger hierarchy to be reset before
+configuration is performed. -->
 <!ATTLIST log4g:configuration
     xmlns:log4g CDATA #FIXED "http://www.gnome.org/log4g/1.0/"
     threshold (all|trace|debug|info|warn|error|fatal|off|null) "null"
     debug (true|false|null) "null"
     reset (true|false) "false"
 >
-<!-- ... -->
+<!-- Appender must have a name, a type, or both. If only the name is defined
+then the this appender is treated as a reference to a previously defined
+appender. If both are defined then this is an appender definition and is
+stored for retrieval. If only the type is defined then this appender is being
+literally defined inside a logger definition.
+-->
 <!ELEMENT appender (property*|layout?|filter*|appender*)*>
 <!ATTLIST appender
     type CDATA #IMPLIED
     name CDATA #IMPLIED
 >
-<!-- ... -->
+<!-- Layouts are only valid within appender definitions. Refer to the specific
+layout documentation for the properties that can be set. -->
 <!ELEMENT layout (property*)>
+<!-- Layouts must have a type. -->
 <!ATTLIST layout
     type CDATA #REQUIRED
 >
-<!-- ... -->
+<!-- Filters are only valid within appender definitions. Refer to the specific
+filter documentation for the properties that can be set. -->
 <!ELEMENT filter (property*)>
+<!-- Filters must have a type. -->
 <!ATTLIST filter
     type CDATA #REQUIRED
 >
-<!-- ... -->
+<!-- The property is element is used to set a GObject property. -->
 <!ELEMENT property EMPTY>
+<!-- Properties must have a name and a value. -->
 <!ATTLIST property
     name CDATA #REQUIRED
     value CDATA #REQUIRED
 >
-<!-- ... -->
+<!-- Levels are used to define the log threshold for loggers. -->
 <!ELEMENT level (property*)>
+<!-- The implied type for levels is log4g_level. The value property is a
+string representation of a level. -->
 <!ATTLIST level
     type CDATA #IMPLIED
     value CDATA #REQUIRED
 >
-<!-- ... -->
+<!-- Loggers may contain levels and appenders. The implied level threshold
+is NULL (refer to the logger documentation). In order for a logger to output
+log events it must have one or more appender definitions. -->
 <!ELEMENT logger (level?|appender*)*>
+<!-- The name parameter defines the logger class and should be a dot (.)
+separated class definition.
+
+The additivity property determines if a logger will inherit the appenders of
+its ancestors. -->
 <!ATTLIST logger
     name CDATA #REQUIRED
     additivity (true|false) "true"
 >
-<!-- ... -->
+<!-- The root logger may be assigned a level and any number of appenders.
+The default root logger implementation does not support any GObject
+properties. -->
 <!ELEMENT root (property*|level?|appender*)*>

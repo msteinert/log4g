@@ -11,15 +11,10 @@ indirectly some Java) by porting Log4j classes directly to GObject classes.
 Hopefully some users of GLib and GObject will find this library useful.
 
 Official website:
-    http://github.com/msteinert/log4g
+    http://msteinert.github.com/log4g/
 
 To report bugs:
-    http://github.com/msteinert/log4g/issues
-
-Installation
-============
-
-See INSTALL for detailed build and installation instructions.
+    http://github.com/msteinert/log4g/issues/
 
 Quickstart
 ==========
@@ -87,6 +82,78 @@ log messages are flushed before your application exits.
 If you have used the default configuration (as in this example), log messages
 will be printed to stdout using the TTCC layout. For information on how to
 configure Log4g refer to the detailed documentation.
+
+Installation
+============
+
+See INSTALL for detailed build and installation instructions.
+
+Log4g ships with an Autotools build environment. First run the provided
+configure script (supplying any desired options) and then run make:
+
+    $ tar zxf log4g.tar.gz
+    $ cd log4g
+    $ ./configure
+    $ make
+    $ sudo make install
+
+Note: If you are building an unstable release (cloned with git) then you will
+      have to generate the configure script by running autogen.sh. This
+      requires that you have autoconf, automake and libtool installed. Refer
+      to the Autotools documentation for more information.
+
+CMake is a build configuration tool that performs system discovery and
+generates build scripts for the host (or target) platform. To build with
+CMake, execute the following commands:
+
+    $ tar zxf log4g.tar.gz
+    $ cd log4g
+    $ mkdir build && cd build
+    $ ../bootstrap
+    $ make
+    $ sudo make install
+
+Note: The CMake build scripts are only included in unstable releases (cloned
+      with git).
+
+Documentation
+=============
+
+Log4g is documented using Doxygen. If CMake finds Doxygen during configuration
+a `doc' target will be generated in the Makefile. Execute the following
+command to build the documentation:
+
+    $ make doc
+
+Once the documentation is generated, point your web browser to:
+
+    build/doc/html/index.html
+
+A reasonably up to date version of the documentation can be found at:
+
+    http://msteinert.github.com/log4g/documentation.html
+
+Dependencies
+============
+
+To build with CMake, the CMake application is required. For more information
+on CMake, see:
+
+    http://www.cmake.org/
+
+GNU Make is also recommended:
+
+    http://www.gnu.org/software/make/
+
+Log4g depends on the GLib-2.0 & GObject-2.0 libraries. For more information
+on GLib (GObject is a part of GLib), see:
+
+    http://www.gtk.org/
+
+The Log4g DOM parser module uses LibXML-2.0. For more information on LibXML,
+see:
+
+    http://xmlsoft.org/
 
 Copyright & License
 ===================

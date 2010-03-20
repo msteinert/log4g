@@ -38,7 +38,6 @@ set(APPENDERS
 )
 # setup base headers
 set(BASE
-    log4g.c
     log4g/disable.h
     log4g/dom-configurator.h
     log4g/error.h
@@ -128,6 +127,7 @@ add_library(log4g SHARED
     level-range-filter.c
     log-manager.c
     log.c
+    log4g.c
     logger.c
     logger-factory.c
     logger-repository.c
@@ -158,7 +158,7 @@ add_library(log4g SHARED
     ${BASE}
     ${FILTERS}
     ${HELPERS}
-    ${INTERFACESS}
+    ${INTERFACES}
     ${LAYOUTS}
 )
 # linked libraries
