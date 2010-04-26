@@ -145,7 +145,6 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     } else {
         g_string_set_size(priv->string, 0);
     }
-    c = priv->head;
     for (c = priv->head; c != NULL; c = log4g_pattern_converter_get_next(c)) {
         log4g_pattern_converter_format(c, priv->string, event);
     }
@@ -158,7 +157,8 @@ create_pattern_parser(Log4gLayout *base, const gchar *pattern)
     return log4g_pattern_parser_new(pattern);
 }
 
-static void log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
+static void
+log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
