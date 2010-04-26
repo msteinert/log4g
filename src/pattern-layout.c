@@ -52,9 +52,13 @@ G_DEFINE_TYPE_WITH_CODE(Log4gPatternLayout, log4g_pattern_layout,
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_PATTERN_LAYOUT, \
             struct Log4gPrivate))
 
+/** \brief The default size of a string buffer */
+#define BUF_SIZE (256)
+
+/** \brief The maximum size of a string buffer */
+#define MAX_CAPACITY (1024)
+
 struct Log4gPrivate {
-    gint BUF_SIZE;
-    gint MAX_CAPACITY;
     gchar *pattern;
     GString *string;
     Log4gPatternConverter *head;
@@ -64,8 +68,6 @@ static void
 log4g_pattern_layout_init(Log4gPatternLayout *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->BUF_SIZE = 256;
-    priv->MAX_CAPACITY = 1024;
     priv->pattern = NULL;
     priv->string = NULL;
     priv->head = NULL;
@@ -132,13 +134,13 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     Log4gPatternConverter *c;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->string) {
-        if (priv->string->allocated_len > priv->MAX_CAPACITY) {
+        if (priv->string->allocated_len > MAX_CAPACITY) {
             g_string_free(priv->string, TRUE);
             priv->string = NULL;
         }
     }
     if (!priv->string) {
-        priv->string = g_string_sized_new(priv->BUF_SIZE);
+        priv->string = g_string_sized_new(BUF_SIZE);
         if (!priv->string) {
             return NULL;
         }
