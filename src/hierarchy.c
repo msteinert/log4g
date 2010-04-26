@@ -97,13 +97,14 @@ update_parents(Log4gHierarchy *self, Log4gLogger *logger)
         *dot = '\0';
         object = g_hash_table_lookup(priv->table, name);
         if (!object) {
+            gchar *key;
             Log4gProvisionNode *node = log4g_provision_node_new(logger);
             if (!node) {
                 status = FALSE;
                 goto exit;
             }
-            gchar *key = g_strdup(name);
-            if (!name) {
+            key = g_strdup(name);
+            if (!key) {
                 g_object_unref(node);
                 status = FALSE;
                 goto exit;
@@ -129,7 +130,7 @@ exit:
 
 static gboolean
 update_children(Log4gHierarchy *self, Log4gProvisionNode *node,
-                Log4gLogger *logger)
+        Log4gLogger *logger)
 {
     guint last = log4g_provision_node_size(node);
     const gchar *name;
@@ -141,7 +142,7 @@ update_children(Log4gHierarchy *self, Log4gProvisionNode *node,
             continue;
         }
         name = log4g_logger_get_name(logger);
-        if (!strncmp(log4g_logger_get_name(l), name, strlen(name))) {
+        if (!g_strcmp0(log4g_logger_get_name(l), name)) {
             log4g_logger_set_parent(logger, log4g_logger_get_parent(l));
             log4g_logger_set_parent(l, logger);
         }
@@ -151,7 +152,7 @@ update_children(Log4gHierarchy *self, Log4gProvisionNode *node,
 
 static Log4gLogger *
 get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
-                   Log4gLoggerFactory *factory)
+        Log4gLoggerFactory *factory)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLogger *logger = NULL;
@@ -177,10 +178,8 @@ get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
             goto exit;
         }
         g_hash_table_insert(priv->table, key, logger);
-        goto exit;
     } else if (LOG4G_IS_LOGGER(object)) {
         logger = LOG4G_LOGGER(object);
-        goto exit;
     } else if (LOG4G_IS_PROVISION_NODE(object)) {
         gchar *key;
         Log4gProvisionNode *node = LOG4G_PROVISION_NODE(object);
@@ -202,11 +201,9 @@ get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
             goto exit;
         }
         g_hash_table_insert(priv->table, key, logger);
-        goto exit;
     } else {
-        goto exit; /* should be unreachable */
+        /* should be unreachable */
     }
-    return NULL;
 exit:
     g_mutex_unlock(priv->lock);
     return logger;
@@ -216,7 +213,7 @@ static Log4gLogger *
 get_logger(Log4gLoggerRepository *base, const gchar *name)
 {
     return log4g_logger_repository_get_logger_factory(base, name,
-                                            GET_PRIVATE(base)->factory);
+                GET_PRIVATE(base)->factory);
 }
 
 static Log4gLogger *
@@ -346,7 +343,7 @@ logger_repository_init(Log4gLoggerRepositoryInterface *interface,
 
 G_DEFINE_TYPE_WITH_CODE(Log4gHierarchy, log4g_hierarchy, G_TYPE_OBJECT,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_LOGGER_REPOSITORY,
-                              logger_repository_init))
+                logger_repository_init))
 
 static void
 log4g_hierarchy_init(Log4gHierarchy *object)

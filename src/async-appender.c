@@ -106,7 +106,7 @@ log4g_discard_summary_add(Log4gDiscardSummary *self, Log4gLoggingEvent *event)
  * \param ... [in] Format parameters.
  * \return A new logging event.
  */
-static Log4gLoggingEvent *
+static inline Log4gLoggingEvent *
 log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
         const gchar *message, ...)
 {
@@ -131,7 +131,7 @@ log4g_discard_summary_create_event(Log4gDiscardSummary *self)
 {
 
     return log4g_discard_summary_create_event0(self,
-                "Discarded %d message due to full event buffer including: %s",
+                "Discarded %d messages due to full event buffer including: %s",
                 self->count, log4g_logging_event_get_message(self->event));
 }
 
@@ -349,18 +349,18 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     if (G_UNLIKELY(discard)) {
         Log4gDiscardSummary *summary;
         const gchar *name = log4g_logging_event_get_logger_name(event);
+        g_mutex_lock(priv->discard);
         summary = g_hash_table_lookup(priv->summary, name);
         if (!summary) {
             summary = log4g_discard_summary_new(event);
             if (!summary) {
                 return;
             }
-            g_mutex_lock(priv->discard);
             g_hash_table_insert(priv->summary, (gpointer)name, summary);
-            g_mutex_unlock(priv->discard);
         } else {
             log4g_discard_summary_add(summary, event);
         }
+        g_mutex_unlock(priv->discard);
     }
 }
 

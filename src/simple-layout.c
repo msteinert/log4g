@@ -70,8 +70,6 @@ finalize(GObject *base)
 static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-    Log4gLayoutClass *layout_class =
-        g_type_class_peek_parent(LOG4G_SIMPLE_LAYOUT_GET_CLASS(base));
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLevel *level;
     g_string_set_size(priv->string, 0);
@@ -82,7 +80,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     g_string_append(priv->string, " - ");
     g_string_append(priv->string,
             log4g_logging_event_get_rendered_message(event));
-    g_string_append(priv->string, layout_class->LINE_SEP);
+    g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
     return priv->string->str;
 }
 

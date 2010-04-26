@@ -119,8 +119,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     g_string_append(priv->string, "- ");
     g_string_append(priv->string,
             log4g_logging_event_get_rendered_message(event));
-    g_string_append(priv->string,
-            LOG4G_LAYOUT_CLASS(log4g_ttcc_layout_parent_class)->LINE_SEP);
+    g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
     return priv->string->str;
 }
 

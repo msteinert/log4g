@@ -58,7 +58,7 @@ G_DEFINE_TYPE_WITH_CODE(Log4gNullAppender, log4g_null_appender,
                 log4g_null_appender_interface_init))
 
 /** \brief Store a single instance of this object. */
-Log4gAppender *instance = NULL;
+static Log4gAppender *instance = NULL;
 
 static void
 log4g_null_appender_init(Log4gNullAppender *self)

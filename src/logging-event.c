@@ -247,6 +247,7 @@ log4g_logging_event_get_ndc(Log4gLoggingEvent *self)
 
 /**
  * \brief Callback for g_hash_table_foreach().
+ *
  * \param key [in] The hash table key.
  * \param value [in] The hash table value (unused).
  * \param user_data [in] An array to append \e key to.
@@ -259,6 +260,7 @@ _get_keys(gpointer key, gpointer value, gpointer user_data)
 
 /**
  * \brief Construct a key set from an MDC hash table.
+ *
  * \param self [in] A logging event object.
  * \param mdc [in] The hash table to get keys from.
  */
@@ -300,6 +302,7 @@ log4g_logging_event_get_property_key_set(Log4gLoggingEvent *self)
 
 /**
  * \brief Callback for g_hash_table_foreach().
+ *
  * \param key [in] The hash table key.
  * \param value [in] The hash table value (unused).
  * \param user_data [in] A hash table to insert \e key & \e value into.
@@ -388,9 +391,9 @@ log4g_logging_event_get_full_info(Log4gLoggingEvent *self)
     if (!priv->fullinfo) {
         priv->fullinfo =
             g_strdup_printf("%s(%s:%s)",
-                (priv->function ? priv->function : "?"),
-                (priv->file ? priv->file : "?"),
-                (priv->line ? priv->line : "?"));
+                    (priv->function ? priv->function : "?"),
+                    (priv->file ? priv->file : "?"),
+                    (priv->line ? priv->line : "?"));
     }
     return priv->fullinfo;
 }

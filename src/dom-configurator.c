@@ -41,7 +41,6 @@ struct Log4gPrivate {
     xmlParserCtxtPtr ctx; /**< LibXML-2.0 parser context */
     GModule *module; /**< module handle to find *_get_type() functions */
     GString *scratch; /**< scratch buffer */
-    gboolean debug; /**< enables XML parser debugging */
     GHashTable *appenders; /**< store named appenders */
 };
 
@@ -109,7 +108,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             goto exit;
         }
         g_object_set(object, (const char *)value, (guint)i, NULL);
-    } else if (G_TYPE_LONG== spec->value_type) {
+    } else if (G_TYPE_LONG == spec->value_type) {
         gint64 i;
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
@@ -118,7 +117,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             goto exit;
         }
         g_object_set(object, (const char *)value, (glong)i, NULL);
-    } else if (G_TYPE_ULONG== spec->value_type) {
+    } else if (G_TYPE_ULONG == spec->value_type) {
         guint64 i;
         errno = 0;
         i = g_ascii_strtoull((const char *)value, NULL, 10);
@@ -127,7 +126,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             goto exit;
         }
         g_object_set(object, (const char *)value, (gulong)i, NULL);
-    } else if (G_TYPE_INT64== spec->value_type) {
+    } else if (G_TYPE_INT64 == spec->value_type) {
         gint64 i;
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
@@ -136,7 +135,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             goto exit;
         }
         g_object_set(object, (const char *)value, (glong)i, NULL);
-    } else if (G_TYPE_UINT64== spec->value_type) {
+    } else if (G_TYPE_UINT64 == spec->value_type) {
         guint64 i;
         errno = 0;
         i = g_ascii_strtoull((const char *)value, NULL, 10);
@@ -376,13 +375,14 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
         }
         node = node->next;
     }
-    if (log4g_appender_requires_layout(appender)) {
-        if (!log4g_appender_get_layout(appender)) {
-            log4g_log_error(Q_("%s: appender requires a layout"), type);
-            g_object_unref(appender);
-            appender = NULL;
-            goto exit;
-        }
+    if (log4g_appender_requires_layout(appender)
+            && !log4g_appender_get_layout(appender)) {
+        log4g_log_error(Q_("%s: appender requires a layout"), type);
+        g_hash_table_remove(priv->appenders,
+                log4g_appender_get_name(appender));
+        g_object_unref(appender);
+        appender = NULL;
+        goto exit;
     }
     log4g_appender_activate_options(appender);
 exit:
@@ -429,7 +429,7 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
         goto exit;
     }
     if (!klass->string_to_level) {
-        log4g_log_error(Q_("Log4gLevel virtual method "
+        log4g_log_error(Q_("Log4gLevel virtual function "
                     "string_to_level() is NULL"));
         goto exit;
     }
@@ -610,9 +610,9 @@ do_configure(Log4gConfigurator *base, const char *uri,
     att = xmlGetProp(node, (const xmlChar *)"debug");
     if (att) {
         if (!xmlStrcmp(att, (const xmlChar *)"true")) {
-            priv->debug = TRUE;
+            log4g_set_internal_debugging(TRUE);
         } else if (!xmlStrcmp(att, (const xmlChar *)"false")) {
-            priv->debug = FALSE;
+            log4g_set_internal_debugging(FALSE);
         } else if (!xmlStrcmp(att, (const xmlChar *)"null")) {
             log4g_log_warn(Q_("%s: ignoring `debug' attribute"), att);
         } else {
@@ -772,8 +772,7 @@ log4g_dom_configurator_new(void)
     }
     debug = getenv("LOG4G_DEBUG");
     if (debug) {
-        struct Log4gPrivate *priv = GET_PRIVATE(self);
-        priv->debug = TRUE;
+        log4g_set_internal_debugging(TRUE);
     }
     return self;
 }

@@ -36,7 +36,9 @@ log4g_root_logger_init(Log4gRootLogger *self)
 
 /**
  * \brief Get the effective log level of this root logger.
+ *
  * \param self [in] A root logger object.
+ *
  * \return The log level threshold for this root logger.
  */
 static Log4gLevel *
@@ -47,8 +49,10 @@ get_effective_level(Log4gLogger *self)
 
 /**
  * \brief Set the log level threshold for this root logger.
+ *
  * Setting a NULL value to the level of the root logger may have
  * catastrophic results. This is prevented here.
+ *
  * \param self [in] A root logger object.
  * \param level [in] The new level threshold for this root logger.
  */

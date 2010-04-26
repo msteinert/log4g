@@ -55,7 +55,7 @@ set_logger(Log4gErrorHandler *base, Log4gLogger *logger)
 
 static void
 error(Log4gErrorHandler *base, Log4gLoggingEvent *event,
-      const char *message, va_list ap)
+        const char *message, va_list ap)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->first) {

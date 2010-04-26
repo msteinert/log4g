@@ -55,6 +55,9 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LAYOUT, \
             Log4gLayoutClass))
 
+/** \brief The line separator for this platform. */
+#define LOG4G_LAYOUT_LINE_SEP "\n"
+
 /** \brief Log4gLayout object type definition */
 typedef struct _Log4gLayout Log4gLayout;
 
@@ -108,9 +111,6 @@ struct _Log4gLayoutClass {
      * \return The layout footer.
      */
     const gchar *(*get_footer)(Log4gLayout *self);
-    /*< public >*/
-    gchar *LINE_SEP; /**< The line separator for this platform. */
-    gint LINE_SEP_LEN; /**< The length (bytes) of \e LINE_SEP. */
 };
 
 GType

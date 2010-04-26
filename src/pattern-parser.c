@@ -209,9 +209,7 @@ log4g_pattern_parser_parse(Log4gPatternParser *self)
                     ++priv->i;
                     break;
                 case 'n': {
-                    Log4gLayoutClass *layout =
-                        g_type_class_peek(LOG4G_TYPE_LAYOUT);
-                    g_string_append(priv->buffer, layout->LINE_SEP);
+                    g_string_append(priv->buffer, LOG4G_LAYOUT_LINE_SEP);
                     ++priv->i;
                     break;
                 }

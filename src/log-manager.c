@@ -193,7 +193,7 @@ log4g_log_manager_get_logger(const gchar *name)
 
 Log4gLogger *
 log4g_log_manager_get_logger_factory(const gchar *name,
-                                     Log4gLoggerFactory *factory)
+        Log4gLoggerFactory *factory)
 {
     Log4gLoggerRepository *repository =
         log4g_log_manager_get_logger_repository();

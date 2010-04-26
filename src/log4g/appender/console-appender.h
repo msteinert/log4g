@@ -79,9 +79,6 @@ struct _Log4gConsoleAppender {
 /** \brief Log4gConsoleAppenderClass definition */
 struct _Log4gConsoleAppenderClass {
     Log4gWriterAppenderClass parent_class;
-    /*< private >*/
-    gchar *SYSTEM_OUT;
-    gchar *SYSTEM_ERR;
 };
 
 GType

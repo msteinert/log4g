@@ -38,6 +38,12 @@ enum _properties_t {
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_CONSOLE_APPENDER, \
                                  struct Log4gPrivate))
 
+/** \brief ... */
+#define SYSTEM_OUT "stdout"
+
+/** \brief ... */
+#define SYSTEM_ERR "sterr"
+
 struct Log4gPrivate {
     gchar *target;
     gboolean follow;
@@ -47,16 +53,15 @@ static void
 activate_options(Log4gOptionHandler *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gConsoleAppenderClass *klass = LOG4G_CONSOLE_APPENDER_GET_CLASS(base);
     if (priv->follow) {
-        if (g_ascii_strcasecmp(priv->target, klass->SYSTEM_OUT)) {
+        if (g_ascii_strcasecmp(priv->target, SYSTEM_OUT)) {
             log4g_writer_appender_set_writer(LOG4G_APPENDER(base), stdout);
         } else {
             log4g_writer_appender_set_writer(LOG4G_APPENDER(base), stderr);
         }
     } else {
         int fd;
-        if (g_ascii_strcasecmp(priv->target, klass->SYSTEM_OUT)) {
+        if (g_ascii_strcasecmp(priv->target, SYSTEM_OUT)) {
             fd = dup(fileno(stdout));
         } else {
             fd = dup(fileno(stderr));
@@ -100,9 +105,8 @@ G_DEFINE_TYPE_WITH_CODE(Log4gConsoleAppender, log4g_console_appender,
 static void
 log4g_console_appender_init(Log4gConsoleAppender *self)
 {
-    Log4gConsoleAppenderClass *klass = LOG4G_CONSOLE_APPENDER_GET_CLASS(self);
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->target = klass->SYSTEM_OUT;
+    priv->target = SYSTEM_OUT;
     priv->follow = FALSE;
 }
 
@@ -127,16 +131,16 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         }
         g_strstrip(target);
         klass = LOG4G_CONSOLE_APPENDER_GET_CLASS(base);
-        if (g_ascii_strcasecmp(target, klass->SYSTEM_OUT)) {
-            priv->target = klass->SYSTEM_OUT;
-        } else if (g_ascii_strcasecmp(target, klass->SYSTEM_ERR)) {
-            priv->target = klass->SYSTEM_ERR;
+        if (g_ascii_strcasecmp(target, SYSTEM_OUT)) {
+            priv->target = SYSTEM_OUT;
+        } else if (g_ascii_strcasecmp(target, SYSTEM_ERR)) {
+            priv->target = SYSTEM_ERR;
         } else {
             log4g_log_warn(Q_("[%s] should be stdout or stderr"), target);
             log4g_log_warn(Q_("using previously set target, "
                         "stdout by default"));
             if (!priv->target) {
-                priv->target = klass->SYSTEM_OUT;
+                priv->target = SYSTEM_OUT;
             }
         }
         g_free(target);
@@ -171,9 +175,6 @@ log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize WriterAppenderClass */
     writer_class->close_writer = close_writer;
-    /* initialize class data */
-    klass->SYSTEM_OUT = g_strdup("stdout");
-    klass->SYSTEM_ERR = g_strdup("stderr");
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_TARGET,
             g_param_spec_string("target", Q_("Target"),

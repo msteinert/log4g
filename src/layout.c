@@ -62,9 +62,6 @@ log4g_layout_class_init(Log4gLayoutClass *klass)
     klass->get_content_type = get_content_type;
     klass->get_header = get;
     klass->get_footer = get;
-    /* initialize class data */
-    klass->LINE_SEP = g_strdup("\n");
-    klass->LINE_SEP_LEN = strlen(klass->LINE_SEP);
 }
 
 gchar *

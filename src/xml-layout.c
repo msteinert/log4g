@@ -53,9 +53,13 @@ G_DEFINE_TYPE_WITH_CODE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT,
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_XML_LAYOUT, \
             struct Log4gPrivate))
 
+/** \brief Default string buffer size */
+#define BUF_SIZE (256)
+
+/** \brief Maximum string buffer size */
+#define MAX_CAPACITY (2048)
+
 struct Log4gPrivate {
-    gint BUF_SIZE;
-    gint MAX_CAPACITY;
     GString *string;
     gboolean properties;
     gboolean info;
@@ -65,9 +69,7 @@ static void
 log4g_xml_layout_init(Log4gXMLLayout *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->BUF_SIZE = 256;
-    priv->MAX_CAPACITY = 2048;
-    priv->string = g_string_sized_new(priv->BUF_SIZE);
+    priv->string = g_string_sized_new(BUF_SIZE);
     priv->properties = FALSE;
     priv->info = FALSE;
 }
@@ -109,9 +111,9 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     time_t t = tv->tv_sec;
     gchar buffer[26];
     gchar *escaped;
-    if (priv->string->len > priv->MAX_CAPACITY) {
+    if (priv->string->len > MAX_CAPACITY) {
         g_string_free(priv->string, TRUE);
-        priv->string = g_string_sized_new(priv->BUF_SIZE);
+        priv->string = g_string_sized_new(BUF_SIZE);
         if (!priv->string) {
             return NULL;
         }

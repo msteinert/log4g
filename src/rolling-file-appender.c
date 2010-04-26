@@ -170,7 +170,8 @@ log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     Log4gWriterAppenderClass *writer_class = LOG4G_WRITER_APPENDER_CLASS(klass);
-    Log4gFileAppenderClass *file_class = LOG4G_FILE_APPENDER_CLASS(klass);
+    Log4gFileAppenderClass *file_class =
+        LOG4G_FILE_APPENDER_CLASS(klass);
     /* initialize GObject class */
     gobject_class->set_property = set_property;
     /* initialize private data */

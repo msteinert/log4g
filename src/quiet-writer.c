@@ -69,7 +69,7 @@ _write(Log4gQuietWriter *self, const char *string)
     }
     if (EOF == fputs(string, priv->file)) {
         log4g_error_handler_error(priv->error, NULL,
-                Q_("filed to write [%s]: %s"), string, g_strerror(errno));
+                Q_("failed to write [%s]: %s"), string, g_strerror(errno));
     }
 }
 
@@ -131,7 +131,7 @@ log4g_quiet_writer_flush(Log4gQuietWriter *self)
     }
     if (EOF == fflush(priv->file)) {
         log4g_error_handler_error(priv->error, NULL,
-                Q_("filed to flush writer: %s"), g_strerror(errno));
+                Q_("failed to flush writer: %s"), g_strerror(errno));
     }
 }
 

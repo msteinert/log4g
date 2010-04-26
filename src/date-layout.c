@@ -179,14 +179,13 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
     priv = GET_PRIVATE(base);
     struct timeval *tv;
     gchar buffer[128];
-    struct tm tm;
-    time_t time;
     tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return;
     }
     if (priv->format) {
-        time = tv->tv_sec;
+        struct tm tm;
+        time_t time = tv->tv_sec;
         if (!localtime_r(&time, &tm)) {
             log4g_log_error("localtime_r(): %s", g_strerror(errno));
             return;

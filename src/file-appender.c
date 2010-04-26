@@ -260,7 +260,7 @@ log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
 {
     g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
     LOG4G_FILE_APPENDER_GET_CLASS(base)->
-        set_file_full(base, file, append, buffered, size);
+            set_file_full(base, file, append, buffered, size);
 }
 
 void
