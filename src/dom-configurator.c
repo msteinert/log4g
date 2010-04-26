@@ -87,7 +87,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         g_object_set(object, (const gchar *)value, *value, NULL);
     } else if (G_TYPE_UCHAR == spec->value_type) {
         if (1 != strlen((const char *)value)) {
-            log4g_log_error(Q_("%s: not a uchar"), value);
+            log4g_log_error(Q_("%s: not an uchar"), value);
             goto exit;
         }
         g_object_set(object, (const gchar *)value, *value, NULL);
@@ -132,7 +132,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         errno = 0;
         i = g_ascii_strtoll((const char *)value, NULL, 10);
         if (errno) {
-            log4g_log_error(Q_("%s: not a uint64"), value);
+            log4g_log_error(Q_("%s: not an int64"), value);
             goto exit;
         }
         g_object_set(object, (const char *)value, (glong)i, NULL);

@@ -111,7 +111,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
             break;
         }
         parser = log4g_pattern_layout_create_pattern_parser(LOG4G_LAYOUT(base),
-                        pattern);
+                        priv->pattern);
         if (!parser) {
             g_free(priv->pattern);
             priv->pattern = NULL;
