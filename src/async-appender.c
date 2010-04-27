@@ -71,16 +71,14 @@ log4g_discard_summary_new(Log4gLoggingEvent *event)
     g_return_val_if_fail(LOG4G_IS_LOGGING_EVENT(event), NULL);
     self = g_try_malloc(sizeof(*self));
     if (!self) {
-        goto error;
+        log4g_discard_summary_destroy(self);
+        return NULL;
     }
     memset(self, 0, sizeof(*self));
     g_object_ref(event);
     self->event = event;
     self->count = 1;
     return self;
-error:
-    log4g_discard_summary_destroy(self);
-    return NULL;
 }
 
 /**
@@ -129,7 +127,6 @@ log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
 static Log4gLoggingEvent *
 log4g_discard_summary_create_event(Log4gDiscardSummary *self)
 {
-
     return log4g_discard_summary_create_event0(self,
                 "Discarded %d messages due to full event buffer including: %s",
                 self->count, log4g_logging_event_get_message(self->event));
@@ -200,16 +197,15 @@ G_DEFINE_TYPE_WITH_CODE(Log4gAsyncAppender, log4g_async_appender,
 static void
 _discarded(gpointer key, gpointer value, gpointer user_data)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(user_data);
+    struct Log4gPrivate *priv = (struct Log4gPrivate *)user_data;
     Log4gLoggingEvent *event = log4g_discard_summary_create_event(value);
     if (!event) {
         return;
     }
-    g_mutex_lock(priv->lock);
+    /* priv->lock is held in _run() */
     log4g_appender_attachable_impl_append_loop_on_appenders(
             priv->appenders, event);
     g_object_unref(event);
-    g_mutex_unlock(priv->lock);
 }
 
 static void
@@ -218,15 +214,17 @@ _run(gpointer data, gpointer user_data)
     struct Log4gPrivate *priv = GET_PRIVATE(user_data);
     g_mutex_lock(priv->lock);
     log4g_appender_attachable_impl_append_loop_on_appenders(
-                                priv->appenders, LOG4G_LOGGING_EVENT(data));
-    g_mutex_unlock(priv->lock);
+            priv->appenders, LOG4G_LOGGING_EVENT(data));
     g_object_unref(data);
-    g_mutex_lock(priv->discard);
-    if (priv->summary && g_hash_table_size(priv->summary)) {
-        g_hash_table_foreach(priv->summary, _discarded, priv);
-        g_hash_table_remove_all(priv->summary);
+    if (g_atomic_int_get(&priv->blocking)) {
+        g_mutex_lock(priv->discard);
+        if (priv->summary && g_hash_table_size(priv->summary)) {
+            g_hash_table_foreach(priv->summary, _discarded, priv);
+            g_hash_table_remove_all(priv->summary);
+        }
+        g_mutex_unlock(priv->discard);
     }
-    g_mutex_unlock(priv->discard);
+    g_mutex_unlock(priv->lock);
 }
 
 static void
