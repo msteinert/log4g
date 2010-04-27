@@ -38,11 +38,11 @@ enum _properties_t {
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_CONSOLE_APPENDER, \
                                  struct Log4gPrivate))
 
-/** \brief ... */
+/** \brief System output identifier */
 #define SYSTEM_OUT "stdout"
 
-/** \brief ... */
-#define SYSTEM_ERR "sterr"
+/** \brief System error identifier */
+#define SYSTEM_ERR "stderr"
 
 struct Log4gPrivate {
     gchar *target;
@@ -136,9 +136,10 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         } else if (g_ascii_strcasecmp(target, SYSTEM_ERR)) {
             priv->target = SYSTEM_ERR;
         } else {
-            log4g_log_warn(Q_("[%s] should be stdout or stderr"), target);
-            log4g_log_warn(Q_("using previously set target, "
-                        "stdout by default"));
+            log4g_log_warn(Q_("[%s] should be %s or %s"),
+                    target, SYSTEM_OUT, SYSTEM_ERR);
+            log4g_log_warn(Q_("using previously set target, %s by default"),
+                    SYSTEM_OUT);
             if (!priv->target) {
                 priv->target = SYSTEM_OUT;
             }
