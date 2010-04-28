@@ -24,7 +24,16 @@
  * This is a simple syslog appender that appends to the local syslog using
  * the syslog(3) system call.
  *
- * \note This is a very basic implementation and could use some work.
+ * Syslog appenders accept the following properties:
+ * -# ident
+ * -# option
+ * -# facility
+ *
+ * The value of ident will be the first parameter to openlog(3).
+ *
+ * The value of option will be the second parameter to openlog(3).
+ *
+ * The value of facility will be the third parameter to openlog(3).
  *
  * \see syslog(3)
  */
@@ -90,6 +99,63 @@ GType log4g_syslog_appender_get_type(void);
 Log4gAppender *
 log4g_syslog_appender_new(Log4gLayout *layout, const char *ident, gint option,
         gint faciliity);
+
+/**
+ * \brief Set the syslog(3) ident value.
+ *
+ * \param base [in] A syslog appender object.
+ * \param ident [in] The new ident value.
+ */
+void
+log4g_syslog_appender_set_ident(Log4gAppender *base, const gchar *ident);
+
+/**
+ * \brief Retrieve the current syslog(3) ident value.
+ *
+ * \param base [in] A syslog appender object.
+ *
+ * \return The current syslog(3) ident value for \e base.
+ */
+const gchar *
+log4g_syslog_appender_get_ident(Log4gAppender *base);
+
+/**
+ * \brief Set the syslog(3) option value.
+ *
+ * \param base [in] A syslog appender object.
+ * \param option [in] The new option value.
+ */
+void
+log4g_syslog_appender_set_option(Log4gAppender *base, gint option);
+
+/**
+ * \brief Retrieve the current syslog(3) option value.
+ *
+ * \param base [in] A syslog appender object.
+ *
+ * \return The current syslog(3) option value for \e base.
+ */
+gint
+log4g_syslog_appender_get_option(Log4gAppender *base);
+
+/**
+ * \brief Set the syslog(3) facility value.
+ *
+ * \param base [in] A syslog appender object.
+ * \param facility [in] The new facilty value.
+ */
+void
+log4g_syslog_appender_set_facility(Log4gAppender *base, gint facility);
+
+/**
+ * \brief Retrieve the current syslog(3) facility value.
+ *
+ * \param base [in] A syslog appender object.
+ *
+ * \return The current syslog(3) facility value for \e base.
+ */
+gint
+log4g_syslog_appender_get_facility(Log4gAppender *base);
 
 G_END_DECLS
 

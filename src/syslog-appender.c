@@ -25,9 +25,38 @@
 #include "config.h"
 #endif
 #include "log4g/appender/syslog-appender.h"
-#include "log4g/interface/error-handler.h"
-#include <string.h>
 #include <syslog.h>
+
+enum _properties_t {
+    PROP_O = 0,
+    PROP_IDENT,
+    PROP_OPTION,
+    PROP_FACILITY,
+    PROP_MAX
+};
+
+#define GET_PRIVATE(instance) \
+    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_SYSLOG_APPENDER, \
+            struct Log4gPrivate))
+
+struct Log4gPrivate {
+    gchar *ident;
+    gint option;
+    gint facility;
+};
+
+static void
+activate_options(Log4gOptionHandler *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    openlog(priv->ident, priv->option, priv->facility);
+}
+
+static void
+option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
+{
+    interface->activate_options = activate_options;
+}
 
 static void
 _close(Log4gAppender *base)
@@ -53,17 +82,8 @@ appender_init(Log4gAppenderInterface *interface)
 
 G_DEFINE_TYPE_WITH_CODE(Log4gSyslogAppender, log4g_syslog_appender,
         LOG4G_TYPE_APPENDER_SKELETON,
+        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
-
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_SYSLOG_APPENDER, \
-            struct Log4gPrivate))
-
-struct Log4gPrivate {
-    gchar *ident;
-    gint option;
-    gint facility;
-};
 
 static void
 log4g_syslog_appender_init(Log4gSyslogAppender *self)
@@ -87,18 +107,45 @@ finalize(GObject *base)
 }
 
 static void
+set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    const gchar *ident;
+    switch (id) {
+    case PROP_IDENT:
+        if (priv->ident) {
+            g_free(priv->ident);
+        }
+        ident = g_value_get_string(value);
+        if (ident) {
+            priv->ident = g_strdup(ident);
+        } else {
+            priv->ident = NULL;
+        }
+        break;
+    case PROP_OPTION:
+        priv->option = g_value_get_int(value);
+        break;
+    case PROP_FACILITY:
+        priv->option = g_value_get_int(value);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
+        break;
+    }
+}
+
+static void
 append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
-    va_list ap;
-    memset(&ap, 0, sizeof(ap));
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLayout *layout = log4g_appender_get_layout(base);
-    const char *message = log4g_layout_format(layout, event);
     Log4gLevel *level = log4g_logging_event_get_level(event);
-    memset(ap, 0, sizeof(ap));
-    vsyslog(log4g_level_get_syslog_equivalent(level) | priv->facility,
-            message, ap);
+    if (layout && level) {
+        syslog(log4g_level_get_syslog_equivalent(level), "%s",
+                log4g_layout_format(layout, event));
+    }
 }
+
 static void
 log4g_syslog_appender_class_init(Log4gSyslogAppenderClass *klass)
 {
@@ -107,28 +154,85 @@ log4g_syslog_appender_class_init(Log4gSyslogAppenderClass *klass)
             LOG4G_APPENDER_SKELETON_CLASS(klass);
     /* initialize GObject */
     gobject_class->finalize = finalize;
+    gobject_class->set_property = set_property;
+    /* initialize private data */
+    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gAppenderSkeleton */
     skeleton_class->append = append;
+    /* install properties */
+    g_object_class_install_property(gobject_class, PROP_IDENT,
+            g_param_spec_string("ident", Q_("Ident"),
+                    Q_("Syslog ident parameter"), NULL, G_PARAM_WRITABLE));
+    g_object_class_install_property(gobject_class, PROP_OPTION,
+            g_param_spec_int("option", Q_("Option"),
+                    Q_("Syslog option parameter"), 0, G_MAXINT, 0,
+                    G_PARAM_WRITABLE));
+    g_object_class_install_property(gobject_class, PROP_FACILITY,
+            g_param_spec_int("facility", Q_("Facility"),
+                    Q_("Syslog facility parameter"), 0, G_MAXINT, 0,
+                    G_PARAM_WRITABLE));
 }
 
 Log4gAppender *
 log4g_syslog_appender_new(Log4gLayout *layout, const char *ident, gint option,
         gint facility)
 {
-    struct Log4gPrivate *priv;
     Log4gAppender *self = g_object_new(LOG4G_TYPE_SYSLOG_APPENDER, NULL);
     if (!self) {
         return NULL;
     }
-    log4g_appender_set_layout(self, layout);
-    priv = GET_PRIVATE(self);
-    priv->ident = g_strdup(ident);
-    if (!priv->ident) {
-        g_object_unref(self);
-        return NULL;
+    if (layout) {
+        log4g_syslog_appender_set_ident(self, ident);
     }
-    priv->option = option;
-    priv->facility = facility;
-    openlog(ident, option, facility);
+    if (option) {
+        log4g_syslog_appender_set_option(self, option);
+    }
+    if (facility) {
+        log4g_syslog_appender_set_facility(self, facility);
+    }
+    log4g_appender_set_layout(self, layout);
+    log4g_option_handler_activate_options(LOG4G_OPTION_HANDLER(self));
     return self;
+}
+
+void
+log4g_syslog_appender_set_ident(Log4gAppender *base, const gchar *ident)
+{
+    g_return_if_fail(LOG4G_IS_SYSLOG_APPENDER(base));
+    g_object_set(base, "ident", ident, NULL);
+}
+
+const gchar *
+log4g_syslog_appender_get_ident(Log4gAppender *base)
+{
+    g_return_val_if_fail(LOG4G_IS_SYSLOG_APPENDER(base), NULL);
+    return GET_PRIVATE(base)->ident;
+}
+
+void
+log4g_syslog_appender_set_option(Log4gAppender *base, gint option)
+{
+    g_return_if_fail(LOG4G_IS_SYSLOG_APPENDER(base));
+    g_object_set(base, "option", option, NULL);
+}
+
+gint
+log4g_syslog_appender_get_option(Log4gAppender *base)
+{
+    g_return_val_if_fail(LOG4G_IS_SYSLOG_APPENDER(base), 0);
+    return GET_PRIVATE(base)->option;
+}
+
+void
+log4g_syslog_appender_set_facility(Log4gAppender *base, gint facility)
+{
+    g_return_if_fail(LOG4G_IS_SYSLOG_APPENDER(base));
+    g_object_set(base, "facility", facility, NULL);
+}
+
+gint
+log4g_syslog_appender_get_facility(Log4gAppender *base)
+{
+    g_return_val_if_fail(LOG4G_IS_SYSLOG_APPENDER(base), 0);
+    return GET_PRIVATE(base)->facility;
 }

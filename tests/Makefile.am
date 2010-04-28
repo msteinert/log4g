@@ -32,6 +32,7 @@ check_PROGRAMS = \
     provision-node-test \
     quiet-writer-test \
     rolling-file-appender-test \
+    syslog-appender-test \
     writer-appender-test
 # add source files
 appender_attachable_impl_test_SOURCES = appender-attachable-impl-test.c
@@ -52,6 +53,7 @@ pattern_layout_test_SOURCES = pattern-layout-test.c
 provision_node_test_SOURCES = provision-node-test.c
 quiet_writer_test_SOURCES = quiet-writer-test.c
 rolling_file_appender_test_SOURCES = rolling-file-appender-test.c
+syslog_appender_test_SOURCES = syslog-appender-test.c
 writer_appender_test_SOURCES = writer-appender-test.c
 # run tests
 check-local: $(check_PROGRAMS)

@@ -33,6 +33,7 @@ set(TESTS
     provision-node-test
     quiet-writer-test
     rolling-file-appender-test
+    syslog-appender-test
     writer-appender-test
 )
 # add executables

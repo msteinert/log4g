@@ -11,17 +11,17 @@ include(LibFindMacros)
 libfind_package(Log4g GObject-2.0)
 libfind_package(Log4g LibXML-2.0)
 # use pkg-config for hints
-libfind_pkg_check_modules(Log4g_PKGCONF gthread-2.0)
+libfind_pkg_check_modules(Log4g_PKGCONF log4g)
 # find the header file(s)
 find_path(Log4g_INCLUDE_DIR
-    NAMES gthread/gthread.h
+    NAMES log4g/log4g.h
     PATHS
-    ${SEARCH_PATH}/include/glib-2.0
+    ${SEARCH_PATH}/include
     ${Log4g_PKGCONF_INCLUDE_DIRS}
 )
 # find the library
 find_library(Log4g_LIBRARY
-    NAMES gthread-2.0
+    NAMES log4g
     PATHS
     ${SEARCH_PATH}/lib
     ${Log4g_PKGCONF_LIBRARY_DIRS}
