@@ -47,31 +47,31 @@ G_BEGIN_DECLS
 
 #define log4g_logger_assert(logger, assertion, format, args...)
 
-#define log4g_is_trace_enabled()
+#define log4g_is_trace_enabled() (FALSE)
 
 #define log4g_trace(format, args...)
 
 #define log4g_logger_trace(logger, format, args...)
 
-#define log4g_is_debug_enabled()
+#define log4g_is_debug_enabled() (FALSE)
 
 #define log4g_debug(format, args...)
 
 #define log4g_logger_debug(logger, format, args...)
 
-#define log4g_is_info_enabled()
+#define log4g_is_info_enabled() (FALSE)
 
 #define log4g_info(format, args...)
 
 #define log4g_logger_info(logger, format, args...)
 
-#define log4g_is_warn_enabled()
+#define log4g_is_warn_enabled() (FALSE)
 
 #define log4g_warn(format, args...)
 
 #define log4g_logger_warn(logger, format, args...)
 
-#define log4g_is_error_enabled()
+#define log4g_is_error_enabled() (FALSE)
 
 #define log4g_error(format, args...)
 
@@ -79,7 +79,7 @@ G_BEGIN_DECLS
 
 #define log4g_logger_warn(logger, format, args...)
 
-#define log4g_is_fatal_enabled()
+#define log4g_is_fatal_enabled() (FALSE)
 
 #define log4g_fatal(format, args...)
 
@@ -89,7 +89,7 @@ G_BEGIN_DECLS
 
 #define log4g_mdc_put(key, value, args...)
 
-#define log4g_mdc_get(key)
+#define log4g_mdc_get(key) (NULL)
 
 #define log4g_mdc_remove(key)
 
@@ -97,15 +97,17 @@ G_BEGIN_DECLS
 
 #define log4g_ndc_clear()
 
-#define log4g_ndc_clone() NULL
+#define log4g_ndc_clone() (NULL)
 
 #define log4g_ndc_inherit(stack)
 
+#define log4g_ndc_get() (NULL)
+
 #define log4g_ndc_push(message, args...)
 
-#define log4g_ndc_pop() NULL
+#define log4g_ndc_peek() (NULL)
 
-#define log4g_ndc_pop() NULL 
+#define log4g_ndc_pop() (NULL)
 
 #define log4g_ndc_remove()
 

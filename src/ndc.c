@@ -36,8 +36,8 @@ G_DEFINE_TYPE(Log4gNDC, log4g_ndc, G_TYPE_OBJECT)
             struct Log4gPrivate))
 
 struct Log4gPrivate {
-    GArray *stack;
-    gchar *pop;
+    GArray *stack; /**< The NDC stack */
+    gchar *pop; /**< The most recently popped complete context */
 };
 
 /** \brief A diagnostic context node. */
@@ -48,6 +48,7 @@ typedef struct _Log4gDiagnosticContext {
 
 /**
  * \brief Free dynamic resources used by a diagnostic context object.
+ *
  * \param self [in] A diagnostic context object.
  */
 static void
@@ -66,9 +67,11 @@ log4g_diagnostic_context_destroy(Log4gDiagnosticContext *self)
 
 /**
  * \brief Create a new diagnostic context object.
+ *
  * \param parent [in] The parent diagnostic context.
  * \param message [in] The current diagnostic context message.
  * \param ap [in] Format parameters for \e message.
+ *
  * \return A new diagnostic context object.
  */
 static Log4gDiagnosticContext *
@@ -102,7 +105,9 @@ error:
 
 /**
  * \brief Clone a diagnostic context object.
+ *
  * \param self [in] The object to clone.
+ *
  * \return An exact copy of \e self.
  */
 static Log4gDiagnosticContext *
@@ -135,6 +140,7 @@ static GPrivate *priv = NULL;
 
 /**
  * \brief Get the current NDC stack.
+ *
  * \return The current NDC stack or NULL if none exists.
  */
 static GArray *log4g_ndc_get_current_stack(void);
@@ -309,7 +315,6 @@ log4g_ndc_size(void)
 const gchar *
 log4g_ndc_pop(void)
 {
-    GArray *stack;
     Log4gNDC *self;
     struct Log4gPrivate *priv;
     Log4gDiagnosticContext *context;
@@ -318,11 +323,11 @@ log4g_ndc_pop(void)
         return NULL;
     }
     priv = GET_PRIVATE(self);
-    stack = priv->stack;
-    if (!stack || !stack->len) {
+    if (!priv->stack || !priv->stack->len) {
         return NULL;
     }
-    context = g_array_index(stack, Log4gDiagnosticContext *, stack->len - 1);
+    context = g_array_index(priv->stack, Log4gDiagnosticContext *,
+                    priv->stack->len - 1);
     if (context) {
         if (priv->pop) {
             g_free(priv->pop);
@@ -331,7 +336,7 @@ log4g_ndc_pop(void)
         context->message = NULL;
         log4g_diagnostic_context_destroy(context);
     }
-    g_array_remove_index(stack, stack->len - 1);
+    g_array_remove_index(priv->stack, priv->stack->len - 1);
     return priv->pop;
 }
 
@@ -384,7 +389,7 @@ log4g_ndc_push(const char *message, ...)
         Log4gDiagnosticContext *context;
         Log4gDiagnosticContext *parent =
             g_array_index(priv->stack, Log4gDiagnosticContext *,
-                          priv->stack->len - 1);
+                    priv->stack->len - 1);
         va_start(ap, message);
         context = log4g_diagnostic_context_new(parent, message, ap);
         va_end(ap);

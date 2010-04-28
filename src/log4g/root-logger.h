@@ -22,9 +22,9 @@
  * \date 2-10-2010
  *
  * The root logger sits on top of the logger hierarchy. It is a normal logger
- * with the following conditions:
+ * with the following exceptions:
  * -# It may not be assigned a NULL level threshold
- * -# The root logger may not have a parent (the get_effective_threshold()
+ * -# The root logger cannot have a parent (the get_effective_threshold()
  *    method always returns the value of the level field without walking
  *    the hierarchy)
  */

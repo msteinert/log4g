@@ -28,7 +28,7 @@
  * -# accept-on-match
  *
  * If there is a match between the string-to-match value and the log event
- * message then the decide() function returns:
+ * message then the _Log4gLevelClass::decide() function returns:
  * - \e ACCEPT if accept-on-match is \e TRUE
  * - \e DENY if accept-on-match is \e FALSE
  *

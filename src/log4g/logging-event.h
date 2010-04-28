@@ -21,7 +21,7 @@
  * \author Mike Steinert
  * \date 1-29-2010
  *
- * When an affirmative decision is made to log an event then a logging event
+ * Once an affirmative decision is made to log an event a logging event
  * instance is created. This instance is passed to appenders and filters to
  * perform actual logging.
  *

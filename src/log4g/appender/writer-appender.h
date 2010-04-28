@@ -21,8 +21,7 @@
  * \author Mike Steinert
  * \date 2-8-2010
  *
- * This class is meant to be used as a base class for appenders that write
- * to stdio(3) streams.
+ * This class is a base class for appenders that write to stdio(3) streams.
  *
  * Writer appenders accept one property:
  * -# immediate-flush

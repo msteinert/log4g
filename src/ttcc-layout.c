@@ -96,10 +96,8 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     log4g_date_layout_date_format(base, priv->string, event);
     g_string_append_c(priv->string, ' ');
     if (priv->thread) {
-        g_string_append_c(priv->string, '[');
-        g_string_append_printf(priv->string, "%s",
+        g_string_append_printf(priv->string, "[%s] ",
                 log4g_logging_event_get_thread_name(event));
-        g_string_append(priv->string, "] ");
     }
     g_string_append(priv->string,
             log4g_level_to_string(log4g_logging_event_get_level(event)));

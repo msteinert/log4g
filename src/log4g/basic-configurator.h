@@ -37,7 +37,7 @@ G_BEGIN_DECLS
  * This function adds a
  * \ref log4g/appender/console-appender.h "console appender" to the
  * \ref log4g/root-logger.h "root logger" that uses the
- * \ref log4g/layout/ttcc-layout.h "TTCC layout" and prints to \e stderr.
+ * \ref log4g/layout/ttcc-layout.h "TTCC layout" and prints to \e stdout.
  */
 void
 log4g_basic_configurator_configure(void);

@@ -191,7 +191,7 @@ log4g_syslog_appender_new(Log4gLayout *layout, const char *ident, gint option,
         log4g_syslog_appender_set_facility(self, facility);
     }
     log4g_appender_set_layout(self, layout);
-    log4g_option_handler_activate_options(LOG4G_OPTION_HANDLER(self));
+    log4g_appender_activate_options(self);
     return self;
 }
 

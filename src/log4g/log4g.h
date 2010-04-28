@@ -80,28 +80,28 @@
  * \ref log4g/interface/appender.h "appenders" and
  * \ref log4g/layout.h "layouts".
  *
- * Log4g elements (i.e. appenders, layouts and filter) are configured via
+ * Log4g elements (i.e. appenders, layouts and filters) are configured via
  * <a href="http://library.gnome.org/devel/gobject/stable/gobject-properties.html">GObject properties</a>.
  * For a summary of the properties available to each element refer to the
  * API documentation.
  *
  * \subsection loggers Loggers
  *
- * Loggers are the central object in the Log4g package.
+ * \ref log4g/logger.h "Loggers" are the central object in the Log4g package.
  *
  * Loggers are arranged in a named hierarchy. The naming convention used by
  * Log4g is to separate logger "classes" with a dot (.). For example, the
  * logger named "org.gnome" is an ancestor of the logger named
- * "org.gnome.foo". Loggers can inherit the appenders of their ancestors by
- * default. This means that any events logged to the logger named
- * "org.gnome.foo" will also be logged to the appenders of "org.gnome". This
- * property is known as logger \e additivity. By default all loggers are
- * additive. This property can be disabled via a configuration file (the
- * \e additivity property of loggers) or with log4g_logger_set_additivity().
+ * "org.gnome.foo". Loggers can inherit the appenders of their ancestors. This
+ * means that any events logged to the logger named "org.gnome.foo" will also
+ * be logged to the appenders of "org.gnome". This property is known as logger
+ * \e additivity. By default all loggers are additive. This property can be
+ * disabled via a configuration file (the \e additivity property of loggers)
+ * or with log4g_logger_set_additivity().
  *
  * \subsection appenders Appenders
  *
- * Appenders determine how events are logged.
+ * \ref log4g/interface/appender.h "Appenders" determine how events are logged.
  *
  * Log4g ships with the following appenders:
  *
@@ -113,8 +113,8 @@
  *
  * \subsection Layouts
  *
- * Layouts determine the format of an event before it is logged by an
- * appender.
+ * \ref log4g/layout.h "Layouts" determine the format of an event before it is
+ * logged by an appender.
  *
  * Log4g ships with the following layouts:
  *
@@ -127,9 +127,9 @@
  * \subsection filters Filters
  *
  * Log4g has builtin filtering rules, however custom filtering is also
- * possible through the use of filters.
+ * possible through the use of \ref log4g/filter.h "filters".
  *
- * Log4g package ships with the following filters:
+ * Log4g ships with the following filters:
  *
  * - \ref log4g/filter/deny-all-filter.h "Deny all filter"
  * - \ref log4g/filter/level-match-filter.h "Level match filter"

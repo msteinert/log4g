@@ -21,7 +21,7 @@
  * \author Mike Steinert
  * \date 1-29-2010
  *
- * Most logging operations (except configuration) are done through this
+ * Most logging operations (except configuration) are performed through this
  * class.
  */
 

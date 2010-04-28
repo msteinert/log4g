@@ -21,7 +21,7 @@
  * \author Mike Steinert
  * \date 2-8-2010
  *
- * The null appender merely exists; It never outputs any log messages..
+ * The null appender merely exists; It never outputs any log messages.
  */
 
 #ifndef LOG4G_NULL_APPENDER_H

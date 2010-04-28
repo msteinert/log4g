@@ -21,7 +21,7 @@
  * \author Mike Steinert
  * \date 2-9-2010
  *
- * The file appender log events to a regular text file.
+ * The file appender logs events to a regular text file.
  *
  * File appenders accept the following properties:
  * -# file

@@ -31,7 +31,7 @@
  * link to their parent but parents do not have a pointer to their children.
  * Descendant logger may be instantiated before their ancestors.
  *
- * In the case where a descendent is created before a particular ancestor
+ * In the case where a descendant is created before a particular ancestor
  * a provision node (log4g/provision-node.h) is created for the ancestor and
  * the descendant is added to the provision node. Other descendants of the
  * same ancestor are added to the previously created provision node.

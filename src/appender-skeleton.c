@@ -76,7 +76,8 @@ do_append(Log4gAppender *base, Log4gLoggingEvent *event)
     gint decision;
     g_mutex_lock(priv->lock);
     if (priv->closed) {
-        log4g_log_warn(Q_("attempted to append to closed appender named [%s]"),
+        log4g_log_error(
+                Q_("attempted to append to closed appender named [%s]"),
                 priv->name);
         goto exit;
     }
@@ -114,7 +115,7 @@ set_error_handler(Log4gAppender *base, gpointer error)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
     if (G_UNLIKELY(!error)) {
-        g_debug(Q_("you have tried to set a NULL error-handler"));
+        log4g_log_warn(Q_("you have tried to set a NULL error-handler"));
     } else {
         if (priv->error) {
             g_object_unref(priv->error);

@@ -29,7 +29,7 @@
  * -# date-format
  * -# time-zone
  *
- * The date-format property set the strftime(3) confversion pattern that will
+ * The date-format property set the strftime(3) conversion pattern that will
  * be used to format the date.
  *
  * The time-zone property can be used to explicitly set the timezone. The

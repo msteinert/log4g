@@ -40,12 +40,12 @@
  * \note It is not necessary to call log4g_ndc_clear() when exiting a thread.
  *       NDCs are automatically removed when a thread exits.
  *
- * Log4gPatternLayout (log4g/layout/pattern-layout.h) & Log4gTTCCLayout
- * (log4g/layout/ttcc-layout.h) may be configured to automatically retrieve
- * the the nested data context for the current thread without user
- * intervention.
+ * \ref log4g/layout/pattern-layout.h "Log4gPatternLayout" &
+ * \ref log4g/layout/ttcc-layout.h "Log4gTTCCLayout" may be configured to 
+ * automatically retrieve the the nested data context for the current thread
+ * without user intervention.
  *
- * Child threads to not automatically inherit the NDC of their parent. To
+ * Child threads do not automatically inherit the NDC of their parent. To
  * force a thread to inherit a nested data context use log4g_ndc_clone() &
  * log4g_ndc_inherit().
  */

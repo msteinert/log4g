@@ -29,13 +29,15 @@
  *
  * The level-to-match is a string that represents a log level. If there is
  * an exact match between the value of level-to-match and the level of the
- * logging event then the decide() function returns \e ACCEPT.
+ * logging event then the _Log4gFilterClass::decide() function returns
+ * \e ACCEPT.
  *
- * If the accept-on-match value is set to \e FALSE then the decide() function
- * will return \e DENY when there is a level match. The default value is
- * \e TRUE.
+ * If the accept-on-match value is set to \e FALSE then the
+ * _Log4gFilterClass::decide() function will return \e DENY when there is a
+ * level match. The default value is \e TRUE.
  *
- * If there is no match then the decide() function returns \e NEUTRAL.
+ * If there is no match then the _Log4gFilterClass::decide() function returns
+ * \e NEUTRAL.
  *
  * \see log4g/level.h
  */

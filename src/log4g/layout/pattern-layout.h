@@ -33,7 +33,7 @@
  *
  * \note Literal text can be inserted within the conversion pattern.
  *
- * Conversion specifiers start with a percent sign (%) and its optional format
+ * Conversion specifiers start with a percent sign (%) and optional format
  * modifiers followed by a conversion character. The conversion character
  * specifies the type of data that should be formatted, e.g. category, level,
  * date, thread name, etc. Format modifiers control field width, padding and

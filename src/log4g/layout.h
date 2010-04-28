@@ -24,8 +24,8 @@
  * Users may extend this class to implement custom log event layouts.
  *
  * Many appenders require a layout in order to log an event. Sub-classes
- * must override the \e format() virtual function to implement custom
- * formatting.
+ * must override the _Log4gLayoutClass::format() virtual function to implement
+ * custom formatting.
  */
 
 #ifndef LOG4G_LAYOUT_H

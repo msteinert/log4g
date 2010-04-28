@@ -122,9 +122,10 @@ void
 log4g_mdc_remove(const gchar *key);
 
 /**
+ * \internal
  * \brief Retrieve the current thread's MDC as a hash table.
  *
- * This function is intended for internal use.
+ * This function is used internally by appenders that log asynchronously.
  *
  * \return The current MDC context as a hash table.
  */

@@ -29,11 +29,11 @@
  * -# maximum-file-size
  *
  * The value of max-backup-index sets the number of backup files that will
- * be kept. For example if the value is 10, then 11 files will be kept
- * (indexes 0 through 10). The default value is one.
+ * be kept. For example if the value is ten, then eleven files will be kept
+ * (indexes zero through ten). The default value is one.
  *
  * The log files will be rotated when the current log file reaches a size of
- * maximum-file-size or larger. The default value is 10MB.
+ * maximum-file-size or larger. The default value is ten megabytes.
  */
 
 #ifndef LOG4G_ROLLING_FILE_APPENDER_H
