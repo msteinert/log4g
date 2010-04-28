@@ -35,7 +35,8 @@ typedef struct _Fixture {
     GString *file;
 } Fixture;
 
-void setup(Fixture *fixture, gconstpointer data)
+void
+setup(Fixture *fixture, gconstpointer data)
 {
     gchar *file;
     fixture->file = g_string_sized_new(128);
@@ -48,12 +49,14 @@ void setup(Fixture *fixture, gconstpointer data)
     }
 }
 
-void teardown(Fixture *fixture, gconstpointer data)
+void
+teardown(Fixture *fixture, gconstpointer data)
 {
     g_string_free(fixture->file, TRUE);
 }
 
-void test_001(Fixture *fixture, gconstpointer data)
+void
+test_001(Fixture *fixture, gconstpointer data)
 {
     Log4gLogger *logger;
     GError *error = NULL;
@@ -65,7 +68,8 @@ void test_001(Fixture *fixture, gconstpointer data)
     log4g_logger_warn(logger, "warning message (match this string)");
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

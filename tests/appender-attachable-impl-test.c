@@ -29,14 +29,16 @@
 
 #define CLASS "/log4g/helpers/AppenderAttachableImpl"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gAppenderAttachable *aai = log4g_appender_attachable_impl_new();
     g_assert(aai);
     g_object_unref(aai);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

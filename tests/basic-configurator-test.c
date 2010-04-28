@@ -29,7 +29,8 @@
 
 #define CLASS "/log4g/BasicConfigurator"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     gint i, j;
     Log4gLogger *logger;
@@ -50,7 +51,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_assert(TRUE);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

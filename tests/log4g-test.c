@@ -30,14 +30,16 @@
 
 #define CLASS "/log4g"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     log4g_error("log4g-test: logging message (match this string)");
     log4g_logger_error(log4g_get_logger("org.gnome.test"),
             "log4g-test: another logging message (match this string)");
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     GError *error = NULL;
     GOptionContext *context;
@@ -51,7 +53,7 @@ int main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
-    log4g_init(&argc, &argv);
+    /* log4g_init(&argc, &argv); */
     context = g_option_context_new("- test Log4g initialization");
     if (!context) {
         return EXIT_FAILURE;

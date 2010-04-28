@@ -29,7 +29,8 @@
 
 #define CLASS "/log4g/ProvisionNode"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLogger *l0 = log4g_logger_new("org.gnome.test");
     Log4gLogger *l1 = log4g_logger_new("org.gnome.test.more");
@@ -48,7 +49,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(l1);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

@@ -28,7 +28,8 @@
 
 #define CLASS "/log4g/Level"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLevel *warn = log4g_level_WARN();
     Log4gLevel *error = log4g_level_string_to_level("ERROR");
@@ -42,7 +43,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_assert(log4g_level_is_greater_or_equal(error, warn));
 }
 
-void test_002(gpointer *fixture, gconstpointer data)
+void
+test_002(gpointer *fixture, gconstpointer data)
 {
     Log4gLevel *level = log4g_level_new(10, "FOO", 2);
     g_assert(level);
@@ -54,7 +56,8 @@ void test_002(gpointer *fixture, gconstpointer data)
     g_object_unref(level);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

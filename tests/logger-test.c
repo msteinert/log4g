@@ -28,14 +28,16 @@
 
 #define CLASS "/log4g/Logger"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLogger *logger = log4g_logger_new("org.gnome.test");
     g_assert(logger);
     g_object_unref(logger);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

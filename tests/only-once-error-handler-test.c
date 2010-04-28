@@ -30,7 +30,8 @@
 
 #define CLASS "/log4g/helpers/OnlyOnceErrorHandler"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gErrorHandler *error = log4g_only_once_error_handler_new();
     g_assert(error);
@@ -43,7 +44,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(error);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

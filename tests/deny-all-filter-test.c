@@ -29,21 +29,22 @@
 
 #define CLASS "/log4g/filter/DenyAllFilter"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gFilter *filter = log4g_deny_all_filter_new();
     Log4gFilter *deny = log4g_deny_all_filter_new();
     g_assert(filter);
     g_assert(deny);
     log4g_filter_activate_options(filter);
-    /** \todo test log4g_filter_decide() */
     log4g_filter_set_next(filter, deny);
     g_assert(deny == log4g_filter_get_next(filter));
     g_object_unref(filter);
     g_object_unref(deny);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

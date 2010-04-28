@@ -32,7 +32,8 @@
 
 #define CLASS "/log4g/appender/WriterAppender"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     va_list ap;
     memset(&ap, 0, sizeof(ap));
@@ -42,8 +43,7 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_assert(layout);
     Log4gLoggingEvent *event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
-                                __func__, __FILE__, G_STRINGIFY(__LINE__),
-                                "test message", ap);
+                __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
     g_assert(event);
     Log4gAppender *appender = log4g_writer_appender_new(layout, file);
     g_assert(appender);
@@ -58,7 +58,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

@@ -32,7 +32,8 @@
 
 #define CLASS "/log4g/appender/RollingFileAppender"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLoggingEvent *event;
     va_list ap;
@@ -41,8 +42,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
     g_assert(layout);
     Log4gAppender *appender =
-            log4g_rolling_file_appender_new(layout,
-                    "rolling-file-appender-test.txt", FALSE, TRUE);
+        log4g_rolling_file_appender_new(layout,
+                "rolling-file-appender-test.txt", FALSE, TRUE);
     log4g_rolling_file_appender_set_max_backup_index(appender, 4);
     log4g_rolling_file_appender_set_maximum_file_size(appender, 10);
     g_assert(appender);
@@ -59,7 +60,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

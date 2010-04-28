@@ -32,7 +32,8 @@
 
 #define CLASS "/log4g/appender/SyslogAppender"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLoggingEvent *event;
     va_list ap;
@@ -41,8 +42,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     Log4gLayout *layout = log4g_simple_layout_new();
     g_assert(layout);
     Log4gAppender *appender =
-            log4g_syslog_appender_new(layout, "syslog-appender-test",
-                    LOG_USER, LOG_CONS);
+        log4g_syslog_appender_new(layout, "syslog-appender-test",
+                LOG_USER, LOG_CONS);
     g_assert(appender);
     g_object_unref(layout);
     for (i = 0; i < 5; ++i) {
@@ -58,7 +59,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

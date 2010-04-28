@@ -37,7 +37,8 @@ typedef struct _Fixture {
     gpointer le;
 } Fixture;
 
-void setup(Fixture *fixture, gconstpointer data)
+void
+setup(Fixture *fixture, gconstpointer data)
 {
     va_list ap;
     memset(&ap, 0, sizeof(ap));
@@ -53,14 +54,16 @@ void setup(Fixture *fixture, gconstpointer data)
     g_assert(fixture->event);
 }
 
-void teardown(Fixture *fixture, gconstpointer data)
+void
+teardown(Fixture *fixture, gconstpointer data)
 {
     g_object_unref(fixture->event);
     g_type_class_unref(fixture->level);
     g_type_class_unref(fixture->le);
 }
 
-void test_001(Fixture *fixture, gconstpointer data)
+void
+test_001(Fixture *fixture, gconstpointer data)
 {
     Log4gLayout *layout =
         log4g_pattern_layout_new("[%d{%c}] [%t] [%.7c{2}] %M(%F:%L) [%.5m] "
@@ -70,7 +73,8 @@ void test_001(Fixture *fixture, gconstpointer data)
     g_object_unref(layout);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

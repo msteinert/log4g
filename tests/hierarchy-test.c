@@ -35,7 +35,8 @@ typedef struct _Fixture {
     Log4gLoggerRepository *repository;
 } Fixture;
 
-void setup(Fixture *fixture, gconstpointer data)
+void
+setup(Fixture *fixture, gconstpointer data)
 {
     Log4gLogger *root;
     Log4gAppender *appender;
@@ -54,12 +55,14 @@ void setup(Fixture *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-void teardown(Fixture *fixture, gconstpointer data)
+void
+teardown(Fixture *fixture, gconstpointer data)
 {
     g_object_unref(fixture->repository);
 }
 
-void test_001(Fixture *fixture, gconstpointer data)
+void
+test_001(Fixture *fixture, gconstpointer data)
 {
     Log4gLogger *logger =
         log4g_logger_repository_get_logger(fixture->repository,
@@ -68,7 +71,8 @@ void test_001(Fixture *fixture, gconstpointer data)
     log4g_logger_debug(logger, "test message");
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

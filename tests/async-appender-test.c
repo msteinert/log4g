@@ -36,23 +36,25 @@ typedef struct _Fixture {
     Log4gLoggingEvent *event;
 } Fixture;
 
-void setup(Fixture *fixture, gconstpointer data)
+void
+setup(Fixture *fixture, gconstpointer data)
 {
     va_list ap;
     memset(&ap, 0, sizeof(ap));
     fixture->event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
-                                __func__, __FILE__, G_STRINGIFY(__LINE__),
-                                "test message", ap);
+                __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
     g_assert(fixture->event);
 }
 
-void teardown(Fixture *fixture, gconstpointer data)
+void
+teardown(Fixture *fixture, gconstpointer data)
 {
     g_object_unref(fixture->event);
 }
 
-void test_001(Fixture *fixture, gconstpointer data)
+void
+test_001(Fixture *fixture, gconstpointer data)
 {
     Log4gAppender *appender;
     Log4gAppender *out;
@@ -75,7 +77,8 @@ void test_001(Fixture *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();
@@ -84,7 +87,6 @@ int main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
-    g_test_add(CLASS"/001", Fixture, NULL,
-               setup, test_001, teardown);
+    g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
     return g_test_run();
 }

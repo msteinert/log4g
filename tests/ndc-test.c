@@ -28,12 +28,14 @@
 
 #define CLASS "/log4g/NDC"
 
-void teardown(gpointer *fixture, gconstpointer data)
+void
+teardown(gpointer *fixture, gconstpointer data)
 {
     log4g_ndc_remove();
 }
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     const gchar *string;
     log4g_ndc_push("foo");
@@ -59,7 +61,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_assert(log4g_ndc_get() == NULL);
 }
 
-void test_002(gpointer *fixture, gconstpointer data)
+void
+test_002(gpointer *fixture, gconstpointer data)
 {
     log4g_ndc_push("foo");
     log4g_ndc_push("bar");
@@ -71,7 +74,8 @@ void test_002(gpointer *fixture, gconstpointer data)
     g_assert(log4g_ndc_get() == NULL);
 }
 
-void test_003(gpointer *fixture, gconstpointer data)
+void
+test_003(gpointer *fixture, gconstpointer data)
 {
     log4g_ndc_push("foo");
     log4g_ndc_push("bar");
@@ -83,7 +87,8 @@ void test_003(gpointer *fixture, gconstpointer data)
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
 }
 
-void test_004(gpointer *fixture, gconstpointer data)
+void
+test_004(gpointer *fixture, gconstpointer data)
 {
     GArray *ndc;
     log4g_ndc_push("foo");
@@ -99,7 +104,8 @@ void test_004(gpointer *fixture, gconstpointer data)
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

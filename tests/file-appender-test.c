@@ -32,7 +32,8 @@
 
 #define CLASS "/log4g/appender/FileAppender"
 
-void test_001(gpointer *fixture, gconstpointer data)
+void
+test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLoggingEvent *event;
     va_list ap;
@@ -43,8 +44,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     log4g_html_layout_set_title(layout, "Hello, World!");
     log4g_html_layout_set_location_info(layout, TRUE);
     Log4gAppender *appender =
-            log4g_file_appender_new(layout, "file-appender-test.html",
-                    FALSE, TRUE);
+        log4g_file_appender_new(layout, "file-appender-test.html",
+                FALSE, TRUE);
     g_assert(appender);
     g_object_unref(layout);
     for (i = 0; i < 5; ++i) {
@@ -60,7 +61,8 @@ void test_001(gpointer *fixture, gconstpointer data)
     g_object_unref(appender);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
     g_type_init();

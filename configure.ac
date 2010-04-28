@@ -13,7 +13,7 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 DOLT
-# check for Doxygen
+# Check for Doxygen
 AC_PATH_PROG(DOXYGEN, doxygen)
 AC_CACHE_VAL(log4g_cv_HAVE_DOT,
     [AC_PATH_PROG(DOT, dot)
@@ -30,19 +30,18 @@ PKG_CHECK_MODULES(GMODULE, gmodule-2.0 >= 2.20)
 PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.20)
 PKG_CHECK_MODULES(GTHREAD, gthread-2.0 >= 2.20)
 PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= 2.6)
-# add configuration
+# Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
     [Always defined to indicate that i18n is enabled])
+AC_DEFINE_UNQUOTED(LOG4G_LOCALEDIR, "$prefix/share/locale",
+    [Define to the location where the i18n catalogs will be installed])
+AC_DEFINE_UNQUOTED(G_LOG_DOMAIN, "$PACKAGE_NAME",
+    [The log domain for this project])
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$PACKAGE_NAME",
+    [The i18n domain for this project])
 AC_CHECK_FUNCS(bind_textdomain_codeset)
 AH_BOTTOM(
-[/* Define to the location where the catalogs will be installed */
-#define LOG4G_LOCALEDIR "@prefix@/share/locale"
-
-/* The log domain for this project */
-#define G_LOG_DOMAIN "@PROJECT_NAME@"
-
-/* The i18n domain for this project */
-#define GETTEXT_PACKAGE "@PROJECT_NAME@"
+[/* Include GLib i18n header file */
 #include <glib/gi18n-lib.h>
 
 /* Include G_DEFINE_INTERFACE definition */
