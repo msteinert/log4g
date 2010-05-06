@@ -83,7 +83,7 @@ sub_append(Log4gAppender *base, Log4gLoggingEvent *event)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gQuietWriter *writer = log4g_writer_appender_get_quiet_writer(base);
     LOG4G_WRITER_APPENDER_CLASS(log4g_rolling_file_appender_parent_class)->
-            sub_append(base, event);
+        sub_append(base, event);
     if (log4g_file_appender_get_file(base) && writer) {
         gulong size = log4g_counting_quiet_writer_get_count(writer);
         if ((size >= priv->max) && (size >= priv->next)) {
@@ -169,7 +169,8 @@ static void
 log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gWriterAppenderClass *writer_class = LOG4G_WRITER_APPENDER_CLASS(klass);
+    Log4gWriterAppenderClass *writer_class =
+        LOG4G_WRITER_APPENDER_CLASS(klass);
     Log4gFileAppenderClass *file_class =
         LOG4G_FILE_APPENDER_CLASS(klass);
     /* initialize GObject class */

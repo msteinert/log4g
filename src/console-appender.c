@@ -36,7 +36,7 @@ enum _properties_t {
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_CONSOLE_APPENDER, \
-                                 struct Log4gPrivate))
+            struct Log4gPrivate))
 
 /** \brief System output identifier */
 #define SYSTEM_OUT "stdout"
@@ -66,7 +66,8 @@ activate_options(Log4gOptionHandler *base)
         } else {
             fd = dup(fileno(stderr));
         }
-        log4g_writer_appender_set_writer(LOG4G_APPENDER(base), fdopen(fd, "w"));
+        log4g_writer_appender_set_writer(LOG4G_APPENDER(base),
+                fdopen(fd, "w"));
     }
 }
 
@@ -83,9 +84,9 @@ _close(Log4gAppender *base)
     if (!log4g_appender_skeleton_get_closed(base)) {
         if (!priv->follow) {
             Log4gAppenderInterface *interface =
-                    LOG4G_APPENDER_GET_INTERFACE(base);
+                LOG4G_APPENDER_GET_INTERFACE(base);
             Log4gAppenderInterface *parent_interface =
-                    g_type_interface_peek_parent(interface);
+                g_type_interface_peek_parent(interface);
             parent_interface->close(base);
         }
     }
@@ -98,7 +99,7 @@ appender_init(Log4gAppenderInterface *interface)
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gConsoleAppender, log4g_console_appender,
-                        LOG4G_TYPE_WRITER_APPENDER,
+        LOG4G_TYPE_WRITER_APPENDER,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
@@ -168,7 +169,8 @@ static void
 log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gWriterAppenderClass *writer_class = LOG4G_WRITER_APPENDER_CLASS(klass);
+    Log4gWriterAppenderClass *writer_class =
+        LOG4G_WRITER_APPENDER_CLASS(klass);
     /* initialize GObject */
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;

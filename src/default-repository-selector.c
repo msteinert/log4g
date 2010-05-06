@@ -69,7 +69,7 @@ finalize(GObject *base)
 }
 
 static void log4g_default_repository_selector_class_init(
-                                Log4gDefaultRepositorySelectorClass *klass)
+        Log4gDefaultRepositorySelectorClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObjectClass */

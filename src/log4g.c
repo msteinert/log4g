@@ -34,7 +34,7 @@
 #include <stdlib.h>
 
 /** \brief Indicates if log4g_init() has been called */
-static gint initialized = FALSE;
+static gboolean initialized = FALSE;
 
 /** \brief Option flags */
 typedef enum {

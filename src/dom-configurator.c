@@ -60,8 +60,8 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
         log4g_log_error(Q_("properties must have a `value' attribute"));
         goto exit;
     }
-    spec = g_object_class_find_property(
-                G_OBJECT_GET_CLASS(object), (gchar *)name);
+    spec = g_object_class_find_property(G_OBJECT_GET_CLASS(object),
+                (gchar *)name);
     if (!spec) {
         log4g_log_error(Q_("object does not have the property `%s'"),
                 (gchar *)name);
@@ -83,13 +83,13 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not a char"), value);
             goto exit;
         }
-        g_object_set(object, (const gchar *)value, *value, NULL);
+        g_object_set(object, (const gchar *)name, *value, NULL);
     } else if (G_TYPE_UCHAR == spec->value_type) {
         if (1 != strlen((const char *)value)) {
             log4g_log_error(Q_("%s: not an uchar"), value);
             goto exit;
         }
-        g_object_set(object, (const gchar *)value, *value, NULL);
+        g_object_set(object, (const gchar *)name, *value, NULL);
     } else if (G_TYPE_INT == spec->value_type) {
         gint64 i;
         errno = 0;
@@ -98,7 +98,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not an int"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, (gint)i, NULL);
+        g_object_set(object, (const char *)name, (gint)i, NULL);
     } else if (G_TYPE_UINT == spec->value_type) {
         guint64 i;
         errno = 0;
@@ -107,7 +107,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not an uint"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, (guint)i, NULL);
+        g_object_set(object, (const char *)name, (guint)i, NULL);
     } else if (G_TYPE_LONG == spec->value_type) {
         gint64 i;
         errno = 0;
@@ -116,7 +116,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not a long"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, (glong)i, NULL);
+        g_object_set(object, (const char *)name, (glong)i, NULL);
     } else if (G_TYPE_ULONG == spec->value_type) {
         guint64 i;
         errno = 0;
@@ -125,7 +125,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not an ulong"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, (gulong)i, NULL);
+        g_object_set(object, (const char *)name, (gulong)i, NULL);
     } else if (G_TYPE_INT64 == spec->value_type) {
         gint64 i;
         errno = 0;
@@ -134,7 +134,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not an int64"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, (glong)i, NULL);
+        g_object_set(object, (const char *)name, i, NULL);
     } else if (G_TYPE_UINT64 == spec->value_type) {
         guint64 i;
         errno = 0;
@@ -143,7 +143,7 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             log4g_log_error(Q_("%s: not an uint64"), value);
             goto exit;
         }
-        g_object_set(object, (const char *)value, i, NULL);
+        g_object_set(object, (const char *)name, i, NULL);
     } else if (G_TYPE_FLOAT == spec->value_type) {
         gdouble d;
         errno = 0;

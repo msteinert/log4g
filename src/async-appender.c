@@ -112,9 +112,9 @@ log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
     Log4gLoggingEvent *event;
     va_start(ap, message);
     event = log4g_logging_event_new(
-                    log4g_logging_event_get_logger_name(self->event),
-                    log4g_logging_event_get_level(self->event),
-                    NULL, NULL, NULL, message, ap);
+                log4g_logging_event_get_logger_name(self->event),
+                log4g_logging_event_get_level(self->event),
+                NULL, NULL, NULL, message, ap);
     va_end(ap);
     return event;
 }

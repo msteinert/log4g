@@ -127,6 +127,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     const gchar *file;
+    gboolean buffered;
     switch (id) {
     case PROP_FILE:
         g_mutex_lock(priv->lock);
@@ -148,9 +149,10 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         priv->append = g_value_get_boolean(value);
         break;
     case PROP_BUFFERED_IO:
-        g_atomic_int_set(&priv->buffered, g_value_get_boolean(value));
-        if (g_atomic_int_get(&priv->buffered)) {
-            log4g_writer_appender_set_immediate_flush(LOG4G_APPENDER(priv),
+        buffered = g_value_get_boolean(value);
+        g_atomic_int_set(&priv->buffered, buffered);
+        if (buffered) {
+            log4g_writer_appender_set_immediate_flush(LOG4G_APPENDER(base),
                     FALSE);
         }
         break;
@@ -230,7 +232,7 @@ log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
     g_object_class_install_property(gobject_class, PROP_BUFFERED_IO,
             g_param_spec_boolean("buffered-io", Q_("Buffered I/O"),
                     Q_("Buffer log output"), FALSE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_BUFFERED_IO,
+    g_object_class_install_property(gobject_class, PROP_BUFFER_SIZE,
             g_param_spec_uint("buffer-size", Q_("Buffer Size"),
                     Q_("Size of the output buffer"),
                     0, G_MAXUINT, 8 * 1024, G_PARAM_WRITABLE));
@@ -260,7 +262,7 @@ log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
 {
     g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
     LOG4G_FILE_APPENDER_GET_CLASS(base)->
-            set_file_full(base, file, append, buffered, size);
+        set_file_full(base, file, append, buffered, size);
 }
 
 void
