@@ -25,6 +25,7 @@
 #include "config.h"
 #include <glib.h>
 #include "log4g/log4g.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -43,16 +44,14 @@ perf_001(gpointer *fixture, gconstpointer data)
 {
     int i;
     int log = 1000000;
-    GTimer *t = g_timer_new();
-    g_timer_start(t);
+    double e;
+    g_test_timer_start();
     for (i = 0; i < log; ++i) {
         log4g_trace("skip this message");
     }
-    g_timer_stop(t);
-    g_test_minimized_result(g_timer_elapsed(t, NULL),
-            "skipped messages, rate=%d/second",
-            (gint)(log / g_timer_elapsed(t, NULL)));
-    g_timer_destroy(t);
+    e = g_test_timer_elapsed();
+    g_test_minimized_result(e, "skipped messages, rate=%d/second",
+            (gint)(log / e));
 }
 
 void
@@ -60,16 +59,30 @@ perf_002(gpointer *fixture, gconstpointer data)
 {
     int i;
     int log = 1000000;
-    GTimer *t = g_timer_new();
-    g_timer_start(t);
+    double e;
+    g_test_timer_start();
     for (i = 0; i < log; ++i) {
         log4g_error("%d log this message", i);
     }
-    g_timer_stop(t);
-    g_test_minimized_result(g_timer_elapsed(t, NULL),
-            "logged messages, rate=%d/second",
-            (gint)(log / g_timer_elapsed(t, NULL)));
-    g_timer_destroy(t);
+    e = g_test_timer_elapsed();
+    g_test_minimized_result(e, "logged messages, rate=%d/second",
+            (gint)(log / e));
+}
+
+void
+perf_003(gpointer *fixture, gconstpointer data)
+{
+    int i;
+    int log = 1000000;
+    double e;
+    FILE *file = fopen("file.txt", "w");
+    g_test_timer_start();
+    for (i = 0; i < log; ++i) {
+        fprintf(file, "%d log this message\n", i);
+    }
+    e = g_test_timer_elapsed();
+    g_test_minimized_result(e, "logged messages, rate=%d/second",
+            (gint)(log / e));
 }
 
 int
@@ -103,6 +116,7 @@ main(int argc, char *argv[])
     if (g_test_perf()) {
         g_test_add(CLASS"/perf/001", gpointer, NULL, NULL, perf_001, NULL);
         g_test_add(CLASS"/perf/002", gpointer, NULL, NULL, perf_002, NULL);
+        g_test_add(CLASS"/perf/003", gpointer, NULL, NULL, perf_003, NULL);
     }
     status = g_test_run();
     log4g_finalize();
