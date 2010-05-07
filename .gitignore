@@ -48,4 +48,3 @@ tests/*-test
 tests/*.html
 tests/*.txt
 tests/*.txt.*
-tests/*.xml
