@@ -85,10 +85,12 @@ typedef enum {
      *  any) should not be consulted.
      */
     LOG4G_FILTER_ACCEPT = 1,
+
     /**
      * This filter is neutral regarding the event. The remaining filters
      * (if any) should be consulted for a final decision.
      */
+
     LOG4G_FILTER_NEUTRAL = 0,
     /**
      * The log event must dropped immediately. The remaining filters (if

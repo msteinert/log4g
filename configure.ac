@@ -3,7 +3,7 @@
 
 # Initialize autoconf
 AC_PREREQ(2.59)
-AC_INIT([log4g], [0.1], [mike.steinert@gmail.com])
+AC_INIT([log4g], [0.1.1], [mike.steinert@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/log4g.c])

@@ -329,6 +329,7 @@ struct _Log4gPatternLayout {
 /** \brief Log4gPatternLayoutClass definition */
 struct _Log4gPatternLayoutClass {
     Log4gLayoutClass parent_class;
+
     /**
      * \brief Create a new pattern parser object.
      *
@@ -342,8 +343,8 @@ struct _Log4gPatternLayoutClass {
      *
      * \see log4g/helpers/pattern-parser.h
      */
-    Log4gPatternParser *(*create_pattern_parser)(Log4gLayout *base,
-            const gchar *pattern);
+    Log4gPatternParser *
+    (*create_pattern_parser)(Log4gLayout *base, const gchar *pattern);
 };
 
 GType

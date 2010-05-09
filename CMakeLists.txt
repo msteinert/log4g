@@ -12,7 +12,8 @@ project(Log4g)
 # set the project version
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
-set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
+set(VERSION_MICRO 1)
+set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO})
 # set the maintainer
 set(MAINTAINER "mike.steinert@gmail.com")
 # add sub-directories

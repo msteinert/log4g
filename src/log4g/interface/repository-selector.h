@@ -62,6 +62,7 @@ typedef struct _Log4gRepositorySelectorInterface
 /** \brief Log4gRepositorySelectorInterface definition */
 struct _Log4gRepositorySelectorInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Select the logger repository for the current application
      *        context.
@@ -75,8 +76,8 @@ struct _Log4gRepositorySelectorInterface {
      *
      * \see log4g/interface/logger-repository.h
      */
-    Log4gLoggerRepository *(*get_logger_repository)(
-            Log4gRepositorySelector *self);
+    Log4gLoggerRepository *
+    (*get_logger_repository)(Log4gRepositorySelector *self);
 };
 
 GType

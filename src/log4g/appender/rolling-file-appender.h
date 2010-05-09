@@ -78,6 +78,7 @@ struct _Log4gRollingFileAppender {
 /** \brief Log4gRollingFileAppenderClass definition */
 struct _Log4gRollingFileAppenderClass {
     Log4gFileAppenderClass parent_class;
+
     /**
      * \brief Roll the current log file over.
      *
@@ -86,7 +87,8 @@ struct _Log4gRollingFileAppenderClass {
      *
      * \param base [in] A rolling file appender object.
      */
-    void (*roll_over)(Log4gAppender *base);
+    void
+    (*roll_over)(Log4gAppender *base);
 };
 
 GType

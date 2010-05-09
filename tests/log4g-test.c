@@ -107,7 +107,7 @@ main(int argc, char *argv[])
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, log4g_get_option_group());
     if (!g_option_context_parse(context, &argc, &argv, &error)) {
-        log4g_error("option parsing failed: %s", error->message);
+        g_print("option parsing failed: %s\n", error->message);
         g_error_free(error);
         return EXIT_FAILURE;
     }

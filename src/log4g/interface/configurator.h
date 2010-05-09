@@ -56,6 +56,7 @@ typedef struct _Log4gConfiguratorInterface
 /** \brief Log4gConfiguratorInterface definition */
 struct _Log4gConfiguratorInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Interpret a resource pointed to a URI and configure Log4g.
      *
@@ -66,7 +67,8 @@ struct _Log4gConfiguratorInterface {
      *
      * \return \e TRUE if the configuration was successful, \e FALSE otherwise.
      */
-    gboolean (*do_configure)(Log4gConfigurator *self, const char *uri,
+    gboolean
+    (*do_configure)(Log4gConfigurator *self, const char *uri,
             Log4gLoggerRepository *repository, GError **error);
 };
 

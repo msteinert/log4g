@@ -96,6 +96,7 @@ struct _Log4gPatternConverter {
 /** \brief Log4gPatternConverterClass definition */
 struct _Log4gPatternConverterClass {
     GObjectClass parent_class;
+
     /**
      * \brief Convert a pattern.
      *
@@ -109,8 +110,9 @@ struct _Log4gPatternConverterClass {
      *
      * \see log4g/logging-event.h
      */
-    const gchar *(*convert)(Log4gPatternConverter *self,
-            Log4gLoggingEvent *event);
+    const gchar *
+    (*convert)(Log4gPatternConverter *self, Log4gLoggingEvent *event);
+
     /**
      * \brief A template function for formatting in a converter specific way.
      *
@@ -120,7 +122,8 @@ struct _Log4gPatternConverterClass {
      *
      * \see log4g/logging-event.h
      */
-    void (*format)(Log4gPatternConverter *self, GString *string,
+    void
+    (*format)(Log4gPatternConverter *self, GString *string,
             Log4gLoggingEvent *event);
 };
 

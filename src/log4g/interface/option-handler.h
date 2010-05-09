@@ -64,12 +64,14 @@ typedef struct _Log4gOptionHandlerInterface Log4gOptionHandlerInterface;
 /** \brief Log4gOptionHandlerInterface definition */
 struct _Log4gOptionHandlerInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Activate all options set for an object.
      *
      * \param self [in] An option handler object.
      */
-    void (*activate_options)(Log4gOptionHandler *self);
+    void
+    (*activate_options)(Log4gOptionHandler *self);
 };
 
 GType

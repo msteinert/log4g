@@ -73,6 +73,7 @@ struct _Log4gAppenderSkeleton {
 /** \brief Log4gAppenderSkeletonClass definition */
 struct _Log4gAppenderSkeletonClass {
     GObjectClass parent_class;
+
     /**
      * \brief Perform actual logging.
      *
@@ -84,7 +85,8 @@ struct _Log4gAppenderSkeletonClass {
      *
      * \see log4g/logging-event.h
      */
-    void (*append)(Log4gAppender *base, Log4gLoggingEvent *event);
+    void
+    (*append)(Log4gAppender *base, Log4gLoggingEvent *event);
 };
 
 GType

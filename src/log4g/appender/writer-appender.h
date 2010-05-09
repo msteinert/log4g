@@ -75,6 +75,7 @@ struct _Log4gWriterAppender {
 /** \brief Log4gWriterAppenderClass definition */
 struct _Log4gWriterAppenderClass {
     Log4gAppenderSkeletonClass parent_class;
+
     /**
      * \brief Actual writing occurs here.
      *
@@ -83,13 +84,17 @@ struct _Log4gWriterAppenderClass {
      * \param base [in] A writer appender object.
      * \param event [in] The log event to append.
      */
-    void (*sub_append)(Log4gAppender *base, Log4gLoggingEvent *event);
+    void
+    (*sub_append)(Log4gAppender *base, Log4gLoggingEvent *event);
+
     /**
      * \brief Close the underlying stdio(3) stream.
      *
      * \param base [in] A writer appender object.
      */
-    void (*close_writer)(Log4gAppender *base);
+    void
+    (*close_writer)(Log4gAppender *base);
+
     /**
      * \brief Clear internal references to the writer and other variables.
      *
@@ -97,7 +102,8 @@ struct _Log4gWriterAppenderClass {
      *
      * \param base [in] A writer appender object.
      */
-    void (*reset)(Log4gAppender *base);
+    void
+    (*reset)(Log4gAppender *base);
 };
 
 GType

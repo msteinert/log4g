@@ -58,14 +58,16 @@ typedef struct _Log4gAppenderAttachableInterface
 /** \brief Log4gAppenderAttachableInterface definition */
 struct _Log4gAppenderAttachableInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Attach an appender to an object.
      *
      * \param self [in] An appender attachable object.
      * \param appender [in] The appender to attach.
      */
-    void (*add_appender)(Log4gAppenderAttachable *self,
-            Log4gAppender *appender);
+    void
+    (*add_appender)(Log4gAppenderAttachable *self, Log4gAppender *appender);
+
     /**
      * \brief Retrieve all previously attached appenders in an array.
      *
@@ -77,7 +79,9 @@ struct _Log4gAppenderAttachableInterface {
      * \note It is the responsibility of the caller to call g_array_free() on
      *       the returned value.
      */
-    const GArray *(*get_all_appenders)(Log4gAppenderAttachable *self);
+    const GArray *
+    (*get_all_appenders)(Log4gAppenderAttachable *self);
+
     /**
      * \brief Retrieve an attached appender by name.
      *
@@ -87,8 +91,9 @@ struct _Log4gAppenderAttachableInterface {
      * \return The appender identified by \e name or \e NULL if the named
      *         appender was not found.
      */
-    Log4gAppender *(*get_appender)(Log4gAppenderAttachable *self,
-            const gchar *name);
+    Log4gAppender *
+    (*get_appender)(Log4gAppenderAttachable *self, const gchar *name);
+
     /**
      * \brief Determine if an appender is attached to an object.
      *
@@ -98,30 +103,34 @@ struct _Log4gAppenderAttachableInterface {
      * \return \e TRUE if the named appender is attached to \e self, \e FALSE
      *         otherwise.
      */
-    gboolean (*is_attached)(Log4gAppenderAttachable *self,
-            Log4gAppender *appender);
+    gboolean
+    (*is_attached)(Log4gAppenderAttachable *self, Log4gAppender *appender);
+
     /**
      * \brief Remove all attached appenders from an object.
      *
      * \param self [in] An appender attachable object.
      */
-    void (*remove_all_appenders)(Log4gAppenderAttachable *self);
+    void
+    (*remove_all_appenders)(Log4gAppenderAttachable *self);
+
     /**
      * \brief Remove an attached appender from an object.
      *
      * \param self [in] An appender attachable object.
      * \param appender [in] The appender to remove.
      */
-    void (*remove_appender)(Log4gAppenderAttachable *self,
-            Log4gAppender *appender);
+    void
+    (*remove_appender)(Log4gAppenderAttachable *self, Log4gAppender *appender);
+
     /**
      * \brief Remove a named appender from an object.
      *
      * \param self [in] An appender attachable object.
      * \param name [in] The name of the appedner to remove.
      */
-    void (*remove_appender_name)(Log4gAppenderAttachable *self,
-            const gchar *name);
+    void
+    (*remove_appender_name)(Log4gAppenderAttachable *self, const gchar *name);
 };
 
 GType

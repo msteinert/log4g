@@ -84,6 +84,7 @@ struct _Log4gLevel {
 /** \brief Log4gLevelClass definition */
 struct _Log4gLevelClass {
     GObjectClass parent_class;
+
     /**
      * \brief Convert a string passed as an argument to a level.
      *
@@ -92,7 +93,9 @@ struct _Log4gLevelClass {
      * \return The level represented by \e string or \e DEBUG if the
      *         conversion failed.
      */
-    Log4gLevel *(*string_to_level)(const gchar *level);
+    Log4gLevel *
+    (*string_to_level)(const gchar *level);
+
     /**
      * \brief Convert a string passed as an argument to a level.
      *
@@ -102,8 +105,9 @@ struct _Log4gLevelClass {
      * \return The level represented by \e string or \e def if the
      *         conversion failed.
      */
-    Log4gLevel *(*string_to_level_default)(const gchar *level,
-            Log4gLevel *def);
+    Log4gLevel *
+    (*string_to_level_default)(const gchar *level, Log4gLevel *def);
+
     /**
      * \brief Convert an integer passed as an argument to a level.
      *
@@ -112,7 +116,9 @@ struct _Log4gLevelClass {
      * \return The level represented by \e level or \e DEBUG if the
      *         conversion failed.
      */
-    Log4gLevel *(*int_to_level)(gint level);
+    Log4gLevel *
+    (*int_to_level)(gint level);
+
     /**
      * \brief Convert an integer passed as an argument to a level.
      *
@@ -122,42 +128,50 @@ struct _Log4gLevelClass {
      * \return The level represented by \e level or \e def if the
      *         conversion failed.
      */
-    Log4gLevel *(*int_to_level_default)(gint level, Log4gLevel *def);
-    /*< public >*/
+    Log4gLevel *
+    (*int_to_level_default)(gint level, Log4gLevel *def);
+
     /**
      * The \e ALL level has the lowest possible rank and is intended to
      * turn on all logging.
      */
     Log4gLevel *ALL;
+
     /**
      * The \e TRACE level indicates finer-grained informational events
      * than \e DEBUG.
      */
     Log4gLevel *TRACE;
+
     /**
      * The \e DEBUG level indicates fine-grained informational events that
      * are useful for debugging.
      */
     Log4gLevel *DEBUG;
+
     /**
      * The \e INFO level indicates informational messages that highlight
      * the progress of the application at a coarse-grained level.
      */
     Log4gLevel *INFO;
+
     /**
      * The \e WARN indicates potentially harmful situations.
      */
     Log4gLevel *WARN;
+
     /**
      * The \e ERROR level indicates an error event that may allow the
      * application to continue.
      */
     Log4gLevel *ERROR;
+
     /**
      * The \e FATAL level indicates a very severe error events that will
      * presumably lead the application to abort.
      */
     Log4gLevel *FATAL;
+
     /**
      * The \e OFF level has the highest possible rank and is intended to
      * turn off logging.

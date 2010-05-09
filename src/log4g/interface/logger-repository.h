@@ -85,6 +85,7 @@ typedef struct _Log4gLoggerRepositoryInterface Log4gLoggerRepositoryInterface;
 /** \brief Log4gLoggerRepositoryInterface definition */
 struct _Log4gLoggerRepositoryInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Determine if a named logger exists.
      *
@@ -95,7 +96,9 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \return The logger named \e name or \e NULL if it does not exist.
      */
-    Log4gLogger *(*exists)(Log4gLoggerRepository *self, const gchar *name);
+    Log4gLogger *
+    (*exists)(Log4gLoggerRepository *self, const gchar *name);
+
     /**
      * \brief Retrieve all loggers in the repository.
      *
@@ -107,7 +110,9 @@ struct _Log4gLoggerRepositoryInterface {
      * \note It is the responsibility of the caller to call g_array_free()
      *       for the returned value.
      */
-    const GArray *(*get_current_loggers)(Log4gLoggerRepository *self);
+    const GArray *
+    (*get_current_loggers)(Log4gLoggerRepository *self);
+
     /**
      * \brief Retrieve a named logger from the repository.
      *
@@ -119,7 +124,9 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \return The logger named \e name.
      */
-    Log4gLogger *(*get_logger)(Log4gLoggerRepository *self, const gchar *name);
+    Log4gLogger *
+    (*get_logger)(Log4gLoggerRepository *self, const gchar *name);
+
     /**
      * \brief Retrieve a named logger from the repository.
      *
@@ -132,8 +139,10 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \return The logger named \e name.
      */
-    Log4gLogger *(*get_logger_factory)(Log4gLoggerRepository *self,
-            const gchar *name, Log4gLoggerFactory *factory);
+    Log4gLogger *
+    (*get_logger_factory)(Log4gLoggerRepository *self, const gchar *name,
+            Log4gLoggerFactory *factory);
+
     /**
      * \brief Retrieve the root logger.
      *
@@ -141,7 +150,9 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \return The root logger.
      */
-    Log4gLogger *(*get_root_logger)(Log4gLoggerRepository *self);
+    Log4gLogger *
+    (*get_root_logger)(Log4gLoggerRepository *self);
+
     /**
      * \brief Retrieve the repository threshold.
      *
@@ -153,7 +164,9 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \see log4g/level.h
      */
-    Log4gLevel *(*get_threshold)(Log4gLoggerRepository *self);
+    Log4gLevel *
+    (*get_threshold)(Log4gLoggerRepository *self);
+
     /**
      * \brief Determine if the repository is disabled for a given log level.
      *
@@ -166,13 +179,17 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \see log4g/level.h
      */
-    gboolean (*is_disabled)(Log4gLoggerRepository *self, gint level);
+    gboolean
+    (*is_disabled)(Log4gLoggerRepository *self, gint level);
+
     /**
      * \brief Reset a repository to its initial state.
      *
      * \param self [in] A logger repository object.
      */
-    void (*reset_configuration)(Log4gLoggerRepository *self);
+    void
+    (*reset_configuration)(Log4gLoggerRepository *self);
+
     /**
      * \brief Set the repository threshold.
      *
@@ -185,14 +202,17 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \see log4g/level.h
      */
-    void (*set_threshold)(Log4gLoggerRepository *self, Log4gLevel *level);
+    void
+    (*set_threshold)(Log4gLoggerRepository *self, Log4gLevel *level);
+
     /**
      * \brief
      *
      * \param self [in] A logger repository object.
      */
-    void (*set_threshold_string)(Log4gLoggerRepository *self,
-            const gchar *level);
+    void
+    (*set_threshold_string)(Log4gLoggerRepository *self, const gchar *level);
+
     /**
      * \brief Shutdown the repository.
      *
@@ -200,7 +220,9 @@ struct _Log4gLoggerRepositoryInterface {
      *
      * \param self [in] A logger repository object.
      */
-    void (*shutdown)(Log4gLoggerRepository *self);
+    void
+    (*shutdown)(Log4gLoggerRepository *self);
+
     /**
      * \brief Emit a warning after attempting to use a logger that has no
      *        appenders attached.
@@ -208,7 +230,8 @@ struct _Log4gLoggerRepositoryInterface {
      * \param self [in] A logger repository object.
      * \param logger [in] The logger that produced the warning.
      */
-    void (*emit_no_appender_warning)(Log4gLoggerRepository *self,
+    void
+    (*emit_no_appender_warning)(Log4gLoggerRepository *self,
             Log4gLogger *logger);
 };
 

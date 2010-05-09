@@ -85,6 +85,7 @@ struct _Log4gFileAppender {
 /** \brief Log4gFileAppenderClass definition */
 struct _Log4gFileAppenderClass {
     Log4gWriterAppenderClass parent_class;
+
     /**
      * \brief Set the file and other options.
      *
@@ -98,8 +99,10 @@ struct _Log4gFileAppenderClass {
      *
      * \see log4g/appender/rolling-file-appender.h
      */
-    void (*set_file_full)(Log4gAppender *base, const gchar *file,
-            gboolean append, gboolean buffered, guint size);
+    void
+    (*set_file_full)(Log4gAppender *base, const gchar *file, gboolean append,
+            gboolean buffered, guint size);
+
     /**
      * \brief Set the quiet writer used for output.
      *
@@ -111,7 +114,8 @@ struct _Log4gFileAppenderClass {
      * \see log4g/appender/rolling-file-appender.h,
      *      log4g/helpers/quiet-writer.h, stdio(3)
      */
-    void (*set_qw_for_files)(Log4gAppender *base, FILE *file);
+    void
+    (*set_qw_for_files)(Log4gAppender *base, FILE *file);
 };
 
 GType log4g_file_appender_get_type(void);

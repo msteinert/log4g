@@ -57,6 +57,7 @@ typedef struct _Log4gLoggerFactoryInterface Log4gLoggerFactoryInterface;
 /** \brief Log4gLoggerFactoryInterface definition */
 struct _Log4gLoggerFactoryInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Create a new logger object.
      *
@@ -65,8 +66,8 @@ struct _Log4gLoggerFactoryInterface {
      *
      * \return A new logger named \e name.
      */
-    Log4gLogger *(*make_new_logger_instance)(Log4gLoggerFactory *self,
-            const gchar *name);
+    Log4gLogger *
+    (*make_new_logger_instance)(Log4gLoggerFactory *self, const gchar *name);
 };
 
 GType

@@ -55,6 +55,7 @@ typedef struct _Log4gErrorHandlerInterface
 /** \brief Log4gErrorHandlerInterface definition */
 struct _Log4gErrorHandlerInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Add a reference to a logger to which the failing appender might
      *        be attached to.
@@ -65,7 +66,9 @@ struct _Log4gErrorHandlerInterface {
      * \param self [in] An error handler object.
      * \param logger [in] The logger to set for \e self.
      */
-    void (*set_logger)(Log4gErrorHandler *self, Log4gLogger *logger);
+    void
+    (*set_logger)(Log4gErrorHandler *self, Log4gLogger *logger);
+
     /**
      * \brief Invoke this function to handler the error.
      *
@@ -74,8 +77,10 @@ struct _Log4gErrorHandlerInterface {
      * \param message [in] A printf formatted error message.
      * \param ... [in] Format parameters.
      */
-    void (*error)(Log4gErrorHandler *self, Log4gLoggingEvent *event,
+    void
+    (*error)(Log4gErrorHandler *self, Log4gLoggingEvent *event,
             const char *message, va_list ap);
+
     /**
      * \brief Set the appender for which errors are handled.
      *
@@ -84,15 +89,17 @@ struct _Log4gErrorHandlerInterface {
      * \param self [in] An error handler object.
      * \param appender [in] The appender to set for \e self.
      */
-    void (*set_appender)(Log4gErrorHandler *self, Log4gAppender *appender);
+    void
+    (*set_appender)(Log4gErrorHandler *self, Log4gAppender *appender);
+
     /**
      * \brief Set the appender to fall back on in case of failure.
      *
      * \param self [in] An error handler object.
      * \param appender [in] The backup appender to set for \e self.
      */
-    void (*set_backup_appender)(Log4gErrorHandler *self,
-            Log4gAppender *appender);
+    void
+    (*set_backup_appender)(Log4gErrorHandler *self, Log4gAppender *appender);
 };
 
 GType

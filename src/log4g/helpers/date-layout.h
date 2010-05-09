@@ -79,7 +79,7 @@ typedef struct _Log4gDateLayoutClass Log4gDateLayoutClass;
 
 /** \brief Log4gDateLayoutClass definition */
 struct _Log4gDateLayout {
-    Log4gLayout parent_instance; /**< parent instance */
+    Log4gLayout parent_instance;
     /*< private >*/
     Log4gDateLayoutType type;
     gchar *format;

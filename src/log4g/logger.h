@@ -65,6 +65,7 @@ struct _Log4gLogger {
 /** \brief Log4gLoggerClass definition */
 struct _Log4gLoggerClass {
     GObjectClass parent_class;
+
     /**
      * \brief Retrieve the effective level threshold of a logger.
      *
@@ -76,7 +77,9 @@ struct _Log4gLoggerClass {
      *
      * \return The effect level threshold of \e self.
      */
-    Log4gLevel *(*get_effective_level)(Log4gLogger *self);
+    Log4gLevel *
+    (*get_effective_level)(Log4gLogger *self);
+
     /**
      * \brief Set the level threshold of a logger.
      *
@@ -85,7 +88,8 @@ struct _Log4gLoggerClass {
      *
      * \note \e NULL values are permitted.
      */
-    void (*set_level)(Log4gLogger *self, Log4gLevel *level);
+    void
+    (*set_level)(Log4gLogger *self, Log4gLevel *level);
 };
 
 GType

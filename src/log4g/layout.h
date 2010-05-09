@@ -72,6 +72,7 @@ struct _Log4gLayout {
 /** \brief Log4gLayoutClass definition */
 struct _Log4gLayoutClass {
     GObjectClass parent_class;
+
     /**
      * \brief Implement this function to create your own layout format.
      *
@@ -80,7 +81,9 @@ struct _Log4gLayoutClass {
      *
      * \return The formatted logging event.
      */
-    gchar *(*format)(Log4gLayout *self, Log4gLoggingEvent *event);
+    gchar *
+    (*format)(Log4gLayout *self, Log4gLoggingEvent *event);
+
     /**
      * \brief Retrieve the content type output by this layout.
      *
@@ -90,7 +93,9 @@ struct _Log4gLayoutClass {
      *
      * \return The layout content type.
      */
-    const gchar *(*get_content_type)(Log4gLayout *self);
+    const gchar *
+    (*get_content_type)(Log4gLayout *self);
+
     /**
      * \brief Retrieve the header for the layout format.
      *
@@ -100,7 +105,9 @@ struct _Log4gLayoutClass {
      *
      * \return The layout header.
      */
-    const gchar *(*get_header)(Log4gLayout *self);
+    const gchar *
+    (*get_header)(Log4gLayout *self);
+
     /**
      * \brief Retrieve the footer for the layout format.
      *
@@ -110,7 +117,8 @@ struct _Log4gLayoutClass {
      *
      * \return The layout footer.
      */
-    const gchar *(*get_footer)(Log4gLayout *self);
+    const gchar *
+    (*get_footer)(Log4gLayout *self);
 };
 
 GType

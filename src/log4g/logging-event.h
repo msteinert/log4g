@@ -71,7 +71,19 @@ struct _Log4gLoggingEvent {
 /** \brief Log4gLoggingEventClass definition */
 struct _Log4gLoggingEventClass {
     GObjectClass parent_class; /**< parent class */
-    Log4gLevel *(*get_level)(Log4gLoggingEvent *self);
+
+    /**
+     * \brief Retrieve the log level of a logging event.
+     *
+     * \param self [in] A logging event object.
+     *
+     * \return The log level of \e self.
+     *
+     * \see log4g/level.h
+     */
+    Log4gLevel *
+    (*get_level)(Log4gLoggingEvent *self);
+
     /*< private >*/
     glong start;
 };
@@ -98,13 +110,11 @@ log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
         const gchar *message, va_list ap);
 
 /**
- * \brief Retrieve the log level of a logging event.
+ * \brief Invokes the virtual function _Log4gLoggingEventClass::get_level().
  *
  * \param self [in] A logging event object.
  *
  * \return The log level of \e self.
- *
- * \see log4g/level.h
  */
 Log4gLevel *
 log4g_logging_event_get_level(Log4gLoggingEvent *self);

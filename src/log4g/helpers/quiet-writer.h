@@ -69,13 +69,15 @@ struct _Log4gQuietWriter {
 /** \brief Log4gQuietWriterClass definition */
 struct _Log4gQuietWriterClass {
     GObjectClass parent_class;
+
     /**
      * \brief Write a string to a stdio(3) stream.
      *
      * \param self [in] A quiet writer object.
      * \param string [in] The string to write.
      */
-    void (*write)(Log4gQuietWriter *self, const gchar *string);
+    void
+    (*write)(Log4gQuietWriter *self, const gchar *string);
 };
 
 GType

@@ -56,6 +56,7 @@ typedef struct _Log4gAppenderInterface Log4gAppenderInterface;
 /** \brief Log4gAppenderInterface definition */
 struct _Log4gAppenderInterface {
     GTypeInterface parent_interface;
+
     /**
      * \brief Add a filter to the end of the filter chain.
      *
@@ -64,7 +65,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/filter.h
      */
-    void (*add_filter)(Log4gAppender *self, Log4gFilter *filter);
+    void
+    (*add_filter)(Log4gAppender *self, Log4gFilter *filter);
+
     /**
      * Filters are organized in a linked list so all filters are available
      * through the result.
@@ -75,7 +78,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/filter.h
      */
-    Log4gFilter *(*get_filter)(Log4gAppender *self);
+    Log4gFilter *
+    (*get_filter)(Log4gAppender *self);
+
     /**
      * \brief Release all resources.
      *
@@ -85,7 +90,9 @@ struct _Log4gAppenderInterface {
      *
      * \param self [in] An appender object.
      */
-    void (*close)(Log4gAppender *self);
+    void
+    (*close)(Log4gAppender *self);
+
     /**
      * \brief Log in an appender-specific way.
      *
@@ -93,7 +100,9 @@ struct _Log4gAppenderInterface {
      *
      * \param self [in] An appender object.
      */
-    void (*do_append)(Log4gAppender *self, Log4gLoggingEvent *event);
+    void
+    (*do_append)(Log4gAppender *self, Log4gLoggingEvent *event);
+
     /**
      * \brief Retrieve the name an appender.
      *
@@ -103,7 +112,9 @@ struct _Log4gAppenderInterface {
      *
      * \return The name of \e self (may be \e NULL).
      */
-    const gchar *(*get_name)(Log4gAppender *self);
+    const gchar *
+    (*get_name)(Log4gAppender *self);
+
     /**
      * \brief set the error handler for an appender.
      *
@@ -112,7 +123,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/interface/error-handler.h
      */
-    void (*set_error_handler)(Log4gAppender *self, gpointer handler);
+    void
+    (*set_error_handler)(Log4gAppender *self, gpointer handler);
+
     /**
      * \brief Retrieve the error handler for an appender.
      *
@@ -122,7 +135,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/interface/error-handler.h
      */
-    gpointer (*get_error_handler)(Log4gAppender *self);
+    gpointer
+    (*get_error_handler)(Log4gAppender *self);
+
     /**
      * Set the layout for an appender.
      *
@@ -131,7 +146,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/layout.h
      */
-    void (*set_layout)(Log4gAppender *self, Log4gLayout *layout);
+    void
+    (*set_layout)(Log4gAppender *self, Log4gLayout *layout);
+
     /**
      * \brief Retrieve the layout for an appender.
      *
@@ -141,7 +158,9 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/layout.h
      */
-    Log4gLayout *(*get_layout)(Log4gAppender *self);
+    Log4gLayout *
+    (*get_layout)(Log4gAppender *self);
+
     /**
      * \brief Set the name of an appender.
      *
@@ -151,7 +170,9 @@ struct _Log4gAppenderInterface {
      * \param self [in] An appender object.
      * \param name [in] The new name for \e self.
      */
-    void (*set_name)(Log4gAppender *self, const gchar *name);
+    void
+    (*set_name)(Log4gAppender *self, const gchar *name);
+
     /**
      * \brief Determine if an appender requires a layout.
      *
@@ -167,7 +188,8 @@ struct _Log4gAppenderInterface {
      *
      * \see log4g/layout.h
      */
-    gboolean (*requires_layout)(Log4gAppender *self);
+    gboolean
+    (*requires_layout)(Log4gAppender *self);
 };
 
 GType
