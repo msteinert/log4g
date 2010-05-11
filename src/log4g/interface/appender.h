@@ -70,7 +70,7 @@ struct _Log4gAppenderInterface {
 
     /**
      * Filters are organized in a linked list so all filters are available
-     * through the result.
+     * through the result of this function.
      *
      * \param self [in] An appender object.
      *
@@ -286,7 +286,7 @@ log4g_appender_set_layout(Log4gAppender *self, Log4gLayout *layout);
  *
  * \param self [in] An appender object.
  *
- * \return The name of \e self.
+ * \return The layout set for \e self.
  */
 Log4gLayout *
 log4g_appender_get_layout(Log4gAppender *self);
@@ -295,7 +295,7 @@ log4g_appender_get_layout(Log4gAppender *self);
  * \brief Invokes the virtual function _Log4gAppenderInterface::set_name().
  *
  * \param self [in] An appender object.
- * \param name [in] The name name for \e self.
+ * \param name [in] The new name for \e self.
  */
 void
 log4g_appender_set_name(Log4gAppender *self, const gchar *name);

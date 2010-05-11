@@ -2,9 +2,9 @@
 # Process this file with automake to produce Makefile.in.
 
 # generate marshalling routines
-%.h: %.list
+.h.list:
 	glib-genmarshal --header $< > $@
-%.c: %.list
+.c.list:
 	glib-genmarshal --body $< > $@
 support/marshal.h: support/marshal.list
 support/marshal.c: support/marshal.list
@@ -12,11 +12,13 @@ support/marshal.c: support/marshal.list
 INCLUDES = \
     -I$(top_srcdir) \
     -I$(top_srcdir)/src \
+    $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GOBJECT_CFLAGS) \
     $(LIBXML2_CFLAGS)
 # compiler switches
-AM_CPPFLAGS = -std=gnu99 -Wall -Werror
+AM_CPPFLAGS = -std=gnu99 -Wall -Werror \
+    -DLOG4G_LOCALEDIR=\"$(localedir)\"
 # library definition
 lib_LTLIBRARIES = liblog4g.la
 liblog4g_la_SOURCES = \
@@ -74,6 +76,7 @@ liblog4g_la_SOURCES = \
     writer-appender.c \
     xml-layout.c
 liblog4g_la_LDFLAGS = \
+    $(GLIB_LIBS) \
     $(GMODULE_LIBS) \
     $(GOBJECT_LIBS) \
     $(LIBXML2_LIBS)

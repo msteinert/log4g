@@ -1,11 +1,12 @@
 prefix=@prefix@
-exec_prefix=${exec_prefix}
+exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: Log4g
 Description: A GObject-based logging utility
-Requires: gobject-2.0 libxml-2.0
+URL: http://msteinert.github.com/log4g/
 Version: @VERSION@
+Requires.private: @log4g_glib_version@ @log4g_gmodule_version@ @log4g_gobject_version@ @log4g_gthread_version@ @log4g_libxml_version@ 
 Libs: -L${libdir} -llog4g
 CFlags: -I${includedir}

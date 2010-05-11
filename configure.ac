@@ -14,32 +14,41 @@ AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 DOLT
 # Check for Doxygen
-AC_PATH_PROG(DOXYGEN, doxygen)
-AC_CACHE_VAL(log4g_cv_HAVE_DOT,
-    [AC_PATH_PROG(DOT, dot)
+AC_PATH_PROG([DOXYGEN], [doxygen])
+AC_CACHE_VAL([log4g_cv_HAVE_DOT],
+    [AC_PATH_PROG([DOT], [dot])
     if test "x$DOT" != "x"; then
         log4g_cv_HAVE_DOT=YES
     else
         log4g_cv_HAVE_DOT=NO
     fi])
 HAVE_DOT="$log4g_cv_HAVE_DOT"
-AC_SUBST(HAVE_DOT)
+AC_SUBST([HAVE_DOT])
 # Checks for dependencies
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.20)
-PKG_CHECK_MODULES(GMODULE, gmodule-2.0 >= 2.20)
-PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.20)
-PKG_CHECK_MODULES(GTHREAD, gthread-2.0 >= 2.20)
-PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= 2.6)
+PKG_PROG_PKG_CONFIG([0.17])
+log4g_glib_version="glib-2.0 >= 2.20"
+AC_SUBST([log4g_glib_version])
+PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
+log4g_gmodule_version="gmodule-2.0 >= 2.20"
+AC_SUBST([log4g_gmodule_version])
+PKG_CHECK_MODULES([GMODULE], [$log4g_gmodule_version])
+log4g_gobject_version="gobject-2.0 >= 2.20"
+AC_SUBST([log4g_gobject_version])
+PKG_CHECK_MODULES([GOBJECT], [$log4g_gobject_version])
+log4g_gthread_version="gthread-2.0 >= 2.20"
+AC_SUBST([log4g_gthread_version])
+PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
+log4g_libxml_version="libxml-2.0 >= 2.6"
+AC_SUBST([log4g_libxml_version])
+PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
     [Always defined to indicate that i18n is enabled])
-AC_DEFINE_UNQUOTED(LOG4G_LOCALEDIR, "$prefix/share/locale",
-    [Define to the location where the i18n catalogs will be installed])
-AC_DEFINE_UNQUOTED(G_LOG_DOMAIN, "$PACKAGE_NAME",
+AC_DEFINE_UNQUOTED([G_LOG_DOMAIN], ["$PACKAGE_NAME"],
     [The log domain for this project])
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$PACKAGE_NAME",
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$PACKAGE_NAME"],
     [The i18n domain for this project])
-AC_CHECK_FUNCS(bind_textdomain_codeset)
+AC_CHECK_FUNCS([bind_textdomain_codeset])
 AH_BOTTOM(
 [/* Include GLib i18n header file */
 #include <glib/gi18n-lib.h>
