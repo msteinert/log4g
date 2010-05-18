@@ -74,7 +74,7 @@ find_program(VALGRIND valgrind)
 if(VALGRIND)
     add_custom_target(memcheck
         COMMAND G_SLICE=always-malloc G_DEBUG=gc-friendly
-            ${VALGRIND} --leak-check=full ./log4g-test
+            ${VALGRIND} --leak-check=full --suppressions=${PROJECT_SOURCE_DIR}/resources/log4g.supp ./log4g-test
         DEPENDS ${TESTS}
     )
 endif(VALGRIND)

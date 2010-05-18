@@ -268,4 +268,5 @@ void
 log4g_finalize(void)
 {
     log4g_log_manager_shutdown();
+    log4g_log_manager_remove_instance();
 }

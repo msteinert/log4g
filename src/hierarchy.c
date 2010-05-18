@@ -366,6 +366,10 @@ dispose(GObject *base)
         g_object_unref(priv->root);
         priv->root = NULL;
     }
+    if (priv->table) {
+        g_hash_table_destroy(priv->table);
+        priv->table = NULL;
+    }
     if (priv->factory) {
         g_object_unref(priv->factory);
         priv->factory = NULL;
@@ -381,10 +385,6 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->table) {
-        g_hash_table_destroy(priv->table);
-        priv->table = NULL;
-    }
     if (priv->loggers) {
         g_array_free(priv->loggers, TRUE);
         priv->loggers = NULL;

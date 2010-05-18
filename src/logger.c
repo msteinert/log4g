@@ -94,7 +94,6 @@ dispose(GObject *base)
         priv->parent = NULL;
     }
     if (priv->repository) {
-        g_object_unref(priv->repository);
         priv->repository = NULL;
     }
     if (priv->aai) {
@@ -195,11 +194,7 @@ log4g_logger_set_name(Log4gLogger *self, const gchar *name)
 Log4gLogger *
 log4g_logger_get_parent(Log4gLogger *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (priv->parent) {
-        return priv->parent;
-    }
-    return NULL;
+    return GET_PRIVATE(self)->parent;
 }
 
 void
@@ -212,11 +207,7 @@ log4g_logger_set_parent(Log4gLogger *self, Log4gLogger *parent)
 Log4gLevel *
 log4g_logger_get_level(Log4gLogger *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (priv->level) {
-        return priv->level;
-    }
-    return NULL;
+    return GET_PRIVATE(self)->level;
 }
 
 void
@@ -241,16 +232,13 @@ log4g_logger_set_additivity(Log4gLogger *self, gboolean additive)
 gpointer
 log4g_logger_get_logger_repository(Log4gLogger *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    g_object_ref(priv->repository);
-    return priv->repository;
+    return GET_PRIVATE(self)->repository;
 }
 
 void
 log4g_logger_set_logger_repository(Log4gLogger *self, gpointer repository)
 {
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(repository));
-    g_object_ref(repository);
     GET_PRIVATE(self)->repository = repository;
 }
 

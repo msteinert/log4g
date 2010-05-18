@@ -782,14 +782,14 @@ log4g_dom_configurator_configure(const gchar *uri, GError **error)
 {
     gboolean status;
     struct Log4gPrivate *priv;
-    Log4gLoggerRepository *repository;
     Log4gConfigurator *self = log4g_dom_configurator_new();
     if (!self) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
                 "log4g_dom_configurator_new() returned NULL");
         return FALSE;
     }
-    repository = log4g_log_manager_get_logger_repository();
+    Log4gLoggerRepository *repository =
+        log4g_log_manager_get_logger_repository();
     if (!repository) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
                 "log4g_log_manager_get_logger_repository() returned NULL");
