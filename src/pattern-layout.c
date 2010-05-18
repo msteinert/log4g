@@ -74,6 +74,17 @@ log4g_pattern_layout_init(Log4gPatternLayout *self)
 }
 
 static void
+dispose(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->head) {
+        g_object_unref(priv->head);
+        priv->head = NULL;
+    }
+    G_OBJECT_CLASS(log4g_pattern_layout_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
@@ -85,10 +96,6 @@ finalize(GObject *base)
         g_string_free(priv->string, TRUE);
         priv->string = NULL;
     }
-    if (priv->head) {
-        g_object_unref(priv->head);
-        priv->head = NULL;
-    }
     G_OBJECT_CLASS(log4g_pattern_layout_parent_class)->finalize(base);
 }
 
@@ -96,7 +103,6 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gPatternParser *parser;
     const gchar *pattern;
     switch (id) {
     case PROP_CONVERSION_PATTERN:
@@ -112,8 +118,9 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         if (!priv->pattern) {
             break;
         }
-        parser = log4g_pattern_layout_create_pattern_parser(LOG4G_LAYOUT(base),
-                        priv->pattern);
+        Log4gPatternParser *parser =
+            log4g_pattern_layout_create_pattern_parser(LOG4G_LAYOUT(base),
+                    priv->pattern);
         if (!parser) {
             g_free(priv->pattern);
             priv->pattern = NULL;
@@ -131,7 +138,6 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-    Log4gPatternConverter *c;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->string) {
         if (priv->string->allocated_len > MAX_CAPACITY) {
@@ -147,7 +153,8 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     } else {
         g_string_set_size(priv->string, 0);
     }
-    for (c = priv->head; c != NULL; c = log4g_pattern_converter_get_next(c)) {
+    for (Log4gPatternConverter *c = priv->head; c != NULL;
+            c = log4g_pattern_converter_get_next(c)) {
         log4g_pattern_converter_format(c, priv->string, event);
     }
     return priv->string->str;
@@ -165,6 +172,7 @@ log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     /* initialize GObject class */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
@@ -183,12 +191,11 @@ log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
 Log4gLayout *
 log4g_pattern_layout_new(const gchar *pattern)
 {
-    struct Log4gPrivate *priv;
     Log4gLayout *self = g_object_new(LOG4G_TYPE_PATTERN_LAYOUT, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     log4g_pattern_layout_set_conversion_pattern(self, pattern);
     if (!priv->head) {
         g_object_unref(self);
@@ -216,8 +223,8 @@ Log4gPatternParser *
 log4g_pattern_layout_create_pattern_parser(Log4gLayout *base,
         const gchar *pattern)
 {
-    Log4gPatternLayoutClass *klass;
     g_return_val_if_fail(LOG4G_IS_PATTERN_LAYOUT(base), NULL);
-    klass = LOG4G_PATTERN_LAYOUT_GET_CLASS(base);
+    Log4gPatternLayoutClass *klass =
+        LOG4G_PATTERN_LAYOUT_GET_CLASS(base);
     return klass->create_pattern_parser(base, pattern);
 }

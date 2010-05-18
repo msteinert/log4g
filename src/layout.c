@@ -95,8 +95,8 @@ log4g_layout_get_footer(Log4gLayout *self)
 void
 log4g_layout_activate_options(Log4gLayout *self)
 {
-    Log4gOptionHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_LAYOUT(self));
-    interface = LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
+    Log4gOptionHandlerInterface *interface =
+        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
     interface->activate_options(LOG4G_OPTION_HANDLER(self));
 }

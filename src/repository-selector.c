@@ -38,8 +38,8 @@ log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
 Log4gLoggerRepository *
 log4g_repository_selector_get_logger_repository(Log4gRepositorySelector *self)
 {
-    Log4gRepositorySelectorInterface *interface;
     g_return_val_if_fail(LOG4G_IS_REPOSITORY_SELECTOR(self), NULL);
-    interface = LOG4G_REPOSITORY_SELECTOR_GET_INTERFACE(self);
+    Log4gRepositorySelectorInterface *interface =
+        LOG4G_REPOSITORY_SELECTOR_GET_INTERFACE(self);
     return interface->get_logger_repository(self);
 }

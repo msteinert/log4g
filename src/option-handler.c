@@ -37,8 +37,8 @@ log4g_option_handler_default_init(Log4gOptionHandlerInterface *klass)
 void
 log4g_option_handler_activate_options(Log4gOptionHandler *self)
 {
-    Log4gOptionHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_OPTION_HANDLER(self));
-    interface = LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
+    Log4gOptionHandlerInterface *interface =
+        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
     interface->activate_options(self);
 }

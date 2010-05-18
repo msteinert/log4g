@@ -51,7 +51,6 @@ struct Log4gPrivate {
 static void
 activate_options(Log4gOptionHandler *base)
 {
-    FILE *ostream = NULL;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
     if (G_UNLIKELY(!priv->file)) {
@@ -61,7 +60,7 @@ activate_options(Log4gOptionHandler *base)
                 "of ConsoleAppender?"));
         goto exit;
     }
-    ostream = fopen(priv->file, (priv->append ? "a" : "w"));
+    FILE *ostream = fopen(priv->file, (priv->append ? "a" : "w"));
     if (!ostream) {
         log4g_log_error("%s: %s", priv->file, g_strerror(errno));
         goto exit;

@@ -156,11 +156,10 @@ log4g_ndc_init(Log4gNDC *self)
 static void
 _free_array(GArray *data, gboolean free)
 {
-    guint i;
     GArray *array = (GArray *)data;
-    Log4gDiagnosticContext *context;
-    for (i = 0; i < array->len; ++i) {
-        context = g_array_index(array, Log4gDiagnosticContext *, i);
+    for (guint i = 0; i < array->len; ++i) {
+        Log4gDiagnosticContext *context =
+            g_array_index(array, Log4gDiagnosticContext *, i);
         log4g_diagnostic_context_destroy(context);
     }
     if (free) {
@@ -206,7 +205,6 @@ log4g_ndc_class_init(Log4gNDCClass *klass)
 Log4gNDC *
 log4g_ndc_get_instance(void)
 {
-    Log4gNDC *self;
     if (g_thread_supported()) {
         static gsize once = 0;
         if (g_once_init_enter(&once)) {
@@ -217,7 +215,7 @@ log4g_ndc_get_instance(void)
             g_once_init_leave(&once, 1);
         }
     }
-    self = g_private_get(priv);
+    Log4gNDC *self = g_private_get(priv);
     if (!self) {
         self = g_object_new(LOG4G_TYPE_NDC, NULL);
         if (!self) {
@@ -241,24 +239,22 @@ log4g_ndc_clear(void)
 GArray *
 log4g_ndc_clone(void)
 {
-    guint i;
-    GArray *clone;
-    Log4gDiagnosticContext *context;
-    Log4gDiagnosticContext *copy = NULL;
     GArray *stack = log4g_ndc_get_current_stack();
     if (!stack) {
         return NULL;
     }
-    clone = g_array_sized_new(FALSE, TRUE, sizeof(gchar *), stack->len);
+    GArray *clone =
+        g_array_sized_new(FALSE, TRUE, sizeof(gchar *), stack->len);
     if (!clone) {
         return NULL;
     }
-    for (i = 0; i < stack->len; ++i) {
-        context = g_array_index(stack, Log4gDiagnosticContext *, i);
+    for (guint i = 0; i < stack->len; ++i) {
+        Log4gDiagnosticContext *context =
+            g_array_index(stack, Log4gDiagnosticContext *, i);
         if (!context) {
             continue;
         }
-        copy = log4g_diagnostic_context_clone(context);
+        Log4gDiagnosticContext *copy = log4g_diagnostic_context_clone(context);
         if (!copy) {
             goto error;
         }
@@ -276,12 +272,11 @@ void
 log4g_ndc_inherit(GArray *stack)
 {
     Log4gNDC *self = log4g_ndc_get_instance();
-    struct Log4gPrivate *priv;
     if (!self) {
         return;
     }
     g_return_if_fail(stack);
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (priv->stack) {
         _free_array(priv->stack, TRUE);
     }
@@ -315,19 +310,17 @@ log4g_ndc_size(void)
 const gchar *
 log4g_ndc_pop(void)
 {
-    Log4gNDC *self;
-    struct Log4gPrivate *priv;
-    Log4gDiagnosticContext *context;
-    self = log4g_ndc_get_instance();
+    Log4gNDC *self = log4g_ndc_get_instance();
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (!priv->stack || !priv->stack->len) {
         return NULL;
     }
-    context = g_array_index(priv->stack, Log4gDiagnosticContext *,
-                    priv->stack->len - 1);
+    Log4gDiagnosticContext *context =
+        g_array_index(priv->stack, Log4gDiagnosticContext *,
+                priv->stack->len - 1);
     if (context) {
         if (priv->pop) {
             g_free(priv->pop);
@@ -356,12 +349,11 @@ void
 log4g_ndc_push(const char *message, ...)
 {
     Log4gNDC *self = log4g_ndc_get_instance();
-    struct Log4gPrivate *priv;
     va_list ap;
     if (!self) {
         return;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (!priv->stack) {
         Log4gDiagnosticContext *context;
         va_start(ap, message);
@@ -415,14 +407,13 @@ log4g_ndc_remove(void)
 void
 log4g_ndc_set_max_depth(guint maxdepth)
 {
-    guint i;
-    Log4gDiagnosticContext *context;
     GArray *stack = log4g_ndc_get_current_stack();
     if (!stack || (stack->len < maxdepth)) {
         return;
     }
-    for (i = stack->len - 1; i > maxdepth - 1; --i) {
-        context = g_array_index(stack, Log4gDiagnosticContext *, i);
+    for (guint i = stack->len - 1; i > maxdepth - 1; --i) {
+        Log4gDiagnosticContext *context =
+            g_array_index(stack, Log4gDiagnosticContext *, i);
         log4g_diagnostic_context_destroy(context);
     }
     g_array_set_size(stack, maxdepth);

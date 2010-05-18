@@ -39,18 +39,18 @@ void
 log4g_appender_attachable_add_appender(Log4gAppenderAttachable *self,
         Log4gAppender *appender)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self));
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
-    return interface->add_appender(self, appender);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    interface->add_appender(self, appender);
 }
 
 const GArray *
 log4g_appender_attachable_get_all_appenders(Log4gAppenderAttachable *self)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_val_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self), NULL);
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
     return interface->get_all_appenders(self);
 }
 
@@ -58,9 +58,9 @@ Log4gAppender *
 log4g_appender_attachable_get_appender(Log4gAppenderAttachable *self,
         const gchar *name)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_val_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self), NULL);
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
     return interface->get_appender(self, name);
 }
 
@@ -68,37 +68,37 @@ gboolean
 log4g_appender_attachable_is_attached(Log4gAppenderAttachable *self,
         Log4gAppender *appender)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_val_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self), FALSE);
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
     return interface->is_attached(self, appender);
 }
 
 void
 log4g_appender_attachable_remove_all_appenders(Log4gAppenderAttachable *self)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self));
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
-    return interface->remove_all_appenders(self);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    interface->remove_all_appenders(self);
 }
 
 void
 log4g_appender_attachable_remove_appender(Log4gAppenderAttachable *self,
         Log4gAppender *appender)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self));
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
-    return interface->remove_appender(self, appender);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    interface->remove_appender(self, appender);
 }
 
 void
 log4g_appender_attachable_remove_appender_name(Log4gAppenderAttachable *self,
         const gchar *name)
 {
-    Log4gAppenderAttachableInterface *interface;
     g_return_if_fail(LOG4G_IS_APPENDER_ATTACHABLE(self));
-    interface = LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
-    return interface->remove_appender_name(self, name);
+    Log4gAppenderAttachableInterface *interface =
+        LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(self);
+    interface->remove_appender_name(self, name);
 }

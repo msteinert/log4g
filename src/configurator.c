@@ -38,8 +38,8 @@ gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *url,
         Log4gLoggerRepository *repository, GError **error)
 {
-    Log4gConfiguratorInterface *interface;
     g_return_val_if_fail(LOG4G_IS_CONFIGURATOR(self), FALSE);
-    interface = LOG4G_CONFIGURATOR_GET_INTERFACE(self);
+    Log4gConfiguratorInterface *interface =
+        LOG4G_CONFIGURATOR_GET_INTERFACE(self);
     return interface->do_configure(self, url, repository, error);
 }

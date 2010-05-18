@@ -135,8 +135,7 @@ update_children(Log4gHierarchy *self, Log4gProvisionNode *node,
     guint last = log4g_provision_node_size(node);
     const gchar *name;
     Log4gLogger *l;
-    guint i;
-    for (i = 0; i < last; ++i) {
+    for (guint i = 0; i < last; ++i) {
         l = LOG4G_LOGGER(log4g_provision_node_element_at(node, i));
         if (!l) {
             continue;
@@ -156,9 +155,8 @@ get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLogger *logger = NULL;
-    GObject *object;
     g_mutex_lock(priv->lock);
-    object = g_hash_table_lookup(priv->table, name);
+    GObject *object = g_hash_table_lookup(priv->table, name);
     if (!object) {
         gchar *key;
         logger = log4g_logger_factory_make_new_logger_instance(factory, name);
@@ -248,25 +246,23 @@ set_threshold(Log4gLoggerRepository *base, Log4gLevel *level)
 static void
 shutdown(Log4gLoggerRepository *base)
 {
-    guint i;
-    Log4gLogger *logger;
-    const GArray *loggers;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLogger *root = log4g_logger_get_root_logger();
     /* close all appenders */
     log4g_logger_close_nested_appenders(root);
     g_mutex_lock(priv->lock);
-    loggers = log4g_logger_repository_get_current_loggers(base);
+    const GArray *loggers = log4g_logger_repository_get_current_loggers(base);
     if (!loggers) {
         goto exit;
     }
-    for (i = 0; i < loggers->len; ++i) {
+    Log4gLogger *logger;
+    for (guint i = 0; i < loggers->len; ++i) {
         logger = g_array_index(loggers, Log4gLogger *, i);
         log4g_logger_close_nested_appenders(logger);
     }
     /* remove all appenders */
     log4g_logger_remove_all_appenders(root);
-    for (i = 0; i < loggers->len; ++i) {
+    for (guint i = 0; i < loggers->len; ++i) {
         logger = g_array_index(loggers, Log4gLogger *, i);
         log4g_logger_remove_all_appenders(logger);
     }
@@ -277,20 +273,18 @@ exit:
 static void
 reset_configuration(Log4gLoggerRepository *base)
 {
-    guint i;
-    Log4gLogger *logger;
-    const GArray *loggers;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLogger *root = log4g_logger_get_root_logger();
     log4g_logger_set_level(root, log4g_level_DEBUG());
     log4g_logger_repository_set_threshold(base, log4g_level_ALL());
     log4g_logger_repository_shutdown(base);
     g_mutex_lock(priv->lock);
-    loggers = log4g_logger_repository_get_current_loggers(base);
+    const GArray *loggers = log4g_logger_repository_get_current_loggers(base);
     if (!loggers) {
         goto exit;
     }
-    for (i = 0; i < loggers->len; ++i) {
+    Log4gLogger *logger;
+    for (guint i = 0; i < loggers->len; ++i) {
         logger = g_array_index(loggers, Log4gLogger *, i);
         log4g_logger_set_level(logger, NULL);
         log4g_logger_set_additivity(logger, TRUE);
@@ -365,16 +359,12 @@ log4g_hierarchy_init(Log4gHierarchy *object)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->root) {
         g_object_unref(priv->root);
         priv->root = NULL;
-    }
-    if (priv->table) {
-        g_hash_table_destroy(priv->table);
-        priv->table = NULL;
     }
     if (priv->factory) {
         g_object_unref(priv->factory);
@@ -383,6 +373,17 @@ finalize(GObject *base)
     if (priv->threshold) {
         g_object_unref(priv->threshold);
         priv->threshold = NULL;
+    }
+    G_OBJECT_CLASS(log4g_hierarchy_parent_class)->dispose(base);
+}
+
+static void
+finalize(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->table) {
+        g_hash_table_destroy(priv->table);
+        priv->table = NULL;
     }
     if (priv->loggers) {
         g_array_free(priv->loggers, TRUE);
@@ -399,6 +400,7 @@ static void log4g_hierarchy_class_init(Log4gHierarchyClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -407,9 +409,8 @@ static void log4g_hierarchy_class_init(Log4gHierarchyClass *klass)
 Log4gLoggerRepository *
 log4g_hierarchy_new(Log4gLogger *root)
 {
-    Log4gLoggerRepository *self;
     g_return_val_if_fail(root, NULL);
-    self = g_object_new(LOG4G_TYPE_HIERARCHY, NULL);
+    Log4gLoggerRepository *self = g_object_new(LOG4G_TYPE_HIERARCHY, NULL);
     if (!self) {
         return NULL;
     }

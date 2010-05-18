@@ -47,13 +47,12 @@ static Log4gLogManager *instance = NULL;
 static void
 log4g_log_manager_init(Log4gLogManager *self)
 {
-    Log4gLogger *root;
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->guard = NULL;
     priv->repository = NULL;
     priv->selector = NULL;
     /* set defaults */
-    root = log4g_root_logger_new(log4g_level_DEBUG());
+    Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
     if (root) {
         priv->repository = log4g_hierarchy_new(root);
         g_object_unref(root);
@@ -62,10 +61,9 @@ log4g_log_manager_init(Log4gLogManager *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    instance = NULL;
     if (priv->repository) {
         g_object_unref(priv->repository);
         priv->repository = NULL;
@@ -78,7 +76,7 @@ finalize(GObject *base)
         g_object_unref(priv->guard);
         priv->guard = NULL;
     }
-    G_OBJECT_CLASS(log4g_log_manager_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_log_manager_parent_class)->dispose(base);
 }
 
 static void
@@ -86,7 +84,7 @@ log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
@@ -118,14 +116,12 @@ void
 log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
         GObject *guard)
 {
-    Log4gLogManager *self;
-    struct Log4gPrivate *priv;
     g_return_if_fail(selector);
-    self = log4g_log_manager_get_instance();
+    Log4gLogManager *self = log4g_log_manager_get_instance();
     if (!self) {
         return;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (priv->guard && (guard != priv->guard)) {
         log4g_log_error(Q_("attempted to reset the Log4gRepositorySelector "
                 "without possessing the guard"));
@@ -148,12 +144,11 @@ log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
 Log4gLoggerRepository *
 log4g_log_manager_get_logger_repository(void)
 {
-    struct Log4gPrivate *priv;
     Log4gLogManager *self = log4g_log_manager_get_instance();
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
 #if 0
     if (!instance->selector) {
         Log4gLoggerRepository = log4g_nop_logger_repository_new();

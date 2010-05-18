@@ -57,7 +57,7 @@ log4g_level_range_filter_init(Log4gLevelRangeFilter *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->min) {
@@ -68,7 +68,7 @@ finalize(GObject *base)
         g_object_unref(priv->max);
         priv->max = NULL;
     }
-    G_OBJECT_CLASS(log4g_level_range_filter_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_level_range_filter_parent_class)->dispose(base);
 }
 
 static void
@@ -138,7 +138,7 @@ log4g_level_range_filter_class_init(Log4gLevelRangeFilterClass *klass)
     Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));

@@ -54,14 +54,14 @@ log4g_level_match_filter_init(Log4gLevelMatchFilter *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->level) {
         g_object_unref(priv->level);
         priv->level = NULL;
     }
-    G_OBJECT_CLASS(priv)->finalize(base);
+    G_OBJECT_CLASS(log4g_level_match_filter_parent_class)->dispose(base);
 }
 
 static void
@@ -115,7 +115,7 @@ log4g_level_match_filter_class_init(Log4gLevelMatchFilterClass *klass)
     Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));

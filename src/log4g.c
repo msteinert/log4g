@@ -147,12 +147,11 @@ static gboolean
 pre_parse_hook(GOptionContext *context, GOptionGroup *group,
         gpointer data, GError **error)
 {
-    const gchar *env;
     Options *opt = (Options *)data;
     if (initialized) {
         return TRUE;
     }
-    env = g_getenv("LOG4G_DEBUG");
+    const gchar *env = g_getenv("LOG4G_DEBUG");
     if (env) {
         opt->flags = g_parse_debug_string(env, flags, G_N_ELEMENTS(flags));
     }
@@ -170,7 +169,6 @@ static gboolean
 post_parse_hook(GOptionContext *context, GOptionGroup *group,
         gpointer data, GError **error)
 {
-    gboolean cfg = FALSE;
     Options *opt = (Options *)data;
     if (initialized) {
         return TRUE;
@@ -182,6 +180,7 @@ post_parse_hook(GOptionContext *context, GOptionGroup *group,
     if (opt->flags & LOG4G_FLAG_QUIET) {
         log4g_set_quiet_mode(TRUE);
     }
+    gboolean cfg = FALSE;
     log4g_thread_set_name((opt->thread ? opt->thread : "main"));
     if (opt->configuration) {
         GError *error = NULL;
@@ -202,8 +201,6 @@ post_parse_hook(GOptionContext *context, GOptionGroup *group,
 GOptionGroup *
 log4g_get_option_group(void)
 {
-    Options *opt;
-    GOptionGroup *group;
     if (!initialized) {
         if (!setlocale(LC_ALL, "")) {
             log4g_log_warn(Q_("Locale not supported by C library.\n"
@@ -228,11 +225,11 @@ log4g_get_option_group(void)
 #endif
 #endif
     }
-    opt = options_new();
+    Options *opt = options_new();
     if (!opt) {
         return NULL;
     }
-    group = g_option_group_new("log4g", Q_("Log4g Options"),
+    GOptionGroup *group = g_option_group_new("log4g", Q_("Log4g Options"),
                     Q_("Show Log4g Options"), opt, options_destroy);
     if (!group) {
         return NULL;
@@ -246,21 +243,19 @@ log4g_get_option_group(void)
 void
 log4g_init(int *argc, char ***argv)
 {
-    GOptionContext *context;
-    GOptionGroup *group;
-    GError *error = NULL;
     if (initialized) {
         return;
     }
-    context = g_option_context_new(NULL);
+    GOptionContext *context = g_option_context_new(NULL);
     if (!context) {
         return;
     }
     g_option_context_set_ignore_unknown_options(context, TRUE);
     g_option_context_set_help_enabled(context, FALSE);
-    group = log4g_get_option_group();
+    GOptionGroup *group = log4g_get_option_group();
     if (group) {
         g_option_context_set_main_group(context, group);
+        GError *error = NULL;
         if (!g_option_context_parse(context, argc, argv, &error)) {
             log4g_log_warn("%s", error->message);
             g_error_free(error);
@@ -273,5 +268,4 @@ void
 log4g_finalize(void)
 {
     log4g_log_manager_shutdown();
-    log4g_log_manager_remove_instance();
 }

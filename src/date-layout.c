@@ -174,12 +174,10 @@ void
 log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event)
 {
-    struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-    priv = GET_PRIVATE(base);
-    struct timeval *tv;
     gchar buffer[128];
-    tv = log4g_logging_event_get_time_stamp(event);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return;
     }

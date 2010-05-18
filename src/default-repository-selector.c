@@ -59,13 +59,15 @@ log4g_default_repository_selector_init(Log4gDefaultRepositorySelector *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->repository) {
         g_object_unref(priv->repository);
         priv->repository = NULL;
     }
+    G_OBJECT_CLASS(log4g_default_repository_selector_parent_class)->
+        dispose(base);
 }
 
 static void log4g_default_repository_selector_class_init(
@@ -73,7 +75,7 @@ static void log4g_default_repository_selector_class_init(
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObjectClass */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }

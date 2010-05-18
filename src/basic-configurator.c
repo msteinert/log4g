@@ -32,18 +32,15 @@
 void
 log4g_basic_configurator_configure(void)
 {
-    Log4gAppender *appender = NULL;
-    Log4gLayout *layout = NULL;
-    Log4gLogger *root;
-    root = log4g_logger_get_root_logger();
+    Log4gLogger *root = log4g_logger_get_root_logger();
     if (!root) {
         return;
     }
-    layout = log4g_ttcc_layout_new(NULL);
+    Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
     if (!layout) {
         return;
     }
-    appender = log4g_console_appender_new(layout, NULL);
+    Log4gAppender *appender = log4g_console_appender_new(layout, NULL);
     if (!appender) {
         goto exit;
     }

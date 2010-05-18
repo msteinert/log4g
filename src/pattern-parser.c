@@ -79,6 +79,17 @@ log4g_pattern_parser_init(Log4gPatternParser *self)
 }
 
 static void
+dispose(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->head) {
+        g_object_unref(priv->head);
+        priv->head = priv->tail = NULL;
+    }
+    G_OBJECT_CLASS(log4g_pattern_parser_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
@@ -90,10 +101,6 @@ finalize(GObject *base)
         g_free(priv->pattern);
         priv->pattern = NULL;
     }
-    if (priv->head) {
-        g_object_unref(priv->head);
-        priv->head = priv->tail = NULL;
-    }
     G_OBJECT_CLASS(log4g_pattern_parser_parent_class)->finalize(base);
 }
 
@@ -102,6 +109,7 @@ log4g_pattern_parser_class_init(Log4gPatternParserClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -110,12 +118,11 @@ log4g_pattern_parser_class_init(Log4gPatternParserClass *klass)
 Log4gPatternParser *
 log4g_pattern_parser_new(const gchar *pattern)
 {
-    struct Log4gPrivate *priv;
     Log4gPatternParser *self = g_object_new(LOG4G_TYPE_PATTERN_PARSER, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->pattern = g_strdup(pattern);
     if (!priv->pattern) {
         g_object_unref(self);
@@ -188,14 +195,13 @@ log4g_pattern_parser_parse(Log4gPatternParser *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     Log4gPatternConverter *pc;
-    gchar c;
     priv->i = 0;
     if (priv->head) {
         g_object_unref(priv->head);
         priv->head = NULL;
     }
     while (priv->i < priv->length) {
-        c = priv->pattern[priv->i++];
+        gchar c = priv->pattern[priv->i++];
         switch (priv->state) {
         case LITERAL_STATE:
             if (priv->i == priv->length) {

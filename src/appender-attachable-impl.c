@@ -60,13 +60,12 @@ static Log4gAppender *
 get_appender(Log4gAppenderAttachable *base, const gchar *name)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gAppender *appender;
-    guint i;
     if (!priv->list || !name) {
         return NULL;
     }
-    for (i = 0; i < priv->list->len; ++i) {
-        appender = g_array_index(priv->list, Log4gAppender *, i);
+    for (guint i = 0; i < priv->list->len; ++i) {
+        Log4gAppender *appender =
+            g_array_index(priv->list, Log4gAppender *, i);
         if (!appender) {
             continue;
         }
@@ -82,13 +81,11 @@ static gboolean
 is_attached(Log4gAppenderAttachable *base, Log4gAppender *appender)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gAppender *stored;
-    guint i;
     if (!priv->list || !appender) {
         return FALSE;
     }
-    for (i = 0; i < priv->list->len; ++i) {
-        stored = g_array_index(priv->list, Log4gAppender *, i);
+    for (guint i = 0; i < priv->list->len; ++i) {
+        Log4gAppender *stored = g_array_index(priv->list, Log4gAppender *, i);
         if (!stored) {
             continue;
         }
@@ -103,13 +100,12 @@ static void
 remove_all_appenders(Log4gAppenderAttachable *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gAppender *appender;
-    guint i;
     if (!priv->list) {
         return;
     }
-    for (i = 0; i < priv->list->len; ++i) {
-        appender = g_array_index(priv->list, Log4gAppender *, i);
+    for (guint i = 0; i < priv->list->len; ++i) {
+        Log4gAppender *appender =
+            g_array_index(priv->list, Log4gAppender *, i);
         if (!appender) {
             continue;
         }
@@ -123,13 +119,11 @@ static void
 remove_appender(Log4gAppenderAttachable *base, Log4gAppender *appender)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gAppender *stored;
-    guint i;
     if (!priv->list) {
         return;
     }
-    for (i = 0; i < priv->list->len; ++i) {
-        stored = g_array_index(priv->list, Log4gAppender *, i);
+    for (guint i = 0; i < priv->list->len; ++i) {
+        Log4gAppender *stored = g_array_index(priv->list, Log4gAppender *, i);
         if (!stored) {
             continue;
         }
@@ -145,13 +139,12 @@ static void
 remove_appender_name(Log4gAppenderAttachable *base, const gchar *name)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gAppender *appender;
-    guint i;
     if (!priv->list || !name) {
         return;
     }
-    for (i = 0; i < priv->list->len; ++i) {
-        appender = g_array_index(priv->list, Log4gAppender *, i);
+    for (guint i = 0; i < priv->list->len; ++i) {
+        Log4gAppender *appender =
+            g_array_index(priv->list, Log4gAppender *, i);
         if (!appender) {
             continue;
         }
@@ -189,20 +182,30 @@ log4g_appender_attachable_impl_init(Log4gAppenderAttachableImpl *self)
 }
 
 static void
+dispose(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->list) {
+        Log4gAppender *appender;
+        for (guint i = 0; i < priv->list->len; ++i) {
+            appender = g_array_index(priv->list, Log4gAppender *, i);
+            g_object_unref(appender);
+        }
+        g_array_remove_range(priv->list, 0, priv->list->len);
+    }
+    G_OBJECT_CLASS(log4g_appender_attachable_impl_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->list) {
-        guint i;
-        Log4gAppender *appender;
-        for (i = 0; i < priv->list->len; ++i) {
-            appender = g_array_index(priv->list, Log4gAppender *, i);
-            g_object_unref(appender);
-        }
         g_array_free(priv->list, TRUE);
+        priv->list = NULL;
     }
-    G_OBJECT_CLASS(
-            log4g_appender_attachable_impl_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_appender_attachable_impl_parent_class)->
+        finalize(base);
 }
 
 static void
@@ -211,6 +214,7 @@ log4g_appender_attachable_impl_class_init(
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -226,15 +230,14 @@ guint
 log4g_appender_attachable_impl_append_loop_on_appenders(
         Log4gAppenderAttachable *base, Log4gLoggingEvent *event)
 {
-    struct Log4gPrivate *priv;
     g_return_val_if_fail(LOG4G_IS_APPENDER_ATTACHABLE_IMPL(base), 0);
-    priv = GET_PRIVATE(base);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gAppender *appender;
-    guint size = 0, i;
     if (!priv->list) {
         return 0;
     }
-    for (i = 0; i < priv->list->len; ++i) {
+    guint size = 0;
+    for (guint i = 0; i < priv->list->len; ++i) {
         appender = g_array_index(priv->list, Log4gAppender *, i);
         if (!appender) {
             continue;

@@ -191,9 +191,8 @@ log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
 Log4gAppender *
 log4g_console_appender_new(Log4gLayout *layout, const char *target)
 {
-    Log4gAppender *self;
     g_return_val_if_fail(layout, NULL);
-    self = g_object_new(LOG4G_TYPE_CONSOLE_APPENDER, NULL);
+    Log4gAppender *self = g_object_new(LOG4G_TYPE_CONSOLE_APPENDER, NULL);
     if (!self) {
         return NULL;
     }

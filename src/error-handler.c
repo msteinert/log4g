@@ -40,9 +40,9 @@ void
 log4g_error_handler_set_logger(Log4gErrorHandler *self,
         Log4gLogger *logger)
 {
-    Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    interface = LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
+    Log4gErrorHandlerInterface *interface =
+        LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
     interface->set_logger(self, logger);
 }
 
@@ -50,10 +50,10 @@ void
 log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
         const char *message, ...)
 {
-    va_list ap;
-    Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    interface = LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
+    Log4gErrorHandlerInterface *interface =
+        LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
+    va_list ap;
     va_start(ap, message);
     interface->error(self, event, message, ap);
     va_end(ap);
@@ -63,9 +63,9 @@ void
 log4g_error_handler_set_appender(Log4gErrorHandler *self,
         Log4gAppender *appender)
 {
-    Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    interface = LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
+    Log4gErrorHandlerInterface *interface =
+        LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
     interface->set_appender(self, appender);
 }
 
@@ -73,17 +73,17 @@ void
 log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
         Log4gAppender *appender)
 {
-    Log4gErrorHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    interface = LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
+    Log4gErrorHandlerInterface *interface =
+        LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
     interface->set_appender(self, appender);
 }
 
 void
 log4g_error_handler_activate_options(Log4gErrorHandler *self)
 {
-    Log4gOptionHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    interface = LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
+    Log4gOptionHandlerInterface *interface =
+        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
     interface->activate_options(LOG4G_OPTION_HANDLER(self));
 }

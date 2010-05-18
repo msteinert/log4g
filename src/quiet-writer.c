@@ -49,14 +49,20 @@ log4g_quiet_writer_init(Log4gQuietWriter *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    log4g_quiet_writer_close(LOG4G_QUIET_WRITER(base));
     if (priv->error) {
         g_object_unref(priv->error);
         priv->error = NULL;
     }
+    G_OBJECT_CLASS(log4g_quiet_writer_parent_class)->dispose(base);
+}
+
+static void
+finalize(GObject *base)
+{
+    log4g_quiet_writer_close(LOG4G_QUIET_WRITER(base));
     G_OBJECT_CLASS(log4g_quiet_writer_parent_class)->finalize(base);
 }
 
@@ -78,6 +84,7 @@ log4g_quiet_writer_class_init(Log4gQuietWriterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -88,11 +95,10 @@ log4g_quiet_writer_class_init(Log4gQuietWriterClass *klass)
 Log4gQuietWriter *
 log4g_quiet_writer_new(FILE *file, gpointer error)
 {
-    Log4gQuietWriter *self;
     g_return_val_if_fail(file, NULL);
     g_return_val_if_fail(error, NULL);
     g_return_val_if_fail(LOG4G_IS_ERROR_HANDLER(error), NULL);
-    self = g_object_new(LOG4G_TYPE_QUIET_WRITER, NULL);
+    Log4gQuietWriter *self = g_object_new(LOG4G_TYPE_QUIET_WRITER, NULL);
     if (!self) {
         return NULL;
     }

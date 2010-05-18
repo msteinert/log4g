@@ -59,14 +59,14 @@ log4g_filter_init(Log4gFilter *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->next) {
         g_object_unref(priv->next);
         priv->next = NULL;
     }
-    G_OBJECT_CLASS(log4g_filter_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_filter_parent_class)->dispose(base);
 }
 
 static void
@@ -74,7 +74,7 @@ log4g_filter_class_init(Log4gFilterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gFilter class */
@@ -84,9 +84,9 @@ log4g_filter_class_init(Log4gFilterClass *klass)
 void
 log4g_filter_activate_options(Log4gFilter *self)
 {
-    Log4gOptionHandlerInterface *interface;
     g_return_if_fail(LOG4G_IS_FILTER(self));
-    interface = LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
+    Log4gOptionHandlerInterface *interface =
+        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
     interface->activate_options(LOG4G_OPTION_HANDLER(self));
 }
 

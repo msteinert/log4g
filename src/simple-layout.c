@@ -71,9 +71,8 @@ static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gLevel *level;
     g_string_set_size(priv->string, 0);
-    level = log4g_logging_event_get_level(event);
+    Log4gLevel *level = log4g_logging_event_get_level(event);
     if (level) {
         g_string_append(priv->string, log4g_level_to_string(level));
     }

@@ -70,7 +70,6 @@ log4g_mdc_class_init(Log4gMDCClass *klass)
 Log4gMDC *
 log4g_mdc_get_instance(void)
 {
-    Log4gMDC *self;
     if (g_thread_supported()) {
         static gsize once = 0;
         if (g_once_init_enter(&once)) {
@@ -81,7 +80,7 @@ log4g_mdc_get_instance(void)
             g_once_init_leave(&once, 1);
         }
     }
-    self = (Log4gMDC *)g_private_get(priv);
+    Log4gMDC *self = (Log4gMDC *)g_private_get(priv);
     if (!self) {
         self = g_object_new(LOG4G_TYPE_MDC, NULL);
         if (!self) {
@@ -95,11 +94,11 @@ log4g_mdc_get_instance(void)
 void
 log4g_mdc_put(const gchar *key, const gchar *value, ...)
 {
-    va_list ap;
     Log4gMDC *self = log4g_mdc_get_instance();
     if (!self) {
         return;
     }
+    va_list ap;
     va_start(ap, value);
     g_hash_table_insert(GET_PRIVATE(self)->table, g_strdup(key),
             g_strdup_vprintf(value, ap));

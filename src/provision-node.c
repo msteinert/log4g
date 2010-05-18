@@ -44,21 +44,30 @@ log4g_provision_node_init(Log4gProvisionNode *self)
 }
 
 static void
+dispose(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->array) {
+        GObject *object;
+        for (guint i = 0; i < priv->array->len; ++i) {
+            object = g_array_index(priv->array, gpointer, i);
+            if (object) {
+                g_object_unref(object);
+            }
+        }
+        g_array_remove_range(priv->array, 0, priv->array->len);
+    }
+    G_OBJECT_CLASS(log4g_provision_node_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
-    guint i;
-    GObject *object;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (!priv->array) {
-        return;
+    if (priv->array) {
+        g_array_free(priv->array, TRUE);
+        priv->array = NULL;
     }
-    for (i = 0; i < priv->array->len; ++i) {
-        object = g_array_index(priv->array, gpointer, i);
-        if (object) {
-            g_object_unref(object);
-        }
-    }
-    g_array_free(priv->array, TRUE);
     G_OBJECT_CLASS(log4g_provision_node_parent_class)->finalize(base);
 }
 
@@ -67,6 +76,7 @@ log4g_provision_node_class_init(Log4gProvisionNodeClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));

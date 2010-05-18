@@ -82,34 +82,35 @@ log4g_logger_init(Log4gLogger *self)
 }
 
 static void
-_notify(gpointer data, GObject *object)
-{
-    GET_PRIVATE(data)->repository = NULL;
-}
-
-static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->level) {
         g_object_unref(priv->level);
         priv->level = NULL;
     }
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
-    }
     if (priv->parent) {
         g_object_unref(priv->parent);
         priv->parent = NULL;
     }
     if (priv->repository) {
-        g_object_weak_unref((GObject *)priv->repository, _notify, base);
+        g_object_unref(priv->repository);
         priv->repository = NULL;
     }
     if (priv->aai) {
         g_object_unref(priv->aai);
         priv->aai = NULL;
+    }
+    G_OBJECT_CLASS(log4g_logger_parent_class)->dispose(base);
+}
+
+static void
+finalize(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->name) {
+        g_free(priv->name);
+        priv->name = NULL;
     }
     if (priv->lock) {
         g_mutex_free(priv->lock);
@@ -122,9 +123,8 @@ static Log4gLevel *
 get_effective_level(Log4gLogger *self)
 {
     Log4gLogger *logger = self;
-    struct Log4gPrivate *priv;
     while (logger) {
-        priv = GET_PRIVATE(logger);
+        struct Log4gPrivate *priv = GET_PRIVATE(logger);
         if (priv->level) {
             return priv->level;
         }
@@ -149,6 +149,7 @@ log4g_logger_class_init(Log4gLoggerClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -160,15 +161,13 @@ log4g_logger_class_init(Log4gLoggerClass *klass)
 Log4gLogger *
 log4g_logger_new(const gchar *name)
 {
-    Log4gLogger *self;
-    struct Log4gPrivate *priv;
     g_return_val_if_fail(name, NULL);
-    self = g_object_new(LOG4G_TYPE_LOGGER, NULL);
+    Log4gLogger *self = g_object_new(LOG4G_TYPE_LOGGER, NULL);
     if (!self) {
         return NULL;
     }
     log4g_logger_set_name(self, name);
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (!priv->name) {
         g_object_unref(self);
         return NULL;
@@ -185,9 +184,8 @@ log4g_logger_get_name(Log4gLogger *self)
 void
 log4g_logger_set_name(Log4gLogger *self, const gchar *name)
 {
-    struct Log4gPrivate *priv;
     g_return_if_fail(name);
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (priv->name) {
         g_free(priv->name);
     }
@@ -252,7 +250,7 @@ void
 log4g_logger_set_logger_repository(Log4gLogger *self, gpointer repository)
 {
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(repository));
-    g_object_weak_ref(repository, _notify, self);
+    g_object_ref(repository);
     GET_PRIVATE(self)->repository = repository;
 }
 
@@ -278,12 +276,12 @@ const GArray *
 log4g_logger_get_all_appenders(Log4gLogger *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    const GArray *appenders = NULL;
     if (!g_atomic_pointer_get(&priv->aai)) {
         return NULL;
     }
     g_mutex_lock(priv->lock);
-    appenders = log4g_appender_attachable_get_all_appenders(priv->aai);
+    const GArray *appenders =
+        log4g_appender_attachable_get_all_appenders(priv->aai);
     g_mutex_unlock(priv->lock);
     return appenders;
 }
@@ -292,12 +290,12 @@ Log4gAppender *
 log4g_logger_get_appender(Log4gLogger *self, const gchar *name)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    Log4gAppender *appender;
     if (!priv->aai) {
         return NULL;
     }
     g_mutex_lock(priv->lock);
-    appender = log4g_appender_attachable_get_appender(priv->aai, name);
+    Log4gAppender *appender =
+        log4g_appender_attachable_get_appender(priv->aai, name);
     g_mutex_unlock(priv->lock);
     return appender;
 }
@@ -316,31 +314,28 @@ void
 log4g_logger_remove_all_appenders(Log4gLogger *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    Log4gAppender *appender;
-    const GArray *appenders;
-    GArray *mine;
-    guint i;
     if (!g_atomic_pointer_get(&priv->aai)) {
         return;
     }
     g_mutex_lock(priv->lock);
-    appenders = log4g_appender_attachable_get_all_appenders(priv->aai);
+    const GArray *appenders =
+        log4g_appender_attachable_get_all_appenders(priv->aai);
     if (!appenders) {
         goto exit;
     }
-    mine = g_array_sized_new(FALSE, TRUE, sizeof(Log4gAppender *),
+    GArray *mine = g_array_sized_new(FALSE, TRUE, sizeof(Log4gAppender *),
                 appenders->len);
     if (!mine) {
         goto exit;
     }
-    for (i = 0; i < appenders->len; ++i) {
-        appender = g_array_index(appenders, Log4gAppender *, i);
+    for (guint i = 0; i < appenders->len; ++i) {
+        Log4gAppender *appender = g_array_index(appenders, Log4gAppender *, i);
         g_object_ref(appender);
         g_array_append_val(mine, appender);
     }
     log4g_appender_attachable_remove_all_appenders(priv->aai);
-    for (i = 0; i < mine->len; ++i) {
-        appender = g_array_index(mine, Log4gAppender *, i);
+    for (guint i = 0; i < mine->len; ++i) {
+        Log4gAppender *appender = g_array_index(mine, Log4gAppender *, i);
         log4g_logger_repository_emit_remove_appender_signal(priv->repository,
                 self, appender);
         g_object_unref(appender);
@@ -356,12 +351,12 @@ void
 log4g_logger_remove_appender(Log4gLogger *self, Log4gAppender *appender)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    gboolean attached = FALSE;
     if (!g_atomic_pointer_get(&priv->aai)) {
         return;
     }
     g_mutex_lock(priv->lock);
-    attached = log4g_appender_attachable_is_attached(priv->aai, appender);
+    gboolean attached =
+        log4g_appender_attachable_is_attached(priv->aai, appender);
     if (attached) {
         log4g_appender_attachable_remove_appender(priv->aai, appender);
         log4g_logger_repository_emit_remove_appender_signal(priv->repository,
@@ -374,12 +369,12 @@ void
 log4g_logger_remove_appender_name(Log4gLogger *self, const gchar *name)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    Log4gAppender *appender;
     if (!g_atomic_pointer_get(&priv->aai)) {
         return;
     }
     g_mutex_lock(priv->lock);
-    appender = log4g_appender_attachable_get_appender(priv->aai, name);
+    Log4gAppender *appender =
+        log4g_appender_attachable_get_appender(priv->aai, name);
     if (appender) {
         log4g_appender_attachable_remove_appender_name(priv->aai, name);
         log4g_logger_repository_emit_remove_appender_signal(priv->repository,
@@ -393,8 +388,8 @@ void
 log4g_logger_call_appenders(Log4gLogger *self, Log4gLoggingEvent *event)
 {
     guint writes = 0;
-    Log4gLogger *logger = self;
     struct Log4gPrivate *priv = GET_PRIVATE(self);
+    Log4gLogger *logger = self;
     while (logger) {
         priv = GET_PRIVATE(logger);
         g_mutex_lock(priv->lock);
@@ -419,15 +414,13 @@ void
 log4g_logger_close_nested_appenders(Log4gLogger *self)
 {
     const GArray *appenders = log4g_logger_get_all_appenders(self);
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    Log4gAppender *appender;
-    guint i;
     if (!appenders) {
         return;
     }
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     g_mutex_lock(priv->lock);
-    for (i = 0; i < appenders->len; ++i) {
-        appender = g_array_index(appenders, Log4gAppender *, i);
+    for (guint i = 0; i < appenders->len; ++i) {
+        Log4gAppender *appender = g_array_index(appenders, Log4gAppender *, i);
         if (LOG4G_IS_APPENDER_ATTACHABLE(appender)) {
             log4g_appender_close(appender);
         }
@@ -455,8 +448,6 @@ _log4g_logger_assert(Log4gLogger *self, gboolean assertion,
         const gchar *function, const gchar *file, const gchar *line,
         const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (assertion) {
         return;
     }
@@ -467,7 +458,8 @@ _log4g_logger_assert(Log4gLogger *self, gboolean assertion,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_ERROR_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->ERROR, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -480,8 +472,6 @@ _log4g_logger_assert(Log4gLogger *self, gboolean assertion,
 gboolean
 log4g_logger_is_trace_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -489,7 +479,8 @@ log4g_logger_is_trace_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_TRACE_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->TRACE, effective);
 }
 
@@ -497,8 +488,6 @@ void
 _log4g_logger_trace(Log4gLogger *self, const gchar *function,
         const gchar *file, const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -506,7 +495,8 @@ _log4g_logger_trace(Log4gLogger *self, const gchar *function,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_TRACE_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->TRACE, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -519,8 +509,6 @@ _log4g_logger_trace(Log4gLogger *self, const gchar *function,
 gboolean
 log4g_logger_is_debug_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -528,7 +516,8 @@ log4g_logger_is_debug_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_DEBUG_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->DEBUG, effective);
 }
 
@@ -536,8 +525,6 @@ void
 _log4g_logger_debug(Log4gLogger *self, const gchar *function,
         const gchar *file, const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -545,7 +532,8 @@ _log4g_logger_debug(Log4gLogger *self, const gchar *function,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_DEBUG_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->DEBUG, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -558,8 +546,6 @@ _log4g_logger_debug(Log4gLogger *self, const gchar *function,
 gboolean
 log4g_logger_is_info_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -567,7 +553,8 @@ log4g_logger_is_info_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_INFO_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->INFO, effective);
 }
 
@@ -575,8 +562,6 @@ void
 _log4g_logger_info(Log4gLogger *self, const gchar *function, const gchar *file,
         const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -584,7 +569,8 @@ _log4g_logger_info(Log4gLogger *self, const gchar *function, const gchar *file,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_INFO_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->INFO, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -597,8 +583,6 @@ _log4g_logger_info(Log4gLogger *self, const gchar *function, const gchar *file,
 gboolean
 log4g_logger_is_warn_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -606,7 +590,8 @@ log4g_logger_is_warn_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_WARN_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->WARN, effective);
 }
 
@@ -614,8 +599,6 @@ void
 _log4g_logger_warn(Log4gLogger *self, const gchar *function, const gchar *file,
         const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -623,7 +606,8 @@ _log4g_logger_warn(Log4gLogger *self, const gchar *function, const gchar *file,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_WARN_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->WARN, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -636,8 +620,6 @@ _log4g_logger_warn(Log4gLogger *self, const gchar *function, const gchar *file,
 gboolean
 log4g_logger_is_error_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -645,7 +627,8 @@ log4g_logger_is_error_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_ERROR_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->ERROR, effective);
 }
 
@@ -653,8 +636,6 @@ void
 _log4g_logger_error(Log4gLogger *self, const gchar *function,
         const gchar *file, const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -662,7 +643,8 @@ _log4g_logger_error(Log4gLogger *self, const gchar *function,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_ERROR_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->ERROR, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -675,8 +657,6 @@ _log4g_logger_error(Log4gLogger *self, const gchar *function,
 gboolean
 log4g_logger_is_fatal_enabled(Log4gLogger *self)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return FALSE;
     }
@@ -684,7 +664,8 @@ log4g_logger_is_fatal_enabled(Log4gLogger *self)
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_FATAL_INT)) {
         return FALSE;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     return log4g_level_is_greater_or_equal(level->FATAL, effective);
 }
 
@@ -692,8 +673,6 @@ void
 _log4g_logger_fatal(Log4gLogger *self, const gchar *function,
         const gchar *file, const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
-    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -701,7 +680,8 @@ _log4g_logger_fatal(Log4gLogger *self, const gchar *function,
             GET_PRIVATE(self)->repository, LOG4G_LEVEL_FATAL_INT)) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
+    Log4gLevelClass *level = g_type_class_peek(LOG4G_TYPE_LEVEL);
     if (log4g_level_is_greater_or_equal(level->FATAL, effective)) {
         va_list ap;
         va_start(ap, format);
@@ -715,7 +695,6 @@ void
 _log4g_logger_log(Log4gLogger *self, Log4gLevel *level, const gchar *function,
         const gchar *file, const gchar *line, const gchar *format, ...)
 {
-    Log4gLevel *effective;
     if (G_UNLIKELY(!self)) {
         return;
     }
@@ -723,7 +702,7 @@ _log4g_logger_log(Log4gLogger *self, Log4gLevel *level, const gchar *function,
                 GET_PRIVATE(self)->repository, log4g_level_to_int(level))) {
         return;
     }
-    effective = log4g_logger_get_effective_level(self);
+    Log4gLevel *effective = log4g_logger_get_effective_level(self);
     if (log4g_level_is_greater_or_equal(level, effective)) {
         va_list ap;
         va_start(ap, format);

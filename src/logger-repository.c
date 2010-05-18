@@ -60,18 +60,18 @@ log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
 Log4gLogger *
 log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->exists(self, name);
 }
 
 const GArray *
 log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->get_current_loggers(self);
 }
 
@@ -100,9 +100,9 @@ Log4gLogger *
 log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
         const gchar *name)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->get_logger(self, name);
 }
 
@@ -111,45 +111,45 @@ Log4gLogger *
 log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
         const gchar *name, Log4gLoggerFactory *factory)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->get_logger_factory(self, name, factory);
 }
 
 Log4gLogger *
 log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->get_root_logger(self);
 }
 
 Log4gLevel *
 log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->get_threshold(self);
 }
 
 gboolean
 log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), FALSE);
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     return interface->is_disabled(self, level);
 }
 
 void
 log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     interface->reset_configuration(self);
 }
 
@@ -157,9 +157,9 @@ void
 log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
         Log4gLevel *level)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     interface->set_threshold(self, level);
 }
 
@@ -167,18 +167,18 @@ void
 log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
         const gchar *string)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     interface->set_threshold_string(self, string);
 }
 
 void
 log4g_logger_repository_shutdown(Log4gLoggerRepository *self)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     interface->shutdown(self);
 }
 
@@ -186,8 +186,8 @@ void
 log4g_logger_repository_emit_no_appender_warning(Log4gLoggerRepository *self,
         Log4gLogger *logger)
 {
-    Log4gLoggerRepositoryInterface *interface;
     g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    interface =  LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
     interface->emit_no_appender_warning(self, logger);
 }

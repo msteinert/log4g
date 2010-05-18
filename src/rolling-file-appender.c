@@ -125,10 +125,8 @@ set_qw_for_files(Log4gAppender *base, FILE *file)
 static void
 roll_over(Log4gAppender *base)
 {
-    const gchar *file;
-    Log4gQuietWriter *writer;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    writer = log4g_writer_appender_get_quiet_writer(base);
+    Log4gQuietWriter *writer = log4g_writer_appender_get_quiet_writer(base);
     if (writer) {
         gulong size = log4g_counting_quiet_writer_get_count(writer);
         priv->next = size + priv->max;
@@ -146,7 +144,7 @@ roll_over(Log4gAppender *base)
             g_string_free(source, TRUE);
             return;
         }
-        file = log4g_file_appender_get_file(base);
+        const gchar *file = log4g_file_appender_get_file(base);
         for (i = priv->backup - 1; i >= 1; --i) {
             g_string_printf(source, "%s.%u", file, i);
             g_string_printf(target, "%s.%u", file, i + 1);
@@ -199,10 +197,9 @@ Log4gAppender *
 log4g_rolling_file_appender_new(Log4gLayout *layout, const gchar *file,
         gboolean append, gboolean buffered)
 {
-    Log4gAppender *self;
     g_return_val_if_fail(layout, NULL);
     g_return_val_if_fail(file, NULL);
-    self = g_object_new(LOG4G_TYPE_ROLLING_FILE_APPENDER, NULL);
+    Log4gAppender *self = g_object_new(LOG4G_TYPE_ROLLING_FILE_APPENDER, NULL);
     if (!self) {
         return NULL;
     }

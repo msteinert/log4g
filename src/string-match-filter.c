@@ -69,13 +69,12 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *string;
     switch (id) {
     case PROP_STRING_TO_MATCH:
         if (priv->string) {
             g_free(priv->string);
         }
-        string = g_value_get_string(value);
+        const gchar *string = g_value_get_string(value);
         if (string) {
             priv->string = g_strdup(string);
         } else {

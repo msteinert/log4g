@@ -155,11 +155,11 @@ log4g_level_string_to_level(const gchar *level)
 Log4gLevel *
 log4g_level_string_to_level_default(const gchar *level, Log4gLevel *def)
 {
-    Log4gLevel *to = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
+    Log4gLevel *to = NULL;
     if (!g_ascii_strcasecmp(level, "ALL")) {
         to = klass->ALL;
     } else if (!g_ascii_strcasecmp(level, "DEBUG")) {
@@ -186,13 +186,8 @@ log4g_level_string_to_level_default(const gchar *level, Log4gLevel *def)
 Log4gLevel *
 log4g_level_int_to_level(gint level)
 {
-    Log4gLevel *to = NULL;
-    Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
-    if (!klass) {
-        return NULL;
-    }
-    to = log4g_level_int_to_level_default(level, klass->DEBUG);
-    g_type_class_unref(klass);
+    Log4gLevel *to =
+        log4g_level_int_to_level_default(level, log4g_level_DEBUG());
     return to;
 }
 
@@ -230,12 +225,11 @@ log4g_level_int_to_level_default(gint level, Log4gLevel *def)
 Log4gLevel *
 log4g_level_ALL(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->ALL;
+    Log4gLevel *level = klass->ALL;
     g_type_class_unref(klass);
     return level;
 }
@@ -243,12 +237,11 @@ log4g_level_ALL(void)
 Log4gLevel *
 log4g_level_TRACE(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->TRACE;
+    Log4gLevel *level = klass->TRACE;
     g_type_class_unref(klass);
     return level;
 }
@@ -256,12 +249,11 @@ log4g_level_TRACE(void)
 Log4gLevel *
 log4g_level_DEBUG(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->DEBUG;
+    Log4gLevel *level = klass->DEBUG;
     g_type_class_unref(klass);
     return level;
 }
@@ -269,12 +261,11 @@ log4g_level_DEBUG(void)
 Log4gLevel *
 log4g_level_INFO(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->INFO;
+    Log4gLevel *level = klass->INFO;
     g_type_class_unref(klass);
     return level;
 }
@@ -282,12 +273,11 @@ log4g_level_INFO(void)
 Log4gLevel *
 log4g_level_WARN(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->WARN;
+    Log4gLevel *level = klass->WARN;
     g_type_class_unref(klass);
     return level;
 }
@@ -295,12 +285,11 @@ log4g_level_WARN(void)
 Log4gLevel *
 log4g_level_ERROR(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->ERROR;
+    Log4gLevel *level = klass->ERROR;
     g_type_class_unref(klass);
     return level;
 }
@@ -308,12 +297,11 @@ log4g_level_ERROR(void)
 Log4gLevel *
 log4g_level_FATAL(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->FATAL;
+    Log4gLevel *level = klass->FATAL;
     g_type_class_unref(klass);
     return level;
 }
@@ -321,12 +309,11 @@ log4g_level_FATAL(void)
 Log4gLevel *
 log4g_level_OFF(void)
 {
-    Log4gLevel *level = NULL;
     Log4gLevelClass *klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     if (!klass) {
         return NULL;
     }
-    level = klass->OFF;
+    Log4gLevel *level = klass->OFF;
     g_type_class_unref(klass);
     return level;
 }

@@ -72,8 +72,6 @@ static void
 do_append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gLevel *level;
-    gint decision;
     g_mutex_lock(priv->lock);
     if (priv->closed) {
         log4g_log_error(
@@ -81,14 +79,14 @@ do_append(Log4gAppender *base, Log4gLoggingEvent *event)
                 priv->name);
         goto exit;
     }
-    level = log4g_logging_event_get_level(event);
+    Log4gLevel *level = log4g_logging_event_get_level(event);
     if (!log4g_appender_skeleton_is_as_severe_as(base, level)) {
         goto exit;
     }
     if (priv->head) {
         Log4gFilter *filter = priv->head;
         while (filter) {
-            decision = log4g_filter_decide(filter, event);
+            gint decision = log4g_filter_decide(filter, event);
             if (LOG4G_FILTER_DENY == decision) {
                 goto exit;
             } else if (LOG4G_FILTER_ACCEPT == decision) {
@@ -213,15 +211,12 @@ log4g_appender_skeleton_init(Log4gAppenderSkeleton *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->layout) {
         g_object_unref(priv->layout);
-    }
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
+        priv->layout = NULL;
     }
     if (priv->threshold) {
         g_object_unref(priv->name);
@@ -235,6 +230,17 @@ finalize(GObject *base)
         g_object_unref(priv->head);
         priv->head = priv->tail = NULL;
     }
+    G_OBJECT_CLASS(log4g_appender_skeleton_parent_class)->dispose(base);
+}
+
+static void
+finalize(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->name) {
+        g_free(priv->name);
+        priv->name = NULL;
+    }
     if (priv->lock) {
         g_mutex_free(priv->lock);
         priv->lock = NULL;
@@ -246,13 +252,12 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *threshold;
     switch (id) {
     case PROP_THRESHOLD:
         if (priv->threshold) {
             g_object_unref(priv->threshold);
         }
-        threshold = g_value_get_string(value);
+        const gchar *threshold = g_value_get_string(value);
         if (threshold) {
             priv->threshold = log4g_level_string_to_level(threshold);
             if (priv->threshold) {
@@ -273,6 +278,7 @@ log4g_appender_skeleton_class_init(Log4gAppenderSkeletonClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
@@ -287,18 +293,17 @@ log4g_appender_skeleton_class_init(Log4gAppenderSkeletonClass *klass)
 void
 log4g_appender_skeleton_append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
-    Log4gAppenderSkeletonClass *klass;
     g_return_if_fail(LOG4G_IS_APPENDER_SKELETON(base));
-    klass = LOG4G_APPENDER_SKELETON_GET_CLASS(base);
+    Log4gAppenderSkeletonClass *klass =
+        LOG4G_APPENDER_SKELETON_GET_CLASS(base);
     klass->append(base, event);
 }
 
 void
 log4g_appender_skeleton_clear_filters(Log4gAppender *base)
 {
-    struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_APPENDER_SKELETON(base));
-    priv = GET_PRIVATE(base);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->head) {
         g_object_unref(priv->head);
         priv->head = priv->tail = NULL;
@@ -322,9 +327,8 @@ log4g_appender_skeleton_get_threshold(Log4gAppender *base)
 gboolean
 log4g_appender_skeleton_is_as_severe_as(Log4gAppender *base, Log4gLevel *level)
 {
-    struct Log4gPrivate *priv;
     g_return_val_if_fail(LOG4G_IS_APPENDER_SKELETON(base), FALSE);
-    priv = GET_PRIVATE(base);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     return ((priv->threshold == NULL)
                 || (log4g_level_is_greater_or_equal(level, priv->threshold)));
 }

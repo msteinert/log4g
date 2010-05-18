@@ -38,8 +38,7 @@ Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,
         const gchar *name)
 {
-    Log4gLoggerFactoryInterface *interface;
     g_return_val_if_fail(LOG4G_IS_LOGGER_FACTORY(self), NULL);
-    interface = LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
+    Log4gLoggerFactoryInterface *interface = LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
     return interface->make_new_logger_instance(self, name);
 }

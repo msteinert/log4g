@@ -87,14 +87,21 @@ log4g_writer_appender_init(Log4gWriterAppender *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    log4g_appender_close(LOG4G_APPENDER(base));
     if (priv->writer) {
         g_object_unref(priv->writer);
         priv->writer = NULL;
     }
+    G_OBJECT_CLASS(log4g_writer_appender_parent_class)->dispose(base);
+}
+
+static void
+finalize(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    log4g_appender_close(LOG4G_APPENDER(base));
     if (priv->lock) {
         g_mutex_free(priv->lock);
         priv->lock = NULL;
@@ -164,6 +171,7 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
     Log4gAppenderSkeletonClass *skeleton_class =
             LOG4G_APPENDER_SKELETON_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
@@ -183,9 +191,8 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
 
 Log4gAppender *log4g_writer_appender_new(Log4gLayout *layout, FILE *file)
 {
-    Log4gAppender *self;
     g_return_val_if_fail(file, NULL);
-    self = g_object_new(LOG4G_TYPE_WRITER_APPENDER, NULL);
+    Log4gAppender *self = g_object_new(LOG4G_TYPE_WRITER_APPENDER, NULL);
     if (!self) {
         return NULL;
     }
@@ -249,13 +256,11 @@ log4g_writer_appender_close_writer(Log4gAppender *base)
 void
 log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file)
 {
-    GObject *error;
-    struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    priv = GET_PRIVATE(base);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_mutex_lock(priv->lock);
     log4g_writer_appender_reset(base);
-    error = log4g_appender_get_error_handler(base);
+    GObject *error = log4g_appender_get_error_handler(base);
     priv->writer = log4g_quiet_writer_new(file, error);
     if (!priv->writer) {
         goto exit;
@@ -283,9 +288,8 @@ log4g_writer_appender_reset(Log4gAppender *base)
 void
 log4g_writer_appender_write_footer(Log4gAppender *base)
 {
-    Log4gLayout *layout;
     g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    layout = log4g_appender_get_layout(base);
+    Log4gLayout *layout = log4g_appender_get_layout(base);
     if (layout) {
         struct Log4gPrivate *priv = GET_PRIVATE(base);
         const gchar *footer = log4g_layout_get_footer(layout);
@@ -321,9 +325,8 @@ void
 log4g_writer_appender_set_quiet_writer(Log4gAppender *base,
         Log4gQuietWriter *writer)
 {
-    struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    priv = GET_PRIVATE(base);
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->writer) {
         g_object_unref(priv->writer);
     }

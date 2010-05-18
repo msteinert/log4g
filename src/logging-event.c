@@ -79,16 +79,23 @@ log4g_logging_event_init(Log4gLoggingEvent *self)
 }
 
 static void
+dispose(GObject *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->level) {
+        g_object_unref(priv->level);
+        priv->level = NULL;
+    }
+    G_OBJECT_CLASS(log4g_logging_event_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->logger) {
         g_free(priv->logger);
         priv->logger = NULL;
-    }
-    if (priv->level) {
-        g_object_unref(priv->level);
-        priv->level = NULL;
     }
     if (priv->message) {
         g_free(priv->message);
@@ -123,6 +130,7 @@ log4g_logging_event_class_init(Log4gLoggingEventClass *klass)
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     struct timeval start;
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -141,11 +149,10 @@ log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
         const gchar *message, va_list ap)
 {
     Log4gLoggingEvent *self = g_object_new(LOG4G_TYPE_LOGGING_EVENT, NULL);
-    struct Log4gPrivate *priv;
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (logger) {
         priv->logger = g_strdup(logger);
         if (!priv->logger) {
@@ -267,8 +274,7 @@ _get_keys(gpointer key, gpointer value, gpointer user_data)
 static void
 _get_property_key_set(Log4gLoggingEvent *self, GHashTable *mdc)
 {
-    guint size;
-    size = g_hash_table_size((GHashTable *)mdc);
+    guint size = g_hash_table_size((GHashTable *)mdc);
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (!size) {
         return;

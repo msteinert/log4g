@@ -78,9 +78,8 @@ log4g_root_logger_class_init(Log4gRootLoggerClass *klass)
 Log4gLogger *
 log4g_root_logger_new(Log4gLevel *level)
 {
-    Log4gLogger *self;
     g_return_val_if_fail(level, NULL);
-    self = g_object_new(LOG4G_TYPE_ROOT_LOGGER, NULL);
+    Log4gLogger *self = g_object_new(LOG4G_TYPE_ROOT_LOGGER, NULL);
     if (!self) {
         return NULL;
     }

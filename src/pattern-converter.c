@@ -52,14 +52,14 @@ log4g_pattern_converter_init(Log4gPatternConverter *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->next) {
         g_object_unref(priv->next);
         priv->next = NULL;
     }
-    G_OBJECT_CLASS(log4g_pattern_converter_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_pattern_converter_parent_class)->dispose(base);
 }
 
 static void
@@ -67,14 +67,13 @@ format(Log4gPatternConverter *self, GString *buffer, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     const gchar *string = log4g_pattern_converter_convert(self, event);
-    gint len;
     if (!string) {
         if (0 < priv->min) {
             log4g_pattern_converter_space_pad(self, buffer, priv->min);
         }
         return;
     }
-    len = strlen(string);
+    gint len = strlen(string);
     if (len > priv->max) {
         g_string_append(buffer, string + (len - priv->max));
     } else if (len < priv->min) {
@@ -95,7 +94,7 @@ log4g_pattern_converter_class_init(Log4gPatternConverterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gPatternConverter */
@@ -107,9 +106,9 @@ const gchar *
 log4g_pattern_converter_convert(Log4gPatternConverter *self,
         Log4gLoggingEvent *event)
 {
-    Log4gPatternConverterClass *klass;
     g_return_val_if_fail(LOG4G_IS_PATTERN_CONVERTER(self), NULL);
-    klass = LOG4G_PATTERN_CONVERTER_GET_CLASS(self);
+    Log4gPatternConverterClass *klass =
+        LOG4G_PATTERN_CONVERTER_GET_CLASS(self);
     return klass->convert(self, event);
 }
 
@@ -117,9 +116,9 @@ void
 log4g_pattern_converter_format(Log4gPatternConverter *self,
         GString *string, Log4gLoggingEvent *event)
 {
-    Log4gPatternConverterClass *klass;
     g_return_if_fail(LOG4G_IS_PATTERN_CONVERTER(self));
-    klass = LOG4G_PATTERN_CONVERTER_GET_CLASS(self);
+    Log4gPatternConverterClass *klass =
+        LOG4G_PATTERN_CONVERTER_GET_CLASS(self);
     klass->format(self, string, event);
 }
 
@@ -134,9 +133,8 @@ void
 log4g_pattern_converter_set_next(Log4gPatternConverter *self,
         Log4gPatternConverter *next)
 {
-    struct Log4gPrivate *priv;
     g_return_if_fail(LOG4G_IS_PATTERN_CONVERTER(self));
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     if (priv->next) {
         g_object_unref(priv->next);
     }
@@ -148,13 +146,12 @@ void
 log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
         GString *buffer, gint length)
 {
-    gint i;
     static gchar *SPACES[] = {
         " ", "  ", "    ", "        ", /* 1, 2, 4, 8 spaces */
         "                ", /* 16 spaces */
         "                                ", /* 32 spaces */
     };
-    for (i = 4; i >= 0; i--) {
+    for (gint i = 4; i >= 0; --i) {
         if (0 != (length & (1 << i))) {
             g_string_append(buffer, SPACES[i]);
         }
@@ -289,7 +286,8 @@ log4g_literal_pattern_converter_class_init(
         Log4gLiteralPatternConverterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gPatternConverterClass *pc_class = LOG4G_PATTERN_CONVERTER_CLASS(klass);
+    Log4gPatternConverterClass *pc_class =
+        LOG4G_PATTERN_CONVERTER_CLASS(klass);
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct LiteralPrivate));
     /* initialize GObject class */
@@ -352,14 +350,12 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
         Log4gLoggingEvent *event)
 {
     struct DatePrivate *priv = GET_DATE_PRIVATE(base);
-    struct timeval *tv;
-    struct tm tm;
-    time_t time;
-    tv = log4g_logging_event_get_time_stamp(event);
+    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return NULL;
     }
-    time = tv->tv_sec;
+    struct tm tm;
+    time_t time = tv->tv_sec;
     if (!localtime_r(&time, &tm)) {
         log4g_log_error("localtime_r(): %s", g_strerror(errno));
         return NULL;
@@ -389,13 +385,12 @@ Log4gPatternConverter *
 log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *format)
 {
-    struct Log4gPrivate *priv;
     Log4gDatePatternConverter *self =
         g_object_new(LOG4G_TYPE_DATE_PATTERN_CONVERTER, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->min = formatting->min;
     priv->max = formatting->max;
     priv->align = formatting->align;
@@ -455,13 +450,12 @@ Log4gPatternConverter *
 log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *key)
 {
-    struct Log4gPrivate *priv;
     Log4gMDCPatternConverter *self =
         g_object_new(LOG4G_TYPE_MDC_PATTERN_CONVERTER, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->min = formatting->min;
     priv->max = formatting->max;
     priv->align = formatting->align;
@@ -520,13 +514,12 @@ Log4gPatternConverter *
 log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type)
 {
-    struct Log4gPrivate *priv;
     Log4gLocationPatternConverter *self =
         g_object_new(LOG4G_TYPE_LOCATION_PATTERN_CONVERTER, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->min = formatting->min;
     priv->max = formatting->max;
     priv->align = formatting->align;
@@ -555,19 +548,16 @@ static const gchar *
 category_pattern_converter_convert(Log4gPatternConverter *base,
         Log4gLoggingEvent *event)
 {
-    struct CategoryPrivate *priv = GET_CATEGORY_PRIVATE(base);
     const gchar *name = log4g_logging_event_get_logger_name(event);
-    gint length;
-    gint end;
-    gint i;
     if (!name) {
         return NULL;
     }
+    struct CategoryPrivate *priv = GET_CATEGORY_PRIVATE(base);
     if (1 > priv->precision) {
         return name;
     }
-    length = end = strlen(name);
-    for (i = priv->precision; i > 0; --i) {
+    gint end = strlen(name);
+    for (gint i = priv->precision; i > 0; --i) {
         while (--end > -1) {
             if ('.' == name[end]) {
                 break;
@@ -596,13 +586,12 @@ Log4gPatternConverter *
 log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gint precision)
 {
-    struct Log4gPrivate *priv;
     Log4gCategoryPatternConverter *self =
         g_object_new(LOG4G_TYPE_CATEGORY_PATTERN_CONVERTER, NULL);
     if (!self) {
         return NULL;
     }
-    priv = GET_PRIVATE(self);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->min = formatting->min;
     priv->max = formatting->max;
     priv->align = formatting->align;
