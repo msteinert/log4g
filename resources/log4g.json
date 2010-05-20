@@ -44,13 +44,12 @@
         },
         "ndc": {
             "description": "The nested data context",
-            "type": "array",
-            "items": { "type": "string" },
+            "type": "string",
             "optional": true
         },
         "timestamp": {
             "description": "The timestamp of the logging event",
-            "type": "number",
+            "type": "string",
             "format": "utc-millisec",
             "optional": true
         },

@@ -36,35 +36,35 @@ G_BEGIN_DECLS
 
 #define LOG4G_COUCHDB_APPENDER(instance) \
     (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_COUCHDB_APPENDER, \
-            Log4gCouchDBAppender))
+            Log4gCouchdbAppender))
 
 #define LOG4G_IS_COUCHDB_APPENDER(instance) \
     (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_COUCHDB_APPENDER))
 
 #define LOG4G_COUCHDB_APPENDER_CLASS(klass) \
     (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_COUCHDB_APPENDER, \
-            Log4gCouchDBAppenderClass))
+            Log4gCouchdbAppenderClass))
 
 #define LOG4G_IS_COUCHDB_APPENDER_CLASS(klass) \
     (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_COUCHDB_APPENDER))
 
 #define LOG4G_COUCHDB_APPENDER_GET_CLASS(instance) \
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_COUCHDB_APPENDER, \
-            Log4gCouchDBAppenderClass))
+            Log4gCouchdbAppenderClass))
 
-/** \brief Log4gCouchDBAppender object type definition */
-typedef struct _Log4gCouchDBAppender Log4gCouchDBAppender;
+/** \brief Log4gCouchdbAppender object type definition */
+typedef struct _Log4gCouchdbAppender Log4gCouchdbAppender;
 
-/** \brief Log4gCouchDBAppender class type definition */
-typedef struct _Log4gCouchDBAppenderClass Log4gCouchDBAppenderClass;
+/** \brief Log4gCouchdbAppender class type definition */
+typedef struct _Log4gCouchdbAppenderClass Log4gCouchdbAppenderClass;
 
-/** \brief Log4gCouchDBAppenderClass definition */
-struct _Log4gCouchDBAppender {
+/** \brief Log4gCouchdbAppenderClass definition */
+struct _Log4gCouchdbAppender {
     Log4gAppenderSkeleton parent_instance;
 };
 
-/** \brief Log4gCouchDBAppenderClass definition */
-struct _Log4gCouchDBAppenderClass {
+/** \brief Log4gCouchdbAppenderClass definition */
+struct _Log4gCouchdbAppenderClass {
     Log4gAppenderSkeletonClass parent_class;
 };
 
@@ -74,10 +74,13 @@ log4g_couchdb_appender_get_type(void);
 /**
  * \brief Create a new couchdb appender object.
  *
+ * \param uri [in] TODO
+ * \param name [in] TODO
+ *
  * \return A new couchdb appender object.
  */
 Log4gAppender *
-log4g_couchdb_appender_new(void);
+log4g_couchdb_appender_new(const gchar *uri, const gchar *name);
 
 G_END_DECLS
 

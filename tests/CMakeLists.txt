@@ -4,12 +4,14 @@
 # find necessary packages
 find_package(GLib-2.0 REQUIRED)
 find_package(GThread-2.0)
+find_package(CouchDBGLib-1.0)
 # include directories
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
     ${GLib-2.0_INCLUDE_DIRS}
     ${GThread-2.0_INCLUDE_DIRS}
+    ${CouchDBGLib-1.0_INCLUDE_DIRS}
 )
 # compiler switches
 add_definitions(-std=gnu99 -Wall -Werror)
@@ -36,6 +38,10 @@ set(TESTS
     syslog-appender-test
     writer-appender-test
 )
+set(COUCHDB_TESTS
+    couchdb-appender-test
+    couchdb-layout-test
+)
 # add executables
 foreach(test ${TESTS})
     add_executable(${test}
@@ -48,11 +54,23 @@ foreach(test ${TESTS})
         log4g
     )
 endforeach(test)
+foreach(test ${COUCHDB_TESTS})
+    add_executable(${test}
+        EXCLUDE_FROM_ALL
+        ${test}.c
+    )
+    target_link_libraries(${test}
+        ${GLib-2.0_LIBRARIES}
+        ${GThread-2.0_LIBRARIES}
+        log4g-couchdb
+        log4g
+    )
+endforeach(test)
 if(GLib-2.0_GTESTER)
     # add `make check' target
     add_custom_target(check
         COMMAND ${GLib-2.0_GTESTER} ${TESTS}
-        DEPENDS ${TESTS}
+        DEPENDS ${TESTS} ${COUCHDB_TESTS}
     )
     if(GLib-2.0_GTESTER_REPORT)
         # add `make report' target

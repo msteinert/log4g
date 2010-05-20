@@ -170,7 +170,7 @@ target_link_libraries(log4g
 # install library
 find_package(CouchDBGLib-1.0 REQUIRED)
 include_directories(
-    ${CouchDBGLib-1.0_INCLUDE_DIR}
+    ${CouchDBGLib-1.0_INCLUDE_DIRS}
 )
 install(TARGETS log4g LIBRARY
     DESTINATION lib
@@ -178,9 +178,14 @@ install(TARGETS log4g LIBRARY
 set(COUCHDB_APPENDERS
     log4g/appender/couchdb-appender.h
 )
+set(COUCHDB_LAYOUTS
+    log4g/layout/couchdb-layout.h
+)
 add_library(log4g-couchdb SHARED
     couchdb-appender.c
+    couchdb-layout.c
     ${COUCHDB_APPENDERS}
+    ${COUCHDB_LAYOUTS}
 )
 target_link_libraries(log4g-couchdb
     ${GObject-2.0_LIBRARIES}
