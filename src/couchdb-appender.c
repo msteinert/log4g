@@ -16,15 +16,15 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/null-appender.h
+ * \brief Implements the API in log4g/appender/couchdb-appender.h
  * \author Mike Steinert
- * \date 2-8-2010
+ * \date 5-20-2010
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/null-appender.h"
+#include "log4g/appender/couchdb-appender.h"
 
 static void
 _close(Log4gAppender *base)
@@ -52,55 +52,38 @@ appender_init(Log4gAppenderInterface *interface)
     interface->requires_layout = requires_layout;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gNullAppender, log4g_null_appender,
+G_DEFINE_TYPE_WITH_CODE(Log4gCouchDBAppender, log4g_couchdb_appender,
         LOG4G_TYPE_APPENDER_SKELETON,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
-/** \brief Store a single instance of this object. */
-static Log4gAppender *instance = NULL;
+static void
+log4g_couchdb_appender_init(Log4gCouchDBAppender *self)
+{
+}
 
 static void
-log4g_null_appender_init(Log4gNullAppender *self)
+dispose(GObject *base)
 {
-    /* do nothing */
+    G_OBJECT_CLASS(log4g_couchdb_appender_parent_class)->dispose(base);
 }
 
 static void
 finalize(GObject *base)
 {
-    g_atomic_pointer_set(&instance, NULL);
-    G_OBJECT_CLASS(log4g_null_appender_parent_class)->finalize(base);
+    G_OBJECT_CLASS(log4g_couchdb_appender_parent_class)->finalize(base);
 }
 
 static void
-append(Log4gAppender *base, Log4gLoggingEvent *event)
-{
-    /* do nothing */
-}
-
-static void
-log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
+log4g_couchdb_appender_class_init(Log4gCouchDBAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gAppenderSkeletonClass *skeleton_class =
-        LOG4G_APPENDER_SKELETON_CLASS(klass);
     /* initialize GObject */
+    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
-    /* initialize Log4gAppenderSkeleton */
-    skeleton_class->append = append;
 }
 
 Log4gAppender *
-log4g_null_appender_new(void)
+log4g_couchdb_appender_new(void)
 {
-    Log4gAppender *self = g_atomic_pointer_get(&instance);
-    if (!self) {
-        self = g_object_new(LOG4G_TYPE_NULL_APPENDER, NULL);
-        if (self) {
-            g_atomic_pointer_set(&instance, self);
-        }
-    } else {
-        g_object_ref(self);
-    }
-    return self;
+    return g_object_new(LOG4G_TYPE_COUCHDB_APPENDER, NULL);
 }

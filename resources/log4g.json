@@ -1,0 +1,83 @@
+{
+    "description": "Log4g-CouchDB JSON-Schema",
+    "type": "object",
+    "properties": {
+        "_id": {
+            "description": "Unique ID for this document, internal to CouchDB",
+            "type": "string"
+        },
+        "_rev": {
+            "description": "Revision for this document, internal to CouchDB",
+            "type": "string"
+        },
+        "record_type": {
+            "description": "The schema URI",
+            "type": "string",
+            "format": "uri"
+        },
+        "record_type_version": {
+            "description": "The schema version number",
+            "type": "string"
+        },
+        "message": {
+            "description": "The log message",
+            "type": "string"
+        },
+        "level": {
+            "description": "The log level of the logging event",
+            "type": "string",
+            "optional": true
+        },
+        "logger": {
+            "description": "The name of the logger",
+            "type": "string",
+            "optional": true
+        },
+        "mdc": {
+            "description": "The mapped data context",
+            "type": "object",
+            "properties": {
+                "type": { "type": "string" },
+                "value": { "type": "string" },
+            },
+            "optional": true
+        },
+        "ndc": {
+            "description": "The nested data context",
+            "type": "array",
+            "items": { "type": "string" },
+            "optional": true
+        },
+        "timestamp": {
+            "description": "The timestamp of the logging event",
+            "type": "number",
+            "format": "utc-millisec",
+            "optional": true
+        },
+        "thread": {
+            "description": "The thread where the event was logged",
+            "type": "string",
+            "optional": true
+        },
+        "function": {
+            "description": "The function name",
+            "type": "string",
+            "optional": true
+        },
+        "file": {
+            "description": "The file name",
+            "type": "string",
+            "optional": true
+        },
+        "line": {
+            "description": "The line number",
+            "type": "string",
+            "optional": true
+        },
+        "application_annotations": {
+            "description": "Application-spcific data",
+            "type": "any",
+            "optional": true
+        }
+    }
+}
