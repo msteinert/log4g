@@ -17,16 +17,35 @@
 
 /**
  * \file
- * \brief TODO
+ * \brief Log events to an Apache CouchDB
  * \author Mike Steinert
  * \date 5-20-2010
  *
- * TODO
+ * The CouchDB appender logs events to a specified database using a
+ * \ref log4g/layout/couchdb-layout.h "CouchDB layout".
+ *
+ * CouchDB appenders accept the following properties:
+ * -# uri
+ * -# database-name
+ * -# credentials
+ *
+ * The value of uri determines the network location of the CouchDB where
+ * output will be logged. If the value of uri is \e NULL then this appender
+ * will attempt to log messages to the CouchDB at <http://127.0.0.1:5984>.
+ *
+ * The value of database-name determines the name of the database that will
+ * store the log output. The default value is "log4g_messages".
+ *
+ * The credentials property enables authentication with the CouchDB server.
+ *
+ * \see <a href="http://www.couchdb.apache.org/">Apache CouchDB</a>,
+ *      <a href="http://git.gnome.org/browse/couchdb-glib/">couchdb-glib</a>
  */
 
 #ifndef LOG4G_COUCHDB_APPENDER_H
 #define LOG4G_COUCHDB_APPENDER_H
 
+#include <couchdb-glib.h>
 #include <log4g/appender/appender-skeleton.h>
 
 G_BEGIN_DECLS
@@ -74,13 +93,78 @@ log4g_couchdb_appender_get_type(void);
 /**
  * \brief Create a new couchdb appender object.
  *
- * \param uri [in] TODO
- * \param name [in] TODO
+ * \param uri [in] The URI of the CouchDB to connect to.
+ * \param name [in] The name of the database to append to.
  *
  * \return A new couchdb appender object.
  */
 Log4gAppender *
 log4g_couchdb_appender_new(const gchar *uri, const gchar *name);
+
+/**
+ * \brief Set the uri property.
+ *
+ * \param base [in] A CouchDB appender object.
+ * \param uri [in] The new uri value for \e base.
+ */
+void
+log4g_couchdb_appender_set_uri(Log4gAppender *base, const gchar *uri);
+
+/**
+ * \brief Retrieve the uri property.
+ *
+ * \param base [in] A CouchDB appender object.
+ *
+ * \return The uri value for \e base.
+ */
+const gchar *
+log4g_couchdb_appender_get_uri(Log4gAppender *base);
+
+/**
+ * \brief Set the database-name property.
+ *
+ * \param base [in] A CouchDB appender object.
+ * \param name [in] The new database-name value for \e base.
+ */
+void
+log4g_couchdb_appender_set_database_name(Log4gAppender *base,
+        const gchar *name);
+
+/**
+ * \brief Retrieve the database-name property.
+ *
+ * \param base [in] A CouchDB appender object.
+ *
+ * \return The database-name value for \e base.
+ */
+const gchar *
+log4g_couchdb_appender_get_database_name(Log4gAppender *base);
+
+/**
+ * \brief Set the credentials property.
+ *
+ * \param base [in] A CouchDB appender object.
+ * \param credentials [in] A CouchDB credentials object.
+ *
+ * \note To disable authentication, set credentials to \e NULL.
+ *
+ * \see <a href="http://git.gnome.org/browse/couchdb-glib/">couchdb-glib</a>
+ */
+void
+log4g_couchdb_appender_set_credentials(Log4gAppender *base,
+        CouchdbCredentials *credentials);
+
+/**
+ * \brief Retrieve the credentials property.
+ *
+ * \param base [in] A CouchDB appender object.
+ *
+ * \return The credentials value for \e base.
+ *
+ * \see <a href="http://git.gnome.org/browse/couchdb-glib/">couchdb-glib</a>
+ */
+CouchdbCredentials *
+log4g_couchdb_appender_get_credentials(Log4gAppender *base);
 
 G_END_DECLS
 

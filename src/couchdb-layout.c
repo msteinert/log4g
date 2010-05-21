@@ -48,7 +48,6 @@ G_DEFINE_TYPE_WITH_CODE(Log4gCouchdbLayout, log4g_couchdb_layout,
             struct Log4gPrivate))
 
 struct Log4gPrivate {
-    CouchdbSession *session;
     gchar *string;
 };
 
@@ -56,19 +55,7 @@ static void
 log4g_couchdb_layout_init(Log4gCouchdbLayout *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->session = NULL;
     priv->string = NULL;
-}
-
-static void
-dispose(GObject *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->session) {
-        g_object_unref(priv->session);
-        priv->session = NULL;
-    }
-    G_OBJECT_CLASS(log4g_couchdb_layout_parent_class)->dispose(base);
 }
 
 static void
@@ -90,7 +77,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
         g_free(priv->string);
     }
     CouchdbDocument *document =
-        log4g_couchdb_layout_format_document(base, event, priv->session);
+        log4g_couchdb_layout_format_document(base, event, NULL);
     if (!document) {
         return NULL;
     }
@@ -103,8 +90,7 @@ static CouchdbDocument *
 format_document(Log4gLayout *base, Log4gLoggingEvent *event,
         CouchdbSession *session)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    CouchdbDocument *document = couchdb_document_new(priv->session);
+    CouchdbDocument *document = couchdb_document_new(session);
     if (!document) {
         return NULL;
     }
@@ -182,7 +168,6 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     /* initialize GObject class */
-    gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -193,13 +178,9 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
 }
 
 Log4gLayout *
-log4g_couchdb_layout_new(CouchdbSession *session)
+log4g_couchdb_layout_new(void)
 {
-    Log4gLayout *self = g_object_new(LOG4G_TYPE_COUCHDB_LAYOUT, NULL);
-    if (session) {
-        log4g_couchdb_layout_set_session(self, session);
-    }
-    return self;
+    return g_object_new(LOG4G_TYPE_COUCHDB_LAYOUT, NULL);
 }
 
 CouchdbDocument *
@@ -209,20 +190,4 @@ log4g_couchdb_layout_format_document(Log4gLayout *base,
     g_return_val_if_fail(LOG4G_IS_COUCHDB_LAYOUT(base), NULL);
     return LOG4G_COUCHDB_LAYOUT_GET_CLASS(base)->
         format_document(base, event, session);
-}
-
-void
-log4g_couchdb_layout_set_session(Log4gLayout *base, CouchdbSession *session)
-{
-    g_return_if_fail(LOG4G_IS_COUCHDB_LAYOUT(base));
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->session) {
-        g_object_unref(priv->session);
-    }
-    if (session) {
-        g_object_ref(session);
-        priv->session = session;
-    } else {
-        priv->session = NULL;
-    }
 }

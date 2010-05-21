@@ -34,7 +34,8 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    Log4gAppender *appender = log4g_couchdb_appender_new(NULL, NULL);
+    Log4gAppender *appender =
+        log4g_couchdb_appender_new(NULL, "couchdb_appender_test");
     g_assert(appender);
     va_list ap = { 0 };
     for (gint i = 0; i < 5; ++i) {
@@ -61,6 +62,7 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    log4g_set_internal_debugging(TRUE);
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

@@ -42,6 +42,7 @@ struct Log4gPrivate {
     GModule *module; /**< module handle to find *_get_type() functions */
     GString *scratch; /**< scratch buffer */
     GHashTable *appenders; /**< store named appenders */
+    GHashTable *objects; /**< store named objects */
 };
 
 static void
@@ -162,6 +163,14 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
             goto exit;
         }
         g_object_set(object, (const gchar *)name, d, NULL);
+    } else if (G_TYPE_OBJECT == spec->value_type) {
+        struct Log4gPrivate *priv = GET_PRIVATE(base);
+        GObject *o = g_hash_table_lookup(priv->objects, (const gchar *)value);
+        if (!o) {
+            log4g_log_error(Q_("%s: undefined object"), value);
+            goto exit;
+        }
+        g_object_set(object, (const gchar *)name, o, NULL);
     } else {
         log4g_log_warn(Q_("%s: property cannot be set via DOM configuration"),
                 name);
@@ -179,27 +188,78 @@ exit:
     }
 }
 
-static Log4gLayout *
-parse_layout(Log4gConfigurator *base, xmlNodePtr node)
+static GObject *
+parse_object(Log4gConfigurator *base, xmlNodePtr node)
 {
-    gpointer function;
-    xmlChar *type = NULL;
-    GType (*get_type)(void);
-    Log4gLayout *layout = NULL;
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    type = xmlGetProp(node, (const xmlChar *)"type");
-    if (!type) {
-        log4g_log_error(Q_("layouts must have a `type'"));
+    GObject *object = NULL;
+    xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
+    xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
+    if (!name) {
+        log4g_log_error(Q_("objects must have a `name'"));
         goto exit;
     }
+    if (!type) {
+        log4g_log_error(Q_("objects must have a `type'"));
+        goto exit;
+    }
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_string_set_size(priv->scratch, 0);
     g_string_append(priv->scratch, (gchar *)type);
     g_string_append(priv->scratch, "_get_type");
+    gpointer function;
     if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
         log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
-    get_type = function;
+    GType (*get_type)(void) = function;
+    object = g_object_new(get_type(), NULL);
+    if (!object) {
+        log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
+        goto exit;
+    }
+    node = node->xmlChildrenNode;
+    while (node) {
+        if (!xmlStrcmp(node->name, (const xmlChar *)"property")) {
+            parse_property(base, node, object);
+        } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
+            log4g_log_warn(Q_("invalid text element"));
+        } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
+            /* do nothing */
+        } else {
+            log4g_log_warn(Q_("%s: invalid element"), node->name);
+        }
+        node = node->next;
+    }
+    g_hash_table_insert(priv->objects, name, object);
+exit:
+    if (name) {
+        xmlFree(name);
+    }
+    if (type) {
+        xmlFree(type);
+    }
+    return object;
+}
+
+static Log4gLayout *
+parse_layout(Log4gConfigurator *base, xmlNodePtr node)
+{
+    Log4gLayout *layout = NULL;
+    xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
+    if (!type) {
+        log4g_log_error(Q_("layouts must have a `type'"));
+        goto exit;
+    }
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    g_string_set_size(priv->scratch, 0);
+    g_string_append(priv->scratch, (gchar *)type);
+    g_string_append(priv->scratch, "_get_type");
+    gpointer function;
+    if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+        log4g_log_error(Q_("%s: invalid `type'"), type);
+        goto exit;
+    }
+    GType (*get_type)(void) = function;
     layout = g_object_new(get_type(), NULL);
     if (!layout) {
         log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
@@ -235,24 +295,22 @@ exit:
 static Log4gFilter *
 parse_filter(Log4gConfigurator *base, xmlNodePtr node)
 {
-    gpointer function;
-    xmlChar *type = NULL;
-    GType (*get_type)(void);
     Log4gFilter *filter = NULL;
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    type = xmlGetProp(node, (const xmlChar *)"type");
+    xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
     if (!type) {
         log4g_log_error(Q_("filters must have a `type'"));
         goto exit;
     }
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_string_set_size(priv->scratch, 0);
     g_string_append(priv->scratch, (gchar *)type);
     g_string_append(priv->scratch, "_get_type");
+    gpointer function;
     if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
         log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
-    get_type = function;
+    GType (*get_type)(void) = function;
     filter = g_object_new(get_type(), NULL);
     if (!filter) {
         log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
@@ -288,22 +346,20 @@ exit:
 static Log4gAppender *
 parse_appender(Log4gConfigurator *base, xmlNodePtr node)
 {
-    xmlChar *type = NULL;
     xmlChar *name = NULL;
     Log4gAppender *appender = NULL;
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    type = xmlGetProp(node, (const xmlChar *)"type");
+    xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
     if (type) {
-        gpointer function;
-        GType (*get_type)(void);
         g_string_set_size(priv->scratch, 0);
         g_string_append(priv->scratch, (gchar *)type);
         g_string_append(priv->scratch, "_get_type");
+        gpointer function;
         if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
             log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
-        get_type = function;
+        GType (*get_type)(void) = function;
         appender = g_object_new(get_type(), NULL);
         if (!appender) {
             log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
@@ -398,23 +454,21 @@ exit:
 static void
 parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
 {
-    gpointer function;
-    xmlChar *type = NULL;
     xmlChar *value = NULL;
     Log4gLevel *level = NULL;
     Log4gLevelClass *klass = NULL;
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    type = xmlGetProp(node, (const xmlChar *)"type");
+    xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
     if (type) {
-        GType (*get_type)(void);
+        struct Log4gPrivate *priv = GET_PRIVATE(base);
         g_string_set_size(priv->scratch, 0);
         g_string_append(priv->scratch, (gchar *)type);
         g_string_append(priv->scratch, "_get_type");
+        gpointer function;
         if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
             log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
-        get_type = function;
+        GType (*get_type)(void) = function;
         klass = g_type_class_ref(get_type());
     } else {
         klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
@@ -672,6 +726,8 @@ do_configure(Log4gConfigurator *base, const char *uri,
             parse_logger(base, node);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"root")) {
             parse_root(base, node);
+        } else if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
+            parse_object(base, node);
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
             log4g_log_warn(Q_("invalid text element"));
         } else if (!xmlStrcmp(node->name, (const xmlChar *)"comment")) {
@@ -708,22 +764,12 @@ log4g_dom_configurator_init(Log4gDOMConfigurator *self)
     memset(priv, 0, sizeof(*priv));
     /* allocate resources */
     priv->scratch = g_string_sized_new(128);
-    if (!priv->scratch) {
-        return;
-    }
     priv->module = g_module_open(NULL, G_MODULE_BIND_LAZY);
-    if (!priv->module) {
-        return;
-    }
     priv->ctx = xmlNewParserCtxt();
-    if (!priv->ctx) {
-        return;
-    }
     priv->appenders = g_hash_table_new_full(g_str_hash, g_str_equal,
                             xmlFree, g_object_unref);
-    if (!priv->appenders) {
-        return;
-    }
+    priv->objects = g_hash_table_new_full(g_str_hash, g_str_equal,
+                            xmlFree, g_object_unref);
 }
 
 static void
@@ -745,6 +791,10 @@ log4g_dom_configurator_finalize(GObject *base)
     if (priv->appenders) {
         g_hash_table_destroy(priv->appenders);
         priv->appenders = NULL;
+    }
+    if (priv->objects) {
+        g_hash_table_destroy(priv->objects);
+        priv->objects = NULL;
     }
     xmlCleanupParser();
     G_OBJECT_CLASS(log4g_dom_configurator_parent_class)->finalize(base);

@@ -59,12 +59,20 @@ filter documentation for the properties that can be set. -->
 <!ATTLIST filter
     type CDATA #REQUIRED
 >
-<!-- The property is element is used to set a GObject property. -->
+<!-- The property element is used to set a GObject property. -->
 <!ELEMENT property EMPTY>
 <!-- Properties must have a name and a value. -->
 <!ATTLIST property
     name CDATA #REQUIRED
     value CDATA #REQUIRED
+>
+<!-- The object element is used to create any type of GObject. GObjects are
+stored so that they may be assigned as properties. -->
+<!ELEMENT object (property*)>
+<!-- Objects must have a name and a type. -->
+<!ATTLIST object
+    name CDATA #REQUIRED
+    type CDATA #REQUIRED
 >
 <!-- Levels are used to define the log threshold for loggers. -->
 <!ELEMENT level (property*)>

@@ -74,7 +74,7 @@
             "optional": true
         },
         "application_annotations": {
-            "description": "Application-spcific data",
+            "description": "Application-specific data",
             "type": "any",
             "optional": true
         }
