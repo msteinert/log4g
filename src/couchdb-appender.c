@@ -77,6 +77,8 @@ activate_options(Log4gOptionHandler *base)
         couchdb_session_get_database_info(priv->session, priv->name, &error);
     if (!info) {
         log4g_log_debug("%s: %s", priv->name, error->message);
+        g_error_free(error);
+        error = NULL;
         gboolean status =
             couchdb_session_create_database(priv->session, priv->name, &error);
         if (!status) {

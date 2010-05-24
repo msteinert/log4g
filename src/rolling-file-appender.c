@@ -25,6 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
+#include <glib/gstdio.h>
 #include "log4g/appender/rolling-file-appender.h"
 #include "log4g/helpers/counting-quiet-writer.h"
 #include <sys/stat.h>
@@ -101,9 +102,9 @@ set_file_full(Log4gAppender *base, const gchar *file, gboolean append,
     if (append) {
         struct stat buf;
         Log4gQuietWriter *qw = log4g_writer_appender_get_quiet_writer(base);
-        if (stat(file, &buf)) {
+        if (g_stat(file, &buf)) {
             if (ENOENT != errno) {
-                log4g_log_error("stat(): %s", g_strerror(errno));
+                log4g_log_error("g_stat(): %s", g_strerror(errno));
                 return;
             }
         }
@@ -132,27 +133,24 @@ roll_over(Log4gAppender *base)
         priv->next = size + priv->max;
     }
     if (priv->max > 0) {
-        guint i;
-        GString *source;
-        GString *target;
-        source = g_string_sized_new(128);
+        GString *source = g_string_sized_new(128);
         if (G_UNLIKELY(!source)) {
             return;
         }
-        target = g_string_sized_new(128);
+        GString *target = g_string_sized_new(128);
         if (G_UNLIKELY(!target)) {
             g_string_free(source, TRUE);
             return;
         }
         const gchar *file = log4g_file_appender_get_file(base);
-        for (i = priv->backup - 1; i >= 1; --i) {
+        for (guint i = priv->backup - 1; i >= 1; --i) {
             g_string_printf(source, "%s.%u", file, i);
             g_string_printf(target, "%s.%u", file, i + 1);
-            rename(source->str, target->str);
+            g_rename(source->str, target->str);
         }
         g_string_free(source, TRUE);
         g_string_printf(target, "%s.%u", file, 1);
-        if (rename(file, target->str) ? FALSE : TRUE) {
+        if (!g_rename(file, target->str)) {
             g_string_printf(target, "%s", file);
             log4g_file_appender_set_file_full(base, target->str, TRUE,
                     log4g_file_appender_get_buffered_io(base),
@@ -166,18 +164,18 @@ roll_over(Log4gAppender *base)
 static void
 log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gWriterAppenderClass *writer_class =
-        LOG4G_WRITER_APPENDER_CLASS(klass);
-    Log4gFileAppenderClass *file_class =
-        LOG4G_FILE_APPENDER_CLASS(klass);
     /* initialize GObject class */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gWriterAppender class */
+    Log4gWriterAppenderClass *writer_class =
+        LOG4G_WRITER_APPENDER_CLASS(klass);
     writer_class->sub_append = sub_append;
     /* initialize Log4gaFileAppender class */
+    Log4gFileAppenderClass *file_class =
+        LOG4G_FILE_APPENDER_CLASS(klass);
     file_class->set_file_full = set_file_full;
     file_class->set_qw_for_files = set_qw_for_files;
     /* initialize Log4gRollingFileAppender class */
