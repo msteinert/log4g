@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include <gmodule.h>
 #include <libxml/parser.h>
 #include "log4g/dom-configurator.h"
 #include "log4g/error.h"
@@ -39,8 +38,6 @@
 
 struct Log4gPrivate {
     xmlParserCtxtPtr ctx; /**< LibXML-2.0 parser context */
-    GModule *module; /**< module handle to find *_get_type() functions */
-    GString *scratch; /**< scratch buffer */
     GHashTable *appenders; /**< store named appenders */
     GHashTable *objects; /**< store named objects */
 };
@@ -202,17 +199,16 @@ parse_object(Log4gConfigurator *base, xmlNodePtr node)
         log4g_log_error(Q_("objects must have a `type'"));
         goto exit;
     }
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_string_set_size(priv->scratch, 0);
-    g_string_append(priv->scratch, (gchar *)type);
-    g_string_append(priv->scratch, "_get_type");
-    gpointer function;
-    if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+    GType gtype = g_type_from_name((const gchar *)type);
+    if (!gtype) {
         log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
-    GType (*get_type)(void) = function;
-    object = g_object_new(get_type(), NULL);
+    if (!G_TYPE_IS_INSTANTIATABLE(gtype)) {
+        log4g_log_error(Q_("%s: is a non-instantiable type"), type);
+        goto exit;
+    }
+    object = g_object_new(gtype, NULL);
     if (!object) {
         log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
         goto exit;
@@ -230,7 +226,7 @@ parse_object(Log4gConfigurator *base, xmlNodePtr node)
         }
         node = node->next;
     }
-    g_hash_table_insert(priv->objects, name, object);
+    g_hash_table_insert(GET_PRIVATE(base)->objects, name, object);
 exit:
     if (name) {
         xmlFree(name);
@@ -250,17 +246,16 @@ parse_layout(Log4gConfigurator *base, xmlNodePtr node)
         log4g_log_error(Q_("layouts must have a `type'"));
         goto exit;
     }
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_string_set_size(priv->scratch, 0);
-    g_string_append(priv->scratch, (gchar *)type);
-    g_string_append(priv->scratch, "_get_type");
-    gpointer function;
-    if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+    GType gtype = g_type_from_name((const gchar *)type);
+    if (!gtype) {
         log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
-    GType (*get_type)(void) = function;
-    layout = g_object_new(get_type(), NULL);
+    if (!G_TYPE_IS_INSTANTIATABLE(gtype)) {
+        log4g_log_error(Q_("%s: is a non-instantiable type"), type);
+        goto exit;
+    }
+    layout = g_object_new(gtype, NULL);
     if (!layout) {
         log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
         goto exit;
@@ -301,17 +296,16 @@ parse_filter(Log4gConfigurator *base, xmlNodePtr node)
         log4g_log_error(Q_("filters must have a `type'"));
         goto exit;
     }
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_string_set_size(priv->scratch, 0);
-    g_string_append(priv->scratch, (gchar *)type);
-    g_string_append(priv->scratch, "_get_type");
-    gpointer function;
-    if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+    GType gtype = g_type_from_name((const gchar *)type);
+    if (!gtype) {
         log4g_log_error(Q_("%s: invalid `type'"), type);
         goto exit;
     }
-    GType (*get_type)(void) = function;
-    filter = g_object_new(get_type(), NULL);
+    if (!G_TYPE_IS_INSTANTIATABLE(gtype)) {
+        log4g_log_error(Q_("%s: is a non-instantiable type"), type);
+        goto exit;
+    }
+    filter = g_object_new(gtype, NULL);
     if (!filter) {
         log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
         goto exit;
@@ -351,16 +345,16 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
     if (type) {
-        g_string_set_size(priv->scratch, 0);
-        g_string_append(priv->scratch, (gchar *)type);
-        g_string_append(priv->scratch, "_get_type");
-        gpointer function;
-        if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+        GType gtype = g_type_from_name((const gchar *)type);
+        if (!gtype) {
             log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
-        GType (*get_type)(void) = function;
-        appender = g_object_new(get_type(), NULL);
+        if (!G_TYPE_IS_INSTANTIATABLE(gtype)) {
+            log4g_log_error(Q_("%s: is a non-instantiable type"), type);
+            goto exit;
+        }
+        appender = g_object_new(gtype, NULL);
         if (!appender) {
             log4g_log_error(Q_("%s: g_object_new() returned NULL"), type);
             goto exit;
@@ -459,17 +453,12 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
     Log4gLevelClass *klass = NULL;
     xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
     if (type) {
-        struct Log4gPrivate *priv = GET_PRIVATE(base);
-        g_string_set_size(priv->scratch, 0);
-        g_string_append(priv->scratch, (gchar *)type);
-        g_string_append(priv->scratch, "_get_type");
-        gpointer function;
-        if (!g_module_symbol(priv->module, priv->scratch->str, &function)) {
+        GType gtype = g_type_from_name((const gchar *)type);
+        if (!gtype) {
             log4g_log_error(Q_("%s: invalid `type'"), type);
             goto exit;
         }
-        GType (*get_type)(void) = function;
-        klass = g_type_class_ref(get_type());
+        klass = g_type_class_ref(gtype);
     } else {
         klass = g_type_class_ref(LOG4G_TYPE_LEVEL);
     }
@@ -763,30 +752,22 @@ log4g_dom_configurator_init(Log4gDOMConfigurator *self)
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     memset(priv, 0, sizeof *priv);
     /* allocate resources */
-    priv->scratch = g_string_sized_new(128);
-    priv->module = g_module_open(NULL, G_MODULE_BIND_LAZY);
     priv->ctx = xmlNewParserCtxt();
-    priv->appenders = g_hash_table_new_full(g_str_hash, g_str_equal,
-                            xmlFree, g_object_unref);
-    priv->objects = g_hash_table_new_full(g_str_hash, g_str_equal,
-                            xmlFree, g_object_unref);
+    priv->appenders =
+        g_hash_table_new_full(g_str_hash, g_str_equal,
+                xmlFree, g_object_unref);
+    priv->objects =
+        g_hash_table_new_full(g_str_hash, g_str_equal,
+                xmlFree, g_object_unref);
 }
 
 static void
 log4g_dom_configurator_finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->scratch) {
-        g_string_free(priv->scratch, TRUE);
-        priv->scratch = NULL;
-    }
     if (priv->ctx) {
         xmlFreeParserCtxt(priv->ctx);
         priv->ctx = NULL;
-    }
-    if (priv->module) {
-        g_module_close(priv->module);
-        priv->module = NULL;
     }
     if (priv->appenders) {
         g_hash_table_destroy(priv->appenders);

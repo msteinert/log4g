@@ -5,27 +5,27 @@
 -->
 <log4g:configuration debug="true" reset="true">
     <!-- comment -->
-    <appender type="log4g_console_appender" name="A1">
+    <appender type="Log4gConsoleAppender" name="A1">
         <property name="follow" value="false" />
         <property name="target" value="stderr" />
-        <layout type="log4g_pattern_layout">
+        <layout type="Log4gPatternLayout">
             <property name="conversion-pattern"
                       value="%r %-5p [%t] %c{2} (%F:%L) - %m%n" />
         </layout>
-        <filter type="log4g_string_match_filter">
+        <filter type="Log4gStringMatchFilter">
             <property name="string-to-match" value="match this string" />
             <property name="accept-on-match" value="true" />
         </filter>
-        <filter type="log4g_deny_all_filter" />
+        <filter type="Log4gDenyAllFilter" />
     </appender>
-    <appender type="log4g_async_appender" name="A2">
+    <appender type="Log4gAsyncAppender" name="A2">
         <appender name="A1" />
     </appender>
     <logger name="org.gnome.test" additivity="true">
         <level value="TRACE" />
-        <appender type="log4g_file_appender">
+        <appender type="Log4gFileAppender">
             <property name="file" value="dom-configurator-001.txt" />
-            <layout type="log4g_ttcc_layout" />
+            <layout type="Log4gTTCCLayout" />
         </appender>
     </logger>
     <root>

@@ -2,11 +2,11 @@
 <!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
     "http://www.gnome.org/log4g/1.0/log4g.dtd">
 <log4g:configuration debug="true" reset="true">
-    <appender type="log4g_file_appender" name="A1">
+    <appender type="Log4gFileAppender" name="A1">
         <property name="file" value="perf-001.txt" />
         <property name="append" value="false" />
         <property name="buffered-io" value="false" />
-        <layout type="log4g_pattern_layout">
+        <layout type="Log4gPatternLayout">
             <property name="conversion-pattern" value="%m%n" />
         </layout>
     </appender>
