@@ -35,12 +35,12 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    va_list ap;
-    memset(&ap, 0, sizeof(ap));
     FILE *file = fopen("writer-appender-test.txt", "w");
     g_assert(file);
     Log4gLayout *layout = log4g_simple_layout_new();
     g_assert(layout);
+    va_list ap;
+    memset(&ap, 0, sizeof ap);
     Log4gLoggingEvent *event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);

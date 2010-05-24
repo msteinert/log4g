@@ -187,7 +187,7 @@ basic_pattern_converter_convert(Log4gPatternConverter *base,
         glong start = log4g_logging_event_get_start_time();
         struct timeval *tv = log4g_logging_event_get_time_stamp(event);
         glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
-        g_snprintf(priv->buffer, sizeof(priv->buffer), "%ld", time - start);
+        g_snprintf(priv->buffer, sizeof priv->buffer, "%ld", time - start);
         return priv->buffer;
     }
     case THREAD_CONVERTER:
@@ -360,7 +360,7 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
         log4g_log_error("localtime_r(): %s", g_strerror(errno));
         return NULL;
     }
-    if (!strftime(priv->buffer, sizeof(priv->buffer), priv->format, &tm)) {
+    if (!strftime(priv->buffer, sizeof priv->buffer, priv->format, &tm)) {
         log4g_log_error(Q_("strftime() returned zero (0)"));
         return NULL;
     }

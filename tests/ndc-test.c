@@ -37,7 +37,6 @@ teardown(gpointer *fixture, gconstpointer data)
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    const gchar *string;
     log4g_ndc_push("foo");
     g_assert_cmpstr(log4g_ndc_peek(), == , "foo");
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
@@ -47,7 +46,7 @@ test_001(gpointer *fixture, gconstpointer data)
     log4g_ndc_push("baz");
     g_assert_cmpstr(log4g_ndc_peek(), == , "baz");
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    string = log4g_ndc_pop();
+    const gchar *string = log4g_ndc_pop();
     g_assert(string);
     g_assert_cmpstr(string, ==, "baz");
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar");
@@ -90,13 +89,12 @@ test_003(gpointer *fixture, gconstpointer data)
 void
 test_004(gpointer *fixture, gconstpointer data)
 {
-    GArray *ndc;
     log4g_ndc_push("foo");
     log4g_ndc_push("bar");
     log4g_ndc_push("baz");
     g_assert(log4g_ndc_size() == 3);
     g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    ndc = log4g_ndc_clone();
+    GArray *ndc = log4g_ndc_clone();
     g_assert(ndc);
     log4g_ndc_remove();
     log4g_ndc_inherit(ndc);

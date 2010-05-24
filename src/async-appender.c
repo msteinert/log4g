@@ -68,12 +68,12 @@ log4g_discard_summary_new(Log4gLoggingEvent *event)
 {
     g_return_val_if_fail(event, NULL);
     g_return_val_if_fail(LOG4G_IS_LOGGING_EVENT(event), NULL);
-    Log4gDiscardSummary *self = g_try_malloc(sizeof(*self));
+    Log4gDiscardSummary *self = g_try_malloc(sizeof *self);
     if (!self) {
         log4g_discard_summary_destroy(self);
         return NULL;
     }
-    memset(self, 0, sizeof(*self));
+    memset(self, 0, sizeof *self);
     g_object_ref(event);
     self->event = event;
     self->count = 1;

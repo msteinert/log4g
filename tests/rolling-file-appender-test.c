@@ -35,10 +35,6 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    Log4gLoggingEvent *event;
-    va_list ap;
-    gint i;
-    memset(&ap, 0, sizeof(ap));
     Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
     g_assert(layout);
     Log4gAppender *appender =
@@ -48,10 +44,13 @@ test_001(gpointer *fixture, gconstpointer data)
     log4g_rolling_file_appender_set_maximum_file_size(appender, 10);
     g_assert(appender);
     g_object_unref(layout);
-    for (i = 0; i < 10; ++i) {
-        event = log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
-                        __func__, __FILE__, G_STRINGIFY(__LINE__),
-                        "test message", ap);
+    for (gint i = 0; i < 10; ++i) {
+        va_list ap;
+        memset(&ap, 0, sizeof ap);
+        Log4gLoggingEvent *event =
+            log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
+                    __func__, __FILE__, G_STRINGIFY(__LINE__),
+                    "test message", ap);
         g_assert(event);
         log4g_appender_do_append(appender, event);
         g_object_unref(event);

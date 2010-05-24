@@ -761,7 +761,7 @@ static void
 log4g_dom_configurator_init(Log4gDOMConfigurator *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    memset(priv, 0, sizeof(*priv));
+    memset(priv, 0, sizeof *priv);
     /* allocate resources */
     priv->scratch = g_string_sized_new(128);
     priv->module = g_module_open(NULL, G_MODULE_BIND_LAZY);

@@ -175,12 +175,12 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event)
 {
     g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-    gchar buffer[128];
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
     struct timeval *tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return;
     }
+    gchar buffer[128];
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->format) {
         struct tm tm;
         time_t time = tv->tv_sec;
@@ -188,7 +188,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
             log4g_log_error("localtime_r(): %s", g_strerror(errno));
             return;
         }
-        if (!strftime(buffer, sizeof(buffer), priv->format, &tm)) {
+        if (!strftime(buffer, sizeof buffer, priv->format, &tm)) {
             return;
         }
     } else {
@@ -196,7 +196,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         case RELATIVE_TIME_DATE_FORMAT: {
             glong start = log4g_logging_event_get_start_time();
             glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
-            g_snprintf(buffer, sizeof(buffer), "%ld", time - start);
+            g_snprintf(buffer, sizeof buffer, "%ld", time - start);
             break;
         }
         default:

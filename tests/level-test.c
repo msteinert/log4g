@@ -32,10 +32,10 @@ void
 test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLevel *warn = log4g_level_WARN();
-    Log4gLevel *error = log4g_level_string_to_level("ERROR");
-    Log4gLevel *level = log4g_level_int_to_level(log4g_level_to_int(warn));
     g_assert(warn);
+    Log4gLevel *error = log4g_level_string_to_level("ERROR");
     g_assert(error);
+    Log4gLevel *level = log4g_level_int_to_level(log4g_level_to_int(warn));
     g_assert(level);
     g_assert(log4g_level_equals(warn, level));
     g_assert(!log4g_level_equals(warn, error));

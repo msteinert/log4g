@@ -40,14 +40,14 @@ typedef struct _Fixture {
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    va_list ap;
-    memset(&ap, 0, sizeof(ap));
     fixture->level = g_type_class_ref(LOG4G_TYPE_LEVEL);
     g_assert(fixture->level);
     fixture->le = g_type_class_ref(LOG4G_TYPE_LOGGING_EVENT);
     g_assert(fixture->le);
     log4g_mdc_put("foo", "bar");
     log4g_ndc_push("baz");
+    va_list ap;
+    memset(&ap, 0, sizeof ap);
     fixture->event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);

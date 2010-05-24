@@ -38,10 +38,9 @@ typedef struct _Fixture {
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    gchar *file;
     fixture->file = g_string_sized_new(128);
     g_assert(fixture->file);
-    file = getenv("LOG4G_DOM_CONFIGURATOR_TEST");
+    gchar *file = getenv("LOG4G_DOM_CONFIGURATOR_TEST");
     if (file) {
         g_string_append(fixture->file, file);
     } else {
@@ -58,12 +57,11 @@ teardown(Fixture *fixture, gconstpointer data)
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    Log4gLogger *logger;
-    GError *error = NULL;
     g_string_append(fixture->file, "/dom-configurator-001.xml");
+    GError *error = NULL;
     g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
     log4g_debug("debug message (match this string)");
-    logger = log4g_get_logger("org.gnome.test");
+    Log4gLogger *logger = log4g_get_logger("org.gnome.test");
     g_assert(logger);
     log4g_logger_warn(logger, "warning message (match this string)");
 }

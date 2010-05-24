@@ -33,8 +33,8 @@ void
 test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gFilter *filter = log4g_deny_all_filter_new();
-    Log4gFilter *deny = log4g_deny_all_filter_new();
     g_assert(filter);
+    Log4gFilter *deny = log4g_deny_all_filter_new();
     g_assert(deny);
     log4g_filter_activate_options(filter);
     log4g_filter_set_next(filter, deny);

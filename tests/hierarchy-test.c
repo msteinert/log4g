@@ -38,14 +38,11 @@ typedef struct _Fixture {
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    Log4gLogger *root;
-    Log4gAppender *appender;
-    Log4gLayout *layout;
-    root = log4g_root_logger_new(log4g_level_DEBUG());
+    Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
     g_assert(root);
-    layout =  log4g_ttcc_layout_new("%c");
+    Log4gLayout *layout =  log4g_ttcc_layout_new("%c");
     g_assert(layout);
-    appender = log4g_console_appender_new(layout, "stdout");
+    Log4gAppender *appender = log4g_console_appender_new(layout, "stdout");
     g_assert(appender);
     g_object_unref(layout);
     fixture->repository = log4g_hierarchy_new(root);

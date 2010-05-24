@@ -68,7 +68,7 @@ log4g_logging_event_init(Log4gLoggingEvent *self)
     priv->file = NULL;
     priv->line = NULL;
     priv->fullinfo = NULL;
-    memset(&priv->timestamp, 0, sizeof(priv->timestamp));
+    memset(&priv->timestamp, 0, sizeof priv->timestamp);
     priv->thread_lookup_required = TRUE;
     priv->thread = NULL;
     priv->ndc_lookup_required = TRUE;

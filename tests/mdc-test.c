@@ -31,9 +31,8 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    const gchar *string;
     log4g_mdc_put("foo", "bar");
-    string = log4g_mdc_get("foo");
+    const gchar *string = log4g_mdc_get("foo");
     g_assert(string);
     g_assert_cmpstr(string, ==, "bar");
     log4g_mdc_remove("foo");

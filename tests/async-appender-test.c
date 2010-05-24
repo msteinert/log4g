@@ -40,7 +40,7 @@ void
 setup(Fixture *fixture, gconstpointer data)
 {
     va_list ap;
-    memset(&ap, 0, sizeof(ap));
+    memset(&ap, 0, sizeof ap);
     fixture->event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
@@ -56,18 +56,14 @@ teardown(Fixture *fixture, gconstpointer data)
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    Log4gAppender *appender;
-    Log4gAppender *out;
-    Log4gAppender *err;
-    Log4gLayout *layout;
-    layout = log4g_simple_layout_new();
+    Log4gLayout *layout = log4g_simple_layout_new();
     g_assert(layout);
-    out = log4g_console_appender_new(layout, "stdout");
+    Log4gAppender *out = log4g_console_appender_new(layout, "stdout");
     g_assert(out);
-    err = log4g_console_appender_new(layout, "stderr");
+    Log4gAppender *err = log4g_console_appender_new(layout, "stderr");
     g_assert(err);
     g_object_unref(layout);
-    appender = log4g_async_appender_new();
+    Log4gAppender *appender = log4g_async_appender_new();
     g_assert(appender);
     log4g_async_appender_add_appender(appender, out);
     log4g_async_appender_add_appender(appender, err);

@@ -33,11 +33,10 @@ void
 test_001(gpointer *fixture, gconstpointer data)
 {
     Log4gLogger *l0 = log4g_logger_new("org.gnome.test");
-    Log4gLogger *l1 = log4g_logger_new("org.gnome.test.more");
-    Log4gProvisionNode *node;
     g_assert(l0);
+    Log4gLogger *l1 = log4g_logger_new("org.gnome.test.more");
     g_assert(l1);
-    node = log4g_provision_node_new(G_OBJECT(l0));
+    Log4gProvisionNode *node = log4g_provision_node_new(G_OBJECT(l0));
     g_assert(node);
     g_assert_cmpuint(log4g_provision_node_size(node), == , 1);
     log4g_provision_node_add_element(node, G_OBJECT(l1));

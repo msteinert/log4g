@@ -32,16 +32,13 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    gint i, j;
-    Log4gLogger *logger;
     log4g_basic_configurator_configure();
-    logger = log4g_logger_get_root_logger();
     log4g_debug("test message");
-    i = 10;
+    gint i = 10;
     log4g_ndc_push("i=%d", i);
     log4g_info("use%s log message",
             (g_random_double() >= 0.5 ? "ful" : "less"));
-    j = 20;
+    gint j = 20;
     log4g_ndc_push("j=%d", j);
     log4g_error("trace message");
     log4g_ndc_pop();

@@ -58,7 +58,7 @@ typedef struct _Options {
 static Options *
 options_new(void)
 {
-    Options *self = g_try_malloc(sizeof(*self));
+    Options *self = g_try_malloc(sizeof *self);
     if (!self) {
         return NULL;
     }

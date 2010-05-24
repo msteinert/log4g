@@ -42,14 +42,12 @@ test_001(gpointer *fixture, gconstpointer data)
 void
 perf_001(gpointer *fixture, gconstpointer data)
 {
-    int i;
-    int log = 1000000;
-    double e;
+    gint log = 1000000;
     g_test_timer_start();
-    for (i = 0; i < log; ++i) {
+    for (gint i = 0; i < log; ++i) {
         log4g_trace("skip this message");
     }
-    e = g_test_timer_elapsed();
+    gdouble e = g_test_timer_elapsed();
     g_test_minimized_result(e, "skipped messages, rate=%d/second",
             (gint)(log / e));
 }
@@ -72,15 +70,13 @@ perf_002(gpointer *fixture, gconstpointer data)
 void
 perf_003(gpointer *fixture, gconstpointer data)
 {
-    int i;
     int log = 1000000;
-    double e;
     FILE *file = fopen("file.txt", "w");
     g_test_timer_start();
-    for (i = 0; i < log; ++i) {
+    for (gint i = 0; i < log; ++i) {
         fprintf(file, "%d log this message\n", i);
     }
-    e = g_test_timer_elapsed();
+    gdouble e = g_test_timer_elapsed();
     g_test_minimized_result(e, "logged messages, rate=%d/second",
             (gint)(log / e));
 }
@@ -88,24 +84,23 @@ perf_003(gpointer *fixture, gconstpointer data)
 int
 main(int argc, char *argv[])
 {
-    GError *error = NULL;
-    GOptionContext *context;
-    int status = EXIT_SUCCESS;
-    GOptionEntry entries[] = {
-        { NULL }
-    };
     g_test_init(&argc, &argv, NULL);
 #ifndef G_THREADS_IMPL_NONE
     if (!g_thread_supported()) {
         g_thread_init(NULL);
     }
 #endif
-    context = g_option_context_new("- test Log4g initialization");
+    GOptionContext *context =
+        g_option_context_new("- test Log4g initialization");
     if (!context) {
         return EXIT_FAILURE;
     }
+    GOptionEntry entries[] = {
+        { NULL }
+    };
     g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
     g_option_context_add_group(context, log4g_get_option_group());
+    GError *error = NULL;
     if (!g_option_context_parse(context, &argc, &argv, &error)) {
         g_print("option parsing failed: %s\n", error->message);
         g_error_free(error);
@@ -118,7 +113,7 @@ main(int argc, char *argv[])
         g_test_add(CLASS"/perf/002", gpointer, NULL, NULL, perf_002, NULL);
         g_test_add(CLASS"/perf/003", gpointer, NULL, NULL, perf_003, NULL);
     }
-    status = g_test_run();
+    int status = g_test_run();
     log4g_finalize();
     return status;
 }

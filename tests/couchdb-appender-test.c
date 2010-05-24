@@ -29,7 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define CLASS "/log4g/appender/CouchDBAppender"
+#define CLASS "/log4g/appender/CouchdbAppender"
 
 void
 test_001(gpointer *fixture, gconstpointer data)
@@ -38,7 +38,7 @@ test_001(gpointer *fixture, gconstpointer data)
         log4g_couchdb_appender_new(NULL, "couchdb_appender_test");
     g_assert(appender);
     va_list ap;
-    memset(ap, 0, sizeof ap);
+    memset(&ap, 0, sizeof ap);
     for (gint i = 0; i < 5; ++i) {
         log4g_ndc_push("LOOP %d", i);
         Log4gLoggingEvent *event =

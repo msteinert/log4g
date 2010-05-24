@@ -35,10 +35,8 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    Log4gLoggingEvent *event;
     va_list ap;
-    gint i;
-    memset(&ap, 0, sizeof(ap));
+    memset(&ap, 0, sizeof ap);
     Log4gLayout *layout = log4g_html_layout_new();
     g_assert(layout);
     log4g_html_layout_set_title(layout, "Hello, World!");
@@ -48,11 +46,12 @@ test_001(gpointer *fixture, gconstpointer data)
                 FALSE, TRUE);
     g_assert(appender);
     g_object_unref(layout);
-    for (i = 0; i < 5; ++i) {
+    for (gint i = 0; i < 5; ++i) {
         log4g_ndc_push("LOOP %d", i);
-        event = log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
-                        __func__, __FILE__, G_STRINGIFY(__LINE__),
-                        "test message", ap);
+        Log4gLoggingEvent *event =
+            log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
+                    __func__, __FILE__, G_STRINGIFY(__LINE__),
+                    "test message", ap);
         g_assert(event);
         log4g_appender_do_append(appender, event);
         g_object_unref(event);

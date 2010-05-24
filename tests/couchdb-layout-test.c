@@ -29,7 +29,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define CLASS "/log4g/layout/PatternLayout"
+#define CLASS "/log4g/layout/CouchdbLayout"
 
 typedef struct _Fixture {
     Log4gLoggingEvent *event;
@@ -40,8 +40,6 @@ typedef struct _Fixture {
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    va_list ap;
-    memset(&ap, 0, sizeof(ap));
     fixture->level = g_type_class_ref(LOG4G_TYPE_LEVEL);
     g_assert(fixture->level);
     fixture->le = g_type_class_ref(LOG4G_TYPE_LOGGING_EVENT);
@@ -51,6 +49,8 @@ setup(Fixture *fixture, gconstpointer data)
     log4g_ndc_push("foo");
     log4g_ndc_push("bar");
     log4g_ndc_push("baz");
+    va_list ap;
+    memset(&ap, 0, sizeof ap);
     fixture->event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
@@ -70,7 +70,7 @@ test_001(Fixture *fixture, gconstpointer data)
 {
     Log4gLayout *layout = log4g_couchdb_layout_new();
     g_assert(layout);
-    //g_print("%s", log4g_layout_format(layout, fixture->event));
+    g_print("%s", log4g_layout_format(layout, fixture->event));
     g_object_unref(layout);
 }
 
