@@ -125,8 +125,8 @@ appender_init(Log4gAppenderInterface *interface)
     interface->requires_layout = requires_layout;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gCouchdbAppender, log4g_couchdb_appender,
-        LOG4G_TYPE_APPENDER_SKELETON,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gCouchdbAppender, log4g_couchdb_appender,
+        LOG4G_TYPE_APPENDER_SKELETON, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
@@ -163,14 +163,10 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->uri) {
-        g_free(priv->uri);
-        priv->uri = NULL;
-    }
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
-    }
+    g_free(priv->uri);
+    priv->uri = NULL;
+    g_free(priv->name);
+    priv->name = NULL;
     G_OBJECT_CLASS(log4g_couchdb_appender_parent_class)->finalize(base);
 }
 
@@ -278,6 +274,18 @@ log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
             g_param_spec_object("credentials", Q_("Database credentials"),
                     Q_("Credentials for a CouchDB database"),
                     COUCHDB_TYPE_CREDENTIALS, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_couchdb_appender_class_finalize(Log4gCouchdbAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_couchdb_appender_register(GTypeModule *base)
+{
+    log4g_couchdb_appender_register_type(base);
 }
 
 Log4gAppender *

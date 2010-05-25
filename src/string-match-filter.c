@@ -58,10 +58,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_free(priv->string);
-        priv->string = NULL;
-    }
+    g_free(priv->string);
+    priv->string = NULL;
     G_OBJECT_CLASS(log4g_string_match_filter_parent_class)->finalize(base);
 }
 
@@ -71,9 +69,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     switch (id) {
     case PROP_STRING_TO_MATCH:
-        if (priv->string) {
-            g_free(priv->string);
-        }
+        g_free(priv->string);
         const gchar *string = g_value_get_string(value);
         if (string) {
             priv->string = g_strdup(string);

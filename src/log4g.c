@@ -73,12 +73,8 @@ options_destroy(gpointer object)
 {
     Options *self = (Options *)object;
     if (self) {
-        if (self->configuration) {
-            g_free(self->configuration);
-        }
-        if (self->thread) {
-            g_free(self->thread);
-        }
+        g_free(self->configuration);
+        g_free(self->thread);
         g_free(self);
     }
 }

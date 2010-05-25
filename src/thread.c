@@ -53,10 +53,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
-    }
+    g_free(priv->name);
+    priv->name = NULL;
     G_OBJECT_CLASS(log4g_thread_parent_class)->finalize(base);
 }
 
@@ -127,8 +125,6 @@ log4g_thread_set_name(const gchar *name)
         return;
     }
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (priv->name) {
-        g_free(priv->name);
-    }
+    g_free(priv->name);
     priv->name = g_strdup(name);
 }

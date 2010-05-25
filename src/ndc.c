@@ -55,12 +55,8 @@ static void
 log4g_diagnostic_context_destroy(Log4gDiagnosticContext *self)
 {
     if (self) {
-        if (self->message) {
-            g_free(self->message);
-        }
-        if (self->full) {
-            g_free(self->full);
-        }
+        g_free(self->message);
+        g_free(self->full);
         g_free(self);
     }
 }
@@ -175,10 +171,8 @@ finalize(GObject *base)
         _free_array(priv->stack, TRUE);
         priv->stack = NULL;
     }
-    if (priv->pop) {
-        g_free(priv->pop);
-        priv->pop = NULL;
-    }
+    g_free(priv->pop);
+    priv->pop = NULL;
     G_OBJECT_CLASS(log4g_ndc_parent_class)->finalize(base);
 }
 
@@ -322,9 +316,7 @@ log4g_ndc_pop(void)
         g_array_index(priv->stack, Log4gDiagnosticContext *,
                 priv->stack->len - 1);
     if (context) {
-        if (priv->pop) {
-            g_free(priv->pop);
-        }
+        g_free(priv->pop);
         priv->pop = context->message;
         context->message = NULL;
         log4g_diagnostic_context_destroy(context);

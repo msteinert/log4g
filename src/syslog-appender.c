@@ -99,10 +99,8 @@ finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     log4g_appender_close(LOG4G_APPENDER(base));
-    if (priv->ident) {
-        g_free(priv->ident);
-        priv->ident = NULL;
-    }
+    g_free(priv->ident);
+    priv->ident = NULL;
     G_OBJECT_CLASS(log4g_syslog_appender_parent_class)->finalize(base);
 }
 
@@ -113,15 +111,9 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     const gchar *ident;
     switch (id) {
     case PROP_IDENT:
-        if (priv->ident) {
-            g_free(priv->ident);
-        }
+        g_free(priv->ident);
         ident = g_value_get_string(value);
-        if (ident) {
-            priv->ident = g_strdup(ident);
-        } else {
-            priv->ident = NULL;
-        }
+        priv->ident = ident ? g_strdup(ident) : NULL;
         break;
     case PROP_OPTION:
         priv->option = g_value_get_int(value);

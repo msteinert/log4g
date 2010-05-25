@@ -78,14 +78,10 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->format) {
-        g_free(priv->format);
-        priv->format = NULL;
-    }
-    if (priv->tz) {
-        g_free(priv->tz);
-        priv->tz = NULL;
-    }
+    g_free(priv->format);
+    priv->format = NULL;
+    g_free(priv->tz);
+    priv->tz = NULL;
     G_OBJECT_CLASS(log4g_date_layout_parent_class)->finalize(base);
 }
 
@@ -93,30 +89,21 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *string;
     switch (id) {
     case PROP_DATE_FORMAT:
-        if (priv->format) {
-            g_free(priv->format);
-        }
-        string = g_value_get_string(value);
-        if (string) {
-            priv->format = g_strdup(string);
+        g_free(priv->format);
+        const gchar *format = g_value_get_string(value);
+        if (format) {
+            priv->format = g_strdup(format);
         } else {
             priv->type = RELATIVE_TIME_DATE_FORMAT;
             priv->format = NULL;
         }
         break;
     case PROP_TIME_ZONE:
-        if (priv->tz) {
-            g_free(priv->tz);
-        }
-        string = g_value_get_string(value);
-        if (string) {
-            priv->tz = g_strdup(string);
-        } else {
-            priv->tz = NULL;
-        }
+        g_free(priv->tz);
+        const gchar *tz = g_value_get_string(value);
+        priv->tz = tz ? g_strdup(tz) : NULL;
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);

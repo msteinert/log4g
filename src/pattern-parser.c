@@ -97,10 +97,8 @@ finalize(GObject *base)
         g_string_free(priv->buffer, TRUE);
         priv->buffer = NULL;
     }
-    if (priv->pattern) {
-        g_free(priv->pattern);
-        priv->pattern = NULL;
-    }
+    g_free(priv->pattern);
+    priv->pattern = NULL;
     G_OBJECT_CLASS(log4g_pattern_parser_parent_class)->finalize(base);
 }
 

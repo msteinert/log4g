@@ -153,9 +153,7 @@ static void
 set_name(Log4gAppender *base, const gchar *name)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->name) {
-        g_free(priv->name);
-    }
+    g_free(priv->name);
     priv->name = g_strdup(name);
 }
 
@@ -237,10 +235,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
-    }
+    g_free(priv->name);
+    priv->name = NULL;
     if (priv->lock) {
         g_mutex_free(priv->lock);
         priv->lock = NULL;

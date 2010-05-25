@@ -81,10 +81,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->title) {
-        g_free(priv->title);
-        priv->title = NULL;
-    }
+    g_free(priv->title);
+    priv->title = NULL;
     if (priv->string) {
         g_string_free(priv->string, TRUE);
         priv->string = NULL;
@@ -101,9 +99,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     case PROP_TITLE:
         title = g_value_dup_string(value);
         if (title) {
-            if (priv->title) {
-                g_free(priv->title);
-            }
+            g_free(priv->title);
             priv->title = g_strdup(title);
         }
         break;

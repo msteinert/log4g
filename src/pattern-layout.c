@@ -88,10 +88,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->pattern) {
-        g_free(priv->pattern);
-        priv->pattern = NULL;
-    }
+    g_free(priv->pattern);
+    priv->pattern = NULL;
     if (priv->string) {
         g_string_free(priv->string, TRUE);
         priv->string = NULL;
@@ -107,9 +105,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     switch (id) {
     case PROP_CONVERSION_PATTERN:
         pattern = g_value_get_string(value);
-        if (priv->pattern) {
-            g_free(priv->pattern);
-        }
+        g_free(priv->pattern);
         if (priv->head) {
             g_object_unref(priv->head);
             priv->head = NULL;

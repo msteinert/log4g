@@ -107,10 +107,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->name) {
-        g_free(priv->name);
-        priv->name = NULL;
-    }
+    g_free(priv->name);
+    priv->name = NULL;
     if (priv->lock) {
         g_mutex_free(priv->lock);
         priv->lock = NULL;
@@ -185,9 +183,7 @@ log4g_logger_set_name(Log4gLogger *self, const gchar *name)
 {
     g_return_if_fail(name);
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (priv->name) {
-        g_free(priv->name);
-    }
+    g_free(priv->name);
     priv->name = g_strdup(name);
 }
 

@@ -39,8 +39,8 @@ option_handler_init(Log4gOptionHandlerInterface *interface)
     interface->activate_options = activate_options;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gCouchdbLayout, log4g_couchdb_layout,
-        LOG4G_TYPE_LAYOUT,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gCouchdbLayout, log4g_couchdb_layout,
+        LOG4G_TYPE_LAYOUT, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 #define GET_PRIVATE(instance) \
@@ -62,10 +62,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_free(priv->string);
-        priv->string = NULL;
-    }
+    g_free(priv->string);
+    priv->string = NULL;
     G_OBJECT_CLASS(log4g_couchdb_layout_parent_class)->finalize(base);
 }
 
@@ -73,9 +71,7 @@ static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_free(priv->string);
-    }
+    g_free(priv->string);
     CouchdbDocument *document =
         log4g_couchdb_layout_format_document(base, event, NULL);
     if (!document) {
@@ -175,6 +171,18 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
     layout_class->format = format;
     /* initialize Log4gCouchdbLayout class */
     klass->format_document = format_document;
+}
+
+static void
+log4g_couchdb_layout_class_finalize(Log4gCouchdbLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_couchdb_layout_register(GTypeModule *base)
+{
+    log4g_couchdb_layout_register_type(base);
 }
 
 Log4gLayout *

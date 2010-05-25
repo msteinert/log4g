@@ -53,9 +53,8 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_free(priv->string);
-    }
+    g_free(priv->string);
+    priv->string = NULL;
     G_OBJECT_CLASS(log4g_level_parent_class)->finalize(base);
 }
 

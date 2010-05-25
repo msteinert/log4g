@@ -110,10 +110,8 @@ finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     log4g_appender_close(LOG4G_APPENDER(base));
-    if (priv->file) {
-        g_free(priv->file);
-        priv->file = NULL;
-    }
+    g_free(priv->file);
+    priv->file = NULL;
     if (priv->lock) {
         g_mutex_free(priv->lock);
         priv->lock = NULL;
@@ -125,15 +123,12 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *file;
     gboolean buffered;
     switch (id) {
     case PROP_FILE:
         g_mutex_lock(priv->lock);
-        if (priv->file) {
-            g_free(priv->file);
-        }
-        file = g_value_get_string(value);
+        g_free(priv->file);
+        const gchar *file = g_value_get_string(value);
         if (file) {
             priv->file = g_strdup(file);
             if (priv->file) {
@@ -198,10 +193,8 @@ reset(Log4gAppender *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     log4g_file_appender_close_file(base);
-    if (priv->file) {
-        g_free(priv->file);
-        priv->file = NULL;
-    }
+    g_free(priv->file);
+    priv->file = NULL;
     LOG4G_WRITER_APPENDER_CLASS(log4g_file_appender_parent_class)->reset(base);
 }
 

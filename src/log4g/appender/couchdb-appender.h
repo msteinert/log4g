@@ -90,6 +90,9 @@ struct _Log4gCouchdbAppenderClass {
 GType
 log4g_couchdb_appender_get_type(void);
 
+void
+log4g_couchdb_appender_register(GTypeModule *base);
+
 /**
  * \brief Create a new couchdb appender object.
  *

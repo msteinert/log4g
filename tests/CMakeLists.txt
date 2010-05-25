@@ -29,6 +29,7 @@ set(TESTS
     log4g-test
     logger-test
     mdc-test
+    module-test
     ndc-test
     only-once-error-handler-test
     pattern-layout-test

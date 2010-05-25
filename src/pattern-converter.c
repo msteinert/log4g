@@ -256,12 +256,10 @@ static void
 literal_pattern_converter_finalize(GObject *base)
 {
     struct LiteralPrivate *priv = GET_LITERAL_PRIVATE(base);
-    if (priv->literal) {
-        g_free(priv->literal);
-        priv->literal = NULL;
-    }
-    G_OBJECT_CLASS(
-            log4g_literal_pattern_converter_parent_class)->finalize(base);
+    g_free(priv->literal);
+    priv->literal = NULL;
+    G_OBJECT_CLASS(log4g_literal_pattern_converter_parent_class)->
+        finalize(base);
 }
 
 static const gchar *
@@ -338,10 +336,8 @@ static void
 date_pattern_converter_finalize(GObject *base)
 {
     struct DatePrivate *priv = GET_DATE_PRIVATE(base);
-    if (priv->format) {
-        g_free(priv->format);
-        priv->format = NULL;
-    }
+    g_free(priv->format);
+    priv->format = NULL;
     G_OBJECT_CLASS(log4g_date_pattern_converter_parent_class)->finalize(base);
 }
 
@@ -419,10 +415,8 @@ static void
 mdc_pattern_converter_finalize(GObject *base)
 {
     struct MDCPrivate *priv = GET_MDC_PRIVATE(base);
-    if (priv->key) {
-        g_free(priv->key);
-        priv->key = NULL;
-    }
+    g_free(priv->key);
+    priv->key = NULL;
     G_OBJECT_CLASS(log4g_mdc_pattern_converter_parent_class)->finalize(base);
 }
 

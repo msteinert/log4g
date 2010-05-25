@@ -37,7 +37,7 @@ set(APPENDERS
     log4g/appender/writer-appender.h
 )
 # setup base headers
-set(BASE
+set(CORE
     log4g/disable.h
     log4g/dom-configurator.h
     log4g/error.h
@@ -49,6 +49,7 @@ set(BASE
     log4g/logger.h
     log4g/logging-event.h
     log4g/mdc.h
+    log4g/module.h
     log4g/ndc.h
     log4g/provision-node.h
     log4g/root-logger.h
@@ -133,6 +134,7 @@ add_library(log4g SHARED
     logger-repository.c
     logging-event.c
     mdc.c
+    module.c
     ndc.c
     null-appender.c
     only-once-error-handler.c
@@ -155,7 +157,7 @@ add_library(log4g SHARED
     writer-appender.c
     xml-layout.c
     ${APPENDERS}
-    ${BASE}
+    ${CORE}
     ${FILTERS}
     ${HELPERS}
     ${INTERFACES}
@@ -168,12 +170,13 @@ target_link_libraries(log4g
     ${LibXML-2.0_LIBRARIES}
 )
 # install library
+install(TARGETS log4g LIBRARY
+    DESTINATION lib
+)
+# CouchDB
 find_package(CouchDBGLib-1.0 REQUIRED)
 include_directories(
     ${CouchDBGLib-1.0_INCLUDE_DIRS}
-)
-install(TARGETS log4g LIBRARY
-    DESTINATION lib
 )
 set(COUCHDB_APPENDERS
     log4g/appender/couchdb-appender.h
@@ -182,6 +185,7 @@ set(COUCHDB_LAYOUTS
     log4g/layout/couchdb-layout.h
 )
 add_library(log4g-couchdb SHARED
+    couchdb.c
     couchdb-appender.c
     couchdb-layout.c
     ${COUCHDB_APPENDERS}

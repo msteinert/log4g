@@ -93,26 +93,16 @@ static void
 finalize(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->logger) {
-        g_free(priv->logger);
-        priv->logger = NULL;
-    }
-    if (priv->message) {
-        g_free(priv->message);
-        priv->message = NULL;
-    }
-    if (priv->ndc) {
-        g_free(priv->ndc);
-        priv->ndc = NULL;
-    }
-    if (priv->fullinfo) {
-        g_free(priv->fullinfo);
-        priv->fullinfo = NULL;
-    }
-    if (priv->thread) {
-        g_free(priv->thread);
-        priv->thread = NULL;
-    }
+    g_free(priv->logger);
+    priv->logger = NULL;
+    g_free(priv->message);
+    priv->message = NULL;
+    g_free(priv->ndc);
+    priv->ndc = NULL;
+    g_free(priv->fullinfo);
+    priv->fullinfo = NULL;
+    g_free(priv->thread);
+    priv->thread = NULL;
     if (priv->mdc) {
         g_hash_table_destroy(priv->mdc);
         priv->mdc = NULL;
