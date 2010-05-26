@@ -24,8 +24,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/writer-appender.h"
 #include "log4g/interface/error-handler.h"
+#include "writer-appender.h"
 
 enum _properties_t {
     PROP_O = 0,
@@ -69,8 +69,8 @@ appender_init(Log4gAppenderInterface *interface)
     interface->requires_layout = requires_layout;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gWriterAppender, log4g_writer_appender,
-        LOG4G_TYPE_APPENDER_SKELETON,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gWriterAppender, log4g_writer_appender,
+        LOG4G_TYPE_APPENDER_SKELETON, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
 static void
@@ -187,6 +187,18 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
             g_param_spec_boolean("immediate-flush", Q_("Immediate Flush"),
                     Q_("Flush immediately after writing"),
                     TRUE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_writer_appender_class_finalize(Log4gWriterAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_writer_appender_register(GTypeModule *module)
+{
+    log4g_writer_appender_register_type(module);
 }
 
 Log4gAppender *log4g_writer_appender_new(Log4gLayout *layout, FILE *file)

@@ -29,7 +29,7 @@
 #ifndef LOG4G_COUNTING_QUIET_WRITER_H
 #define LOG4G_COUNTING_QUIET_WRITER_H
 
-#include <log4g/helpers/quiet-writer.h>
+#include "quiet-writer.h"
 
 G_BEGIN_DECLS
 

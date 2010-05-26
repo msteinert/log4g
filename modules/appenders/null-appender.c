@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/null-appender.h"
+#include "null-appender.h"
 
 static void
 _close(Log4gAppender *base)

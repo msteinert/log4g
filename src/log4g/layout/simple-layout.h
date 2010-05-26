@@ -78,6 +78,9 @@ struct _Log4gSimpleLayoutClass {
 GType
 log4g_simple_layout_get_type(void);
 
+void
+log4g_simple_layout_register(GTypeModule *module);
+
 /**
  * \brief Create a new simple layout object.
  *

@@ -34,7 +34,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-G_DEFINE_TYPE(Log4gLevelRangeFilter, log4g_level_range_filter,
+G_DEFINE_DYNAMIC_TYPE(Log4gLevelRangeFilter, log4g_level_range_filter,
         LOG4G_TYPE_FILTER)
 
 #define GET_PRIVATE(instance) \
@@ -155,6 +155,18 @@ log4g_level_range_filter_class_init(Log4gLevelRangeFilterClass *klass)
             g_param_spec_boolean("accept-on-range", Q_("Accept on Range"),
                     Q_("Accept or deny on log level range match"),
                     TRUE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_level_range_filter_class_finalize(Log4gLevelRangeFilterClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_level_range_filter_register(GTypeModule *module)
+{
+    log4g_level_range_filter_register_type(module);
 }
 
 Log4gFilter *

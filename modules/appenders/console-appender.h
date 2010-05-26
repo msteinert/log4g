@@ -40,7 +40,7 @@
 #ifndef LOG4G_CONSOLE_APPENDER_H
 #define LOG4G_CONSOLE_APPENDER_H
 
-#include <log4g/appender/writer-appender.h>
+#include "writer-appender.h"
 
 G_BEGIN_DECLS
 
@@ -83,6 +83,9 @@ struct _Log4gConsoleAppenderClass {
 
 GType
 log4g_console_appender_get_type(void);
+
+void
+log4g_console_appender_register(GTypeModule *module);
 
 /**
  * \brief Create a new console appender object.

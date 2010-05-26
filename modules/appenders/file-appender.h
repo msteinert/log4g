@@ -46,7 +46,7 @@
 #ifndef LOG4G_FILE_APPENDER_H
 #define LOG4G_FILE_APPENDER_H
 
-#include <log4g/appender/writer-appender.h>
+#include "writer-appender.h"
 
 G_BEGIN_DECLS
 
@@ -118,7 +118,11 @@ struct _Log4gFileAppenderClass {
     (*set_qw_for_files)(Log4gAppender *base, FILE *file);
 };
 
-GType log4g_file_appender_get_type(void);
+GType
+log4g_file_appender_get_type(void);
+
+void
+log4g_file_appender_register(GTypeModule *module);
 
 /**
  * \brief Create a new file appender object.

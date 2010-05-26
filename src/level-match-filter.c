@@ -33,7 +33,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-G_DEFINE_TYPE(Log4gLevelMatchFilter, log4g_level_match_filter,
+G_DEFINE_DYNAMIC_TYPE(Log4gLevelMatchFilter, log4g_level_match_filter,
         LOG4G_TYPE_FILTER)
 
 #define GET_PRIVATE(instance) \
@@ -129,6 +129,18 @@ log4g_level_match_filter_class_init(Log4gLevelMatchFilterClass *klass)
             g_param_spec_boolean("accept-on-match", Q_("Accept on Match"),
                     Q_("Accept or deny on log level match"),
                     TRUE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_level_match_filter_class_finalize(Log4gLevelMatchFilterClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_level_match_filter_register(GTypeModule *module)
+{
+    log4g_level_match_filter_register_type(module);
 }
 
 Log4gFilter *

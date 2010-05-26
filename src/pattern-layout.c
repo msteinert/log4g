@@ -44,8 +44,8 @@ option_handler_init(Log4gOptionHandlerInterface *interface)
     interface->activate_options = activate_options;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gPatternLayout, log4g_pattern_layout,
-        LOG4G_TYPE_LAYOUT,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gPatternLayout, log4g_pattern_layout,
+        LOG4G_TYPE_LAYOUT, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 #define GET_PRIVATE(instance) \
@@ -182,6 +182,18 @@ log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
             g_param_spec_string("conversion-pattern", Q_("Conversion Pattern"),
                     Q_("String that controls formatting"),
                     NULL, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_pattern_layout_class_finalize(Log4gPatternLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_pattern_layout_register(GTypeModule *module)
+{
+    log4g_pattern_layout_register_type(module);
 }
 
 Log4gLayout *

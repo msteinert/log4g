@@ -34,7 +34,8 @@ enum _properties_t {
     PROP_MAX
 };
 
-G_DEFINE_TYPE(Log4gTTCCLayout, log4g_ttcc_layout, LOG4G_TYPE_DATE_LAYOUT)
+G_DEFINE_DYNAMIC_TYPE(Log4gTTCCLayout, log4g_ttcc_layout,
+        LOG4G_TYPE_DATE_LAYOUT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_TTCC_LAYOUT, \
@@ -124,14 +125,14 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 static void
 log4g_ttcc_layout_class_init(Log4gTTCCLayoutClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     /* initialize GObject class */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gLayout class */
+    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     layout_class->format = format;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_THREAD_PRINTING,
@@ -144,6 +145,18 @@ log4g_ttcc_layout_class_init(Log4gTTCCLayoutClass *klass)
     g_object_class_install_property(gobject_class, PROP_CONTEXT_PRINTING,
             g_param_spec_boolean("context-printing", Q_("Context Printing"),
                     Q_("Toggle context printing"), TRUE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_ttcc_layout_class_finalize(Log4gTTCCLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_ttcc_layout_register(GTypeModule *module)
+{
+    log4g_ttcc_layout_register_type(module);
 }
 
 Log4gLayout *

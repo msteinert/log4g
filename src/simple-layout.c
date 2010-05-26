@@ -38,8 +38,8 @@ option_handler_init(Log4gOptionHandlerInterface *interface)
     interface->activate_options = activate_options;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gSimpleLayout, log4g_simple_layout,
-        LOG4G_TYPE_LAYOUT,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gSimpleLayout, log4g_simple_layout,
+        LOG4G_TYPE_LAYOUT, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 #define GET_PRIVATE(instance) \
@@ -94,6 +94,18 @@ log4g_simple_layout_class_init(Log4gSimpleLayoutClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gLayout class */
     layout_class->format = format;
+}
+
+static void
+log4g_simple_layout_class_finalize(Log4gSimpleLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_simple_layout_register(GTypeModule *module)
+{
+    log4g_simple_layout_register_type(module);
 }
 
 Log4gLayout *

@@ -85,10 +85,10 @@ log4g_module_new(const gchar *file);
  * This function is run after the module has been loaded in order to
  * initialize the module.
  *
- * \param base [in] A Log4gModule object.
+ * \param module [in] A Log4gModule object.
  */
 void
-log4g_module_load(GTypeModule *base);
+log4g_module_load(GTypeModule *module);
 
 G_END_DECLS
 

@@ -350,6 +350,9 @@ struct _Log4gPatternLayoutClass {
 GType
 log4g_pattern_layout_get_type(void);
 
+void
+log4g_pattern_layout_register(GTypeModule *module);
+
 /**
  * \brief Create a new pattern layout object.
  *

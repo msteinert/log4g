@@ -19,14 +19,18 @@
  * \brief Implements the API in log4g/basic-configurator.h
  * \author Mike Steinert
  * \date 2-22-2010
+ *
+ * TODO FIXME
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 #include "log4g/basic-configurator.h"
+/*
 #include "log4g/appender/console-appender.h"
 #include "log4g/layout/ttcc-layout.h"
+*/
 #include "log4g/log-manager.h"
 
 void
@@ -36,6 +40,8 @@ log4g_basic_configurator_configure(void)
     if (!root) {
         return;
     }
+    /* TODO FIXME update this code to use dynamic types */
+    /*
     Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
     if (!layout) {
         return;
@@ -52,6 +58,7 @@ exit:
     if (appender) {
         g_object_unref(appender);
     }
+    */
 }
 
 void

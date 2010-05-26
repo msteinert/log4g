@@ -28,7 +28,6 @@ config.log
 config.status
 config.sub
 configure
-core*
 cscope.out
 depcomp
 doltcompile

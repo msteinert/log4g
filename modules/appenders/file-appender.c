@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "log4g/appender/file-appender.h"
+#include "file-appender.h"
 
 enum _properties_t {
     PROP_O = 0,
@@ -86,8 +86,8 @@ option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
     interface->activate_options = activate_options;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gFileAppender, log4g_file_appender,
-        LOG4G_TYPE_WRITER_APPENDER,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gFileAppender, log4g_file_appender,
+        LOG4G_TYPE_WRITER_APPENDER, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 static void
@@ -228,6 +228,18 @@ log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
             g_param_spec_uint("buffer-size", Q_("Buffer Size"),
                     Q_("Size of the output buffer"),
                     0, G_MAXUINT, 8 * 1024, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_file_appender_class_finalize(Log4gFileAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_file_appender_register(GTypeModule *module)
+{
+    log4g_file_appender_register_type(module);
 }
 
 Log4gAppender *

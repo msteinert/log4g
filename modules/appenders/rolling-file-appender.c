@@ -24,10 +24,10 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "counting-quiet-writer.h"
 #include <errno.h>
 #include <glib/gstdio.h>
-#include "log4g/appender/rolling-file-appender.h"
-#include "log4g/helpers/counting-quiet-writer.h"
+#include "rolling-file-appender.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -39,7 +39,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-G_DEFINE_TYPE(Log4gRollingFileAppender, log4g_rolling_file_appender,
+G_DEFINE_DYNAMIC_TYPE(Log4gRollingFileAppender, log4g_rolling_file_appender,
         LOG4G_TYPE_FILE_APPENDER)
 
 #define GET_PRIVATE(instance) \
@@ -189,6 +189,19 @@ log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
             g_param_spec_ulong("maximum-file-size", Q_("Maximum File Size"),
                     Q_("Maximum size a log file may grow to"),
                     0, G_MAXLONG, 10 * 1024 * 1024, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_rolling_file_appender_class_finalize(
+        Log4gRollingFileAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_rolling_file_appender_register(GTypeModule *module)
+{
+    log4g_rolling_file_appender_register_type(module);
 }
 
 Log4gAppender *

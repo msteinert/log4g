@@ -36,7 +36,7 @@
 #define LOG4G_WRITER_APPENDER_H
 
 #include <log4g/appender/appender-skeleton.h>
-#include <log4g/helpers/quiet-writer.h>
+#include "quiet-writer.h"
 
 G_BEGIN_DECLS
 
@@ -108,6 +108,9 @@ struct _Log4gWriterAppenderClass {
 
 GType
 log4g_writer_appender_get_type(void);
+
+void
+log4g_writer_appender_register(GTypeModule *module);
 
 /**
  * \brief Create a new writer appender object.

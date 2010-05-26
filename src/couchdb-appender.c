@@ -283,9 +283,9 @@ log4g_couchdb_appender_class_finalize(Log4gCouchdbAppenderClass *klass)
 }
 
 void
-log4g_couchdb_appender_register(GTypeModule *base)
+log4g_couchdb_appender_register(GTypeModule *module)
 {
-    log4g_couchdb_appender_register_type(base);
+    log4g_couchdb_appender_register_type(module);
 }
 
 Log4gAppender *

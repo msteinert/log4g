@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/async-appender.h"
+#include "async-appender.h"
 #include "log4g/helpers/appender-attachable-impl.h"
 #include "log4g/interface/error-handler.h"
 #include <string.h>
@@ -188,8 +188,8 @@ appender_attachable_init(Log4gAppenderAttachableInterface *interface)
         (gconstpointer)log4g_async_appender_remove_appender_name;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gAsyncAppender, log4g_async_appender,
-        LOG4G_TYPE_APPENDER_SKELETON,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gAsyncAppender, log4g_async_appender,
+        LOG4G_TYPE_APPENDER_SKELETON, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER_ATTACHABLE,
                 appender_attachable_init))
@@ -392,6 +392,18 @@ log4g_async_appender_class_init(Log4gAsyncAppenderClass *klass)
             g_param_spec_int("buffer-size", Q_("Buffer Size"),
                     Q_("The size of the logging event queue"),
                     0, G_MAXINT, 128, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_async_appender_class_finalize(Log4gAsyncAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_async_appender_register(GTypeModule *module)
+{
+    log4g_async_appender_register_type(module);
 }
 
 Log4gAppender *

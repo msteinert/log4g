@@ -26,7 +26,8 @@
 #endif
 #include "log4g/filter/deny-all-filter.h"
 
-G_DEFINE_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter, LOG4G_TYPE_FILTER)
+G_DEFINE_DYNAMIC_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter,
+        LOG4G_TYPE_FILTER)
 
 static void
 log4g_deny_all_filter_init(Log4gDenyAllFilter *self)
@@ -46,6 +47,18 @@ log4g_deny_all_filter_class_init(Log4gDenyAllFilterClass *klass)
     Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     /* initialize Log4gFilter class */
     filter_class->decide = decide;
+}
+
+static void
+log4g_deny_all_filter_class_finalize(Log4gDenyAllFilterClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_deny_all_filter_register(GTypeModule *module)
+{
+    log4g_deny_all_filter_register_type(module);
 }
 
 Log4gFilter *log4g_deny_all_filter_new(void)

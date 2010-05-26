@@ -93,6 +93,9 @@ struct _Log4gAsyncAppenderClass {
 GType
 log4g_async_appender_get_type(void);
 
+void
+log4g_async_appender_register(GTypeModule *module);
+
 /**
  * \brief Create a new async appender object.
  *

@@ -180,9 +180,9 @@ log4g_couchdb_layout_class_finalize(Log4gCouchdbLayoutClass *klass)
 }
 
 void
-log4g_couchdb_layout_register(GTypeModule *base)
+log4g_couchdb_layout_register(GTypeModule *module)
 {
-    log4g_couchdb_layout_register_type(base);
+    log4g_couchdb_layout_register_type(module);
 }
 
 Log4gLayout *

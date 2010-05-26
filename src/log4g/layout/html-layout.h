@@ -83,6 +83,9 @@ struct _Log4gHTMLLayoutClass {
 GType
 log4g_html_layout_get_type(void);
 
+void
+log4g_html_layout_register(GTypeModule *module);
+
 /**
  * \brief Create a new HTML layout object.
  *

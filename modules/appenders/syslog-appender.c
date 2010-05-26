@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/syslog-appender.h"
+#include "syslog-appender.h"
 #include <syslog.h>
 
 enum _properties_t {
@@ -80,8 +80,8 @@ appender_init(Log4gAppenderInterface *interface)
     interface->requires_layout = requires_layout;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gSyslogAppender, log4g_syslog_appender,
-        LOG4G_TYPE_APPENDER_SKELETON,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gSyslogAppender, log4g_syslog_appender,
+        LOG4G_TYPE_APPENDER_SKELETON, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
@@ -163,6 +163,18 @@ log4g_syslog_appender_class_init(Log4gSyslogAppenderClass *klass)
             g_param_spec_int("facility", Q_("Facility"),
                     Q_("Syslog facility parameter"), 0, G_MAXINT, 0,
                     G_PARAM_WRITABLE));
+}
+
+static void
+log4g_syslog_appender_class_finalize(Log4gSyslogAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_syslog_appender_register(GTypeModule *module)
+{
+    log4g_syslog_appender_register_type(module);
 }
 
 Log4gAppender *

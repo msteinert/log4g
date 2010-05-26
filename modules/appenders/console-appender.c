@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/console-appender.h"
+#include "console-appender.h"
 #include <unistd.h>
 
 enum _properties_t {
@@ -98,8 +98,8 @@ appender_init(Log4gAppenderInterface *interface)
     interface->close = _close;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gConsoleAppender, log4g_console_appender,
-        LOG4G_TYPE_WRITER_APPENDER,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gConsoleAppender, log4g_console_appender,
+        LOG4G_TYPE_WRITER_APPENDER, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
@@ -186,6 +186,18 @@ log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
     g_object_class_install_property(gobject_class, PROP_FOLLOW,
             g_param_spec_boolean("follow", Q_("Follow"),
                     Q_("Output follows freopen()"), FALSE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_console_appender_class_finalize(Log4gConsoleAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_console_appender_register(GTypeModule *module)
+{
+    log4g_console_appender_register_type(module);
 }
 
 Log4gAppender *

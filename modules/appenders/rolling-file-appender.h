@@ -39,7 +39,7 @@
 #ifndef LOG4G_ROLLING_FILE_APPENDER_H
 #define LOG4G_ROLLING_FILE_APPENDER_H
 
-#include <log4g/appender/file-appender.h>
+#include "file-appender.h"
 
 G_BEGIN_DECLS
 
@@ -93,6 +93,9 @@ struct _Log4gRollingFileAppenderClass {
 
 GType
 log4g_rolling_file_appender_get_type(void);
+
+void
+log4g_rolling_file_appender_register(GTypeModule *module);
 
 /**
  * \brief Create a new rolling file appender object.

@@ -86,7 +86,11 @@ struct _Log4gSyslogAppenderClass {
     Log4gAppenderSkeletonClass parent_class; /**< parent class */
 };
 
-GType log4g_syslog_appender_get_type(void);
+GType
+log4g_syslog_appender_get_type(void);
+
+void
+log4g_syslog_appender_register(GTypeModule *module);
 
 /**
  * \brief Create a new syslog appender object.

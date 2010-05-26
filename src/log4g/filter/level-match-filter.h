@@ -90,6 +90,9 @@ struct _Log4gLevelMatchFilterClass {
 GType
 log4g_level_match_filter_get_type(void);
 
+void
+log4g_level_match_filter_register(GTypeModule *module);
+
 /**
  * \brief Create a new level match filter.
  *

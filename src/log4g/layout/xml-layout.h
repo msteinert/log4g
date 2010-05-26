@@ -100,6 +100,9 @@ struct _Log4gXMLLayoutClass {
 GType
 log4g_xml_layout_get_type(void);
 
+void
+log4g_xml_layout_register(GTypeModule *module);
+
 /**
  * \brief Create a new XML layout object.
  *

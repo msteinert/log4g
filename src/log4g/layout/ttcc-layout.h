@@ -101,6 +101,9 @@ struct _Log4gTTCCLayoutClass {
 GType
 log4g_ttcc_layout_get_type(void);
 
+void
+log4g_ttcc_layout_register(GTypeModule *module);
+
 /**
  * \brief Create a new TTCC layout object.
  *

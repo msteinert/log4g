@@ -41,6 +41,9 @@ PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
 log4g_libxml_version="libxml-2.0 >= 2.6"
 AC_SUBST([log4g_libxml_version])
 PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
+# Configure module directory
+moduledir="\$(libdir)/log4g"
+AC_SUBST(moduledir)
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
     [Always defined to indicate that i18n is enabled])
@@ -69,6 +72,8 @@ AC_CONFIG_FILES([
     doc/Makefile
     Makefile
     resources/log4g.pc
+    modules/Makefile
+    modules/core/Makefile
     src/Makefile
     tests/Makefile
 ])

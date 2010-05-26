@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "log4g/helpers/counting-quiet-writer.h"
+#include "counting-quiet-writer.h"
 #include "log4g/interface/error-handler.h"
 #include <string.h>
 

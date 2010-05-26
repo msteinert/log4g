@@ -46,7 +46,8 @@ option_handler_init(Log4gOptionHandlerInterface *interface)
     interface->activate_options = activate_options;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gXMLLayout, log4g_xml_layout,
+        LOG4G_TYPE_LAYOUT, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
 
 #define GET_PRIVATE(instance) \
@@ -233,6 +234,18 @@ static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
             g_param_spec_boolean("location-info", Q_("Location Information"),
                     Q_("Toggle location information"),
                     FALSE, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_xml_layout_class_finalize(Log4gXMLLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_xml_layout_register(GTypeModule *module)
+{
+    log4g_xml_layout_register_type(module);
 }
 
 Log4gLayout *

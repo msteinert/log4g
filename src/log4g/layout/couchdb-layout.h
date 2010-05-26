@@ -185,7 +185,7 @@ GType
 log4g_couchdb_layout_get_type(void);
 
 void
-log4g_couchdb_layout_register(GTypeModule *base);
+log4g_couchdb_layout_register(GTypeModule *module);
 
 /**
  * \brief Create a new couchdb layout object.

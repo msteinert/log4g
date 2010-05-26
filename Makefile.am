@@ -1,7 +1,7 @@
 #                                        -*- Automake -*-
 # Process this file with automake to produce Makefile.in.
 
-SUBDIRS = doc src tests
+SUBDIRS = src modules tests doc
 EXTRA_DIST = resources
 ACLOCAL_AMFLAGS = -I m4
 # install pkg-config script

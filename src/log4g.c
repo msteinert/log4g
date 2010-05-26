@@ -26,6 +26,7 @@
 #endif
 #include <errno.h>
 #include <glib.h>
+#include <locale.h>
 #include "log4g/basic-configurator.h"
 #include "log4g/dom-configurator.h"
 #include "log4g/helpers/thread.h"

@@ -97,6 +97,9 @@ struct _Log4gLevelRangeFilterClass {
 GType
 log4g_level_range_filter_get_type(void);
 
+void
+log4g_level_range_filter_register(GTypeModule *module);
+
 /**
  * \brief Create a new level range filter.
  *
