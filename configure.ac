@@ -26,6 +26,7 @@ HAVE_DOT="$log4g_cv_HAVE_DOT"
 AC_SUBST([HAVE_DOT])
 # Checks for dependencies
 PKG_PROG_PKG_CONFIG([0.17])
+PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"])
 log4g_glib_version="glib-2.0 >= 2.20"
 AC_SUBST([log4g_glib_version])
 PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
@@ -73,7 +74,10 @@ AC_CONFIG_FILES([
     Makefile
     resources/log4g.pc
     modules/Makefile
-    modules/core/Makefile
+    modules/appenders/Makefile
+    modules/couchdb/Makefile
+    modules/filters/Makefile
+    modules/layouts/Makefile
     src/Makefile
     tests/Makefile
 ])

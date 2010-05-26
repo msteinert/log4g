@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/layout/simple-layout.h"
+#include "simple-layout.h"
 
 static void
 activate_options(Log4gOptionHandler *base)

@@ -24,8 +24,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "couchdb-document.h"
-#include "log4g/layout/couchdb-layout.h"
+#include <couchdb-document.h>
+#include "couchdb-layout.h"
 
 static void
 activate_options(Log4gOptionHandler *base)

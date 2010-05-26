@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "log4g/helpers/pattern-converter.h"
+#include "pattern-converter.h"
 #include <string.h>
 
 G_DEFINE_TYPE(Log4gPatternConverter, log4g_pattern_converter, G_TYPE_OBJECT)

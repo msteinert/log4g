@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "log4g/helpers/pattern-parser.h"
+#include "pattern-parser.h"
 #include "log4g/layout.h"
 #include <string.h>
 #include <stdlib.h>

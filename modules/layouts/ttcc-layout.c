@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/layout/ttcc-layout.h"
+#include "ttcc-layout.h"
 
 enum _properties_t {
     PROP_O = 0,

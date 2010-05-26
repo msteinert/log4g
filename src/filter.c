@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "log4g/filter.h"
-#include "log4g/helpers/pattern-converter.h"
 #include "log4g/interface/option-handler.h"
 
 static void

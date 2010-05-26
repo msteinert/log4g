@@ -289,7 +289,7 @@
 #ifndef LOG4G_PATTERN_LAYOUT_H
 #define LOG4G_PATTERN_LAYOUT_H
 
-#include <log4g/helpers/pattern-parser.h>
+#include "pattern-parser.h"
 #include <log4g/layout.h>
 
 G_BEGIN_DECLS

@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/layout/xml-layout.h"
+#include "xml-layout.h"
 #include <time.h>
 
 enum _properties_t {

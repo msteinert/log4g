@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter/string-match-filter.h
+ * \brief Implements the API in log4g/filter/level-match-filter.h
  * \author Mike Steinert
  * \date 2-11-2010
  */
@@ -24,57 +24,64 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/filter/string-match-filter.h"
-#include <string.h>
+#include "level-match-filter.h"
 
 enum _properties_t {
     PROP_O = 0,
-    PROP_STRING_TO_MATCH,
+    PROP_LEVEL_TO_MATCH,
     PROP_ACCEPT_ON_MATCH,
     PROP_MAX
 };
 
-G_DEFINE_DYNAMIC_TYPE(Log4gStringMatchFilter, log4g_string_match_filter,
+G_DEFINE_DYNAMIC_TYPE(Log4gLevelMatchFilter, log4g_level_match_filter,
         LOG4G_TYPE_FILTER)
 
 #define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_STRING_MATCH_FILTER, \
+    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_LEVEL_MATCH_FILTER, \
             struct Log4gPrivate))
 
 struct Log4gPrivate {
     gboolean accept;
-    gchar *string;
+    Log4gLevel *level;
 };
 
 static void
-log4g_string_match_filter_init(Log4gStringMatchFilter *self)
+log4g_level_match_filter_init(Log4gLevelMatchFilter *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->accept = TRUE;
-    priv->string = NULL;
+    priv->level = NULL;
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_free(priv->string);
-    priv->string = NULL;
-    G_OBJECT_CLASS(log4g_string_match_filter_parent_class)->finalize(base);
+    if (priv->level) {
+        g_object_unref(priv->level);
+        priv->level = NULL;
+    }
+    G_OBJECT_CLASS(log4g_level_match_filter_parent_class)->dispose(base);
 }
 
 static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
+    const gchar *level;
     switch (id) {
-    case PROP_STRING_TO_MATCH:
-        g_free(priv->string);
-        const gchar *string = g_value_get_string(value);
-        if (string) {
-            priv->string = g_strdup(string);
+    case PROP_LEVEL_TO_MATCH:
+        if (priv->level) {
+            g_object_unref(priv->level);
+        }
+        level = g_value_get_string(value);
+        if (level) {
+            priv->level = log4g_level_string_to_level(level);
+            if (priv->level) {
+                g_object_ref(priv->level);
+            }
         } else {
-            priv->string = NULL;
+            priv->level = NULL;
         }
         break;
     case PROP_ACCEPT_ON_MATCH:
@@ -90,11 +97,12 @@ static Log4gFilterDecision
 decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *message = log4g_logging_event_get_rendered_message(event);
-    if (!message || !priv->string) { 
+    Log4gLevel *level;
+    if (!priv->level) { 
         return LOG4G_FILTER_NEUTRAL;
     }
-    if (!g_strstr_len(message, -1, priv->string)) {
+    level = log4g_logging_event_get_level(event);
+    if (log4g_level_equals(priv->level, level)) {
         return LOG4G_FILTER_NEUTRAL;
     } else {
         return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);
@@ -102,21 +110,21 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
 }
 
 static void
-log4g_string_match_filter_class_init(Log4gStringMatchFilterClass *klass)
+log4g_level_match_filter_class_init(Log4gLevelMatchFilterClass *klass)
 {
     Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
-    gobject_class->finalize = finalize;
+    gobject_class->dispose = dispose;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gFilter class */
     filter_class->decide = decide;
     /* install properties */
-    g_object_class_install_property(gobject_class, PROP_STRING_TO_MATCH,
-            g_param_spec_string("string-to-match", Q_("String to Match"),
-                    Q_("Log string to match"), NULL, G_PARAM_WRITABLE));
+    g_object_class_install_property(gobject_class, PROP_LEVEL_TO_MATCH,
+            g_param_spec_string("level-to-match", Q_("Level to Match"),
+                    Q_("Log level to match"), NULL, G_PARAM_WRITABLE));
     g_object_class_install_property(gobject_class, PROP_ACCEPT_ON_MATCH,
             g_param_spec_boolean("accept-on-match", Q_("Accept on Match"),
                     Q_("Accept or deny on log level match"),
@@ -124,49 +132,49 @@ log4g_string_match_filter_class_init(Log4gStringMatchFilterClass *klass)
 }
 
 static void
-log4g_string_match_filter_class_finalize(Log4gStringMatchFilterClass *klass)
+log4g_level_match_filter_class_finalize(Log4gLevelMatchFilterClass *klass)
 {
     /* do nothing */
 }
 
 void
-log4g_string_match_filter_register(GTypeModule *module)
+log4g_level_match_filter_register(GTypeModule *module)
 {
-    log4g_string_match_filter_register_type(module);
+    log4g_level_match_filter_register_type(module);
 }
 
 Log4gFilter *
-log4g_string_match_filter_new(void)
+log4g_level_match_filter_new(void)
 {
-    return g_object_new(LOG4G_TYPE_STRING_MATCH_FILTER, NULL);
+    return g_object_new(LOG4G_TYPE_LEVEL_MATCH_FILTER, NULL);
 }
 
 void
-log4g_string_match_filter_set_string_to_match(Log4gFilter *base,
-        const gchar *string)
+log4g_level_match_filter_set_level_to_match(Log4gFilter *base,
+        const gchar *level)
 {
-    g_return_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base));
-    g_object_set(base, "string-to-match", string, NULL);
+    g_return_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base));
+    g_object_set(base, "level-to-match", level, NULL);
 }
 
-const gchar *
-log4g_string_match_filter_get_string_to_match(Log4gFilter *base)
+Log4gLevel *
+log4g_level_match_filter_get_level_to_match(Log4gFilter *base)
 {
-    g_return_val_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base), NULL);
-    return GET_PRIVATE(base)->string;
+    g_return_val_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base), FALSE);
+    return GET_PRIVATE(base)->level;
 }
 
 void
-log4g_string_match_filter_set_accept_on_match(Log4gFilter *base,
-                                              gboolean accept)
+log4g_level_match_filter_set_accept_on_match(Log4gFilter *base,
+        gboolean accept)
 {
-    g_return_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base));
+    g_return_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base));
     g_object_set(base, "accept-on-match", accept, NULL);
 }
 
 gboolean
-log4g_string_match_filter_get_accept_on_match(Log4gFilter *base)
+log4g_level_match_filter_get_accept_on_match(Log4gFilter *base)
 {
-    g_return_val_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base), FALSE);
+    g_return_val_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base), FALSE);
     return GET_PRIVATE(base)->accept;
 }

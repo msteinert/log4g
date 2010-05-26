@@ -27,8 +27,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/appender/couchdb-appender.h"
-#include "log4g/layout/couchdb-layout.h"
+#include "couchdb-appender.h"
+#include "couchdb-layout.h"
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_COUCHDB_APPENDER, \

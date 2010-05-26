@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "log4g/helpers/date-layout.h"
+#include "date-layout.h"
 #include <stdlib.h>
 
 enum _properties_t {
