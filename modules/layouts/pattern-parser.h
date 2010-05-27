@@ -75,6 +75,9 @@ struct _Log4gPatternParserClass {
 GType
 log4g_pattern_parser_get_type(void);
 
+void
+log4g_pattern_parser_register(GTypeModule *module);
+
 /**
  * \brief Create a new pattern parser object.
  *

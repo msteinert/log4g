@@ -23,27 +23,18 @@
  */
 
 #include "config.h"
-#include <glib.h>
 #include "log4g/log4g.h"
-#include "log4g/layout/couchdb-layout.h"
-#include <string.h>
-#include <unistd.h>
+#include "log4g/module.h"
 
 #define CLASS "/log4g/layout/CouchdbLayout"
 
 typedef struct _Fixture {
     Log4gLoggingEvent *event;
-    gpointer level;
-    gpointer le;
 } Fixture;
 
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    fixture->level = g_type_class_ref(LOG4G_TYPE_LEVEL);
-    g_assert(fixture->level);
-    fixture->le = g_type_class_ref(LOG4G_TYPE_LOGGING_EVENT);
-    g_assert(fixture->le);
     log4g_mdc_put("one", "two");
     log4g_mdc_put("three", "four");
     log4g_ndc_push("foo");
@@ -61,15 +52,16 @@ void
 teardown(Fixture *fixture, gconstpointer data)
 {
     g_object_unref(fixture->event);
-    g_type_class_unref(fixture->level);
-    g_type_class_unref(fixture->le);
 }
 
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    Log4gLayout *layout = log4g_couchdb_layout_new();
+    GType type = g_type_from_name("Log4gCouchdbLayout");
+    g_assert(type);
+    Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
+    log4g_layout_activate_options(layout);
     g_print("%s", log4g_layout_format(layout, fixture->event));
     g_object_unref(layout);
 }
@@ -84,6 +76,11 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    GTypeModule *module =
+        log4g_module_new("../modules/couchdb/liblog4g-couchdb.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
     return g_test_run();
 }

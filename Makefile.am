@@ -21,6 +21,10 @@ report:
 DISTCLEANFILES = \
     doltcompile doltlibtool
 MAINTAINERCLEANFILES = \
-    aclocal.m4 config.guess config.sub configure depcomp install-sh \
-    ltmain.sh Makefile.in missing config.h.in config.h.in~ m4/lt*.m4 \
-    m4/libtool.m4 INSTALL
+    $(top_srcdir)/aclocal.m4 $(top_srcdir)/config.guess \
+    $(top_srcdir)/config.h.in $(top_srcdir)/config.h.in~ \
+    $(top_srcdir)/config.sub $(top_srcdir)/configure \
+    $(top_srcdir)/depcomp $(top_srcdir)/INSTALL \
+    $(top_srcdir)/install-sh $(top_srcdir)/ltmain.sh \
+    $(top_srcdir)/m4/lt*.m4 $(top_srcdir)/m4/libtool.m4 \
+    $(top_srcdir)/Makefile.in $(top_srcdir)/missing

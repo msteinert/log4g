@@ -25,22 +25,9 @@
 #include "config.h"
 #endif
 #include "log4g/filter.h"
-#include "log4g/interface/option-handler.h"
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    /* do nothing */
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_TYPE_WITH_CODE(Log4gFilter, log4g_filter, G_TYPE_OBJECT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_TYPE_EXTENDED(Log4gFilter, log4g_filter, G_TYPE_OBJECT,
+        G_TYPE_FLAG_ABSTRACT, {})
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_FILTER, \
@@ -69,6 +56,12 @@ dispose(GObject *base)
 }
 
 static void
+activate_options(Log4gFilter *base)
+{
+    /* do nothing */
+}
+
+static void
 log4g_filter_class_init(Log4gFilterClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
@@ -78,15 +71,14 @@ log4g_filter_class_init(Log4gFilterClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gFilter class */
     klass->decide = NULL;
+    klass->activate_options = activate_options;
 }
 
 void
 log4g_filter_activate_options(Log4gFilter *self)
 {
     g_return_if_fail(LOG4G_IS_FILTER(self));
-    Log4gOptionHandlerInterface *interface =
-        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
-    interface->activate_options(LOG4G_OPTION_HANDLER(self));
+    LOG4G_FILTER_GET_CLASS(self)->activate_options(self);
 }
 
 Log4gFilterDecision

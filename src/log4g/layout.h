@@ -31,7 +31,6 @@
 #ifndef LOG4G_LAYOUT_H
 #define LOG4G_LAYOUT_H
 
-#include <log4g/interface/option-handler.h>
 #include <log4g/logging-event.h>
 
 G_BEGIN_DECLS
@@ -119,6 +118,14 @@ struct _Log4gLayoutClass {
      */
     const gchar *
     (*get_footer)(Log4gLayout *self);
+
+    /**
+     * \brief Activate all options set for this layout.
+     *
+     * \param self [in] An layout object.
+     */
+    void
+    (*activate_options)(Log4gLayout *self);
 };
 
 GType
@@ -166,8 +173,7 @@ const gchar *
 log4g_layout_get_footer(Log4gLayout *self);
 
 /**
- * \brief Invokes the virtual function
- *        _Log4gOptionHandlerInterface::activate_options().
+ * \brief Invokes the virtual function _Log4gLayoutClass::activate_options().
  *
  * Layouts generally need to have their options activated before they can be
  * used. This class provides a do-nothing implementation for convenience.

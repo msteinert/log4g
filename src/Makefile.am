@@ -43,6 +43,7 @@ liblog4g_la_SOURCES = \
     logger-repository.c \
     logging-event.c \
     mdc.c \
+    module.c \
     ndc.c \
     only-once-error-handler.c \
     option-handler.c \
@@ -102,4 +103,5 @@ interfaceinclude_HEADERS = \
 EXTRA_DIST = \
     support/glib-2.23/ginterface.h \
     support/marshal.list
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES = \
+    $(srcdir)/Makefile.in

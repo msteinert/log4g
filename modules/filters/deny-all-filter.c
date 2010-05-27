@@ -44,8 +44,8 @@ decide(Log4gFilter *self, Log4gLoggingEvent *event)
 static void
 log4g_deny_all_filter_class_init(Log4gDenyAllFilterClass *klass)
 {
-    Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     /* initialize Log4gFilter class */
+    Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
     filter_class->decide = decide;
 }
 

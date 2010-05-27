@@ -34,21 +34,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    /* do nothing */
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gXMLLayout, log4g_xml_layout,
-        LOG4G_TYPE_LAYOUT, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_DYNAMIC_TYPE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_XML_LAYOUT, \
@@ -217,14 +203,14 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 
 static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     /* initialize GObject class */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gLayout class */
+    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     layout_class->format = format;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_PROPERTIES,

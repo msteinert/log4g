@@ -24,4 +24,5 @@ liblog4g_filters_la_LDFLAGS = \
     -avoid-version -shared \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES = \
+    $(srcdir)/Makefile.in

@@ -27,14 +27,8 @@
 #include "log4g/layout.h"
 #include <string.h>
 
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
-{
-    interface->activate_options = NULL;
-}
-
-G_DEFINE_TYPE_WITH_CODE(Log4gLayout, log4g_layout, G_TYPE_OBJECT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_TYPE_EXTENDED(Log4gLayout, log4g_layout, G_TYPE_OBJECT,
+        G_TYPE_FLAG_ABSTRACT, {})
 
 static void
 log4g_layout_init(Log4gLayout *self)
@@ -55,6 +49,12 @@ get(Log4gLayout *self)
 }
 
 static void
+activate_options(Log4gLayout *self)
+{
+    /* do nothing */
+}
+
+static void
 log4g_layout_class_init(Log4gLayoutClass *klass)
 {
     /* initialize Log4gLayout class */
@@ -62,6 +62,7 @@ log4g_layout_class_init(Log4gLayoutClass *klass)
     klass->get_content_type = get_content_type;
     klass->get_header = get;
     klass->get_footer = get;
+    klass->activate_options = activate_options;
 }
 
 gchar *
@@ -96,7 +97,5 @@ void
 log4g_layout_activate_options(Log4gLayout *self)
 {
     g_return_if_fail(LOG4G_IS_LAYOUT(self));
-    Log4gOptionHandlerInterface *interface =
-        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
-    interface->activate_options(LOG4G_OPTION_HANDLER(self));
+    LOG4G_LAYOUT_GET_CLASS(self)->activate_options(self);
 }

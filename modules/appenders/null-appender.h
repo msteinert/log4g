@@ -71,6 +71,9 @@ struct _Log4gNullAppenderClass {
 GType
 log4g_null_appender_get_type(void);
 
+void
+log4g_null_appender_register(GTypeModule *module);
+
 G_END_DECLS
 
 #endif /* LOG4G_NULL_APPENDER_H */

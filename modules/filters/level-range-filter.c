@@ -120,7 +120,7 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLevel *level = log4g_logging_event_get_level(event);
     if (priv->min) { 
-        if (!log4g_level_is_greater_or_equal(level, priv->min)) {
+        if (log4g_level_to_int(level) < log4g_level_to_int(priv->min)) {
             return LOG4G_FILTER_DENY;
         }
     }

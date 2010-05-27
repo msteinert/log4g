@@ -22,4 +22,5 @@ liblog4g_couchdb_la_LDFLAGS = \
     $(COUCHDB_GLIB_LIBS) \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES = \
+    $(srcdir)/Makefile.in

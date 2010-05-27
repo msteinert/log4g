@@ -12,4 +12,5 @@ doc: Doxyfile
 # cleanup
 clean-local:
 	-rm -rf html
-MAINTAINERCLEANFILES = Makefile.in Doxyfile
+MAINTAINERCLEANFILES = \
+    $(srcdir)/Makefile.in $(srcdir)/Doxyfile

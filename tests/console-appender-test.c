@@ -61,6 +61,13 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    /*
+    GTypeModule *module =
+        log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
+    */
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

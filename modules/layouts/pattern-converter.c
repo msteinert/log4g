@@ -26,9 +26,9 @@
 #endif
 #include <errno.h>
 #include "pattern-converter.h"
-#include <string.h>
 
-G_DEFINE_TYPE(Log4gPatternConverter, log4g_pattern_converter, G_TYPE_OBJECT)
+G_DEFINE_DYNAMIC_TYPE(Log4gPatternConverter, log4g_pattern_converter,
+        G_TYPE_OBJECT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_PATTERN_CONVERTER, \
@@ -102,6 +102,12 @@ log4g_pattern_converter_class_init(Log4gPatternConverterClass *klass)
     klass->format = format;
 }
 
+static void
+log4g_pattern_converter_class_finalize(Log4gPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 const gchar *
 log4g_pattern_converter_convert(Log4gPatternConverter *self,
         Log4gLoggingEvent *event)
@@ -158,8 +164,8 @@ log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
     }
 }
 
-G_DEFINE_TYPE(Log4gBasicPatternConverter, log4g_basic_pattern_converter,
-        LOG4G_TYPE_PATTERN_CONVERTER)
+G_DEFINE_DYNAMIC_TYPE(Log4gBasicPatternConverter,
+        log4g_basic_pattern_converter, LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_BASIC_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
@@ -217,6 +223,13 @@ log4g_basic_pattern_converter_class_init(
     pc_class->convert = basic_pattern_converter_convert;
 }
 
+static void
+log4g_basic_pattern_converter_class_finalize(
+        Log4gBasicPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_basic_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type)
@@ -235,8 +248,8 @@ log4g_basic_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-G_DEFINE_TYPE(Log4gLiteralPatternConverter, log4g_literal_pattern_converter,
-        LOG4G_TYPE_PATTERN_CONVERTER)
+G_DEFINE_DYNAMIC_TYPE(Log4gLiteralPatternConverter,
+        log4g_literal_pattern_converter, LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_LITERAL_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
@@ -295,6 +308,13 @@ log4g_literal_pattern_converter_class_init(
     pc_class->format = literal_pattern_converter_format;
 }
 
+static void
+log4g_literal_pattern_converter_class_finalize(
+        Log4gLiteralPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_literal_pattern_converter_new(const gchar *pattern)
 {
@@ -314,7 +334,7 @@ log4g_literal_pattern_converter_new(const gchar *pattern)
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-G_DEFINE_TYPE(Log4gDatePatternConverter, log4g_date_pattern_converter,
+G_DEFINE_DYNAMIC_TYPE(Log4gDatePatternConverter, log4g_date_pattern_converter,
     LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_DATE_PRIVATE(instance) \
@@ -377,6 +397,13 @@ log4g_date_pattern_converter_class_init(Log4gDatePatternConverterClass *klass)
     pc_class->convert = date_pattern_converter_convert;
 }
 
+static void
+log4g_date_pattern_converter_class_finalize(
+        Log4gDatePatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *format)
@@ -394,7 +421,7 @@ log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-G_DEFINE_TYPE(Log4gMDCPatternConverter, log4g_mdc_pattern_converter,
+G_DEFINE_DYNAMIC_TYPE(Log4gMDCPatternConverter, log4g_mdc_pattern_converter,
         LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_MDC_PRIVATE(instance) \
@@ -440,6 +467,13 @@ log4g_mdc_pattern_converter_class_init(Log4gMDCPatternConverterClass *klass)
     pc_class->convert = mdc_pattern_converter_convert;
 }
 
+static void
+log4g_mdc_pattern_converter_class_finalize(
+        Log4gMDCPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *key)
@@ -457,8 +491,8 @@ log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-G_DEFINE_TYPE(Log4gLocationPatternConverter, log4g_location_pattern_converter,
-        LOG4G_TYPE_PATTERN_CONVERTER)
+G_DEFINE_DYNAMIC_TYPE(Log4gLocationPatternConverter,
+        log4g_location_pattern_converter, LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_LOCATION_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
@@ -504,6 +538,13 @@ log4g_location_pattern_converter_class_init(
     pc_class->convert = location_pattern_converter_convert;
 }
 
+static void
+log4g_location_pattern_converter_class_finalize(
+        Log4gLocationPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type)
@@ -521,8 +562,8 @@ log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     return LOG4G_PATTERN_CONVERTER(self);
 }
 
-G_DEFINE_TYPE(Log4gCategoryPatternConverter, log4g_category_pattern_converter,
-        LOG4G_TYPE_PATTERN_CONVERTER)
+G_DEFINE_DYNAMIC_TYPE(Log4gCategoryPatternConverter,
+        log4g_category_pattern_converter, LOG4G_TYPE_PATTERN_CONVERTER)
 
 #define GET_CATEGORY_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
@@ -576,6 +617,13 @@ log4g_category_pattern_converter_class_init(
     pc_class->convert = category_pattern_converter_convert;
 }
 
+static void
+log4g_category_pattern_converter_class_finalize(
+        Log4gCategoryPatternConverterClass *klass)
+{
+    /* do nothing */
+}
+
 Log4gPatternConverter *
 log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gint precision)
@@ -591,4 +639,17 @@ log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,
     priv->align = formatting->align;
     GET_CATEGORY_PRIVATE(self)->precision = precision;
     return LOG4G_PATTERN_CONVERTER(self);
+}
+
+void
+log4g_pattern_converter_register(GTypeModule *module)
+{
+    /* register all pattern converters */
+    log4g_pattern_converter_register_type(module);
+    log4g_basic_pattern_converter_register_type(module);
+    log4g_literal_pattern_converter_register_type(module);
+    log4g_date_pattern_converter_register_type(module);
+    log4g_mdc_pattern_converter_register_type(module);
+    log4g_location_pattern_converter_register_type(module);
+    log4g_category_pattern_converter_register_type(module);
 }

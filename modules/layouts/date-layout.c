@@ -45,25 +45,8 @@ struct Log4gPrivate {
     gchar *tz;
 };
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->tz) {
-        if (setenv("TZ", priv->tz, 1)) {
-            log4g_log_error("setenv(): %s", g_strerror(errno));
-        }
-    }
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_TYPE_WITH_CODE(Log4gDateLayout, log4g_date_layout, LOG4G_TYPE_LAYOUT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gDateLayout, log4g_date_layout,
+        LOG4G_TYPE_LAYOUT, G_TYPE_FLAG_ABSTRACT, {})
 
 static void
 log4g_date_layout_init(Log4gDateLayout *self)
@@ -112,14 +95,28 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 }
 
 static void
+activate_options(Log4gLayout *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->tz) {
+        if (setenv("TZ", priv->tz, 1)) {
+            log4g_log_error("setenv(): %s", g_strerror(errno));
+        }
+    }
+}
+
+static void
 log4g_date_layout_class_init(Log4gDateLayoutClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject class */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+    /* initialize Log4gLayoutClass */
+    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
+    layout_class->activate_options = activate_options;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_DATE_FORMAT,
             g_param_spec_string("date-format", Q_("Date Format"),
@@ -127,6 +124,18 @@ log4g_date_layout_class_init(Log4gDateLayoutClass *klass)
     g_object_class_install_property(gobject_class, PROP_TIME_ZONE,
             g_param_spec_string("time-zone", Q_("Time Zone"),
                     Q_("Time zone string"), NULL, G_PARAM_WRITABLE));
+}
+
+static void
+log4g_date_layout_class_finalize(Log4gDateLayoutClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_date_layout_register(GTypeModule *module)
+{
+    log4g_date_layout_register_type(module);
 }
 
 void

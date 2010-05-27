@@ -102,7 +102,7 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
         return LOG4G_FILTER_NEUTRAL;
     }
     level = log4g_logging_event_get_level(event);
-    if (log4g_level_equals(priv->level, level)) {
+    if (!log4g_level_equals(priv->level, level)) {
         return LOG4G_FILTER_NEUTRAL;
     } else {
         return (priv->accept ? LOG4G_FILTER_ACCEPT : LOG4G_FILTER_DENY);

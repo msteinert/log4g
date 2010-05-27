@@ -52,8 +52,8 @@ appender_init(Log4gAppenderInterface *interface)
     interface->requires_layout = requires_layout;
 }
 
-G_DEFINE_TYPE_WITH_CODE(Log4gNullAppender, log4g_null_appender,
-        LOG4G_TYPE_APPENDER_SKELETON,
+G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gNullAppender, log4g_null_appender,
+        LOG4G_TYPE_APPENDER_SKELETON, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
 static void
@@ -75,4 +75,16 @@ log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
     Log4gAppenderSkeletonClass *skeleton_class =
         LOG4G_APPENDER_SKELETON_CLASS(klass);
     skeleton_class->append = append;
+}
+
+static void
+log4g_null_appender_class_finalize(Log4gNullAppenderClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_null_appender_register(GTypeModule *module)
+{
+    log4g_null_appender_register_type(module);
 }

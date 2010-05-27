@@ -28,7 +28,7 @@
  * DEBUG - Hello, World!
  * \endcode
  *
- * \see log4g/layout/pattern-layout.h
+ * \see pattern-layout.h
  */
 
 #ifndef LOG4G_SIMPLE_LAYOUT_H

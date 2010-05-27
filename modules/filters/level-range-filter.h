@@ -27,17 +27,17 @@
  * This filter accept three properties:
  * -# level-min
  * -# level-max
- * -# accept-on-match
+ * -# accept-on-range
  *
  * If the level of the logging event is not between level-min and level-max
  * (inclusive) then the _Log4gLevelClass::decide() function returns \e DENY.
  *
  * If the logging logging event is within the specified range and
- * accept-on-match is \e TRUE then the _Log4gLevelClass::decide() function
- * returns \e ACCEPT. If accept-on-match is set to \e FALSE then
+ * accept-on-range is \e TRUE then the _Log4gLevelClass::decide() function
+ * returns \e ACCEPT. If accept-on-range is set to \e FALSE then
  * _Log4gLevelClass::decide() will return \e NEUTRAL in this case.
  *
- * The default value for accept-on-match is \e TRUE.
+ * The default value for accept-on-range is \e TRUE.
  *
  * If level-min is not defined then there is no minimum level (a level is
  * never rejected for being too low). If level-max is not defined then

@@ -4,4 +4,4 @@
 SUBDIRS = appenders couchdb filters layouts
 # cleanup
 MAINTAINERCLEANFILES = \
-    Makefile.in
+    $(srcdir)/Makefile.in

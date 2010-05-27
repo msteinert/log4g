@@ -28,6 +28,7 @@
 #include "async-appender.h"
 #include "console-appender.h"
 #include "file-appender.h"
+#include "null-appender.h"
 #include "rolling-file-appender.h"
 #include "syslog-appender.h"
 #include "writer-appender.h"
@@ -37,9 +38,10 @@ log4g_module_load(GTypeModule *module)
 {
     g_type_module_set_name(module, "core");
     log4g_async_appender_register(module);
+    log4g_writer_appender_register(module);
     log4g_console_appender_register(module);
     log4g_file_appender_register(module);
+    log4g_null_appender_register(module);
     log4g_rolling_file_appender_register(module);
     log4g_syslog_appender_register(module);
-    log4g_writer_appender_register(module);
 }

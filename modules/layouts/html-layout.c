@@ -37,21 +37,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    /* do nothing */
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gHTMLLayout, log4g_html_layout,
-        LOG4G_TYPE_LAYOUT, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_DYNAMIC_TYPE(Log4gHTMLLayout, log4g_html_layout, LOG4G_TYPE_LAYOUT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_HTML_LAYOUT, \

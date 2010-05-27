@@ -27,10 +27,8 @@
 #include <errno.h>
 #include "pattern-parser.h"
 #include "log4g/layout.h"
-#include <string.h>
-#include <stdlib.h>
 
-G_DEFINE_TYPE(Log4gPatternParser, log4g_pattern_parser, G_TYPE_OBJECT)
+G_DEFINE_DYNAMIC_TYPE(Log4gPatternParser, log4g_pattern_parser, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_PATTERN_PARSER, \
@@ -113,6 +111,18 @@ log4g_pattern_parser_class_init(Log4gPatternParserClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+static void
+log4g_pattern_parser_class_finalize(Log4gPatternParserClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_pattern_parser_register(GTypeModule *module)
+{
+    log4g_pattern_parser_register_type(module);
+}
+    
 Log4gPatternParser *
 log4g_pattern_parser_new(const gchar *pattern)
 {
@@ -171,12 +181,10 @@ log4g_pattern_parser_extract_precision_option(Log4gPatternParser *self)
     gchar *option = log4g_pattern_parser_extract_option(self);
     if (option) {
         errno = 0;
-        r = strtol(option, NULL, 10);
+        r = g_ascii_strtoll(option, NULL, 10);
         if (errno) {
-            if (EINVAL) {
-                log4g_log_error(Q_("category option \"%s\" is not a decimal "
-                        "number: %s"), option, g_strerror(errno));
-            }
+            log4g_log_error(Q_("category option \"%s\" is not a decimal "
+                    "number: %s"), option, g_strerror(errno));
         }
         if (r <= 0) {
             log4g_log_error(Q_("precision option (%s) is not "

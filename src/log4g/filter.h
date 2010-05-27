@@ -123,24 +123,18 @@ struct _Log4gFilterClass {
      */
     Log4gFilterDecision
     (*decide)(Log4gFilter *self, Log4gLoggingEvent *event);
+
+    /**
+     * \brief Activate all options set for this filter.
+     *
+     * \param self [in] An layout object.
+     */
+    void
+    (*activate_options)(Log4gFilter *self);
 };
 
 GType
 log4g_filter_get_type(void);
-
-/**
- * \brief Invokes the virtual function
- *        _Log4gOptionHandlerInterface::activate_options().
- *
- * Filters generally need to have their options activated before they can
- * be used. This class provides a do-nothing implementation for convenience.
- *
- * \see log4g/interface/option-handler.h
- *
- * \param self [in] A filter object.
- */
-void
-log4g_filter_activate_options(Log4gFilter *self);
 
 /**
  * \brief Invokes the virutal function _Log4gFilterClass::decide().
@@ -152,6 +146,19 @@ log4g_filter_activate_options(Log4gFilter *self);
  */
 Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event);
+
+/**
+ * \brief Invokes the virtual function _Log4gFilterClass::activate_options().
+ *
+ * Filters generally need to have their options activated before they can
+ * be used. This class provides a do-nothing implementation for convenience.
+ *
+ * \see log4g/interface/option-handler.h
+ *
+ * \param self [in] A filter object.
+ */
+void
+log4g_filter_activate_options(Log4gFilter *self);
 
 /**
  * \brief Retrieve the next filter in the chain.

@@ -156,5 +156,6 @@ log4g_ttcc_layout_class_finalize(Log4gTTCCLayoutClass *klass)
 void
 log4g_ttcc_layout_register(GTypeModule *module)
 {
+    log4g_date_layout_register(module);
     log4g_ttcc_layout_register_type(module);
 }

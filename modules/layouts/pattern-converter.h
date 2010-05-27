@@ -138,6 +138,12 @@ GType
 log4g_pattern_converter_get_type(void);
 
 /**
+ * \brief Register all pattern converters.
+ */
+void
+log4g_pattern_converter_register(GTypeModule *module);
+
+/**
  * \brief Invokes the virtual function _Log4gPatternConverterClass::convert().
  *
  * \param self [in] A pattern converter object.

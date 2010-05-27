@@ -27,21 +27,8 @@
 #include <couchdb-document.h>
 #include "couchdb-layout.h"
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    /* do nothing */
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gCouchdbLayout, log4g_couchdb_layout,
-        LOG4G_TYPE_LAYOUT, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_DYNAMIC_TYPE(Log4gCouchdbLayout, log4g_couchdb_layout,
+        LOG4G_TYPE_LAYOUT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_COUCHDB_LAYOUT, \
@@ -131,8 +118,8 @@ format_document(Log4gLayout *base, Log4gLoggingEvent *event,
     struct timeval *tv = log4g_logging_event_get_time_stamp(event);
     if (tv) {
         gchar string[64];
-        g_snprintf(string, sizeof string, "%ld",
-                (glong)((tv->tv_sec * 1000) + (tv->tv_usec * 0.001)));
+        g_snprintf(string, sizeof string, "%lu",
+                (gulong)((tv->tv_sec * 1000) + (tv->tv_usec * 0.001)));
         couchdb_document_set_string_field(document, "timestamp", string);
     }
     /* thread */
@@ -159,6 +146,12 @@ format_document(Log4gLayout *base, Log4gLoggingEvent *event,
 }
 
 static void
+activate_options(Log4gLayout *base)
+{
+    /* do nothing */
+}
+
+static void
 log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
@@ -169,6 +162,7 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gLayout class */
     layout_class->format = format;
+    layout_class->activate_options = activate_options;
     /* initialize Log4gCouchdbLayout class */
     klass->format_document = format_document;
 }

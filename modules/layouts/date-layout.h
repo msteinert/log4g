@@ -80,19 +80,18 @@ typedef struct _Log4gDateLayoutClass Log4gDateLayoutClass;
 /** \brief Log4gDateLayoutClass definition */
 struct _Log4gDateLayout {
     Log4gLayout parent_instance;
-    /*< private >*/
-    Log4gDateLayoutType type;
-    gchar *format;
-    gchar *tz;
 };
 
 /** \brief Log4gDateLayoutClass definition */
 struct _Log4gDateLayoutClass {
-    Log4gLayoutClass parent_class; /**< parent class */
+    Log4gLayoutClass parent_class;
 };
 
 GType
 log4g_date_layout_get_type(void);
+
+void
+log4g_date_layout_register(GTypeModule *module);
 
 /**
  * \brief Format a date layout for a log event info a buffer.

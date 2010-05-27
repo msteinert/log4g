@@ -29,6 +29,7 @@
 #define LOG4G_APPENDER_H
 
 #include <log4g/filter.h>
+#include <log4g/interface/option-handler.h>
 #include <log4g/layout.h>
 
 G_BEGIN_DECLS
