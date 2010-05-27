@@ -27,8 +27,6 @@
 #include "log4g/helpers/default-logger-factory.h"
 #include "log4g/hierarchy.h"
 #include "log4g/provision-node.h"
-#include <stdlib.h>
-#include <string.h>
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_HIERARCHY, \

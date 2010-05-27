@@ -22,8 +22,9 @@
  * \date 2-25-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/module.h"
 
 #define CLASS "/log4g/Module"

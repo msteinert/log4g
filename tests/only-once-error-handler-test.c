@@ -22,8 +22,9 @@
  * \date 2-8-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/helpers/only-once-error-handler.h"
 #include "log4g/interface/error-handler.h"
 #include "log4g/interface/option-handler.h"

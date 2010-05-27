@@ -22,8 +22,9 @@
  * \date 2-22-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/log4g.h"
 #include "log4g/basic-configurator.h"
 

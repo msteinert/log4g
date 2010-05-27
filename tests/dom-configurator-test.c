@@ -22,12 +22,12 @@
  * \date 2-23-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
-#include "log4g/log4g.h"
+#endif
 #include "log4g/dom-configurator.h"
+#include "log4g/log4g.h"
 #include <stdlib.h>
-#include <unistd.h>
 
 #define CLASS "/log4g/DOMConfigurator"
 

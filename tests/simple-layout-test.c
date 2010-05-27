@@ -61,7 +61,7 @@ test_001(Fixture *fixture, gconstpointer data)
     Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
     log4g_layout_activate_options(layout);
-    g_print("%s", log4g_layout_format(layout, fixture->event));
+    g_message("%s", log4g_layout_format(layout, fixture->event));
     g_object_unref(layout);
 }
 

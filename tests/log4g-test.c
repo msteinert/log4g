@@ -22,12 +22,11 @@
  * \date 2-4-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/log4g.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 #define CLASS "/log4g"
 
@@ -55,14 +54,12 @@ perf_001(gpointer *fixture, gconstpointer data)
 void
 perf_002(gpointer *fixture, gconstpointer data)
 {
-    int i;
-    int log = 1000000;
-    double e;
+    gint log = 1000000;
     g_test_timer_start();
-    for (i = 0; i < log; ++i) {
+    for (gint i = 0; i < log; ++i) {
         log4g_error("%d log this message", i);
     }
-    e = g_test_timer_elapsed();
+    gdouble e = g_test_timer_elapsed();
     g_test_minimized_result(e, "logged messages, rate=%d/second",
             (gint)(log / e));
 }
@@ -70,7 +67,7 @@ perf_002(gpointer *fixture, gconstpointer data)
 void
 perf_003(gpointer *fixture, gconstpointer data)
 {
-    int log = 1000000;
+    gint log = 1000000;
     FILE *file = fopen("file.txt", "w");
     g_test_timer_start();
     for (gint i = 0; i < log; ++i) {
@@ -102,7 +99,7 @@ main(int argc, char *argv[])
     g_option_context_add_group(context, log4g_get_option_group());
     GError *error = NULL;
     if (!g_option_context_parse(context, &argc, &argv, &error)) {
-        g_print("option parsing failed: %s\n", error->message);
+        g_message("option parsing failed: %s\n", error->message);
         g_error_free(error);
         return EXIT_FAILURE;
     }

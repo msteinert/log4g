@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "string-match-filter.h"
-#include <string.h>
 
 enum _properties_t {
     PROP_O = 0,

@@ -22,13 +22,11 @@
  * \date 2-8-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/log4g.h"
-#include "log4g/appender/writer-appender.h"
-#include "log4g/interface/option-handler.h"
-#include "log4g/layout/simple-layout.h"
-#include <string.h>
+#include "log4g/module.h"
 
 #define CLASS "/log4g/appender/WriterAppender"
 

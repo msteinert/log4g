@@ -22,12 +22,12 @@
  * \date 2-9-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/log4g.h"
 #include "log4g/appender/file-appender.h"
 #include "log4g/layout/html-layout.h"
-#include <string.h>
 #include <unistd.h>
 
 #define CLASS "/log4g/appender/FileAppender"

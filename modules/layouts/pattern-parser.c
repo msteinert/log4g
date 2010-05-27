@@ -25,8 +25,8 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "pattern-parser.h"
 #include "log4g/layout.h"
+#include "pattern-parser.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gPatternParser, log4g_pattern_parser, G_TYPE_OBJECT)
 

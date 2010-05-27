@@ -22,8 +22,9 @@
  * \date 2-5-2010
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
-#include <glib.h>
+#endif
 #include "log4g/helpers/appender-attachable-impl.h"
 #include "log4g/log4g.h"
 
