@@ -130,34 +130,6 @@ log4g_date_layout_class_init(Log4gDateLayoutClass *klass)
 }
 
 void
-log4g_date_layout_set_date_format(Log4gLayout *base, const char *format)
-{
-    g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-    g_object_set(base, "date-format", format, NULL);
-}
-
-const char *
-log4g_date_layout_get_date_format(Log4gLayout *base)
-{
-    g_return_val_if_fail(LOG4G_IS_DATE_LAYOUT(base), NULL);
-    return GET_PRIVATE(base)->format;
-}
-
-void
-log4g_date_layout_set_time_zone(Log4gLayout *base, const char *tz)
-{
-    g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-    g_object_set(base, "time-zone", tz, NULL);
-}
-
-const char *
-log4g_date_layout_get_time_zone(Log4gLayout *base)
-{
-    g_return_val_if_fail(LOG4G_IS_DATE_LAYOUT(base), NULL);
-    return GET_PRIVATE(base)->tz;
-}
-
-void
 log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event)
 {

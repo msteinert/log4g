@@ -364,37 +364,3 @@ log4g_html_layout_register(GTypeModule *module)
 {
     log4g_html_layout_register_type(module);
 }
-
-Log4gLayout *
-log4g_html_layout_new(void)
-{
-    return g_object_new(LOG4G_TYPE_HTML_LAYOUT, NULL);
-}
-
-void
-log4g_html_layout_set_title(Log4gLayout *base, const gchar *title)
-{
-    g_return_if_fail(LOG4G_IS_HTML_LAYOUT(base));
-    g_object_set(base, "title", title, NULL);
-}
-
-const gchar *
-log4g_html_layout_get_title(Log4gLayout *base)
-{
-    g_return_val_if_fail(LOG4G_IS_HTML_LAYOUT(base), FALSE);
-    return GET_PRIVATE(base)->title;
-}
-
-void
-log4g_html_layout_set_location_info(Log4gLayout *base, gboolean info)
-{
-    g_return_if_fail(LOG4G_IS_HTML_LAYOUT(base));
-    g_object_set(base, "location-info", info, NULL);
-}
-
-gboolean
-log4g_html_layout_get_location_info(Log4gLayout *base)
-{
-    g_return_val_if_fail(LOG4G_IS_HTML_LAYOUT(base), FALSE);
-    return GET_PRIVATE(base)->info;
-}

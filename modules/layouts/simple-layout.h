@@ -81,14 +81,6 @@ log4g_simple_layout_get_type(void);
 void
 log4g_simple_layout_register(GTypeModule *module);
 
-/**
- * \brief Create a new simple layout object.
- *
- * \return A new simple layout object.
- */
-Log4gLayout *
-log4g_simple_layout_new(void);
-
 G_END_DECLS
 
 #endif /* LOG4G_SIMPLE_LAYOUT_H */

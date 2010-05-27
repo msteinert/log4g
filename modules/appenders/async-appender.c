@@ -406,12 +406,6 @@ log4g_async_appender_register(GTypeModule *module)
     log4g_async_appender_register_type(module);
 }
 
-Log4gAppender *
-log4g_async_appender_new(void)
-{
-    return g_object_new(LOG4G_TYPE_ASYNC_APPENDER, NULL);
-}
-
 void
 log4g_async_appender_add_appender(Log4gAppender *base, Log4gAppender *appender)
 {
@@ -489,32 +483,4 @@ log4g_async_appender_remove_appender_name(Log4gAppender *base,
     g_mutex_lock(priv->lock);
     log4g_appender_attachable_remove_appender_name(priv->appenders, name);
     g_mutex_unlock(priv->lock);
-}
-
-void
-log4g_async_appender_set_blocking(Log4gAppender *base, gboolean blocking)
-{
-    g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
-    g_object_set(base, "blocking", blocking, NULL);
-}
-
-gboolean
-log4g_async_appender_get_blocking(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), FALSE);
-    return g_atomic_int_get(&GET_PRIVATE(base)->blocking);
-}
-
-void
-log4g_async_appender_set_buffer_size(Log4gAppender *base, gint size)
-{
-    g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
-    g_object_set(base, "buffer-size", size, NULL);
-}
-
-gint
-log4g_async_appender_get_buffer_size(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), 0);
-    return g_atomic_int_get(&GET_PRIVATE(base)->size);
 }

@@ -97,14 +97,6 @@ void
 log4g_async_appender_register(GTypeModule *module);
 
 /**
- * \brief Create a new async appender object.
- *
- * \return A new async appender object.
- */
-Log4gAppender *
-log4g_async_appender_new(void);
-
-/**
  * \brief Add an appender to an async appender.
  *
  * If \e appender is already attached to \e base then this function does not
@@ -192,44 +184,6 @@ log4g_async_appender_remove_appender(Log4gAppender *base,
 void
 log4g_async_appender_remove_appender_name(Log4gAppender *base,
         const gchar *name);
-
-/**
- * \brief Set the blocking property.
- *
- * \param base [in] An async appender object.
- * \param blocking [in] The new blocking value for \e base.
- */
-void
-log4g_async_appender_set_blocking(Log4gAppender *base, gboolean blocking);
-
-/**
- * \brief Retrieve the blocking property.
- *
- * \param base [in] An async appender object.
- *
- * \return The blocking value for \e base.
- */
-gboolean
-log4g_async_appender_get_blocking(Log4gAppender *base);
-
-/**
- * \brief Set the buffer-size property.
- *
- * \param base [in] An async appender object.
- * \param size [in] The new buffer size value for \e base.
- */
-void
-log4g_async_appender_set_buffer_size(Log4gAppender *base, gint size);
-
-/**
- * \brief Retrieve the buffer-size property.
- *
- * \param base [in] An async appender object.
- *
- * \return The buffer size value for \e base.
- */
-gint
-log4g_async_appender_get_buffer_size(Log4gAppender *base);
 
 G_END_DECLS
 

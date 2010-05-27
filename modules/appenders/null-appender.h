@@ -71,17 +71,6 @@ struct _Log4gNullAppenderClass {
 GType
 log4g_null_appender_get_type(void);
 
-/**
- * \brief Create a new null appender object.
- *
- * This class is actually a singleton. This function simply adds a reference
- * the existing null appender object.
- *
- * \return A new null appender object.
- */
-Log4gAppender *
-log4g_null_appender_new(void);
-
 G_END_DECLS
 
 #endif /* LOG4G_NULL_APPENDER_H */

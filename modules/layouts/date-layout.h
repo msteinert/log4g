@@ -95,44 +95,6 @@ GType
 log4g_date_layout_get_type(void);
 
 /**
- * \brief Set the date-format property.
- *
- * \param self [in] A date format object.
- * \param format [in] The new date format for \e self.
- */
-void
-log4g_date_layout_set_date_format(Log4gLayout *self, const char *format);
-
-/**
- * \brief Retrieve the date-format property.
- *
- * \param self [in] A date format object.
- *
- * \return The date format for \e self.
- */
-const char *
-log4g_date_layout_get_date_format(Log4gLayout *self);
-
-/**
- * \brief Set the time-zone property.
- *
- * \param self [in] A date format object.
- * \param tz [in] The new time zone for \e self.
- */
-void
-log4g_date_layout_set_time_zone(Log4gLayout *self, const char *tz);
-
-/**
- * \brief Retrieve the time-zone property.
- *
- * \param self [in] A date format object.
- *
- * \return The time zone for \e self.
- */
-const char *
-log4g_date_layout_get_time_zone(Log4gLayout *self);
-
-/**
  * \brief Format a date layout for a log event info a buffer.
  *
  * \param self [in] A date format object.

@@ -134,39 +134,3 @@ log4g_string_match_filter_register(GTypeModule *module)
 {
     log4g_string_match_filter_register_type(module);
 }
-
-Log4gFilter *
-log4g_string_match_filter_new(void)
-{
-    return g_object_new(LOG4G_TYPE_STRING_MATCH_FILTER, NULL);
-}
-
-void
-log4g_string_match_filter_set_string_to_match(Log4gFilter *base,
-        const gchar *string)
-{
-    g_return_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base));
-    g_object_set(base, "string-to-match", string, NULL);
-}
-
-const gchar *
-log4g_string_match_filter_get_string_to_match(Log4gFilter *base)
-{
-    g_return_val_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base), NULL);
-    return GET_PRIVATE(base)->string;
-}
-
-void
-log4g_string_match_filter_set_accept_on_match(Log4gFilter *base,
-                                              gboolean accept)
-{
-    g_return_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base));
-    g_object_set(base, "accept-on-match", accept, NULL);
-}
-
-gboolean
-log4g_string_match_filter_get_accept_on_match(Log4gFilter *base)
-{
-    g_return_val_if_fail(LOG4G_IS_STRING_MATCH_FILTER(base), FALSE);
-    return GET_PRIVATE(base)->accept;
-}

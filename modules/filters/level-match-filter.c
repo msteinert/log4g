@@ -142,39 +142,3 @@ log4g_level_match_filter_register(GTypeModule *module)
 {
     log4g_level_match_filter_register_type(module);
 }
-
-Log4gFilter *
-log4g_level_match_filter_new(void)
-{
-    return g_object_new(LOG4G_TYPE_LEVEL_MATCH_FILTER, NULL);
-}
-
-void
-log4g_level_match_filter_set_level_to_match(Log4gFilter *base,
-        const gchar *level)
-{
-    g_return_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base));
-    g_object_set(base, "level-to-match", level, NULL);
-}
-
-Log4gLevel *
-log4g_level_match_filter_get_level_to_match(Log4gFilter *base)
-{
-    g_return_val_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base), FALSE);
-    return GET_PRIVATE(base)->level;
-}
-
-void
-log4g_level_match_filter_set_accept_on_match(Log4gFilter *base,
-        gboolean accept)
-{
-    g_return_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base));
-    g_object_set(base, "accept-on-match", accept, NULL);
-}
-
-gboolean
-log4g_level_match_filter_get_accept_on_match(Log4gFilter *base)
-{
-    g_return_val_if_fail(LOG4G_IS_LEVEL_MATCH_FILTER(base), FALSE);
-    return GET_PRIVATE(base)->accept;
-}

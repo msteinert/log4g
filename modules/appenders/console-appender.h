@@ -87,55 +87,6 @@ log4g_console_appender_get_type(void);
 void
 log4g_console_appender_register(GTypeModule *module);
 
-/**
- * \brief Create a new console appender object.
- *
- * \param layout [in] The layout to use.
- * \param target [in] The log output target ("stdout" or "stderr").
- *
- * \return A new console appender object.
- */
-Log4gAppender *
-log4g_console_appender_new(Log4gLayout *layout, const char *target);
-
-/**
- * \brief Set the target property.
- *
- * \param base [in] A console appender object.
- * \brief target [in] The new target for \e base ("stdout" or "stderr").
- */
-void
-log4g_console_appender_set_target(Log4gAppender *base, const gchar *target);
-
-/**
- * \brief Retrieve the target property.
- *
- * \param base [in] A console appender object.
- *
- * \return The target for \e base ("stdout" or "stderr").
- */
-const gchar *
-log4g_console_appender_get_target(Log4gAppender *base);
-
-/**
- * \brief Set the follow property.
- *
- * \param base [in] A console appender object.
- * \param follow [in] The new follow value for \e base.
- */
-void
-log4g_console_appender_set_follow(Log4gAppender *base, gboolean follow);
-
-/**
- * \brief Retrieve the follow property.
- *
- * \param base [in] A console appender object.
- *
- * \return The follow value for \e base.
- */
-gboolean
-log4g_console_appender_get_follow(Log4gAppender *base);
-
 G_END_DECLS
 
 #endif /* LOG4G_CONSOLE_APPENDER_H */

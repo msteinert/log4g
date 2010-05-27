@@ -56,20 +56,10 @@ G_DEFINE_TYPE_WITH_CODE(Log4gNullAppender, log4g_null_appender,
         LOG4G_TYPE_APPENDER_SKELETON,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
-/** \brief Store a single instance of this object. */
-static Log4gAppender *instance = NULL;
-
 static void
 log4g_null_appender_init(Log4gNullAppender *self)
 {
     /* do nothing */
-}
-
-static void
-finalize(GObject *base)
-{
-    g_atomic_pointer_set(&instance, NULL);
-    G_OBJECT_CLASS(log4g_null_appender_parent_class)->finalize(base);
 }
 
 static void
@@ -81,26 +71,8 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 static void
 log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+    /* initialize Log4gAppenderSkeleton */
     Log4gAppenderSkeletonClass *skeleton_class =
         LOG4G_APPENDER_SKELETON_CLASS(klass);
-    /* initialize GObject */
-    gobject_class->finalize = finalize;
-    /* initialize Log4gAppenderSkeleton */
     skeleton_class->append = append;
-}
-
-Log4gAppender *
-log4g_null_appender_new(void)
-{
-    Log4gAppender *self = g_atomic_pointer_get(&instance);
-    if (!self) {
-        self = g_object_new(LOG4G_TYPE_NULL_APPENDER, NULL);
-        if (self) {
-            g_atomic_pointer_set(&instance, self);
-        }
-    } else {
-        g_object_ref(self);
-    }
-    return self;
 }

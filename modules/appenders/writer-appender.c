@@ -201,32 +201,6 @@ log4g_writer_appender_register(GTypeModule *module)
     log4g_writer_appender_register_type(module);
 }
 
-Log4gAppender *log4g_writer_appender_new(Log4gLayout *layout, FILE *file)
-{
-    g_return_val_if_fail(file, NULL);
-    Log4gAppender *self = g_object_new(LOG4G_TYPE_WRITER_APPENDER, NULL);
-    if (!self) {
-        return NULL;
-    }
-    log4g_appender_set_layout(self, layout);
-    log4g_writer_appender_set_writer(self, file);
-    return self;
-}
-
-void
-log4g_writer_appender_set_immediate_flush(Log4gAppender *base, gboolean flush)
-{
-    g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    g_object_set(base, "immediate-flush", flush, NULL);
-}
-
-gboolean
-log4g_writer_appender_get_immediate_flush(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_WRITER_APPENDER(base), FALSE);
-    return GET_PRIVATE(base)->flush;
-}
-
 gboolean
 log4g_writer_appender_check_entry_conditions(Log4gAppender *base)
 {

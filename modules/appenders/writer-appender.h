@@ -113,36 +113,6 @@ void
 log4g_writer_appender_register(GTypeModule *module);
 
 /**
- * \brief Create a new writer appender object.
- *
- * \param layout [in] The layout to use.
- * \param file [in] An open stdio(3) file handle.
- *
- * \return A new writer appender object.
- */
-Log4gAppender *
-log4g_writer_appender_new(Log4gLayout *layout, FILE *file);
-
-/**
- * \brief Set the immediate-flush property.
- *
- * \param base [in] A writer appender object.
- * \param flush [in] The new immediate flush value for \e base.
- */
-void
-log4g_writer_appender_set_immediate_flush(Log4gAppender *base, gboolean flush);
-
-/**
- * \brief Retrieve the immediate-flush property.
- *
- * \param base [in] A writer appender object.
- *
- * \return The immediate flush value for \e base.
- */
-gboolean
-log4g_writer_appender_get_immediate_flush(Log4gAppender *base);
-
-/**
  * \brief Determine if it is OK to append.
  *
  * Checks the following conditions:

@@ -125,30 +125,6 @@ void
 log4g_file_appender_register(GTypeModule *module);
 
 /**
- * \brief Create a new file appender object.
- *
- * \param layout [in] The layout to use.
- * \param file [in] The name of the file to log to.
- * \param append [in] The value for the append property.
- * \param buffered [in] The value for the buffered-io property.
- *
- * \return A new file appender object.
- */
-Log4gAppender *
-log4g_file_appender_new(Log4gLayout *layout, const gchar *file,
-        gboolean append, gboolean buffered);
-
-/**
- * \brief Close the log file.
- *
- * Once a file appender is closed it is no longer usable.
- *
- * \param base [in] A file appender object.
- */
-void
-log4g_file_appender_close_file(Log4gAppender *base);
-
-/**
  * \brief Invokes the virtual function _Log4gFileAppender::set_file_full().
  *
  * \param base [in] A file appender object.
@@ -162,13 +138,24 @@ log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         gboolean append, gboolean buffered, guint size);
 
 /**
- * \brief Set the file property.
+ * \brief Close the log file.
+ *
+ * Once a file appender is closed it is no longer usable.
  *
  * \param base [in] A file appender object.
- * \param file [in] The new file to append to.
  */
 void
-log4g_file_appender_set_file(Log4gAppender *base, const gchar *file);
+log4g_file_appender_close_file(Log4gAppender *base);
+
+/**
+ * \brief Invokes the virtual function
+ *        _Log4gFileAppenderClass::set_qw_for_files().
+ *
+ * \param base [in] A file appender object.
+ * \param file [in] An open file descriptor.
+ */
+void
+log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file);
 
 /**
  * \brief Retrieve the file property.
@@ -181,34 +168,6 @@ const gchar *
 log4g_file_appender_get_file(Log4gAppender *base);
 
 /**
- * \brief Set the append property.
- *
- * \param base [in] A file appender object.
- * \brief append [in] The new append value for \e base.
- */
-void
-log4g_file_appender_set_append(Log4gAppender *base, gboolean append);
-
-/**
- * \brief Retrieve the append property.
- *
- * \param base [in] A file appender object.
- *
- * \return The append value for \e base.
- */
-gboolean
-log4g_file_appender_get_append(Log4gAppender *base);
-
-/**
- * \brief Set the buffered-io property.
- *
- * \param base [in] A file appender object.
- * \parma buffered [in] The new buffered-io value for \e base.
- */
-void
-log4g_file_appender_set_buffered_io(Log4gAppender *base, gboolean buffered);
-
-/**
  * \brief Retrieve the buffered-io property.
  *
  * \param base [in] A file appender object.
@@ -219,15 +178,6 @@ gboolean
 log4g_file_appender_get_buffered_io(Log4gAppender *base);
 
 /**
- * \brief Set the buffer-size property.
- *
- * \param base [in] A file appender object.
- * \param size [in] The new buffer-size value for \e base.
- */
-void
-log4g_file_appender_set_buffer_size(Log4gAppender *base, guint size);
-
-/**
  * \brief Retrieve the buffer-size property.
  *
  * \param base [in] A file appender object.
@@ -236,16 +186,6 @@ log4g_file_appender_set_buffer_size(Log4gAppender *base, guint size);
  */
 guint
 log4g_file_appender_get_buffer_size(Log4gAppender *base);
-
-/**
- * \brief Invokes the virtual function
- *        _Log4gFileAppenderClass::set_qw_for_files().
- *
- * \param base [in] A file appender object.
- * \param file [in] An open file descriptor.
- */
-void
-log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file);
 
 G_END_DECLS
 

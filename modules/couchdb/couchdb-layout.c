@@ -185,12 +185,6 @@ log4g_couchdb_layout_register(GTypeModule *module)
     log4g_couchdb_layout_register_type(module);
 }
 
-Log4gLayout *
-log4g_couchdb_layout_new(void)
-{
-    return g_object_new(LOG4G_TYPE_COUCHDB_LAYOUT, NULL);
-}
-
 CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
         Log4gLoggingEvent *event, CouchdbSession *session)

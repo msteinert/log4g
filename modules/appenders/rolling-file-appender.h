@@ -98,60 +98,6 @@ void
 log4g_rolling_file_appender_register(GTypeModule *module);
 
 /**
- * \brief Create a new rolling file appender object.
- *
- * \param layout [in] The layout to use.
- * \param file [in] The name of the file to write to.
- * \param append [in] The value of the append property.
- * \param buffered [in] The value of the buffered-io property.
- *
- * \return A new rolling file appender object.
- */
-Log4gAppender *
-log4g_rolling_file_appender_new(Log4gLayout *layout, const char *file,
-        gboolean append, gboolean buffered);
-
-/**
- * \brief Retrieve the max-backup-index property.
- *
- * \param base [in] A rolling file appender object.
- *
- * \return The max backup index for \e base.
- */
-guint
-log4g_rolling_file_appender_get_max_backup_index(Log4gAppender *base);
-
-/**
- * \brief Set the max-backup-index property.
- * 
- * \param base [in] A rolling file appender object.
- * \param backup [in] The new max backup index for \e base.
- */
-void
-log4g_rolling_file_appender_set_max_backup_index(Log4gAppender *base,
-        guint backup);
-
-/**
- * \brief Retrieve the maximum-file-size property.
- *
- * \param base [in] A rolling file appender object.
- *
- * \return The maximum file size for \e base.
- */
-gulong
-log4g_rolling_file_appender_get_maximum_file_size(Log4gAppender *base);
-
-/**
- * \brief Set the maximum-file-size property.
- *
- * \param base [in] A rolling file appender object.
- * \param max [in] The new maximum file size for \e base.
- */
-void
-log4g_rolling_file_appender_set_maximum_file_size(Log4gAppender *base,
-        gulong max);
-
-/**
  * \brief Invokes the virtual function _Log4gRollingFileAppender::roll_over().
  *
  * \param base [in] A rolling file appender object.

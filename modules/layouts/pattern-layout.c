@@ -101,15 +101,14 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
-    const gchar *pattern;
     switch (id) {
     case PROP_CONVERSION_PATTERN:
-        pattern = g_value_get_string(value);
         g_free(priv->pattern);
         if (priv->head) {
             g_object_unref(priv->head);
             priv->head = NULL;
         }
+        const gchar *pattern = g_value_get_string(value);
         priv->pattern = g_strdup((pattern ? pattern : "%m%n"));
         if (!priv->pattern) {
             break;
@@ -165,15 +164,15 @@ create_pattern_parser(Log4gLayout *base, const gchar *pattern)
 static void
 log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     /* initialize GObject class */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gLayout class */
+    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
     layout_class->format = format;
     /* initialize Log4gPatternLayout class */
     klass->create_pattern_parser = create_pattern_parser;
@@ -194,37 +193,6 @@ void
 log4g_pattern_layout_register(GTypeModule *module)
 {
     log4g_pattern_layout_register_type(module);
-}
-
-Log4gLayout *
-log4g_pattern_layout_new(const gchar *pattern)
-{
-    Log4gLayout *self = g_object_new(LOG4G_TYPE_PATTERN_LAYOUT, NULL);
-    if (!self) {
-        return NULL;
-    }
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    log4g_pattern_layout_set_conversion_pattern(self, pattern);
-    if (!priv->head) {
-        g_object_unref(self);
-        return NULL;
-    }
-    return self;
-}
-
-void
-log4g_pattern_layout_set_conversion_pattern(Log4gLayout *base,
-        const gchar *pattern)
-{
-    g_return_if_fail(LOG4G_IS_PATTERN_LAYOUT(base));
-    g_object_set(base, "conversion-pattern", pattern, NULL);
-}
-
-const gchar *
-log4g_pattern_layout_get_conversion_pattern(Log4gLayout *base)
-{
-    g_return_val_if_fail(LOG4G_IS_PATTERN_LAYOUT(base), NULL);
-    return GET_PRIVATE(base)->pattern;
 }
 
 Log4gPatternParser *

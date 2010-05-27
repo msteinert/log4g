@@ -93,57 +93,6 @@ log4g_level_match_filter_get_type(void);
 void
 log4g_level_match_filter_register(GTypeModule *module);
 
-/**
- * \brief Create a new level match filter.
- *
- * The default value of accept-on-match is \e TRUE. The default value of
- * level-to-match is \e NULL.
- *
- * \return A new level match filter.
- */
-Log4gFilter *
-log4g_level_match_filter_new(void);
-
-/**
- * \brief Set the level-to-match property.
- *
- * \param base [in] A level match filter object.
- * \param level [in] A string representation of the level to match.
- */
-void
-log4g_level_match_filter_set_level_to_match(Log4gFilter *base,
-        const gchar *level);
-
-/**
- * \brief Retrieve the level-to-match property.
- *
- * \param base [in] A level match filter object.
- *
- * \return The current level to match for \e base.
- */
-Log4gLevel *
-log4g_level_match_filter_get_level_to_match(Log4gFilter *base);
-
-/**
- * \brief Set the accept-on-match property.
- *
- * \param base [in] A level match filter object.
- * \param accept [in] The new accept on match value.
- */
-void
-log4g_level_match_filter_set_accept_on_match(Log4gFilter *base,
-        gboolean accept);
-
-/**
- * \brief Retrieve the accept-on-match property.
- *
- * \param base [in] A level match filter object.
- *
- * \return The current accept on match value for \e base.
- */
-gboolean
-log4g_level_match_filter_get_accept_on_match(Log4gFilter *base);
-
 G_END_DECLS
 
 #endif /* LOG4G_LEVEL_MATCH_FILTER_H */

@@ -86,52 +86,6 @@ log4g_html_layout_get_type(void);
 void
 log4g_html_layout_register(GTypeModule *module);
 
-/**
- * \brief Create a new HTML layout object.
- *
- * \return A new HTML layout object.
- */
-Log4gLayout *
-log4g_html_layout_new(void);
-
-/**
- * \brief Set the title property.
- *
- * \param base [in] An HTML layout object.
- * \param title [in] The new title of \e base.
- */
-void
-log4g_html_layout_set_title(Log4gLayout *base, const gchar *title);
-
-/**
- * \brief Retrieve the title property.
- *
- * \param base [in] An HTML layout object.
- *
- * \return The current title of \e base.
- */
-const gchar *
-log4g_html_layout_get_title(Log4gLayout *base);
-
-/**
- * \brief Set the location-info parameter.
- *
- * \param base [in] An HTML layout object.
- * \param info [in] The new location-info for \e base.
- */
-void
-log4g_html_layout_set_location_info(Log4gLayout *base, gboolean info);
-
-/**
- * \brief Retrieve the location-info parameter.
- *
- * \param base [in] An HTML layout object.
- *
- * \return The location-info parameter for \e base.
- */
-gboolean
-log4g_html_layout_get_location_info(Log4gLayout *base);
-
 G_END_DECLS
 
 #endif /* LOG4G_HTML_LAYOUT_H */

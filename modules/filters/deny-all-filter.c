@@ -60,8 +60,3 @@ log4g_deny_all_filter_register(GTypeModule *module)
 {
     log4g_deny_all_filter_register_type(module);
 }
-
-Log4gFilter *log4g_deny_all_filter_new(void)
-{
-    return g_object_new(LOG4G_TYPE_DENY_ALL_FILTER, NULL);
-}

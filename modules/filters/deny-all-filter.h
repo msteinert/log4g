@@ -78,14 +78,6 @@ log4g_deny_all_filter_get_type(void);
 void
 log4g_deny_all_filter_register(GTypeModule *module);
 
-/**
- * \brief Create a new deny all filter.
- *
- * \return A new deny all filter.
- */
-Log4gFilter *
-log4g_deny_all_filter_new(void);
-
 G_END_DECLS
 
 #endif /* LOG4G_DENY_ALL_FILTER_H */

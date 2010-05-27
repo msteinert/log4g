@@ -146,8 +146,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         buffered = g_value_get_boolean(value);
         g_atomic_int_set(&priv->buffered, buffered);
         if (buffered) {
-            log4g_writer_appender_set_immediate_flush(LOG4G_APPENDER(base),
-                    FALSE);
+            g_object_set(base, "immediate-flush", FALSE, NULL);
         }
         break;
     case PROP_BUFFER_SIZE:
@@ -165,10 +164,10 @@ set_file_full(Log4gAppender *base, const gchar *file, gboolean append,
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->buffered) {
-        log4g_writer_appender_set_immediate_flush(base, FALSE);
+        g_object_set(base, "immediate-flush", FALSE, NULL);
     }
     log4g_writer_appender_reset(base);
-    log4g_file_appender_set_file(base, file);
+    g_object_set(base, "file", file, NULL);
     g_mutex_lock(priv->lock);
     priv->append = append;
     priv->buffered = buffered;
@@ -242,24 +241,6 @@ log4g_file_appender_register(GTypeModule *module)
     log4g_file_appender_register_type(module);
 }
 
-Log4gAppender *
-log4g_file_appender_new(Log4gLayout *layout, const gchar *file,
-        gboolean append, gboolean buffered)
-{
-    struct Log4gPrivate *priv;
-    Log4gAppender *self = g_object_new(LOG4G_TYPE_FILE_APPENDER, NULL);
-    if (!self) {
-        return NULL;
-    }
-    priv = GET_PRIVATE(self);
-    priv->append = append;
-    priv->buffered = buffered;
-    log4g_appender_set_layout(self, layout);
-    log4g_file_appender_set_file_full(self, file, append,
-            buffered, priv->size);
-    return self;
-}
-
 void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         gboolean append, gboolean buffered, guint size)
@@ -286,39 +267,11 @@ log4g_file_appender_close_file(Log4gAppender *base)
     }
 }
 
-void
-log4g_file_appender_set_file(Log4gAppender *base, const gchar *file)
-{
-    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    g_object_set(base, "file", file, NULL);
-}
-
 const gchar *
 log4g_file_appender_get_file(Log4gAppender *base)
 {
     g_return_val_if_fail(LOG4G_IS_FILE_APPENDER(base), NULL);
     return GET_PRIVATE(base)->file;
-}
-
-void
-log4g_file_appender_set_append(Log4gAppender *base, gboolean append)
-{
-    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    g_object_set(base, "append", append, NULL);
-}
-
-gboolean
-log4g_file_appender_get_append(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_FILE_APPENDER(base), FALSE);
-    return GET_PRIVATE(base)->append;
-}
-
-void
-log4g_file_appender_set_buffered_io(Log4gAppender *base, gboolean buffered)
-{
-    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    g_object_set(base, "buffered-io", buffered, NULL);
 }
 
 gboolean
@@ -328,16 +281,9 @@ log4g_file_appender_get_buffered_io(Log4gAppender *base)
     return GET_PRIVATE(base)->buffered;
 }
 
-void
-log4g_file_appender_set_buffer_size(Log4gAppender *base, guint size)
-{
-    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    g_object_set(base, "buffer-size", size, NULL);
-}
-
 guint
 log4g_file_appender_get_buffer_size(Log4gAppender *base)
 {
-    g_return_val_if_fail(LOG4G_IS_FILE_APPENDER(base), 0);
+    g_return_val_if_fail(LOG4G_IS_FILE_APPENDER(base), FALSE);
     return GET_PRIVATE(base)->size;
 }

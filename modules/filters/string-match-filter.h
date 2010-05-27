@@ -87,52 +87,6 @@ log4g_string_match_filter_get_type(void);
 void
 log4g_string_match_filter_register(GTypeModule *module);
 
-/**
- * \brief Create a new string match filter.
- *
- * \return A new string match filter object.
- */
-Log4gFilter *
-log4g_string_match_filter_new(void);
-
-/**
- * \brief Set the string-to-match property.
- *
- * \param base [in] A string match filter object.
- * \param string [in] The new string to match.
- */
-void
-log4g_string_match_filter_set_string_to_match(Log4gFilter *base,
-        const gchar *string);
-
-/**
- * \param base [in] A string match filter object.
- *
- * \return The current string to match for \e base.
- */
-const gchar *
-log4g_string_match_filter_get_string_to_match(Log4gFilter *base);
-
-/**
- * \brief Set the accept-on-match property.
- *
- * \param base [in] A string match filter object.
- * \param accept [in] The new accept on match value.
- */
-void
-log4g_string_match_filter_set_accept_on_match(Log4gFilter *base,
-        gboolean accept);
-
-/**
- * \brief Retrieve the accept-on-match property.
- *
- * \param base [in] A string match filter object.
- *
- * \return The current accept on match value for \e base.
- */
-gboolean
-log4g_string_match_filter_get_accept_on_match(Log4gFilter *base);
-
 G_END_DECLS
 
 #endif /* LOG4G_STRING_MATCH_FILTER_H */

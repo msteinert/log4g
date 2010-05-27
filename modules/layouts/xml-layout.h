@@ -103,52 +103,6 @@ log4g_xml_layout_get_type(void);
 void
 log4g_xml_layout_register(GTypeModule *module);
 
-/**
- * \brief Create a new XML layout object.
- *
- * \return A new XML layout object.
- */
-Log4gLayout *
-log4g_xml_layout_new(void);
-
-/**
- * \brief Set the properties property.
- *
- * \param base [in] An XML layout object.
- * \param properties [in] The new properties value for \e base.
- */
-void
-log4g_xml_layout_set_properties(Log4gLayout *base, gboolean properties);
-
-/**
- * \brief Retrieve the properties property.
- *
- * \param base [in] An XML layout object.
- *
- * \return The properties value for \e base.
- */
-gboolean
-log4g_xml_layout_get_properties(Log4gLayout *base);
-
-/**
- * \brief Set the location-info property.
- *
- * \param base [in] An XML layout object.
- * \param info [in] The new location info value for \e base.
- */
-void
-log4g_xml_layout_set_location_info(Log4gLayout *base, gboolean info);
-
-/**
- * \brief Retrieve the location-info property.
- *
- * \param base [in] An XML layout object.
- *
- * \return The location info value for \e base.
- */
-gboolean
-log4g_xml_layout_get_location_info(Log4gLayout *base);
-
 G_END_DECLS
 
 #endif /* LOG4G_XML_LAYOUT_H */

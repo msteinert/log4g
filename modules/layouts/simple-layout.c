@@ -107,9 +107,3 @@ log4g_simple_layout_register(GTypeModule *module)
 {
     log4g_simple_layout_register_type(module);
 }
-
-Log4gLayout *
-log4g_simple_layout_new(void)
-{
-    return g_object_new(LOG4G_TYPE_SIMPLE_LAYOUT, NULL);
-}

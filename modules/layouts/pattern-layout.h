@@ -354,36 +354,6 @@ void
 log4g_pattern_layout_register(GTypeModule *module);
 
 /**
- * \brief Create a new pattern layout object.
- *
- * \param pattern [in] The conversion pattern to use.
- *
- * \return A new pattern layout object.
- */
-Log4gLayout *
-log4g_pattern_layout_new(const gchar *pattern);
-
-/**
- * \brief Set the conversion-pattern property.
- *
- * \param base [in] A conversion pattern object.
- * \param pattern [in] The new conversion pattern to be used by \e base.
- */
-void
-log4g_pattern_layout_set_conversion_pattern(Log4gLayout *base,
-        const gchar *pattern);
-
-/**
- * \brief Retrieve the conversion-pattern property.
- *
- * \param base [in] A conversion pattern object.
- *
- * \return The conversion pattern used by \e base.
- */
-const gchar *
-log4g_pattern_layout_get_conversion_pattern(Log4gLayout *base);
-
-/**
  * \brief Invokes the virtual function
  *        _Log4gPatternLayoutClass::create_pattern_parser().
  *

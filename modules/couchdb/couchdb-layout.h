@@ -188,14 +188,6 @@ void
 log4g_couchdb_layout_register(GTypeModule *module);
 
 /**
- * \brief Create a new couchdb layout object.
- *
- * \return A new CouchDB layout object.
- */
-Log4gLayout *
-log4g_couchdb_layout_new(void);
-
-/**
  * \brief Invokes the virtual function
  *        _Log4gCouchdbLayoutClass::format_document().
  *

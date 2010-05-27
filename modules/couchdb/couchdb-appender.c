@@ -138,7 +138,7 @@ log4g_couchdb_appender_init(Log4gCouchdbAppender *self)
     priv->name = g_strdup("log4g_messages");
     priv->session = NULL;
     priv->credentials = NULL;
-    Log4gLayout *layout = log4g_couchdb_layout_new();
+    Log4gLayout *layout = g_object_new(LOG4G_TYPE_COUCHDB_LAYOUT, NULL);
     if (layout) {
         log4g_appender_set_layout(LOG4G_APPENDER(self), layout);
     }
@@ -286,65 +286,4 @@ void
 log4g_couchdb_appender_register(GTypeModule *module)
 {
     log4g_couchdb_appender_register_type(module);
-}
-
-Log4gAppender *
-log4g_couchdb_appender_new(const gchar *uri, const gchar *name)
-{
-    Log4gAppender *self = g_object_new(LOG4G_TYPE_COUCHDB_APPENDER, NULL);
-    if (!self) {
-        return NULL;
-    }
-    if (uri) {
-        g_object_set(self, "uri", uri, NULL);
-    }
-    if (name) {
-        g_object_set(self, "database-name", name, NULL);
-    }
-    log4g_option_handler_activate_options(LOG4G_OPTION_HANDLER(self));
-    return self;
-}
-
-void
-log4g_couchdb_appender_set_uri(Log4gAppender *base, const gchar *uri)
-{
-    g_return_if_fail(LOG4G_IS_COUCHDB_APPENDER(base));
-    g_object_set(base, "uri", uri, NULL);
-}
-
-const gchar *
-log4g_couchdb_appender_get_uri(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_COUCHDB_APPENDER(base), NULL);
-    return GET_PRIVATE(base)->uri;
-}
-
-void
-log4g_couchdb_appender_set_database_name(Log4gAppender *base,
-        const gchar *name)
-{
-    g_return_if_fail(LOG4G_IS_COUCHDB_APPENDER(base));
-    g_object_set(base, "database-name", name, NULL);
-}
-
-const gchar *
-log4g_couchdb_appender_get_database_name(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_COUCHDB_APPENDER(base), NULL);
-    return GET_PRIVATE(base)->name;
-}
-
-void
-log4g_couchdb_appender_set_credentials(Log4gAppender *base,
-        CouchdbCredentials *credentials)
-{
-    g_return_if_fail(LOG4G_IS_COUCHDB_APPENDER(base));
-    g_object_set(base, "credentials", credentials, NULL);
-}
-
-CouchdbCredentials *
-log4g_couchdb_appender_get_credentials(Log4gAppender *base)
-{
-    g_return_val_if_fail(LOG4G_IS_COUCHDB_APPENDER(base), NULL);
-    return GET_PRIVATE(base)->credentials;
 }
