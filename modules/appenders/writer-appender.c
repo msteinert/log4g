@@ -30,6 +30,7 @@
 enum _properties_t {
     PROP_O = 0,
     PROP_IMMEDIATE_FLUSH,
+    PROP_WRITER,
     PROP_MAX
 };
 
@@ -89,6 +90,18 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     switch (id) {
     case PROP_IMMEDIATE_FLUSH:
         priv->flush = g_value_get_boolean(value);
+        break;
+    case PROP_WRITER:
+        g_mutex_lock(priv->lock);
+        log4g_writer_appender_reset(LOG4G_APPENDER(base));
+        FILE *file = g_value_get_pointer(value);
+        GObject *error =
+            log4g_appender_get_error_handler(LOG4G_APPENDER(base));
+        priv->writer = log4g_quiet_writer_new(file, error);
+        if (priv->writer) {
+            log4g_writer_appender_write_header(LOG4G_APPENDER(base));
+        }
+        g_mutex_unlock(priv->lock);
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
@@ -180,6 +193,9 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
             g_param_spec_boolean("immediate-flush", Q_("Immediate Flush"),
                     Q_("Flush immediately after writing"),
                     TRUE, G_PARAM_WRITABLE));
+    g_object_class_install_property(gobject_class, PROP_WRITER,
+            g_param_spec_pointer("writer", Q_("Writer"),
+                    Q_("Set the stdio(3) stream to use"), G_PARAM_WRITABLE));
 }
 
 static void
@@ -236,17 +252,7 @@ void
 log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file)
 {
     g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_mutex_lock(priv->lock);
-    log4g_writer_appender_reset(base);
-    GObject *error = log4g_appender_get_error_handler(base);
-    priv->writer = log4g_quiet_writer_new(file, error);
-    if (!priv->writer) {
-        goto exit;
-    }
-    log4g_writer_appender_write_header(base);
-exit:
-    g_mutex_unlock(priv->lock);
+    g_object_set(base, "writer", file, NULL);
 }
 
 void

@@ -33,6 +33,7 @@ check_PROGRAMS = \
     simple-layout-test \
     string-match-filter-test \
     ttcc-layout-test \
+    writer-appender-test \
     xml-layout-test
 #    async-appender-test \
 #    console-appender-test \
@@ -43,7 +44,6 @@ check_PROGRAMS = \
 #    quiet-writer-test \
 #    rolling-file-appender-test \
 #    syslog-appender-test \
-#    writer-appender-test
 # add source files
 appender_attachable_impl_test_SOURCES = appender-attachable-impl-test.c
 #async_appender_test_SOURCES = async-appender-test.c
@@ -73,7 +73,7 @@ simple_layout_test_SOURCES = simple-layout-test.c
 string_match_filter_test_SOURCES = string-match-filter-test.c
 #syslog_appender_test_SOURCES = syslog-appender-test.c
 ttcc_layout_test_SOURCES = ttcc-layout-test.c
-#writer_appender_test_SOURCES = writer-appender-test.c
+writer_appender_test_SOURCES = writer-appender-test.c
 xml_layout_test_SOURCES = xml-layout-test.c
 # run tests
 check-local: $(check_PROGRAMS)

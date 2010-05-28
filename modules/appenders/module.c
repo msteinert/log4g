@@ -37,7 +37,7 @@ void
 log4g_module_load(GTypeModule *module)
 {
     g_type_module_set_name(module, "core");
-    log4g_async_appender_register(module);
+    //log4g_async_appender_register(module);
     log4g_writer_appender_register(module);
     log4g_console_appender_register(module);
     log4g_file_appender_register(module);
