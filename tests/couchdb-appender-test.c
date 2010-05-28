@@ -26,6 +26,7 @@
 #include "config.h"
 #endif
 #include "log4g/log4g.h"
+#include "log4g/module.h"
 #include <unistd.h>
 
 #define CLASS "/log4g/appender/CouchdbAppender"
@@ -33,9 +34,12 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
+    GType type = g_type_from_name("Log4gCouchdbAppender");
+    g_assert(type);
     Log4gAppender *appender =
-        log4g_couchdb_appender_new(NULL, "couchdb_appender_test");
+        g_object_new(type, "database-name", "couchdb_appender_test", NULL);
     g_assert(appender);
+    log4g_appender_activate_options(appender);
     va_list ap;
     memset(&ap, 0, sizeof ap);
     for (gint i = 0; i < 5; ++i) {
@@ -62,6 +66,11 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    GTypeModule *module =
+        log4g_module_new("../modules/couchdb/liblog4g-couchdb.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

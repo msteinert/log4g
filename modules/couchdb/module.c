@@ -32,6 +32,6 @@ void
 log4g_module_load(GTypeModule *base)
 {
     g_type_module_set_name(base, "couchdb");
-    //log4g_couchdb_appender_register(base);
+    log4g_couchdb_appender_register(base);
     log4g_couchdb_layout_register(base);
 }

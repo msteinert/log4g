@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/syslog-appender.h
+ * \brief Implements the API in syslog-appender.h
  * \author Mike Steinert
  * \date 2-11-2010
  */

@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/null-appender.h
+ * \brief Implements the API in null-appender.h
  * \author Mike Steinert
  * \date 2-8-2010
+ *
+ * TODO: make this a singleton
  */
 
 #ifdef HAVE_CONFIG_H

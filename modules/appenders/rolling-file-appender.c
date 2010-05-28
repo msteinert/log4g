@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/rolling_file-appender.h
+ * \brief Implements the API in rolling_file-appender.h
  * \author Mike Steinert
  * \date 2-17-2010
  */
@@ -201,5 +201,13 @@ log4g_rolling_file_appender_class_finalize(
 void
 log4g_rolling_file_appender_register(GTypeModule *module)
 {
+    log4g_counting_quiet_writer_register(module);
     log4g_rolling_file_appender_register_type(module);
+}
+
+void
+log4g_rolling_file_appender_roll_over(Log4gAppender *base)
+{
+    g_return_if_fail(LOG4G_IS_ROLLING_FILE_APPENDER(base));
+    LOG4G_ROLLING_FILE_APPENDER_GET_CLASS(base)->roll_over(base);
 }

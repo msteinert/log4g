@@ -40,6 +40,7 @@ test_001(gpointer *fixture, gconstpointer data)
     g_assert(type);
     Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
+    log4g_layout_activate_options(layout);
     va_list ap;
     memset(&ap, 0, sizeof ap);
     Log4gLoggingEvent *event =
@@ -47,6 +48,7 @@ test_001(gpointer *fixture, gconstpointer data)
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
     g_assert(event);
     type = g_type_from_name("Log4gWriterAppender");
+    g_assert(type);
     Log4gAppender *appender = g_object_new(type, "writer", file, NULL);
     log4g_appender_set_layout(appender, layout);
     log4g_appender_activate_options(appender);

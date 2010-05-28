@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief TODO
+ * \brief Register type for the appenders module
  * \author Mike Steinert
  * \date 5-26-2010
  */
@@ -27,8 +27,10 @@
 #include "log4g/module.h"
 #include "async-appender.h"
 #include "console-appender.h"
+#include "counting-quiet-writer.h"
 #include "file-appender.h"
 #include "null-appender.h"
+#include "quiet-writer.h"
 #include "rolling-file-appender.h"
 #include "syslog-appender.h"
 #include "writer-appender.h"
@@ -37,11 +39,13 @@ void
 log4g_module_load(GTypeModule *module)
 {
     g_type_module_set_name(module, "core");
-    //log4g_async_appender_register(module);
+    log4g_async_appender_register(module);
     log4g_writer_appender_register(module);
     log4g_console_appender_register(module);
+    log4g_counting_quiet_writer_register(module);
     log4g_file_appender_register(module);
     log4g_null_appender_register(module);
+    log4g_quiet_writer_register(module);
     log4g_rolling_file_appender_register(module);
     log4g_syslog_appender_register(module);
 }

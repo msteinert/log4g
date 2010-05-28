@@ -83,6 +83,9 @@ struct _Log4gQuietWriterClass {
 GType
 log4g_quiet_writer_get_type(void);
 
+void
+log4g_quiet_writer_register(GTypeModule *module);
+
 /**
  * \brief Create a new quiet writer object.
  *

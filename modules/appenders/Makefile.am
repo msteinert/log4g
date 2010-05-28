@@ -27,7 +27,7 @@ liblog4g_appenders_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
     -I$(top_srcdir) \
     -I$(top_srcdir)/src \
-    -I$(top_srcdir)/modules/appenders \
+    -I$(srcdir) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)
 liblog4g_appenders_la_LDFLAGS = \

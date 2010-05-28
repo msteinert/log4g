@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/counting-quiet-writer.h
+ * \brief Implements the API in counting-quiet-writer.h
  * \author Mike Steinert
  * \date 2-17-2010
  */
@@ -29,7 +29,7 @@
 #include "log4g/interface/error-handler.h"
 #include <string.h>
 
-G_DEFINE_TYPE(Log4gCountingQuietWriter, log4g_counting_quiet_writer,
+G_DEFINE_DYNAMIC_TYPE(Log4gCountingQuietWriter, log4g_counting_quiet_writer,
               LOG4G_TYPE_QUIET_WRITER)
 
 #define GET_PRIVATE(instance) \
@@ -63,6 +63,19 @@ log4g_counting_quiet_writer_class_init(Log4gCountingQuietWriterClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gQuietWriter class */
     qw_class->write = _write;
+}
+
+static void
+log4g_counting_quiet_writer_class_finalize(
+        Log4gCountingQuietWriterClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_counting_quiet_writer_register(GTypeModule *module)
+{
+    log4g_counting_quiet_writer_register_type(module);
 }
 
 Log4gQuietWriter *

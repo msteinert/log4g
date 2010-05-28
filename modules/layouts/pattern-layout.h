@@ -341,7 +341,7 @@ struct _Log4gPatternLayoutClass {
      *
      * \return A new pattern parser object.
      *
-     * \see log4g/helpers/pattern-parser.h
+     * \see pattern-parser.h
      */
     Log4gPatternParser *
     (*create_pattern_parser)(Log4gLayout *base, const gchar *pattern);

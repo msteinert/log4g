@@ -26,8 +26,7 @@
 #include "config.h"
 #endif
 #include "log4g/log4g.h"
-#include "log4g/appender/file-appender.h"
-#include "log4g/layout/html-layout.h"
+#include "log4g/module.h"
 #include <unistd.h>
 
 #define CLASS "/log4g/appender/FileAppender"
@@ -35,17 +34,24 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
+    GType type = g_type_from_name("Log4gHTMLLayout");
+    g_assert(type);
+    Log4gLayout *layout =
+        g_object_new(type, "title", "Hello, World!",
+                "location-info", TRUE, NULL);
+    g_assert(layout);
+    log4g_layout_activate_options(layout);
+    type = g_type_from_name("Log4gFileAppender");
+    g_assert(type);
+    Log4gAppender *appender =
+        g_object_new(type, "file", "file-appender-test.html",
+                "append", FALSE, "buffered-io", TRUE, NULL);
+    g_assert(appender);
+    log4g_appender_set_layout(appender, layout);
+    log4g_appender_activate_options(appender);
+    g_object_unref(layout);
     va_list ap;
     memset(&ap, 0, sizeof ap);
-    Log4gLayout *layout = log4g_html_layout_new();
-    g_assert(layout);
-    log4g_html_layout_set_title(layout, "Hello, World!");
-    log4g_html_layout_set_location_info(layout, TRUE);
-    Log4gAppender *appender =
-        log4g_file_appender_new(layout, "file-appender-test.html",
-                FALSE, TRUE);
-    g_assert(appender);
-    g_object_unref(layout);
     for (gint i = 0; i < 5; ++i) {
         log4g_ndc_push("LOOP %d", i);
         Log4gLoggingEvent *event =
@@ -70,6 +76,15 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    GTypeModule *module =
+        log4g_module_new("../modules/layouts/liblog4g-layouts.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
+    module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

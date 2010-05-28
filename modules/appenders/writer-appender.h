@@ -186,7 +186,7 @@ log4g_writer_appender_write_header(Log4gAppender *base);
  *
  * \return The current quiet writer object used by \e base.
  *
- * \see log4g/helpers/quiet-writer.h
+ * \see quiet-writer.h
  */
 Log4gQuietWriter *
 log4g_writer_appender_get_quiet_writer(Log4gAppender *base);
@@ -197,7 +197,7 @@ log4g_writer_appender_get_quiet_writer(Log4gAppender *base);
  * \param base [in] A writer appender object.
  * \param writer [in] A quiet writer.
  *
- * \see log4g/helpers/quiet-writer.h
+ * \see quiet-writer.h
  */
 void
 log4g_writer_appender_set_quiet_writer(Log4gAppender *base,

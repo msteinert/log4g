@@ -50,8 +50,8 @@
  *
  * The logger category pattern converter handles logger names.
  *
- * \see log4g/layout/pattern-layout.h, log4g/helpers/pattern-parser.h,
- *      log4g/mdc.h, log4g/ndc.h, log4g/helpers/date-layout.h
+ * \see pattern-layout.h, pattern-parser.h, log4g/mdc.h, log4g/ndc.h,
+ *      date-layout.h
  */
 
 #ifndef LOG4G_PATTERN_CONVERTER_H
@@ -538,7 +538,7 @@ log4g_category_pattern_converter_get_type(void);
  *
  * \return A new logger category pattern converter object.
  *
- * \see log4g/logger.h, log4g/layout/pattern-layout.h
+ * \see log4g/logger.h, pattern-layout.h
  */
 Log4gPatternConverter *
 log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,

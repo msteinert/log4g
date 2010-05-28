@@ -26,7 +26,6 @@ HAVE_DOT="$log4g_cv_HAVE_DOT"
 AC_SUBST([HAVE_DOT])
 # Checks for dependencies
 PKG_PROG_PKG_CONFIG([0.17])
-PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"])
 log4g_glib_version="glib-2.0 >= 2.20"
 AC_SUBST([log4g_glib_version])
 PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
@@ -42,6 +41,56 @@ PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
 log4g_libxml_version="libxml-2.0 >= 2.6"
 AC_SUBST([log4g_libxml_version])
 PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
+# Appenders option
+AC_ARG_WITH(appenders,
+    [AC_HELP_STRING([--with-appenders],
+        [enable core appenders @<:@default=yes@:>@])],,
+    [withval=yes])
+AC_CACHE_CHECK([for core appender support], [log4g_cv_with_appenders],
+        [log4g_cv_with_appenders="$withval"])
+if test "x$log4g_cv_with_appenders" != "xno"; then
+    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES appenders"
+fi
+AM_CONDITIONAL([LOG4G_WITH_APPENDERS],
+    [test "x$log4g_cv_with_appenders" = "xyes"])
+# Filters option
+AC_ARG_WITH(filters,
+    [AC_HELP_STRING([--with-filters],
+        [enable core filters @<:@default=yes@:>@])],,
+    [withval=yes])
+AC_CACHE_CHECK([for core filter support], [log4g_cv_with_filters],
+        [log4g_cv_with_filters="$withval"])
+if test "x$log4g_cv_with_filters" != "xno"; then
+    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES filters"
+fi
+AM_CONDITIONAL([LOG4G_WITH_FILTERS], [test "x$log4g_cv_with_filters" = "xyes"])
+# Layouts option
+AC_ARG_WITH(layouts,
+    [AC_HELP_STRING([--with-layouts],
+        [enable core layouts @<:@default=yes@:>@])],,
+    [withval=yes])
+AC_CACHE_CHECK([for core layout support], [log4g_cv_with_layouts],
+        [log4g_cv_with_layouts="$withval"])
+if test "x$log4g_cv_with_layouts" != "xno"; then
+    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES layouts"
+fi
+AM_CONDITIONAL([LOG4G_WITH_LAYOUTS], [test "x$log4g_cv_with_layouts" = "xyes"])
+# CouchDB option
+AC_ARG_WITH(couchdb,
+    [AC_HELP_STRING([--with-couchdb],
+        [enable CouchDB appender & layout @<:@default=auto@:>@])],,
+    [withval=auto])
+AC_CACHE_CHECK([for CouchDB support], [log4g_cv_with_couchdb],
+        [log4g_cv_with_couchdb="$withval"])
+if test "x$log4g_cv_with_couchdb" != "xno"; then
+    PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"],
+        [LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES couchdb"
+        log4g_with_couchdb=yes],
+        [log4g_with_couchdb=no])
+fi
+AM_CONDITIONAL([LOG4G_WITH_COUCHDB], [test "x$log4g_with_couchdb" = "xyes"])
+# Configure module options
+AC_SUBST([LOG4G_CONFIGURED_MODULES])
 # Configure module directory
 moduledir="\$(libdir)/log4g"
 AC_SUBST(moduledir)
@@ -82,3 +131,8 @@ AC_CONFIG_FILES([
     tests/Makefile
 ])
 AC_OUTPUT
+AC_MSG_RESULT([
+Build options:
+	Version: $VERSION
+	Modules: $LOG4G_CONFIGURED_MODULES
+])

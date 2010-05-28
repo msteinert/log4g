@@ -25,7 +25,7 @@
  * The conversion pattern is parsed and a chained list of pattern converters
  * is created.
  *
- * \see log4g/layout/pattern-layout.h, log4g/helpers/pattern-converter.h
+ * \see pattern-layout.h, pattern-converter.h
  */
 
 #ifndef LOG4G_PATTERN_PARSER_H
@@ -94,7 +94,7 @@ log4g_pattern_parser_new(const gchar *pattern);
  * \param self [in] A pattern converter object.
  * \param pc [in] The pattern converter to add to \e self.
  *
- * \see log4g/helpers/pattern-converter.h
+ * \see pattern-converter.h
  */
 void
 log4g_pattern_parser_add_to_list(Log4gPatternParser *self,
@@ -129,7 +129,7 @@ log4g_pattern_parser_extract_precision_option(Log4gPatternParser *self);
  * \return A chained list of pattern converters or \e NULL if none were
  *         created.
  *
- * \see log4g/helpers/pattern-converter.h
+ * \see pattern-converter.h
  */
 Log4gPatternConverter *
 log4g_pattern_parser_parse(Log4gPatternParser *self);
@@ -149,7 +149,7 @@ log4g_pattern_parser_finalize_converter(Log4gPatternParser *self, gchar c);
  * \param self [in] A pattern converter object.
  * \param pc [in] The pattern converter to add to \e self.
  *
- * \see log4g/helpers/pattern-converter.h
+ * \see pattern-converter.h
  */
 void
 log4g_pattern_parser_add_converter(Log4gPatternParser *self,

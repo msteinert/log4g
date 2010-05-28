@@ -38,14 +38,9 @@ typedef struct _Fixture {
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    fixture->file = g_string_sized_new(128);
+    const gchar *file = getenv("srcdir");
+    fixture->file = g_string_new(file ? file : "../../tests");
     g_assert(fixture->file);
-    gchar *file = getenv("LOG4G_DOM_CONFIGURATOR_TEST");
-    if (file) {
-        g_string_append(fixture->file, file);
-    } else {
-        g_string_append(fixture->file, "../../tests");
-    }
 }
 
 void

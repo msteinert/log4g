@@ -104,11 +104,11 @@
  *
  * Log4g ships with the following appenders:
  *
- * - \ref log4g/appender/async-appender.h "Asynchronous appender"
- * - \ref log4g/appender/console-appender.h "Console appender"
- * - \ref log4g/appender/file-appender.h "File appender"
- * - \ref log4g/appender/rolling-file-appender.h "Rolling file appender"
- * - \ref log4g/appender/syslog-appender.h "Syslog appender"
+ * - \ref async-appender.h "Asynchronous appender"
+ * - \ref console-appender.h "Console appender"
+ * - \ref file-appender.h "File appender"
+ * - \ref rolling-file-appender.h "Rolling file appender"
+ * - \ref syslog-appender.h "Syslog appender"
  *
  * \subsection Layouts
  *
@@ -117,11 +117,11 @@
  *
  * Log4g ships with the following layouts:
  *
- * - \ref log4g/layout/html-layout.h "HTML layout"
- * - \ref log4g/layout/pattern-layout.h "Pattern layout"
- * - \ref log4g/layout/simple-layout.h "Simple layout"
- * - \ref log4g/layout/ttcc-layout.h "TTCC layout"
- * - \ref log4g/layout/xml-layout.h "XML layout"
+ * - \ref html-layout.h "HTML layout"
+ * - \ref pattern-layout.h "Pattern layout"
+ * - \ref simple-layout.h "Simple layout"
+ * - \ref ttcc-layout.h "TTCC layout"
+ * - \ref xml-layout.h "XML layout"
  *
  * \subsection filters Filters
  *
@@ -130,10 +130,10 @@
  *
  * Log4g ships with the following filters:
  *
- * - \ref log4g/filter/deny-all-filter.h "Deny all filter"
- * - \ref log4g/filter/level-match-filter.h "Level match filter"
- * - \ref log4g/filter/level-range-filter.h "Level range filter"
- * - \ref log4g/filter/string-match-filter.h "String match filter"
+ * - \ref deny-all-filter.h "Deny all filter"
+ * - \ref level-match-filter.h "Level match filter"
+ * - \ref level-range-filter.h "Level range filter"
+ * - \ref string-match-filter.h "String match filter"
  *
  * \subsection configuration Configuration
  *
@@ -340,7 +340,7 @@ log4g_init(int *argc, char ***argv);
  * \note You must call g_thread_init() before initializing Log4g if your
  *       application uses threads.
  *
- * \see log4g_init(), log4g_get_option_group(), log4g/appender/async-appender.h
+ * \see log4g_init(), log4g_get_option_group(), async-appender.h
  */
 void
 log4g_finalize(void);

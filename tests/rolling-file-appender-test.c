@@ -34,14 +34,19 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
+    GType type = g_type_from_name("Log4gTTCCLayout");
+    g_assert(type);
+    Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
+    log4g_layout_activate_options(layout);
+    type = g_type_from_name("Log4gRollingFileAppender");
+    g_assert(type);
     Log4gAppender *appender =
-        log4g_rolling_file_appender_new(layout,
-                "rolling-file-appender-test.txt", FALSE, TRUE);
-    log4g_rolling_file_appender_set_max_backup_index(appender, 4);
-    log4g_rolling_file_appender_set_maximum_file_size(appender, 10);
+        g_object_new(type, "file", "rolling-file-appender-test.txt",
+                "max-backup-index", 4, "maximum-file-size", 10, NULL);
     g_assert(appender);
+    log4g_appender_set_layout(appender, layout);
+    log4g_appender_activate_options(appender);
     g_object_unref(layout);
     for (gint i = 0; i < 10; ++i) {
         va_list ap;
@@ -68,6 +73,15 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    GTypeModule *module =
+        log4g_module_new("../modules/layouts/liblog4g-layouts.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
+    module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

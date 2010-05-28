@@ -21,7 +21,8 @@
  * \date 5-20-2010
  *
  * TODO: investigate the bulk document API
- * http://wiki.apache.org/couchdb/HTTP_Bulk_Document_API
+ *       http://wiki.apache.org/couchdb/HTTP_Bulk_Document_API
+ * TODO: implement "append" functionality
  */
 
 #ifdef HAVE_CONFIG_H
@@ -135,6 +136,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         break;
     }
 }
+
 static void
 append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
@@ -232,7 +234,6 @@ activate_options(Log4gAppender *base)
     couchdb_database_info_unref(info);
 }
 
-
 static void
 log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
 {
@@ -272,5 +273,6 @@ log4g_couchdb_appender_class_finalize(Log4gCouchdbAppenderClass *klass)
 void
 log4g_couchdb_appender_register(GTypeModule *module)
 {
+    log4g_couchdb_layout_register(module);
     log4g_couchdb_appender_register_type(module);
 }

@@ -23,7 +23,7 @@
  *
  * A quiet writer that counts the number of bytes it has written.
  *
- * \see log4g/helpers/quiet-writer.h
+ * \see quiet-writer.h
  */
 
 #ifndef LOG4G_COUNTING_QUIET_WRITER_H
@@ -72,6 +72,9 @@ struct _Log4gCountingQuietWriterClass {
 
 GType
 log4g_counting_quiet_writer_get_type(void);
+
+void
+log4g_counting_quiet_writer_register(GTypeModule *module);
 
 /**
  * \brief Create a new counting quiet writer object.

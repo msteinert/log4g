@@ -37,7 +37,7 @@ test_001(gpointer *fixture, gconstpointer data)
     g_assert(module);
     g_assert(g_type_module_use(module));
     g_type_module_unuse(module);
-    //g_assert(g_type_from_name("Log4gAsyncAppender"));
+    g_assert(g_type_from_name("Log4gAsyncAppender"));
     g_assert(g_type_from_name("Log4gConsoleAppender"));
     g_assert(g_type_from_name("Log4gFileAppender"));
     g_assert(g_type_from_name("Log4gNullAppender"));
@@ -83,7 +83,7 @@ test_004(gpointer *fixture, gconstpointer data)
     g_assert(module);
     g_assert(g_type_module_use(module));
     g_type_module_unuse(module);
-    //g_assert(g_type_from_name("Log4gCouchdbAppender"));
+    g_assert(g_type_from_name("Log4gCouchdbAppender"));
     g_assert(g_type_from_name("Log4gCouchdbLayout"));
 }
 

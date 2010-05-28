@@ -21,8 +21,8 @@
  * \author Mike Steinert
  * \date 2-17-2010
  *
- * This class extends \ref log4g/appender/file-appender.h "file appender" to
- * backup log files when they reach a specified size.
+ * This class extends \ref file-appender.h "file appender" to backup log
+ * files when they reach a specified size.
  *
  * Rolling file appenders accept two properties:
  * -# max-backup-index

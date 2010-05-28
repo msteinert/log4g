@@ -26,9 +26,8 @@
 #include "config.h"
 #endif
 #include "log4g/log4g.h"
-#include "log4g/appender/console-appender.h"
 #include "log4g/hierarchy.h"
-#include "log4g/layout/ttcc-layout.h"
+#include "log4g/module.h"
 #include "log4g/root-logger.h"
 
 #define CLASS "/log4g/Hierarchy"
@@ -42,10 +41,17 @@ setup(Fixture *fixture, gconstpointer data)
 {
     Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
     g_assert(root);
-    Log4gLayout *layout =  log4g_ttcc_layout_new("%c");
+    GType type = g_type_from_name("Log4gTTCCLayout");
+    g_assert(type);
+    Log4gLayout *layout = g_object_new(type, "date-format", "%c", NULL);
     g_assert(layout);
-    Log4gAppender *appender = log4g_console_appender_new(layout, "stdout");
+    log4g_layout_activate_options(layout);
+    type = g_type_from_name("Log4gConsoleAppender");
+    g_assert(type);
+    Log4gAppender *appender = g_object_new(type, "target", "stdout", NULL);
     g_assert(appender);
+    log4g_appender_set_layout(appender, layout);
+    log4g_appender_activate_options(appender);
     g_object_unref(layout);
     fixture->repository = log4g_hierarchy_new(root);
     g_assert(fixture->repository);
@@ -80,6 +86,15 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
+    GTypeModule *module =
+        log4g_module_new("../modules/layouts/liblog4g-layouts.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
+    module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
     return g_test_run();
 }

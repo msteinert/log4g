@@ -33,16 +33,23 @@
 void
 test_001(gpointer*fixture, gconstpointer data)
 {
-    Log4gLayout *layout = log4g_simple_layout_new();
+    GType type = g_type_from_name("Log4gSimpleLayout");
+    g_assert(type);
+    Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
+    log4g_layout_activate_options(layout);
     va_list ap;
     memset(&ap, 0, sizeof ap);
     Log4gLoggingEvent *event =
         log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
                 __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
     g_assert(event);
-    Log4gAppender *appender = log4g_console_appender_new(layout, "stdout");
+    type = g_type_from_name("Log4gConsoleAppender");
+    g_assert(type);
+    Log4gAppender *appender = g_object_new(type, "target", "stdout", NULL);
     g_assert(appender);
+    log4g_appender_set_layout(appender, layout);
+    log4g_appender_activate_options(appender);
     g_object_unref(layout);
     log4g_appender_do_append(appender, event);
     log4g_appender_close(appender);
@@ -60,13 +67,15 @@ main(int argc, char *argv[])
         g_thread_init(NULL);
     }
 #endif
-    /*
     GTypeModule *module =
-        log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+        log4g_module_new("../modules/layouts/liblog4g-layouts.la");
     g_assert(module);
     g_assert(g_type_module_use(module));
     g_type_module_unuse(module);
-    */
+    module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
+    g_type_module_unuse(module);
     g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
     return g_test_run();
 }

@@ -25,6 +25,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "log4g/interface/appender-attachable.h"
 #include "log4g/log4g.h"
 #include "log4g/module.h"
 
@@ -54,17 +55,32 @@ teardown(Fixture *fixture, gconstpointer data)
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    Log4gLayout *layout = log4g_simple_layout_new();
+    GType type = g_type_from_name("Log4gSimpleLayout");
+    g_assert(type);
+    Log4gLayout *layout = g_object_new(type, NULL);
     g_assert(layout);
-    Log4gAppender *out = log4g_console_appender_new(layout, "stdout");
+    log4g_layout_activate_options(layout);
+    type = g_type_from_name("Log4gConsoleAppender");
+    g_assert(type);
+    Log4gAppender *out = g_object_new(type, "target", "stdout", NULL);
     g_assert(out);
-    Log4gAppender *err = log4g_console_appender_new(layout, "stderr");
+    log4g_appender_set_layout(out, layout);
+    log4g_appender_activate_options(out);
+    type = g_type_from_name("Log4gConsoleAppender");
+    g_assert(type);
+    Log4gAppender *err = g_object_new(type, "target", "stderr", NULL);
     g_assert(err);
+    log4g_appender_set_layout(err, layout);
+    log4g_appender_activate_options(err);
     g_object_unref(layout);
-    Log4gAppender *appender = log4g_async_appender_new();
+    type = g_type_from_name("Log4gAsyncAppender");
+    g_assert(type);
+    Log4gAppender *appender = g_object_new(type, NULL);
     g_assert(appender);
-    log4g_async_appender_add_appender(appender, out);
-    log4g_async_appender_add_appender(appender, err);
+    log4g_appender_attachable_add_appender(
+            LOG4G_APPENDER_ATTACHABLE(appender), out);
+    log4g_appender_attachable_add_appender(
+            LOG4G_APPENDER_ATTACHABLE(appender), err);
     g_object_unref(out);
     g_object_unref(err);
     log4g_appender_do_append(appender, fixture->event);
@@ -82,9 +98,13 @@ main(int argc, char *argv[])
     }
 #endif
     GTypeModule *module =
-        log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+        log4g_module_new("../modules/layouts/liblog4g-layouts.la");
     g_assert(module);
     g_type_module_use(module);
+    g_type_module_unuse(module);
+    module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+    g_assert(module);
+    g_assert(g_type_module_use(module));
     g_type_module_unuse(module);
     g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
     return g_test_run();

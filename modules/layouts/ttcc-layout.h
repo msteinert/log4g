@@ -50,8 +50,8 @@
  *          appenders. The TTCC layout is not thread-safe when used in this
  *          way.
  *
- * \note The \ref log4g/layout/pattern-layout.h "pattern layout" provides a
- *       more flexible alternative.
+ * \note The \ref pattern-layout.h "pattern layout" provides a more flexible
+ *       alternative.
  */
 
 #ifndef LOG4G_TTCC_LAYOUT_H

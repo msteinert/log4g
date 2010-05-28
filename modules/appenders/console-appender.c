@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/console-appender.h
+ * \brief Implements the API in console-appender.h
  * \author Mike Steinert
  * \date 2-8-2010
  */

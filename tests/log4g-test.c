@@ -27,6 +27,7 @@
 #endif
 #include "log4g/log4g.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 #define CLASS "/log4g"
 

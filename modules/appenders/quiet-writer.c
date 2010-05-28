@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/quiet-writer.h
+ * \brief Implements the API in quiet-writer.h
  * \author Mike Steinert
  * \date 1-29-2010
  */
@@ -29,7 +29,7 @@
 #include "quiet-writer.h"
 #include <string.h>
 
-G_DEFINE_TYPE(Log4gQuietWriter, log4g_quiet_writer, G_TYPE_OBJECT)
+G_DEFINE_DYNAMIC_TYPE(Log4gQuietWriter, log4g_quiet_writer, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_QUIET_WRITER, \
@@ -90,6 +90,18 @@ log4g_quiet_writer_class_init(Log4gQuietWriterClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize QuietWriter class */
     klass->write = _write;
+}
+
+static void
+log4g_quiet_writer_class_finalize(Log4gQuietWriterClass *klass)
+{
+    /* do nothing */
+}
+
+void
+log4g_quiet_writer_register(GTypeModule *module)
+{
+    log4g_quiet_writer_register_type(module);
 }
 
 Log4gQuietWriter *

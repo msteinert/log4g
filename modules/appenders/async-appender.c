@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/async-appender.h
+ * \brief Implements the API in async-appender.h
  * \author Mike Steinert
  * \date 2-17-2010
  */
@@ -132,10 +132,6 @@ log4g_discard_summary_create_event(Log4gDiscardSummary *self)
                 self->count, log4g_logging_event_get_message(self->event));
 }
 
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_ASYNC_APPENDER, \
-            struct Log4gPrivate))
-
 struct Log4gPrivate {
     Log4gAppenderAttachable *appenders; /**< Asynchronous appenders */
     GHashTable *summary; /**< Summary of discarded events */
@@ -164,8 +160,12 @@ appender_attachable_init(Log4gAppenderAttachableInterface *interface)
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gAsyncAppender, log4g_async_appender,
         LOG4G_TYPE_APPENDER, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER_ATTACHABLE,
+        G_IMPLEMENT_INTERFACE_DYNAMIC(LOG4G_TYPE_APPENDER_ATTACHABLE,
                 appender_attachable_init))
+
+#define GET_PRIVATE(instance) \
+    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_ASYNC_APPENDER, \
+            struct Log4gPrivate))
 
 static void
 _discarded(gpointer key, gpointer value, gpointer user_data)

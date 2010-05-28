@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/file-appender.h
+ * \brief Implements the API in file-appender.h
  * \author Mike Steinert
  * \date 2-9-2010
  */
@@ -234,6 +234,7 @@ log4g_file_appender_class_finalize(Log4gFileAppenderClass *klass)
 void
 log4g_file_appender_register(GTypeModule *module)
 {
+    log4g_quiet_writer_register(module);
     log4g_file_appender_register_type(module);
 }
 

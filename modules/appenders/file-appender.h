@@ -97,7 +97,7 @@ struct _Log4gFileAppenderClass {
      * \param buffered [in] The new value for the buffered-io property.
      * \param size [in] The new value for the size property.
      *
-     * \see log4g/appender/rolling-file-appender.h
+     * \see rolling-file-appender.h
      */
     void
     (*set_file_full)(Log4gAppender *base, const gchar *file, gboolean append,
@@ -111,8 +111,7 @@ struct _Log4gFileAppenderClass {
      * \param base [in] A file appender object.
      * \param file [in] The open file handle to write to.
      *
-     * \see log4g/appender/rolling-file-appender.h,
-     *      log4g/helpers/quiet-writer.h, stdio(3)
+     * \see rolling-file-appender.h, quiet-writer.h, stdio(3)
      */
     void
     (*set_qw_for_files)(Log4gAppender *base, FILE *file);
