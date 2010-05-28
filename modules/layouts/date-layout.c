@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "date-layout.h"
+#include "layout/date-layout.h"
 #include <stdlib.h>
 
 enum _properties_t {

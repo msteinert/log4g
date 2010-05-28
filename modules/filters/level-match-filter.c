@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "level-match-filter.h"
+#include "filter/level-match-filter.h"
 
 enum _properties_t {
     PROP_O = 0,

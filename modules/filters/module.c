@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief TODO
+ * \brief Register types for the Filters module
  * \author Mike Steinert
  * \date 5-26-2010
  */
@@ -24,11 +24,11 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "filter/deny-all-filter.h"
+#include "filter/level-range-filter.h"
+#include "filter/level-match-filter.h"
+#include "filter/string-match-filter.h"
 #include "log4g/module.h"
-#include "deny-all-filter.h"
-#include "level-range-filter.h"
-#include "level-match-filter.h"
-#include "string-match-filter.h"
 
 void
 log4g_module_load(GTypeModule *module)

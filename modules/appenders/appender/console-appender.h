@@ -40,7 +40,7 @@
 #ifndef LOG4G_CONSOLE_APPENDER_H
 #define LOG4G_CONSOLE_APPENDER_H
 
-#include "writer-appender.h"
+#include "appender/writer-appender.h"
 
 G_BEGIN_DECLS
 

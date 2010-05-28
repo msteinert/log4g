@@ -4,25 +4,25 @@
 module_LTLIBRARIES = \
     liblog4g-appenders.la
 liblog4g_appenders_la_SOURCES = \
+    appender/async-appender.h \
+    appender/console-appender.h \
+    appender/file-appender.h \
+    appender/null-appender.h \
+    appender/rolling-file-appender.h \
+    appender/syslog-appender.h \
+    appender/writer-appender.h \
     async-appender.c \
-    async-appender.h \
     console-appender.c \
-    console-appender.h \
     counting-quiet-writer.c \
-    counting-quiet-writer.h \
     file-appender.c \
-    file-appender.h \
+    helpers/counting-quiet-writer.h \
+    helpers/quiet-writer.h \
     module.c \
     null-appender.c \
-    null-appender.h \
     quiet-writer.c \
-    quiet-writer.h \
     rolling-file-appender.c \
-    rolling-file-appender.h \
     syslog-appender.c \
-    syslog-appender.h \
-    writer-appender.c \
-    writer-appender.h
+    writer-appender.c
 liblog4g_appenders_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
     -I$(top_srcdir) \

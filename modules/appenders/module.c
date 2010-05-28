@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief Register type for the appenders module
+ * \brief Register type for the Appenders module
  * \author Mike Steinert
  * \date 5-26-2010
  */
@@ -24,16 +24,16 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/module.h"
-#include "async-appender.h"
-#include "console-appender.h"
-#include "counting-quiet-writer.h"
-#include "file-appender.h"
-#include "null-appender.h"
-#include "quiet-writer.h"
-#include "rolling-file-appender.h"
-#include "syslog-appender.h"
-#include "writer-appender.h"
+#include "appender/async-appender.h"
+#include "appender/console-appender.h"
+#include "appender/file-appender.h"
+#include "appender/null-appender.h"
+#include "appender/rolling-file-appender.h"
+#include "appender/syslog-appender.h"
+#include "appender/writer-appender.h"
+#include "helpers/counting-quiet-writer.h"
+#include "helpers/quiet-writer.h"
+#include <log4g/module.h>
 
 void
 log4g_module_load(GTypeModule *module)

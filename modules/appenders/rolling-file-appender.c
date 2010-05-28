@@ -24,10 +24,10 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "counting-quiet-writer.h"
+#include "appender/rolling-file-appender.h"
 #include <errno.h>
 #include <glib/gstdio.h>
-#include "rolling-file-appender.h"
+#include "helpers/counting-quiet-writer.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>

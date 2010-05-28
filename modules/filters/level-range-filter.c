@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "level-range-filter.h"
+#include "filter/level-range-filter.h"
 
 enum _properties_t {
     PROP_O = 0,

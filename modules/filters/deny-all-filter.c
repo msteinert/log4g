@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "deny-all-filter.h"
+#include "filter/deny-all-filter.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter,
         LOG4G_TYPE_FILTER)

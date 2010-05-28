@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "xml-layout.h"
+#include "layout/xml-layout.h"
 #include <time.h>
 
 enum _properties_t {

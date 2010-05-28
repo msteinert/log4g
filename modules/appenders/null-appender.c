@@ -26,7 +26,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "null-appender.h"
+#include "appender/null-appender.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
         LOG4G_TYPE_APPENDER)

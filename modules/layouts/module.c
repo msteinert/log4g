@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief TODO
+ * \brief Register types for the Layouts module
  * \author Mike Steinert
  * \date 5-26-2010
  */
@@ -24,15 +24,15 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "helpers/pattern-converter.h"
+#include "helpers/pattern-parser.h"
+#include "layout/date-layout.h"
+#include "layout/html-layout.h"
+#include "layout/pattern-layout.h"
+#include "layout/simple-layout.h"
+#include "layout/ttcc-layout.h"
+#include "layout/xml-layout.h"
 #include "log4g/module.h"
-#include "date-layout.h"
-#include "html-layout.h"
-#include "pattern-converter.h"
-#include "pattern-layout.h"
-#include "pattern-parser.h"
-#include "simple-layout.h"
-#include "ttcc-layout.h"
-#include "xml-layout.h"
 
 void
 log4g_module_load(GTypeModule *module)

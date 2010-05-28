@@ -35,8 +35,8 @@
 #ifndef LOG4G_WRITER_APPENDER_H
 #define LOG4G_WRITER_APPENDER_H
 
+#include "helpers/quiet-writer.h"
 #include <log4g/appender.h>
-#include "quiet-writer.h"
 
 G_BEGIN_DECLS
 

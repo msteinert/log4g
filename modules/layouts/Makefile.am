@@ -5,22 +5,22 @@ module_LTLIBRARIES = \
     liblog4g-layouts.la
 liblog4g_layouts_la_SOURCES = \
     date-layout.c \
-    date-layout.h \
     html-layout.c \
-    html-layout.h \
+    layout/date-layout.h \
+    layout/html-layout.h \
+    layout/simple-layout.h \
+    layout/ttcc-layout.h \
+    layout/xml-layout.h \
     module.c \
     pattern-converter.c \
-    pattern-converter.h \
     pattern-layout.c \
-    pattern-layout.h \
+    helpers/pattern-converter.h \
+    helpers/pattern-parser.h \
+    layout/pattern-layout.h \
     pattern-parser.c \
-    pattern-parser.h \
     simple-layout.c \
-    simple-layout.h \
     ttcc-layout.c \
-    ttcc-layout.h \
-    xml-layout.c \
-    xml-layout.h
+    xml-layout.c
 liblog4g_layouts_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
     -I$(top_srcdir) \

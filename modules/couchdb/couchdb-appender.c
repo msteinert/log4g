@@ -28,8 +28,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "couchdb-appender.h"
-#include "couchdb-layout.h"
+#include "appender/couchdb-appender.h"
+#include "layout/couchdb-layout.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gCouchdbAppender, log4g_couchdb_appender,
         LOG4G_TYPE_APPENDER)

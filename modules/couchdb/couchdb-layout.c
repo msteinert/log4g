@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <couchdb-document.h>
-#include "couchdb-layout.h"
+#include "layout/couchdb-layout.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gCouchdbLayout, log4g_couchdb_layout,
         LOG4G_TYPE_LAYOUT)

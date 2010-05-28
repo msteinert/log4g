@@ -4,10 +4,10 @@
 module_LTLIBRARIES = \
     liblog4g-couchdb.la
 liblog4g_couchdb_la_SOURCES = \
+    appender/couchdb-appender.h \
     couchdb-appender.c \
-    couchdb-appender.h \
     couchdb-layout.c \
-    couchdb-layout.h \
+    layout/couchdb-layout.h \
     module.c
 liblog4g_couchdb_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \

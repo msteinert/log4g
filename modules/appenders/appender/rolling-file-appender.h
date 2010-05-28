@@ -39,7 +39,7 @@
 #ifndef LOG4G_ROLLING_FILE_APPENDER_H
 #define LOG4G_ROLLING_FILE_APPENDER_H
 
-#include "file-appender.h"
+#include "appender/file-appender.h"
 
 G_BEGIN_DECLS
 

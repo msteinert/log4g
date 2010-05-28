@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "syslog-appender.h"
+#include "appender/syslog-appender.h"
 #include <syslog.h>
 
 enum _properties_t {

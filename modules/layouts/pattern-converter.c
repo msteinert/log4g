@@ -25,7 +25,7 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "pattern-converter.h"
+#include "helpers/pattern-converter.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gPatternConverter, log4g_pattern_converter,
         G_TYPE_OBJECT)

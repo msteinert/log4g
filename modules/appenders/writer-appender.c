@@ -24,8 +24,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "appender/writer-appender.h"
 #include "log4g/interface/error-handler.h"
-#include "writer-appender.h"
 
 enum _properties_t {
     PROP_O = 0,

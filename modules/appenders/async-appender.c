@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "async-appender.h"
+#include "appender/async-appender.h"
 #include "log4g/helpers/appender-attachable-impl.h"
 #include "log4g/interface/error-handler.h"
 #include <string.h>

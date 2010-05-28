@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "console-appender.h"
+#include "appender/console-appender.h"
 #include <unistd.h>
 
 enum _properties_t {

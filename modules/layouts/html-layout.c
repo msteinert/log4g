@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "html-layout.h"
+#include "layout/html-layout.h"
 #include <time.h>
 
 /** \brief The default HTML document title */

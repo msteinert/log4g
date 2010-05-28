@@ -16,7 +16,7 @@
  */
 
 /**
- * \brief TODO
+ * \brief Register types for the CouchDB module
  * \author Mike Steinert
  * \date 5-25-2010
  */
@@ -24,8 +24,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "couchdb-appender.h"
-#include "couchdb-layout.h"
+#include "appender/couchdb-appender.h"
+#include "layout/couchdb-layout.h"
 #include <log4g/module.h>
 
 void

@@ -31,7 +31,7 @@
 #ifndef LOG4G_PATTERN_PARSER_H
 #define LOG4G_PATTERN_PARSER_H
 
-#include "pattern-converter.h"
+#include "helpers/pattern-converter.h"
 
 G_BEGIN_DECLS
 

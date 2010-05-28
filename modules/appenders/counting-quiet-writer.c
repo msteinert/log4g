@@ -25,8 +25,8 @@
 #include "config.h"
 #endif
 #include <errno.h>
-#include "counting-quiet-writer.h"
 #include "log4g/interface/error-handler.h"
+#include "helpers/counting-quiet-writer.h"
 #include <string.h>
 
 G_DEFINE_DYNAMIC_TYPE(Log4gCountingQuietWriter, log4g_counting_quiet_writer,

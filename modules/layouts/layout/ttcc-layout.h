@@ -57,7 +57,7 @@
 #ifndef LOG4G_TTCC_LAYOUT_H
 #define LOG4G_TTCC_LAYOUT_H
 
-#include "date-layout.h"
+#include "layout/date-layout.h"
 
 G_BEGIN_DECLS
 

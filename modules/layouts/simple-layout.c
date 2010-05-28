@@ -24,7 +24,7 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "simple-layout.h"
+#include "layout/simple-layout.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gSimpleLayout, log4g_simple_layout,
         LOG4G_TYPE_LAYOUT)
