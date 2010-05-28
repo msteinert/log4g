@@ -27,7 +27,7 @@
 #ifndef LOG4G_NULL_APPENDER_H
 #define LOG4G_NULL_APPENDER_H
 
-#include <log4g/appender/appender-skeleton.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 
@@ -60,12 +60,12 @@ typedef struct _Log4gNullAppenderClass Log4gNullAppenderClass;
 
 /** \brief Log4gNullAppenderClass definition */
 struct _Log4gNullAppender {
-    Log4gAppenderSkeleton parent_instance;
+    Log4gAppender parent_instance;
 };
 
 /** \brief Log4gNullAppenderClass definition */
 struct _Log4gNullAppenderClass {
-    Log4gAppenderSkeletonClass parent_class;
+    Log4gAppenderClass parent_class;
 };
 
 GType

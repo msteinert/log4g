@@ -27,17 +27,16 @@
 #ifndef LOG4G_BASIC_CONFIGURATOR_H
 #define LOG4G_BASIC_CONFIGURATOR_H
 
-#include <log4g/interface/appender.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 
 /**
  * \brief Quickly configure Log4g.
  *
- * This function adds a
- * \ref log4g/appender/console-appender.h "console appender" to the
- * \ref log4g/root-logger.h "root logger" that uses the
- * \ref log4g/layout/ttcc-layout.h "TTCC layout" and prints to \e stdout.
+ * This function adds a console appender to the
+ * \ref log4g/root-logger.h "root logger" that uses the TTCC layout and
+ * prints to \e stdout.
  */
 void
 log4g_basic_configurator_configure(void);

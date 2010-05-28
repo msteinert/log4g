@@ -33,6 +33,9 @@ enum _properties_t {
     PROP_MAX
 };
 
+G_DEFINE_DYNAMIC_TYPE(Log4gWriterAppender, log4g_writer_appender,
+        LOG4G_TYPE_APPENDER)
+
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_WRITER_APPENDER, \
             struct Log4gPrivate))
@@ -42,36 +45,6 @@ struct Log4gPrivate {
     Log4gQuietWriter *writer;
     GMutex *lock;
 };
-
-static void
-_close(Log4gAppender *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (!log4g_appender_skeleton_get_closed(base)) {
-        g_mutex_lock(priv->lock);
-        log4g_appender_skeleton_set_closed(base, TRUE);
-        log4g_writer_appender_write_footer(base);
-        log4g_writer_appender_reset(base);
-        g_mutex_unlock(priv->lock);
-    }
-}
-
-static gboolean
-requires_layout(Log4gAppender *self)
-{
-    return TRUE;
-}
-
-static void
-appender_init(Log4gAppenderInterface *interface)
-{
-    interface->close = _close;
-    interface->requires_layout = requires_layout;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gWriterAppender, log4g_writer_appender,
-        LOG4G_TYPE_APPENDER_SKELETON, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
 static void
 log4g_writer_appender_init(Log4gWriterAppender *self)
@@ -132,6 +105,25 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     log4g_writer_appender_sub_append(base, event);
 }
 
+static void
+_close(Log4gAppender *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (!log4g_appender_get_closed(base)) {
+        g_mutex_lock(priv->lock);
+        log4g_appender_set_closed(base, TRUE);
+        log4g_writer_appender_write_footer(base);
+        log4g_writer_appender_reset(base);
+        g_mutex_unlock(priv->lock);
+    }
+}
+
+static gboolean
+requires_layout(Log4gAppender *self)
+{
+    return TRUE;
+}
+
 void
 sub_append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
@@ -167,18 +159,19 @@ reset(Log4gAppender *base)
 static void
 log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
 {
+    /* initialize GObjectClass */
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gAppenderSkeletonClass *skeleton_class =
-            LOG4G_APPENDER_SKELETON_CLASS(klass);
-    /* initialize GObject */
     gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gAppenderSkeleton */
-    skeleton_class->append = append;
-    /* initialize Log4gWriterAppender */
+    /* initialize Log4gAppenderClass */
+    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+    appender_class->append = append;
+    appender_class->close = _close;
+    appender_class->requires_layout = requires_layout;
+    /* initialize Log4gWriterAppenderClass */
     klass->sub_append = sub_append;
     klass->close_writer = close_writer;
     klass->reset = reset;
@@ -205,7 +198,7 @@ gboolean
 log4g_writer_appender_check_entry_conditions(Log4gAppender *base)
 {
     g_return_val_if_fail(LOG4G_IS_WRITER_APPENDER(base), FALSE);
-    if (log4g_appender_skeleton_get_closed(base)) {
+    if (log4g_appender_get_closed(base)) {
         log4g_log_warn(Q_("not allowed to write to a closed appender"));
         return FALSE;
     }

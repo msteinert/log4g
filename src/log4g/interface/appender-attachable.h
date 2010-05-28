@@ -24,13 +24,13 @@
  * This interface defines a standard API for attaching appenders to other
  * objects (e.g. loggers, other appenders).
  *
- * \see log4g/interface/appender.h
+ * \see log4g/appender.h
  */
 
 #ifndef LOG4G_APPENDER_ATTACHABLE_H
 #define LOG4G_APPENDER_ATTACHABLE_H
 
-#include <log4g/interface/appender.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 

@@ -77,8 +77,7 @@
  * \section description Description
  *
  * The core components of Log4g are \ref log4g/logger.h "loggers",
- * \ref log4g/interface/appender.h "appenders" and
- * \ref log4g/layout.h "layouts".
+ * \ref log4g/appender.h "appenders" and \ref log4g/layout.h "layouts".
  *
  * Log4g elements (i.e. appenders, layouts and filters) are configured via
  * <a href="http://library.gnome.org/devel/gobject/stable/gobject-properties.html">GObject properties</a>.
@@ -101,7 +100,7 @@
  *
  * \subsection appenders Appenders
  *
- * \ref log4g/interface/appender.h "Appenders" determine how events are logged.
+ * \ref log4g/appender.h "Appenders" determine how events are logged.
  *
  * Log4g ships with the following appenders:
  *
@@ -203,7 +202,7 @@
 
 #include <log4g/error.h>
 #include <log4g/filter.h>
-#include <log4g/interface/appender.h>
+#include <log4g/appender.h>
 #include <log4g/level.h>
 #include <log4g/logger.h>
 #include <log4g/logging-event.h>

@@ -49,7 +49,7 @@
 #ifndef LOG4G_ASYNC_APPENDER_H
 #define LOG4G_ASYNC_APPENDER_H
 
-#include <log4g/appender/appender-skeleton.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 
@@ -82,12 +82,12 @@ typedef struct _Log4gAsyncAppenderClass Log4gAsyncAppenderClass;
 
 /** \brief Log4gAsyncAppenderClass definition */
 struct _Log4gAsyncAppender {
-    Log4gAppenderSkeleton parent_instance;
+    Log4gAppender parent_instance;
 };
 
 /** \brief Log4gAsyncAppenderClass definition */
 struct _Log4gAsyncAppenderClass {
-    Log4gAppenderSkeletonClass parent_class;
+    Log4gAppenderClass parent_class;
 };
 
 GType

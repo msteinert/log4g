@@ -45,7 +45,7 @@
 #ifndef LOG4G_SYSLOG_APPENDER_H
 #define LOG4G_SYSLOG_APPENDER_H
 
-#include <log4g/appender/appender-skeleton.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 
@@ -78,12 +78,12 @@ typedef struct _Log4gSyslogAppenderClass Log4gSyslogAppenderClass;
 
 /** \brief Log4gSyslogAppenderClass definition */
 struct _Log4gSyslogAppender {
-    Log4gAppenderSkeleton parent_instance; /**< parent instance */
+    Log4gAppender parent_instance; /**< parent instance */
 };
 
 /** \brief Log4gSyslogAppenderClass definition */
 struct _Log4gSyslogAppenderClass {
-    Log4gAppenderSkeletonClass parent_class; /**< parent class */
+    Log4gAppenderClass parent_class; /**< parent class */
 };
 
 GType

@@ -30,8 +30,6 @@
  * is set.
  *
  * Appender, filters and layouts all implement this interface.
- *
- * \see log4g/interface/appender.h, log4g/filter.h, log4g/layout.h
  */
 
 #ifndef LOG4G_OPTION_HANDLER_H

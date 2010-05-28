@@ -28,7 +28,7 @@
 #ifndef LOG4G_LOGGER_H
 #define LOG4G_LOGGER_H
 
-#include <log4g/interface/appender.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 

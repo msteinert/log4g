@@ -147,32 +147,6 @@ struct Log4gPrivate {
 };
 
 static void
-_close(Log4gAppender *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (!log4g_appender_skeleton_get_closed(base)) {
-        log4g_appender_skeleton_set_closed(base, TRUE);
-        if (priv->pool) {
-            g_thread_pool_free(priv->pool, FALSE, TRUE);
-            priv->pool = NULL;
-        }
-    }
-}
-
-static gboolean
-requires_layout(Log4gAppender *self)
-{
-    return FALSE;
-}
-
-static void
-appender_init(Log4gAppenderInterface *interface)
-{
-    interface->close = _close;
-    interface->requires_layout = requires_layout;
-}
-
-static void
 appender_attachable_init(Log4gAppenderAttachableInterface *interface)
 {
     interface->add_appender = (gconstpointer)log4g_async_appender_add_appender;
@@ -189,8 +163,7 @@ appender_attachable_init(Log4gAppenderAttachableInterface *interface)
 }
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gAsyncAppender, log4g_async_appender,
-        LOG4G_TYPE_APPENDER_SKELETON, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init)
+        LOG4G_TYPE_APPENDER, 0,
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER_ATTACHABLE,
                 appender_attachable_init))
 
@@ -370,19 +343,39 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 }
 
 static void
+_close(Log4gAppender *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (!log4g_appender_get_closed(base)) {
+        log4g_appender_set_closed(base, TRUE);
+        if (priv->pool) {
+            g_thread_pool_free(priv->pool, FALSE, TRUE);
+            priv->pool = NULL;
+        }
+    }
+}
+
+static gboolean
+requires_layout(Log4gAppender *self)
+{
+    return FALSE;
+}
+
+static void
 log4g_async_appender_class_init(Log4gAsyncAppenderClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gAppenderSkeletonClass *skeleton_class =
-        LOG4G_APPENDER_SKELETON_CLASS(klass);
-    /* initialize GObject */
+    /* initialize GObjectClass */
     gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gAppenderSkeleton */
-    skeleton_class->append = append;
+    /* initialize Log4gAppenderClass */
+    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+    appender_class->append = append;
+    appender_class->close = _close;
+    appender_class->requires_layout = requires_layout;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_BLOCKING,
             g_param_spec_boolean("blocking", Q_("Blocking"),

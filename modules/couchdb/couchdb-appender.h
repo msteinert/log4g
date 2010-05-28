@@ -46,7 +46,7 @@
 #define LOG4G_COUCHDB_APPENDER_H
 
 #include <couchdb-glib.h>
-#include <log4g/appender/appender-skeleton.h>
+#include <log4g/appender.h>
 
 G_BEGIN_DECLS
 
@@ -79,12 +79,12 @@ typedef struct _Log4gCouchdbAppenderClass Log4gCouchdbAppenderClass;
 
 /** \brief Log4gCouchdbAppenderClass definition */
 struct _Log4gCouchdbAppender {
-    Log4gAppenderSkeleton parent_instance;
+    Log4gAppender parent_instance;
 };
 
 /** \brief Log4gCouchdbAppenderClass definition */
 struct _Log4gCouchdbAppenderClass {
-    Log4gAppenderSkeletonClass parent_class;
+    Log4gAppenderClass parent_class;
 };
 
 GType

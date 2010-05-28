@@ -18,62 +18,294 @@
 /**
  * \brief Implements the API in log4g/appender.h
  * \author Mike Steinert
- * \date 1-29-2010
+ * \date 2-8-2010
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-#include "log4g/interface/appender.h"
-#include "log4g/interface/error-handler.h"
-#include "log4g/interface/option-handler.h"
+#include "log4g/appender.h"
+#include "log4g/helpers/only-once-error-handler.h"
 
-G_DEFINE_INTERFACE(Log4gAppender, log4g_appender, LOG4G_TYPE_OPTION_HANDLER)
+enum _properties_t {
+    PROP_O = 0,
+    PROP_THRESHOLD,
+    PROP_MAX
+};
+
+G_DEFINE_TYPE_EXTENDED(Log4gAppender, log4g_appender, G_TYPE_OBJECT,
+        G_TYPE_FLAG_ABSTRACT, {})
+
+#define GET_PRIVATE(instance) \
+    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_APPENDER, \
+            struct Log4gPrivate))
+
+struct Log4gPrivate {
+    Log4gLayout *layout;
+    gchar *name;
+    Log4gLevel *threshold;
+    gpointer error;
+    Log4gFilter *head;
+    Log4gFilter *tail;
+    gboolean closed;
+    GMutex *lock;
+};
 
 static void
-log4g_appender_default_init(Log4gAppenderInterface *klass)
+log4g_appender_init(Log4gAppender *self)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    priv->layout = NULL;
+    priv->name = NULL;
+    priv->threshold = NULL;
+    priv->error = log4g_only_once_error_handler_new();
+    priv->head = NULL;
+    priv->tail = NULL;
+    priv->closed = FALSE;
+    if (g_thread_supported()) {
+        priv->lock = g_mutex_new();
+    } else {
+        priv->lock = NULL;
+    }
+}
+
+static void
+dispose(GObject *self)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    if (priv->layout) {
+        g_object_unref(priv->layout);
+        priv->layout = NULL;
+    }
+    if (priv->threshold) {
+        g_object_unref(priv->name);
+        priv->threshold = NULL;
+    }
+    if (priv->error) {
+        g_object_unref(priv->error);
+        priv->error = NULL;
+    }
+    if (priv->head) {
+        g_object_unref(priv->head);
+        priv->head = priv->tail = NULL;
+    }
+    G_OBJECT_CLASS(log4g_appender_parent_class)->dispose(self);
+}
+
+static void
+finalize(GObject *self)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    g_free(priv->name);
+    priv->name = NULL;
+    if (priv->lock) {
+        g_mutex_free(priv->lock);
+        priv->lock = NULL;
+    }
+    G_OBJECT_CLASS(log4g_appender_parent_class)->finalize(self);
+}
+
+static void
+set_property(GObject *self, guint id, const GValue *value, GParamSpec *pspec)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    switch (id) {
+    case PROP_THRESHOLD:
+        if (priv->threshold) {
+            g_object_unref(priv->threshold);
+        }
+        const gchar *threshold = g_value_get_string(value);
+        if (threshold) {
+            priv->threshold = log4g_level_string_to_level(threshold);
+            if (priv->threshold) {
+                g_object_ref(priv->threshold);
+            }
+        } else {
+            priv->threshold = NULL;
+        }
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(self, id, pspec);
+        break;
+    }
+}
+
+static void
+add_filter(Log4gAppender *self, Log4gFilter *filter)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    if (!priv->head) {
+        g_object_ref(filter);
+        priv->head = priv->tail = filter;
+    } else {
+        log4g_filter_set_next(priv->tail, filter);
+        priv->tail = filter;
+    }
+}
+
+static Log4gFilter *
+get_filter(Log4gAppender *self)
+{
+    return GET_PRIVATE(self)->head;
+}
+
+static void
+do_append(Log4gAppender *self, Log4gLoggingEvent *event)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    g_mutex_lock(priv->lock);
+    if (priv->closed) {
+        log4g_log_error(Q_("attempted to append to closed appender named [%s]"),
+                priv->name);
+        goto exit;
+    }
+    Log4gLevel *level = log4g_logging_event_get_level(event);
+    if (!log4g_appender_is_as_severe_as(self, level)) {
+        goto exit;
+    }
+    if (priv->head) {
+        Log4gFilter *filter = priv->head;
+        while (filter) {
+            gint decision = log4g_filter_decide(filter, event);
+            if (LOG4G_FILTER_DENY == decision) {
+                goto exit;
+            } else if (LOG4G_FILTER_ACCEPT == decision) {
+                break;
+            } else if (LOG4G_FILTER_NEUTRAL == decision) {
+                filter = log4g_filter_get_next(filter);
+            }
+        }
+    }
+    log4g_appender_append(self, event);
+exit:
+    g_mutex_unlock(priv->lock);
+}
+
+static const gchar *
+get_name(Log4gAppender *self)
+{
+    return GET_PRIVATE(self)->name;
+}
+
+static void
+set_error_handler(Log4gAppender *self, gpointer error)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    g_mutex_lock(priv->lock);
+    if (G_UNLIKELY(!error)) {
+        log4g_log_warn(Q_("you have tried to set a NULL error-handler"));
+    } else {
+        if (priv->error) {
+            g_object_unref(priv->error);
+        }
+        g_object_ref(error);
+        priv->error = error;
+    }
+    g_mutex_unlock(priv->lock);
+}
+
+static gpointer
+get_error_handler(Log4gAppender *self)
+{
+    return GET_PRIVATE(self)->error;
+}
+
+static void
+set_layout(Log4gAppender *self, Log4gLayout *layout)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    if (priv->layout) {
+        g_object_unref(priv->layout);
+    }
+    if (layout) {
+        g_object_ref(layout);
+    }
+    priv->layout = layout;
+}
+
+static Log4gLayout *
+get_layout(Log4gAppender *self)
+{
+    return GET_PRIVATE(self)->layout;
+}
+
+static void
+set_name(Log4gAppender *self, const gchar *name)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    g_free(priv->name);
+    priv->name = g_strdup(name);
+}
+
+static void
+activate_options(Log4gAppender *self)
 {
     /* do nothing */
+}
+
+static void
+log4g_appender_class_init(Log4gAppenderClass *klass)
+{
+    /* initialize GObjectClass */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+    gobject_class->dispose = dispose;
+    gobject_class->finalize = finalize;
+    gobject_class->set_property = set_property;
+    /* initialize private data */
+    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+    /* initialize Log4gAppenderClass */
+    klass->add_filter = add_filter;
+    klass->get_filter = get_filter;
+    klass->close = NULL;
+    klass->do_append = do_append;
+    klass->get_name = get_name;
+    klass->set_error_handler = set_error_handler;
+    klass->get_error_handler = get_error_handler;
+    klass->set_layout = set_layout;
+    klass->get_layout = get_layout;
+    klass->set_name = set_name;
+    klass->requires_layout = NULL;
+    klass->activate_options = activate_options;
+    /* install properties */
+    g_object_class_install_property(gobject_class, PROP_THRESHOLD,
+            g_param_spec_string("threshold", Q_("Threshold"),
+                    Q_("Threshold for this appender"), NULL,
+                    G_PARAM_WRITABLE));
 }
 
 void
 log4g_appender_add_filter(Log4gAppender *self, Log4gFilter *filter)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->add_filter(self, filter);
+    LOG4G_APPENDER_GET_CLASS(self)->add_filter(self, filter);
 }
 
 Log4gFilter *
 log4g_appender_get_filter(Log4gAppender *self)
 {
     g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    return interface->get_filter(self);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_filter(self);
 }
 
 void
 log4g_appender_close(Log4gAppender *self)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->close(self);
+    LOG4G_APPENDER_GET_CLASS(self)->close(self);
 }
 
 void
 log4g_appender_do_append(Log4gAppender *self, Log4gLoggingEvent *event)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->do_append(self, event);
+    LOG4G_APPENDER_GET_CLASS(self)->do_append(self, event);
 }
 
 const gchar *
 log4g_appender_get_name(Log4gAppender *self)
 {
     g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    return interface->get_name(self);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_name(self);
 }
 
 void
@@ -81,55 +313,109 @@ log4g_appender_set_error_handler(Log4gAppender *self, gpointer handler)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(handler));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->set_error_handler(self, handler);
+    LOG4G_APPENDER_GET_CLASS(self)->set_error_handler(self, handler);
 }
 
 gpointer
 log4g_appender_get_error_handler(Log4gAppender *self)
 {
     g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    return interface->get_error_handler(self);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_error_handler(self);
 }
 
 void
 log4g_appender_set_layout(Log4gAppender *self, Log4gLayout *layout)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->set_layout(self, layout);
+    LOG4G_APPENDER_GET_CLASS(self)->set_layout(self, layout);
 }
 
 Log4gLayout *
 log4g_appender_get_layout(Log4gAppender *self)
 {
     g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    return interface->get_layout(self);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_layout(self);
 }
 
 void
 log4g_appender_set_name(Log4gAppender *self, const gchar *name)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    interface->set_name(self, name);
+    LOG4G_APPENDER_GET_CLASS(self)->set_name(self, name);
 }
 
 gboolean
 log4g_appender_requires_layout(Log4gAppender *self)
 {
     g_return_val_if_fail(LOG4G_IS_APPENDER(self), FALSE);
-    Log4gAppenderInterface *interface = LOG4G_APPENDER_GET_INTERFACE(self);
-    return interface->requires_layout(self);
+    return LOG4G_APPENDER_GET_CLASS(self)->requires_layout(self);
 }
 
 void
 log4g_appender_activate_options(Log4gAppender *self)
 {
     g_return_if_fail(LOG4G_IS_APPENDER(self));
-    Log4gOptionHandlerInterface *interface =
-        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
-    interface->activate_options(LOG4G_OPTION_HANDLER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->activate_options(self);
+}
+    
+void
+log4g_appender_append(Log4gAppender *self, Log4gLoggingEvent *event)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->append(self, event);
+}
+
+void
+log4g_appender_clear_filters(Log4gAppender *self)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    if (priv->head) {
+        g_object_unref(priv->head);
+        priv->head = priv->tail = NULL;
+    }
+}
+
+Log4gFilter *
+log4g_appender_get_first_filter(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return GET_PRIVATE(self)->head;
+}
+
+Log4gLevel *
+log4g_appender_get_threshold(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return GET_PRIVATE(self)->threshold;
+}
+
+gboolean
+log4g_appender_is_as_severe_as(Log4gAppender *self, Log4gLevel *level)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), FALSE);
+    struct Log4gPrivate *priv = GET_PRIVATE(self);
+    return ((priv->threshold == NULL)
+                || (log4g_level_is_greater_or_equal(level, priv->threshold)));
+}
+
+void
+log4g_appender_set_threshold(Log4gAppender *self, const gchar *threshold)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    g_object_set(self, "threshold", threshold, NULL);
+}
+
+gboolean
+log4g_appender_get_closed(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), TRUE);
+    return GET_PRIVATE(self)->closed;
+}
+
+void
+log4g_appender_set_closed(Log4gAppender *self, gboolean closed)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    GET_PRIVATE(self)->closed = closed;
 }

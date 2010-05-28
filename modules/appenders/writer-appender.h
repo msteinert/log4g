@@ -35,7 +35,7 @@
 #ifndef LOG4G_WRITER_APPENDER_H
 #define LOG4G_WRITER_APPENDER_H
 
-#include <log4g/appender/appender-skeleton.h>
+#include <log4g/appender.h>
 #include "quiet-writer.h"
 
 G_BEGIN_DECLS
@@ -69,12 +69,12 @@ typedef struct _Log4gWriterAppenderClass Log4gWriterAppenderClass;
 
 /** \brief Log4gWriterAppenderClass definition */
 struct _Log4gWriterAppender {
-    Log4gAppenderSkeleton parent_instance;
+    Log4gAppender parent_instance;
 };
 
 /** \brief Log4gWriterAppenderClass definition */
 struct _Log4gWriterAppenderClass {
-    Log4gAppenderSkeletonClass parent_class;
+    Log4gAppenderClass parent_class;
 
     /**
      * \brief Actual writing occurs here.

@@ -43,8 +43,8 @@
  * never rejected for being too low). If level-max is not defined then
  * there is no maximum level (a level is never rejected for being too high).
  *
- * Refer to log4g_appender_skeleton_set_threshold() for a more convenient way
- * to filter out log events by level.
+ * Refer to log4g_appender_set_threshold() for a more convenient way to filter
+ * out log events by level.
  *
  * \see log4g/level.h
  */

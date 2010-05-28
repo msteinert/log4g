@@ -48,47 +48,8 @@ struct Log4gPrivate {
     GMutex *lock;
 };
 
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_mutex_lock(priv->lock);
-    if (G_UNLIKELY(!priv->file)) {
-        log4g_log_warn(Q_("file option not set for appender [%s]"),
-                log4g_appender_get_name(LOG4G_APPENDER(base)));
-        log4g_log_warn(Q_("are you using FileAppender instead "
-                "of ConsoleAppender?"));
-        goto exit;
-    }
-    FILE *ostream = fopen(priv->file, (priv->append ? "a" : "w"));
-    if (!ostream) {
-        log4g_log_error("%s: %s", priv->file, g_strerror(errno));
-        goto exit;
-    }
-    if (priv->buffered) {
-        if (setvbuf(ostream, NULL, _IOFBF, priv->size)) {
-            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
-        }
-    } else {
-        if (setvbuf(ostream, NULL, _IONBF, 0)) {
-            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
-        }
-    }
-    log4g_file_appender_set_qw_for_files(LOG4G_APPENDER(base), ostream);
-    log4g_writer_appender_write_header(LOG4G_APPENDER(base));
-exit:
-    g_mutex_unlock(priv->lock);
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
-{
-    interface->activate_options = activate_options;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gFileAppender, log4g_file_appender,
-        LOG4G_TYPE_WRITER_APPENDER, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init))
+G_DEFINE_DYNAMIC_TYPE(Log4gFileAppender, log4g_file_appender,
+        LOG4G_TYPE_WRITER_APPENDER)
 
 static void
 log4g_file_appender_init(Log4gFileAppender *self)
@@ -198,19 +159,54 @@ reset(Log4gAppender *base)
 }
 
 static void
+activate_options(Log4gAppender *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    g_mutex_lock(priv->lock);
+    if (G_UNLIKELY(!priv->file)) {
+        log4g_log_warn(Q_("file option not set for appender [%s]"),
+                log4g_appender_get_name(LOG4G_APPENDER(base)));
+        log4g_log_warn(Q_("are you using FileAppender instead "
+                "of ConsoleAppender?"));
+        goto exit;
+    }
+    FILE *ostream = fopen(priv->file, (priv->append ? "a" : "w"));
+    if (!ostream) {
+        log4g_log_error("%s: %s", priv->file, g_strerror(errno));
+        goto exit;
+    }
+    if (priv->buffered) {
+        if (setvbuf(ostream, NULL, _IOFBF, priv->size)) {
+            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
+        }
+    } else {
+        if (setvbuf(ostream, NULL, _IONBF, 0)) {
+            log4g_log_error("%s: %s", priv->file, g_strerror(errno));
+        }
+    }
+    log4g_file_appender_set_qw_for_files(LOG4G_APPENDER(base), ostream);
+    log4g_writer_appender_write_header(LOG4G_APPENDER(base));
+exit:
+    g_mutex_unlock(priv->lock);
+}
+
+static void
 log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 {
+    /* initialize GObjectClass */
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gWriterAppenderClass *writer_class =
-        LOG4G_WRITER_APPENDER_CLASS(klass);
-    /* initialize GObject */
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gWriterAppender */
+    /* initialize Log4gAppenderClass */
+    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+    appender_class->activate_options = activate_options;
+    /* initialize Log4gWriterAppenderClass */
+    Log4gWriterAppenderClass *writer_class =
+        LOG4G_WRITER_APPENDER_CLASS(klass);
     writer_class->reset = reset;
-    /* initialize Log4gFileAppender */
+    /* initialize Log4gFileAppenderClass */
     klass->set_file_full = set_file_full;
     klass->set_qw_for_files = set_qw_for_files;
     /* install properties */

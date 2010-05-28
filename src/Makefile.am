@@ -23,7 +23,6 @@ liblog4g_la_SOURCES = \
     appender.c \
     appender-attachable.c \
     appender-attachable-impl.c \
-    appender-skeleton.c \
     basic-configurator.c \
     configurator.c \
     default-logger-factory.c \
@@ -61,10 +60,12 @@ liblog4g_la_LDFLAGS = \
 # install development headers
 pkgincludedir = $(includedir)/log4g
 pkginclude_HEADERS = \
+    log4g/appender.h \
     log4g/basic-configurator.h \
     log4g/disable.h \
     log4g/dom-configurator.h \
     log4g/error.h \
+    log4g/filter.h \
     log4g/hierarchy.h \
     log4g/layout.h \
     log4g/level.h \
@@ -76,12 +77,6 @@ pkginclude_HEADERS = \
     log4g/ndc.h \
     log4g/provision-node.h \
     log4g/root-logger.h
-appenderincludedir = $(includedir)/log4g/appender
-appenderinclude_HEADERS = \
-    log4g/appender/appender-skeleton.h
-filterincludedir = $(includedir)/log4g/filter
-filterinclude_HEADERS = \
-    log4g/filter.h
 helperincludedir = $(includedir)/log4g/helpers
 helperinclude_HEADERS = \
     log4g/helpers/appender-attachable-impl.h \
@@ -92,7 +87,6 @@ helperinclude_HEADERS = \
     log4g/helpers/thread.h
 interfaceincludedir = $(includedir)/log4g/interface
 interfaceinclude_HEADERS = \
-    log4g/interface/appender.h \
     log4g/interface/appender-attachable.h \
     log4g/interface/configurator.h \
     log4g/interface/error-handler.h \

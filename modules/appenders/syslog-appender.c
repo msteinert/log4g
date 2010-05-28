@@ -35,6 +35,9 @@ enum _properties_t {
     PROP_MAX
 };
 
+G_DEFINE_DYNAMIC_TYPE(Log4gSyslogAppender, log4g_syslog_appender,
+        LOG4G_TYPE_APPENDER)
+
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_SYSLOG_APPENDER, \
             struct Log4gPrivate))
@@ -44,46 +47,6 @@ struct Log4gPrivate {
     gint option;
     gint facility;
 };
-
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    openlog(priv->ident, priv->option, priv->facility);
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
-{
-    interface->activate_options = activate_options;
-}
-
-static void
-_close(Log4gAppender *base)
-{
-    if (!log4g_appender_skeleton_get_closed(base)) {
-        log4g_appender_skeleton_set_closed(base, TRUE);
-        closelog();
-    }
-}
-
-static gboolean
-requires_layout(Log4gAppender *self)
-{
-    return TRUE;
-}
-
-static void
-appender_init(Log4gAppenderInterface *interface)
-{
-    interface->close = _close;
-    interface->requires_layout = requires_layout;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gSyslogAppender, log4g_syslog_appender,
-        LOG4G_TYPE_APPENDER_SKELETON, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
 
 static void
 log4g_syslog_appender_init(Log4gSyslogAppender *self)
@@ -139,18 +102,42 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 }
 
 static void
+_close(Log4gAppender *base)
+{
+    if (!log4g_appender_get_closed(base)) {
+        log4g_appender_set_closed(base, TRUE);
+        closelog();
+    }
+}
+
+static gboolean
+requires_layout(Log4gAppender *self)
+{
+    return TRUE;
+}
+
+static void
+activate_options(Log4gAppender *base)
+{
+    struct Log4gPrivate *priv = GET_PRIVATE(base);
+    openlog(priv->ident, priv->option, priv->facility);
+}
+
+static void
 log4g_syslog_appender_class_init(Log4gSyslogAppenderClass *klass)
 {
+    /* initialize GObjectClass */
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    Log4gAppenderSkeletonClass *skeleton_class =
-            LOG4G_APPENDER_SKELETON_CLASS(klass);
-    /* initialize GObject */
     gobject_class->finalize = finalize;
     gobject_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gAppenderSkeleton */
-    skeleton_class->append = append;
+    /* initialize Log4gAppenderAppenderClass */
+    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+    appender_class->append = append;
+    appender_class->close = _close;
+    appender_class->requires_layout = requires_layout;
+    appender_class->activate_options = activate_options;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_IDENT,
             g_param_spec_string("ident", Q_("Ident"),

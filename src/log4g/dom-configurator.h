@@ -38,8 +38,8 @@
  * <!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
  *     "http://www.gnome.org/log4g/1.0/log4g.dtd">
  * <log4g:configuration>
- *     <appender name="A1" type="log4g_console_appender">
- *         <layout type="log4g_pattern_layout">
+ *     <appender name="A1" type="Log4gConsoleAppender">
+ *         <layout type="Log4gPatternLayout">
  *             <property name="conversion-pattern"
  *                       value="%-4r [%t] %-5p %c %x - %m%n" />
  *         </layout>
@@ -51,10 +51,8 @@
  * </log4g:configuration>
  * \endcode
  *
- * In this example all events will be logged to the
- * \ref log4g/appender/console-appender.h "console appender" (stdout by
- * default) using the specified 
- * \ref log4g/layout/pattern-layout.h "pattern layout".
+ * In this example all events will be logged to the console appender (stdout by
+ * default) using the specified pattern layout.
  *
  * You may enable internal log messages by setting the \e LOG4G_FLAGS
  * environment variable to \e "debug". For example (Bash):

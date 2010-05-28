@@ -26,35 +26,8 @@
 #endif
 #include "null-appender.h"
 
-static void
-_close(Log4gAppender *base)
-{
-    /* do nothing */
-}
-
-static void
-do_append(Log4gAppender *base, Log4gLoggingEvent *event)
-{
-    /* do nothing */
-}
-
-static gboolean
-requires_layout(Log4gAppender *self)
-{
-    return FALSE;
-}
-
-static void
-appender_init(Log4gAppenderInterface *interface)
-{
-    interface->close = _close;
-    interface->do_append = do_append;
-    interface->requires_layout = requires_layout;
-}
-
-G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gNullAppender, log4g_null_appender,
-        LOG4G_TYPE_APPENDER_SKELETON, 0,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_APPENDER, appender_init))
+G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
+        LOG4G_TYPE_APPENDER)
 
 static void
 log4g_null_appender_init(Log4gNullAppender *self)
@@ -69,12 +42,32 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 }
 
 static void
+do_append(Log4gAppender *base, Log4gLoggingEvent *event)
+{
+    /* do nothing */
+}
+
+static void
+_close(Log4gAppender *base)
+{
+    /* do nothing */
+}
+
+static gboolean
+requires_layout(Log4gAppender *self)
+{
+    return FALSE;
+}
+
+static void
 log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 {
-    /* initialize Log4gAppenderSkeleton */
-    Log4gAppenderSkeletonClass *skeleton_class =
-        LOG4G_APPENDER_SKELETON_CLASS(klass);
-    skeleton_class->append = append;
+    /* initialize Log4gAppenderClass */
+    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+    appender_class->append = append;
+    appender_class->do_append = do_append;
+    appender_class->requires_layout = requires_layout;
+    appender_class->close = _close;
 }
 
 static void
