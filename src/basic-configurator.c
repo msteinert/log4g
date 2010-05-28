@@ -19,37 +19,49 @@
  * \brief Implements the API in log4g/basic-configurator.h
  * \author Mike Steinert
  * \date 2-22-2010
- *
- * TODO FIXME
  */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include "log4g/appender.h"
 #include "log4g/basic-configurator.h"
-/*
-#include "log4g/appender/console-appender.h"
-#include "log4g/layout/ttcc-layout.h"
-*/
+#include "log4g/layout.h"
 #include "log4g/log-manager.h"
 
 void
 log4g_basic_configurator_configure(void)
 {
+    Log4gLayout *layout = NULL;
+    Log4gAppender *appender = NULL;
     Log4gLogger *root = log4g_logger_get_root_logger();
     if (!root) {
+        log4g_log_error(Q_("log4g_logger_get_root_logger() returned NULL"));
         return;
     }
-    /* TODO FIXME update this code to use dynamic types */
-    /*
-    Log4gLayout *layout = log4g_ttcc_layout_new(NULL);
+    GType type = g_type_from_name("Log4gTTCCLayout");
+    if (!type) {
+        log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
+        return;
+    }
+    layout = g_object_new(type, NULL);
     if (!layout) {
+        log4g_log_error(Q_("g_object_new() returned NULL"));
         return;
     }
-    Log4gAppender *appender = log4g_console_appender_new(layout, NULL);
-    if (!appender) {
+    log4g_layout_activate_options(layout);
+    type = g_type_from_name("Log4gConsoleAppender");
+    if (!type) {
+        log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
         goto exit;
     }
+    layout = g_object_new(type, NULL);
+    if (!layout) {
+        log4g_log_error(Q_("g_object_new() returned NULL"));
+        goto exit;
+    }
+    log4g_appender_set_layout(appender, layout);
+    log4g_appender_activate_options(appender);
     log4g_logger_add_appender(root, appender);
 exit:
     if (layout) {
@@ -58,7 +70,6 @@ exit:
     if (appender) {
         g_object_unref(appender);
     }
-    */
 }
 
 void

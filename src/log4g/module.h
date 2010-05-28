@@ -17,11 +17,12 @@
 
 /**
  * \file
- * \brief Implements the API in log4g/module.h
+ * \brief Loadable appender, filter & layout modules
  * \author Mike Steinert
  * \date 5-25-2010
  *
- * TODO
+ * This class implements a dynamic module system in order to make  appenders,
+ * layouts & filters available to the Log4g system.
  */
 
 #ifndef LOG4G_MODULE_H
@@ -83,7 +84,7 @@ log4g_module_new(const gchar *file);
  * \brief Extension modules must implement this function.
  *
  * This function is run after the module has been loaded in order to
- * initialize the module.
+ * load dynamic types for use by the Log4g system.
  *
  * \param module [in] A Log4gModule object.
  */
