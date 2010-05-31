@@ -40,8 +40,9 @@ get_logger_repository(Log4gRepositorySelector *base)
     return GET_PRIVATE(base)->repository;
 }
 
-static void repository_selector_init(
-        Log4gRepositorySelectorInterface *interface, gpointer data)
+static void
+repository_selector_init(Log4gRepositorySelectorInterface *interface,
+        gpointer data)
 {
     interface->get_logger_repository = get_logger_repository;
 }
@@ -70,7 +71,8 @@ dispose(GObject *base)
         dispose(base);
 }
 
-static void log4g_default_repository_selector_class_init(
+static void
+log4g_default_repository_selector_class_init(
         Log4gDefaultRepositorySelectorClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);

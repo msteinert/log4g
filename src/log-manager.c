@@ -24,6 +24,8 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#include <gmodule.h>
+#include "log4g/helpers/default-module-loader.h"
 #include "log4g/helpers/default-repository-selector.h"
 #include "log4g/hierarchy.h"
 #include "log4g/log-manager.h"
@@ -38,11 +40,12 @@ G_DEFINE_TYPE(Log4gLogManager, log4g_log_manager, G_TYPE_OBJECT)
 struct Log4gPrivate {
     Log4gLoggerRepository *repository;
     Log4gRepositorySelector *selector;
+    Log4gModuleLoader *modules;
     GObject *guard;
 };
 
 /** \brief The single instance of this class */
-static Log4gLogManager *instance = NULL;
+static GObject *singleton = NULL;
 
 static void
 log4g_log_manager_init(Log4gLogManager *self)
@@ -50,6 +53,10 @@ log4g_log_manager_init(Log4gLogManager *self)
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->guard = NULL;
     priv->repository = NULL;
+    priv->modules = log4g_default_module_loader_new();
+    if (priv->modules) {
+        log4g_module_loader_load_modules(priv->modules);
+    }
     priv->selector = NULL;
     /* set defaults */
     Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
@@ -58,6 +65,21 @@ log4g_log_manager_init(Log4gLogManager *self)
         g_object_unref(root);
     }
     priv->selector = log4g_default_repository_selector_new(priv->repository);
+}
+
+static GObject *
+constructor(GType type, guint n_construct_params,
+        GObjectConstructParam *construct_params)
+{
+    GObject *self = g_atomic_pointer_get(&singleton);
+    if (!self) {
+        self = G_OBJECT_CLASS(log4g_log_manager_parent_class)->
+            constructor(type, n_construct_params, construct_params);
+        g_atomic_pointer_set(&singleton, self);
+    } else {
+        g_object_ref(self);
+    }
+    return self;
 }
 
 static void
@@ -72,6 +94,10 @@ dispose(GObject *base)
         g_object_unref(priv->selector);
         priv->selector = NULL;
     }
+    if (priv->modules) {
+        g_object_unref(priv->modules);
+        priv->modules = NULL;
+    }
     if (priv->guard) {
         g_object_unref(priv->guard);
         priv->guard = NULL;
@@ -80,11 +106,20 @@ dispose(GObject *base)
 }
 
 static void
+finalize(GObject *base)
+{
+    g_atomic_pointer_set(&singleton, NULL);
+    G_OBJECT_CLASS(log4g_log_manager_parent_class)->finalize(base);
+}
+
+static void
 log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->constructor = constructor;
     gobject_class->dispose = dispose;
+    gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
@@ -92,12 +127,9 @@ log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 Log4gLogManager *
 log4g_log_manager_get_instance(void)
 {
-    Log4gLogManager *self = g_atomic_pointer_get(&instance);
+    Log4gLogManager *self = g_atomic_pointer_get(&singleton);
     if (!self) {
-        self = g_object_new(LOG4G_TYPE_LOG_MANAGER, NULL);
-        if (self) {
-            g_atomic_pointer_set(&instance, self);
-        }
+        return g_object_new(LOG4G_TYPE_LOG_MANAGER, NULL);
     }
     return self;
 }
@@ -105,9 +137,8 @@ log4g_log_manager_get_instance(void)
 void
 log4g_log_manager_remove_instance(void)
 {
-    Log4gLogManager *self = g_atomic_pointer_get(&instance);
+    Log4gLogManager *self = g_atomic_pointer_get(&singleton);
     if (self) {
-        g_atomic_pointer_set(&instance, NULL);
         g_object_unref(self);
     }
 }

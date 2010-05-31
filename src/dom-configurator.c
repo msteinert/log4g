@@ -30,7 +30,6 @@
 #include "log4g/error.h"
 #include "log4g/interface/appender-attachable.h"
 #include "log4g/log-manager.h"
-#include <stdlib.h>
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_DOM_CONFIGURATOR, \
@@ -45,15 +44,13 @@ struct Log4gPrivate {
 static void
 parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
 {
-    xmlChar *name = NULL;
-    xmlChar *value = NULL;
     GParamSpec *spec = NULL;
-    name = xmlGetProp(node, (const xmlChar *)"name");
+    xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
+    xmlChar *value = xmlGetProp(node, (const xmlChar *)"value");
     if (!name) {
         log4g_log_error(Q_("properties must have a `name' attribute"));
         goto exit;
     }
-    value = xmlGetProp(node, (const xmlChar *)"value");
     if (!value) {
         log4g_log_error(Q_("properties must have a `value' attribute"));
         goto exit;
@@ -506,19 +503,16 @@ exit:
 static void
 parse_logger(Log4gConfigurator *base, xmlNodePtr node)
 {
-    Log4gLogger *logger;
-    xmlChar *additivity;
-    xmlChar *name = NULL;
-    name = xmlGetProp(node, (const xmlChar *)"name");
+    xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
     if (!name) {
         log4g_log_error(Q_("loggers require a `name'"));
         goto exit;
     }
-    logger = log4g_log_manager_get_logger((const gchar *)name);
+    Log4gLogger *logger = log4g_log_manager_get_logger((const gchar *)name);
     if (!logger) {
         goto exit;
     }
-    additivity = xmlGetProp(node, (const xmlChar *)"additivity");
+    xmlChar *additivity = xmlGetProp(node, (const xmlChar *)"additivity");
     if (additivity) {
         if (!xmlStrcmp(additivity, (const xmlChar *)"true")) {
             log4g_logger_set_additivity(logger, TRUE);
@@ -608,26 +602,21 @@ do_configure(Log4gConfigurator *base, const char *uri,
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     gboolean status = TRUE;
-    xmlNodePtr node;
-    xmlDocPtr doc;
-    gint options;
-    xmlChar *att;
-    gchar *env;
-    GString *string;
-    string = g_string_sized_new(128);
+    GString *string = g_string_sized_new(128);
     if (!string) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
                 Q_("g_string_new() returned NULL"));
         return FALSE;
     }
     xmlSetGenericErrorFunc(string, error_handler);
-    options = XML_PARSE_NOWARNING | XML_PARSE_NOERROR | XML_PARSE_NOBLANKS;
-    env = getenv("LOG4G_PARSE_DTDVALID");
+    gint options =
+        XML_PARSE_NOWARNING | XML_PARSE_NOERROR | XML_PARSE_NOBLANKS;
+    const gchar *env = g_getenv("LOG4G_PARSE_DTDVALID");
     if (env) {
         options |= XML_PARSE_DTDVALID;
     }
     /* read XML file */
-    doc = xmlCtxtReadFile(priv->ctx, uri, NULL, options);
+    xmlDocPtr doc = xmlCtxtReadFile(priv->ctx, uri, NULL, options);
     if (!doc) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
                 Q_("failed to parse configuration"));
@@ -635,7 +624,7 @@ do_configure(Log4gConfigurator *base, const char *uri,
         goto exit;
     }
     /* check root element */
-    node = xmlDocGetRootElement(doc);
+    xmlNodePtr node = xmlDocGetRootElement(doc);
     if (!node) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
                 Q_("invalid document: document is empty"));
@@ -650,7 +639,7 @@ do_configure(Log4gConfigurator *base, const char *uri,
         goto exit;
     }
     /* parse root attributes */
-    att = xmlGetProp(node, (const xmlChar *)"debug");
+    xmlChar *att = xmlGetProp(node, (const xmlChar *)"debug");
     if (att) {
         if (!xmlStrcmp(att, (const xmlChar *)"true")) {
             log4g_set_internal_debugging(TRUE);
@@ -784,8 +773,8 @@ log4g_dom_configurator_finalize(GObject *base)
 static void
 log4g_dom_configurator_class_init(Log4gDOMConfiguratorClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     gobject_class->finalize = log4g_dom_configurator_finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -794,14 +783,12 @@ log4g_dom_configurator_class_init(Log4gDOMConfiguratorClass *klass)
 Log4gConfigurator *
 log4g_dom_configurator_new(void)
 {
-    Log4gConfigurator *self;
-    gchar *debug;
     LIBXML_TEST_VERSION
-    self = g_object_new(LOG4G_TYPE_DOM_CONFIGURATOR, NULL);
+    Log4gConfigurator *self = g_object_new(LOG4G_TYPE_DOM_CONFIGURATOR, NULL);
     if (!self) {
         return NULL;
     }
-    debug = getenv("LOG4G_DEBUG");
+    const gchar *debug = g_getenv("LOG4G_DEBUG");
     if (debug) {
         log4g_set_internal_debugging(TRUE);
     }
@@ -811,8 +798,6 @@ log4g_dom_configurator_new(void)
 gboolean
 log4g_dom_configurator_configure(const gchar *uri, GError **error)
 {
-    gboolean status;
-    struct Log4gPrivate *priv;
     Log4gConfigurator *self = log4g_dom_configurator_new();
     if (!self) {
         g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
@@ -827,8 +812,8 @@ log4g_dom_configurator_configure(const gchar *uri, GError **error)
         g_object_unref(self);
         return FALSE;
     }
-    priv = GET_PRIVATE(self);
-    status = log4g_configurator_do_configure(self, uri, repository, error);
+    gboolean status =
+        log4g_configurator_do_configure(self, uri, repository, error);
     g_object_unref(self);
     return status;
 }

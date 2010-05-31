@@ -55,7 +55,7 @@ log4g_basic_configurator_configure(void)
         log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
         goto exit;
     }
-    layout = g_object_new(type, NULL);
+    appender = g_object_new(type, NULL);
     if (!layout) {
         log4g_log_error(Q_("g_object_new() returned NULL"));
         goto exit;

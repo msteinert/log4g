@@ -75,7 +75,10 @@ writer_appender_test_SOURCES = writer-appender-test.c
 xml_layout_test_SOURCES = xml-layout-test.c
 # run tests
 check-local: $(check_PROGRAMS)
-	@srcdir=@srcdir@ gtester $(check_PROGRAMS)
+	@srcdir=@srcdir@ \
+        LOG4G_MODULE_SYSTEM_PATH="" \
+        LOG4G_MODULE_PATH="../modules/appenders/.libs:../modules/couchdb/.libs:../modules/filters/.libs:../modules/layouts/.libs" \
+        gtester $(check_PROGRAMS)
 # generate XML report
 log4g.xml: $(check_PROGRAMS)
 	gtester -k -o $@ $(check_PROGRAMS)

@@ -16,7 +16,8 @@ INCLUDES = \
     $(LIBXML2_CFLAGS)
 # compiler switches
 AM_CPPFLAGS = -std=gnu99 -Wall -Werror \
-    -DLOG4G_LOCALEDIR=\"$(localedir)\"
+    -DLOG4G_LOCALEDIR=\"$(localedir)\" \
+    -DLOG4G_MODULEDIR=\"$(moduledir)\"
 # library definition
 lib_LTLIBRARIES = liblog4g.la
 liblog4g_la_SOURCES = \
@@ -26,6 +27,7 @@ liblog4g_la_SOURCES = \
     basic-configurator.c \
     configurator.c \
     default-logger-factory.c \
+    default-module-loader.c \
     default-repository-selector.c \
     dom-configurator.c \
     error.c \
@@ -43,6 +45,7 @@ liblog4g_la_SOURCES = \
     logging-event.c \
     mdc.c \
     module.c \
+    module-loader.c \
     ndc.c \
     only-once-error-handler.c \
     option-handler.c \
@@ -81,6 +84,7 @@ helperincludedir = $(includedir)/log4g/helpers
 helperinclude_HEADERS = \
     log4g/helpers/appender-attachable-impl.h \
     log4g/helpers/default-logger-factory.h \
+    log4g/helpers/default-module-loader.h \
     log4g/helpers/default-repository-selector.h \
     log4g/helpers/log.h \
     log4g/helpers/only-once-error-handler.h \
@@ -92,6 +96,7 @@ interfaceinclude_HEADERS = \
     log4g/interface/error-handler.h \
     log4g/interface/logger-factory.h \
     log4g/interface/logger-repository.h \
+    log4g/interface/module-loader.h \
     log4g/interface/option-handler.h \
     log4g/interface/repository-selector.h
 EXTRA_DIST = \
