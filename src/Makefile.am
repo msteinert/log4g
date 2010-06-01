@@ -9,7 +9,7 @@ support/marshal.c: support/marshal.list
 # include directories
 INCLUDES = \
     -I$(top_srcdir) \
-    -I$(top_srcdir)/src \
+    -I$(srcdir) \
     $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GOBJECT_CFLAGS) \

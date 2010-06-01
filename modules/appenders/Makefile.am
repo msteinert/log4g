@@ -32,6 +32,7 @@ liblog4g_appenders_la_CFLAGS = \
     $(GOBJECT_CFLAGS)
 liblog4g_appenders_la_LDFLAGS = \
     -avoid-version -shared \
+    $(top_builddir)/src/liblog4g.la \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
 MAINTAINERCLEANFILES = \

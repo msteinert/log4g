@@ -13,12 +13,13 @@ liblog4g_couchdb_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
     -I$(top_srcdir) \
     -I$(top_srcdir)/src \
-    -I$(top_srcdir)/modules/couchdb \
+    -I$(srcdir) \
     $(COUCHDB_GLIB_CFLAGS) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)
 liblog4g_couchdb_la_LDFLAGS = \
     -avoid-version -shared \
+    $(top_builddir)/src/liblog4g.la \
     $(COUCHDB_GLIB_LIBS) \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
