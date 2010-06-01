@@ -68,13 +68,12 @@ log4g_log_manager_init(Log4gLogManager *self)
 }
 
 static GObject *
-constructor(GType type, guint n_construct_params,
-        GObjectConstructParam *construct_params)
+constructor(GType type, guint n, GObjectConstructParam *params)
 {
     GObject *self = g_atomic_pointer_get(&singleton);
     if (!self) {
         self = G_OBJECT_CLASS(log4g_log_manager_parent_class)->
-            constructor(type, n_construct_params, construct_params);
+            constructor(type, n, params);
         g_atomic_pointer_set(&singleton, self);
     } else {
         g_object_ref(self);
@@ -115,8 +114,8 @@ finalize(GObject *base)
 static void
 log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 {
+    /* initialize GObjectClass */
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    /* initialize GObject */
     gobject_class->constructor = constructor;
     gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;

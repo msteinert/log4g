@@ -150,8 +150,7 @@ log4g_ndc_init(Log4gNDC *self)
 }
 
 static GObject *
-constructor(GType type, guint n_construct_params,
-        GObjectConstructParam *construct_params)
+constructor(GType type, guint n, GObjectConstructParam *params)
 {
     if (g_thread_supported()) {
         static gsize once = 0;
@@ -166,7 +165,7 @@ constructor(GType type, guint n_construct_params,
     GObject *self = g_private_get(priv);
     if (!self) {
         self = G_OBJECT_CLASS(log4g_ndc_parent_class)->
-            constructor(type, n_construct_params, construct_params);
+            constructor(type, n, params);
         if (!self) {
             return NULL;
         }

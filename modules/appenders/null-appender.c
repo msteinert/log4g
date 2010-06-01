@@ -19,8 +19,6 @@
  * \brief Implements the API in null-appender.h
  * \author Mike Steinert
  * \date 2-8-2010
- *
- * TODO: make this a singleton
  */
 
 #ifdef HAVE_CONFIG_H
@@ -31,10 +29,27 @@
 G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
         LOG4G_TYPE_APPENDER)
 
+/** \brief The single instance of this class */
+static GObject *singleton = NULL;
+
 static void
 log4g_null_appender_init(Log4gNullAppender *self)
 {
     /* do nothing */
+}
+
+static GObject *
+constructor(GType type, guint n, GObjectConstructParam *params)
+{
+    GObject *self = g_atomic_pointer_get(&singleton);
+    if (!self) {
+        self = G_OBJECT_CLASS(log4g_null_appender_parent_class)->
+            constructor(type, n, params);
+        g_atomic_pointer_set(&singleton, self);
+    } else {
+        g_object_ref(self);
+    }
+    return self;
 }
 
 static void
@@ -64,6 +79,9 @@ requires_layout(Log4gAppender *self)
 static void
 log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 {
+    /* initialize GObjectClass */
+    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+    gobject_class->constructor = constructor;
     /* initialize Log4gAppenderClass */
     Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
     appender_class->append = append;
