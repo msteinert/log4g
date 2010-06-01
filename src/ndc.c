@@ -149,6 +149,34 @@ log4g_ndc_init(Log4gNDC *self)
     priv->pop = NULL;
 }
 
+static GObject *
+constructor(GType type, guint n_construct_params,
+        GObjectConstructParam *construct_params)
+{
+    if (g_thread_supported()) {
+        static gsize once = 0;
+        if (g_once_init_enter(&once)) {
+            priv = g_private_new(g_object_unref);
+            if (!priv) {
+                return NULL;
+            }
+            g_once_init_leave(&once, 1);
+        }
+    }
+    GObject *self = g_private_get(priv);
+    if (!self) {
+        self = G_OBJECT_CLASS(log4g_ndc_parent_class)->
+            constructor(type, n_construct_params, construct_params);
+        if (!self) {
+            return NULL;
+        }
+        g_private_set(priv, self);
+    } else {
+        g_object_ref(self);
+    }
+    return self;
+}
+
 static void
 _free_array(GArray *data, gboolean free)
 {
@@ -191,6 +219,7 @@ log4g_ndc_class_init(Log4gNDCClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     /* initialize GObject */
+    gobject_class->constructor = constructor;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
@@ -199,23 +228,9 @@ log4g_ndc_class_init(Log4gNDCClass *klass)
 Log4gNDC *
 log4g_ndc_get_instance(void)
 {
-    if (g_thread_supported()) {
-        static gsize once = 0;
-        if (g_once_init_enter(&once)) {
-            priv = g_private_new(g_object_unref);
-            if (!priv) {
-                return NULL;
-            }
-            g_once_init_leave(&once, 1);
-        }
-    }
     Log4gNDC *self = g_private_get(priv);
     if (!self) {
         self = g_object_new(LOG4G_TYPE_NDC, NULL);
-        if (!self) {
-            return NULL;
-        }
-        g_private_set(priv, self);
     }
     return self;
 }
