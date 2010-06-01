@@ -15,14 +15,12 @@ liblog4g_filters_la_SOURCES = \
     string-match-filter.h
 liblog4g_filters_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
-    -I$(top_srcdir) \
-    -I$(top_srcdir)/src \
-    -I$(srcdir) \
+    -I$(srcdir) -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)
 liblog4g_filters_la_LDFLAGS = \
     -avoid-version -shared \
-    $(top_builddir)/src/liblog4g.la \
+    $(top_builddir)/log4g/liblog4g.la \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
 MAINTAINERCLEANFILES = \

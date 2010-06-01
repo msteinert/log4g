@@ -102,32 +102,18 @@ Note: If you are building an unstable release (cloned with git) then you will
       requires that you have autoconf, automake and libtool installed. Refer
       to the Autotools documentation for more information.
 
-CMake is a build configuration tool that performs system discovery and
-generates build scripts for the host (or target) platform. To build with
-CMake, execute the following commands:
-
-    $ tar zxf log4g.tar.gz
-    $ cd log4g
-    $ mkdir build && cd build
-    $ ../bootstrap
-    $ make
-    $ sudo make install
-
-Note: The CMake build scripts are only included in unstable releases (cloned
-      with git).
-
 Documentation
 =============
 
-Log4g is documented using Doxygen. If CMake finds Doxygen during configuration
-a `doc' target will be generated in the Makefile. Execute the following
-command to build the documentation:
+Log4g is documented using Doxygen. If configure finds Doxygen during
+configuration a `doc' target will be generated in the Makefile. Execute the
+following command to build the documentation:
 
     $ make doc
 
 Once the documentation is generated, point your web browser to:
 
-    build/doc/html/index.html
+    doc/html/index.html
 
 A reasonably up to date version of the documentation can be found at:
 
@@ -136,12 +122,7 @@ A reasonably up to date version of the documentation can be found at:
 Dependencies
 ============
 
-To build with CMake, the CMake application is required. For more information
-on CMake, see:
-
-    http://www.cmake.org/
-
-GNU Make is also recommended:
+GNU Make is recommended:
 
     http://www.gnu.org/software/make/
 

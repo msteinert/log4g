@@ -3,12 +3,12 @@
 
 # include directories
 INCLUDES = \
-    -I$(top_srcdir)/src \
+    -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GTHREAD_CFLAGS)
 # add libraries
 LIBS = \
-    $(top_builddir)/src/liblog4g.la \
+    $(top_builddir)/log4g/liblog4g.la \
     $(GLIB_LIBS) $(GTHREAD_LIBS)
 # compiler switches
 AM_CPPFLAGS = -std=gnu99 -Wall -Werror
@@ -91,8 +91,9 @@ EXTRA_DIST = \
     dom-configurator-001.xml \
     perf-001.xml
 .PHONY: report
+CLEANFILES = \
+    log4g.xml dom-configurator-*.txt *-test.txt *-test.txt.* *-test.html
 DISTCLEANFILES = \
-    *-test.txt *-test.txt.* *-test.html log4g.html log4g.xml \
-    dom-configurator-*.txt
+    log4g.html core core.*
 MAINTAINERCLEANFILES = \
     $(srcdir)/Makefile.in

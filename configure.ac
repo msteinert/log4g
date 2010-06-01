@@ -6,7 +6,7 @@ AC_PREREQ(2.59)
 AC_INIT([log4g], [0.1.1], [mike.steinert@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/log4g.c])
+AC_CONFIG_SRCDIR([log4g/log4g.c])
 # Checks for programs
 AC_PROG_CC
 AC_PROG_CPP
@@ -116,14 +116,14 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
     doc/Doxyfile
     doc/Makefile
+    log4g/Makefile
     Makefile
-    resources/log4g.pc
     modules/Makefile
     modules/appenders/Makefile
     modules/couchdb/Makefile
     modules/filters/Makefile
     modules/layouts/Makefile
-    src/Makefile
+    resources/log4g.pc
     tests/Makefile
 ])
 AC_OUTPUT
