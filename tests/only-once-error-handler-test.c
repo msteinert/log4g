@@ -27,7 +27,6 @@
 #endif
 #include "log4g/helpers/only-once-error-handler.h"
 #include "log4g/interface/error-handler.h"
-#include "log4g/interface/option-handler.h"
 
 #define CLASS "/log4g/helpers/OnlyOnceErrorHandler"
 
@@ -37,7 +36,6 @@ test_001(gpointer *fixture, gconstpointer data)
     Log4gErrorHandler *error = log4g_only_once_error_handler_new();
     g_assert(error);
     log4g_error_handler_set_logger(error, NULL);
-    log4g_error_handler_activate_options(error);
     log4g_error_handler_error(error, NULL, "test %s message", "error");
     log4g_error_handler_error(error, NULL, "should not be printed");
     log4g_error_handler_set_appender(error, NULL);

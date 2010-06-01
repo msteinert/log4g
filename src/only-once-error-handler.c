@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "log4g/helpers/only-once-error-handler.h"
-#include "log4g/interface/option-handler.h"
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
@@ -34,18 +33,6 @@
 struct Log4gPrivate {
     gboolean first;
 };
-
-static void
-activate_options(Log4gOptionHandler *base)
-{
-    /* do nothing */
-}
-
-static void
-option_handler_init(Log4gOptionHandlerInterface *interface, gpointer data)
-{
-    interface->activate_options = activate_options;
-}
 
 static void
 set_logger(Log4gErrorHandler *base, Log4gLogger *logger)
@@ -87,7 +74,6 @@ error_handler_init(Log4gErrorHandlerInterface *interface, gpointer data)
 
 G_DEFINE_TYPE_WITH_CODE(Log4gOnlyOnceErrorHandler,
         log4g_only_once_error_handler, G_TYPE_OBJECT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_OPTION_HANDLER, option_handler_init)
         G_IMPLEMENT_INTERFACE(LOG4G_TYPE_ERROR_HANDLER, error_handler_init))
 
 static void

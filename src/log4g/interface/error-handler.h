@@ -150,17 +150,6 @@ void
 log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
         Log4gAppender *appender);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gOptionHandlerInterface::activate_options().
- *
- * \param self [in] An error handler object.
- *
- * \see log4g/interface/option-handler.h
- */
-void
-log4g_error_handler_activate_options(Log4gErrorHandler *self);
-
 G_END_DECLS
 
 #endif /* LOG4G_ERROR_HANDLER_H */

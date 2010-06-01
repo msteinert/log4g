@@ -25,10 +25,8 @@
 #include "config.h"
 #endif
 #include "log4g/interface/error-handler.h"
-#include "log4g/interface/option-handler.h"
 
-G_DEFINE_INTERFACE(Log4gErrorHandler, log4g_error_handler,
-        LOG4G_TYPE_OPTION_HANDLER)
+G_DEFINE_INTERFACE(Log4gErrorHandler, log4g_error_handler, 0)
 
 static void
 log4g_error_handler_default_init(Log4gErrorHandlerInterface *klass)
@@ -77,13 +75,4 @@ log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
     Log4gErrorHandlerInterface *interface =
         LOG4G_ERROR_HANDLER_GET_INTERFACE(self);
     interface->set_appender(self, appender);
-}
-
-void
-log4g_error_handler_activate_options(Log4gErrorHandler *self)
-{
-    g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
-    Log4gOptionHandlerInterface *interface =
-        LOG4G_OPTION_HANDLER_GET_INTERFACE(self);
-    interface->activate_options(LOG4G_OPTION_HANDLER(self));
 }

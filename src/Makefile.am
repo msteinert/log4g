@@ -48,7 +48,6 @@ liblog4g_la_SOURCES = \
     module-loader.c \
     ndc.c \
     only-once-error-handler.c \
-    option-handler.c \
     provision-node.c \
     repository-selector.c \
     root-logger.c \
@@ -97,7 +96,6 @@ interfaceinclude_HEADERS = \
     log4g/interface/logger-factory.h \
     log4g/interface/logger-repository.h \
     log4g/interface/module-loader.h \
-    log4g/interface/option-handler.h \
     log4g/interface/repository-selector.h
 EXTRA_DIST = \
     support/glib-2.23/ginterface.h \
