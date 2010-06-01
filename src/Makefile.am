@@ -38,6 +38,7 @@ liblog4g_la_SOURCES = \
     level.c \
     log-manager.c \
     log.c \
+    log4g/helpers/log.h \
     log4g.c \
     logger.c \
     logger-factory.c \
@@ -85,7 +86,6 @@ helperinclude_HEADERS = \
     log4g/helpers/default-logger-factory.h \
     log4g/helpers/default-module-loader.h \
     log4g/helpers/default-repository-selector.h \
-    log4g/helpers/log.h \
     log4g/helpers/only-once-error-handler.h \
     log4g/helpers/thread.h
 interfaceincludedir = $(includedir)/log4g/interface
@@ -98,7 +98,6 @@ interfaceinclude_HEADERS = \
     log4g/interface/module-loader.h \
     log4g/interface/repository-selector.h
 EXTRA_DIST = \
-    support/glib-2.23/ginterface.h \
     support/marshal.list
 MAINTAINERCLEANFILES = \
     $(srcdir)/Makefile.in

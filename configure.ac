@@ -25,20 +25,22 @@ AC_CACHE_VAL([log4g_cv_HAVE_DOT],
 HAVE_DOT="$log4g_cv_HAVE_DOT"
 AC_SUBST([HAVE_DOT])
 # Checks for dependencies
+log4g_glib_minimum_version=2.24
+log4g_libxml_minimum_version=2.6
 PKG_PROG_PKG_CONFIG([0.17])
-log4g_glib_version="glib-2.0 >= 2.20"
+log4g_glib_version="glib-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_glib_version])
 PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
-log4g_gmodule_version="gmodule-2.0 >= 2.20"
+log4g_gmodule_version="gmodule-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_gmodule_version])
 PKG_CHECK_MODULES([GMODULE], [$log4g_gmodule_version])
-log4g_gobject_version="gobject-2.0 >= 2.20"
+log4g_gobject_version="gobject-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_gobject_version])
 PKG_CHECK_MODULES([GOBJECT], [$log4g_gobject_version])
-log4g_gthread_version="gthread-2.0 >= 2.20"
+log4g_gthread_version="gthread-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_gthread_version])
 PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
-log4g_libxml_version="libxml-2.0 >= 2.6"
+log4g_libxml_version="libxml-2.0 >= $log4g_libxml_minimum_version"
 AC_SUBST([log4g_libxml_version])
 PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
 # Appenders option
@@ -105,12 +107,6 @@ AC_CHECK_FUNCS([bind_textdomain_codeset])
 AH_BOTTOM(
 [/* Include GLib i18n header file */
 #include <glib/gi18n-lib.h>
-
-/* Include G_DEFINE_INTERFACE definition */
-#include <glib.h>
-#ifndef G_DEFINE_INTERFACE
-#include "support/glib-2.23/ginterface.h"
-#endif
 
 /* Include internal logging API */
 #include "log4g/helpers/log.h"
