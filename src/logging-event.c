@@ -29,9 +29,6 @@
 #include "log4g/logging-event.h"
 #include "log4g/mdc.h"
 #include "log4g/ndc.h"
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 G_DEFINE_TYPE(Log4gLoggingEvent, log4g_logging_event, G_TYPE_OBJECT)
 
@@ -43,7 +40,7 @@ struct Log4gPrivate {
     gchar *logger;
     Log4gLevel *level;
     gchar *message;
-    struct timeval timestamp;
+    GTimeVal timestamp;
     gboolean thread_lookup_required;
     gchar *thread;
     gboolean ndc_lookup_required;
@@ -118,19 +115,15 @@ static void
 log4g_logging_event_class_init(Log4gLoggingEventClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    struct timeval start;
+    GTimeVal start;
     /* initialize GObject */
     gobject_class->dispose = dispose;
     gobject_class->finalize = finalize;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize class data */
-    if (gettimeofday(&start, NULL)) {
-        klass->start = 0;
-        log4g_log_error("gettimeofday(): %s", g_strerror(errno));
-    } else {
-        klass->start = (start.tv_sec * 1000) + (start.tv_usec * 0.001);
-    }
+    g_get_current_time(&start);
+    klass->start = (start.tv_sec * 1000) + (start.tv_usec * 0.001);
 }
 
 Log4gLoggingEvent *
@@ -162,7 +155,7 @@ log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
     priv->function = function;
     priv->file = file;
     priv->line = line;
-    gettimeofday(&priv->timestamp, NULL);
+    g_get_current_time(&priv->timestamp);
     return self;
 error:
     g_object_unref(self);
@@ -210,7 +203,7 @@ log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key)
     return NULL;
 }
 
-struct timeval *
+GTimeVal *
 log4g_logging_event_get_time_stamp(Log4gLoggingEvent *self)
 {
     return &GET_PRIVATE(self)->timestamp;

@@ -26,7 +26,6 @@
 #endif
 #include <errno.h>
 #include "layout/date-layout.h"
-#include <stdlib.h>
 
 enum _properties_t {
     PROP_O = 0,
@@ -99,8 +98,8 @@ activate_options(Log4gLayout *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     if (priv->tz) {
-        if (setenv("TZ", priv->tz, 1)) {
-            log4g_log_error("setenv(): %s", g_strerror(errno));
+        if (g_setenv("TZ", priv->tz, 1)) {
+            log4g_log_error("g_setenv(): %s", g_strerror(errno));
         }
     }
 }
@@ -143,7 +142,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event)
 {
     g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return;
     }

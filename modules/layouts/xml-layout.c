@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "layout/xml-layout.h"
-#include <time.h>
 
 enum _properties_t {
     PROP_O = 0,
@@ -94,7 +93,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLevel *level = log4g_logging_event_get_level(event);
-    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
     time_t t = tv->tv_sec;
     gchar buffer[26];
     gchar *escaped;

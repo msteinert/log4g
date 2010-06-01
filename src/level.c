@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "log4g/level.h"
-#include <string.h>
 #include <syslog.h>
 
 G_DEFINE_TYPE(Log4gLevel, log4g_level, G_TYPE_OBJECT)

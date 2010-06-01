@@ -26,8 +26,6 @@
 #endif
 #include "log4g/helpers/thread.h"
 #include "log4g/ndc.h"
-#include <sys/types.h>
-#include <unistd.h>
 
 G_DEFINE_TYPE(Log4gNDC, log4g_ndc, G_TYPE_OBJECT)
 

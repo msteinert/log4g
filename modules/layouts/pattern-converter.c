@@ -191,7 +191,7 @@ basic_pattern_converter_convert(Log4gPatternConverter *base,
     switch (priv->type) {
     case RELATIVE_TIME_CONVERTER: {
         glong start = log4g_logging_event_get_start_time();
-        struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+        GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
         glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
         g_snprintf(priv->buffer, sizeof priv->buffer, "%ld", time - start);
         return priv->buffer;
@@ -366,7 +366,7 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
         Log4gLoggingEvent *event)
 {
     struct DatePrivate *priv = GET_DATE_PRIVATE(base);
-    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
     if (!tv) {
         return NULL;
     }

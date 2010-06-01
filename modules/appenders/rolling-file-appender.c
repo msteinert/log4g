@@ -28,9 +28,6 @@
 #include <errno.h>
 #include <glib/gstdio.h>
 #include "helpers/counting-quiet-writer.h"
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 enum _properties_t {
     PROP_O = 0,

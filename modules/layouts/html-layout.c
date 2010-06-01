@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "layout/html-layout.h"
-#include <time.h>
 
 /** \brief The default HTML document title */
 #define LOG4G_HTML_LAYOUT_TITLE ("Log4g Log Messages")
@@ -104,7 +103,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     Log4gLevel *level = log4g_logging_event_get_level(event);
-    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
     gchar *escaped;
     glong start = log4g_logging_event_get_start_time();
     glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);

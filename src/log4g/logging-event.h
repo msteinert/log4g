@@ -32,7 +32,6 @@
 #define LOG4G_LOGGING_EVENT_H
 
 #include <log4g/level.h>
-#include <sys/time.h>
 
 G_BEGIN_DECLS
 
@@ -174,7 +173,7 @@ log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key);
  *
  * \return The timestamp of \e self.
  */
-struct timeval *
+GTimeVal *
 log4g_logging_event_get_time_stamp(Log4gLoggingEvent *self);
 
 /**

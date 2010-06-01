@@ -115,7 +115,7 @@ format_document(Log4gLayout *base, Log4gLoggingEvent *event,
         couchdb_document_set_string_field(document, "ndc", string);
     }
     /* timestamp */
-    struct timeval *tv = log4g_logging_event_get_time_stamp(event);
+    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
     if (tv) {
         gchar string[64];
         g_snprintf(string, sizeof string, "%lu",

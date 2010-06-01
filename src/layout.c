@@ -25,7 +25,6 @@
 #include "config.h"
 #endif
 #include "log4g/layout.h"
-#include <string.h>
 
 G_DEFINE_TYPE_EXTENDED(Log4gLayout, log4g_layout, G_TYPE_OBJECT,
         G_TYPE_FLAG_ABSTRACT, {})

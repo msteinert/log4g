@@ -27,8 +27,6 @@
 #include "appender/async-appender.h"
 #include "log4g/helpers/appender-attachable-impl.h"
 #include "log4g/interface/error-handler.h"
-#include <string.h>
-#include <unistd.h>
 
 enum _properties_t {
     PROP_O = 0,
