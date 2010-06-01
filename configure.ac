@@ -3,7 +3,7 @@
 
 # Initialize autoconf
 AC_PREREQ(2.59)
-AC_INIT([log4g], [0.1.1], [mike.steinert@gmail.com])
+AC_INIT([log4g], [0.1.2], [mike.steinert@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([log4g/log4g.c])
@@ -12,7 +12,14 @@ AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
-DOLT
+#DOLT
+# Initialize package
+log4g_series_major=1
+log4g_series_minor=0
+log4g_series=${log4g_series_major}.${log4g_series_minor}
+AC_SUBST([log4g_series_major])
+AC_SUBST([log4g_series_minor])
+AC_SUBST([log4g_series])
 # Check for Doxygen
 AC_PATH_PROG([DOXYGEN], [doxygen])
 AC_CACHE_VAL([log4g_cv_HAVE_DOT],
@@ -94,7 +101,7 @@ AM_CONDITIONAL([LOG4G_WITH_COUCHDB], [test "x$log4g_with_couchdb" = "xyes"])
 # Configure module options
 AC_SUBST([LOG4G_CONFIGURED_MODULES])
 # Configure module directory
-moduledir="\$(libdir)/log4g"
+moduledir="\$(libdir)/log4g-$log4g_series"
 AC_SUBST(moduledir)
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],

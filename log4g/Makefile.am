@@ -6,20 +6,9 @@ support/marshal.h: support/marshal.list
 	glib-genmarshal --header $< > $@
 support/marshal.c: support/marshal.list
 	glib-genmarshal --body $< > $@
-# include directories
-INCLUDES = \
-    -I$(top_srcdir) \
-    $(GLIB_CFLAGS) \
-    $(GMODULE_CFLAGS) \
-    $(GOBJECT_CFLAGS) \
-    $(LIBXML2_CFLAGS)
-# compiler switches
-AM_CPPFLAGS = -std=gnu99 -Wall -Werror \
-    -DLOG4G_LOCALEDIR=\"$(localedir)\" \
-    -DLOG4G_MODULEDIR=\"$(moduledir)\"
 # library definition
-lib_LTLIBRARIES = liblog4g.la
-liblog4g_la_SOURCES = \
+lib_LTLIBRARIES = liblog4g-@log4g_series_major@.@log4g_series_minor@.la
+liblog4g_@log4g_series_major@_@log4g_series_minor@_la_SOURCES = \
     appender.c \
     appender-attachable.c \
     appender-attachable-impl.c \
@@ -54,13 +43,23 @@ liblog4g_la_SOURCES = \
     support/marshal.c \
     support/marshal.h \
     thread.c
-liblog4g_la_LDFLAGS = \
+# include directories & compiler switches
+liblog4g_@log4g_series_major@_@log4g_series_minor@_la_CFLAGS = \
+    -std=gnu99 -Wall -Werror \
+    -DLOG4G_LOCALEDIR=\"$(localedir)\" \
+    -DLOG4G_MODULEDIR=\"$(moduledir)\" \
+    -I$(top_srcdir) \
+    $(GLIB_CFLAGS) \
+    $(GMODULE_CFLAGS) \
+    $(GOBJECT_CFLAGS) \
+    $(LIBXML2_CFLAGS)
+liblog4g_@log4g_series_major@_@log4g_series_minor@_la_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GMODULE_LIBS) \
     $(GOBJECT_LIBS) \
     $(LIBXML2_LIBS)
 # install development headers
-pkgincludedir = $(includedir)/log4g
+pkgincludedir = $(includedir)/log4g-$(log4g_series)/log4g
 pkginclude_HEADERS = \
     appender.h \
     basic-configurator.h \
@@ -79,7 +78,7 @@ pkginclude_HEADERS = \
     ndc.h \
     provision-node.h \
     root-logger.h
-helperincludedir = $(includedir)/log4g/helpers
+helperincludedir = $(includedir)/log4g-$(log4g_series)/log4g/helpers
 helperinclude_HEADERS = \
     helpers/appender-attachable-impl.h \
     helpers/default-logger-factory.h \
@@ -87,7 +86,7 @@ helperinclude_HEADERS = \
     helpers/default-repository-selector.h \
     helpers/only-once-error-handler.h \
     helpers/thread.h
-interfaceincludedir = $(includedir)/log4g/interface
+interfaceincludedir = $(includedir)/log4g-$(log4g_series)/log4g/interface
 interfaceinclude_HEADERS = \
     interface/appender-attachable.h \
     interface/configurator.h \

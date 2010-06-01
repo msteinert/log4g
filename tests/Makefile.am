@@ -8,7 +8,7 @@ INCLUDES = \
     $(GTHREAD_CFLAGS)
 # add libraries
 LIBS = \
-    $(top_builddir)/log4g/liblog4g.la \
+    $(top_builddir)/log4g/liblog4g-$(log4g_series).la \
     $(GLIB_LIBS) $(GTHREAD_LIBS)
 # compiler switches
 AM_CPPFLAGS = -std=gnu99 -Wall -Werror

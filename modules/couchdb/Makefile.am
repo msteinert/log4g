@@ -17,7 +17,7 @@ liblog4g_couchdb_la_CFLAGS = \
     $(GOBJECT_CFLAGS)
 liblog4g_couchdb_la_LDFLAGS = \
     -avoid-version -shared \
-    $(top_builddir)/log4g/liblog4g.la \
+    $(top_builddir)/log4g/liblog4g-$(log4g_series).la \
     $(COUCHDB_GLIB_LIBS) \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)

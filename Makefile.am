@@ -5,11 +5,13 @@ SUBDIRS = doc log4g modules tests
 EXTRA_DIST = resources
 ACLOCAL_AMFLAGS = -I m4
 # install pkg-config script
+resources/log4g-$(log4g_series).pc: resources/log4g.pc
+	cp $< $@
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = resources/log4g.pc
+pkgconfig_DATA = resources/log4g-$(log4g_series).pc
 # install DTD
-dtddir = $(datadir)/log4g/dtd/1.0
-dtd_DATA = resources/dtd/1.0/log4g.dtd
+dtddir = $(datadir)/log4g/dtd/$(log4g_series)
+dtd_DATA = resources/log4g.dtd
 # add `doc' target
 doc:
 	cd doc && $(MAKE) $(MAKEFLAGS) doc
