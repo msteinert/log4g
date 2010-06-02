@@ -2,17 +2,18 @@
 # Process this file with autoconf to produce a configure script.
 
 # Initialize autoconf
-AC_PREREQ(2.59)
+AC_PREREQ(2.62)
 AC_INIT([log4g], [0.1.2], [mike.steinert@gmail.com])
 AC_CONFIG_MACRO_DIR([m4])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([-Wno-portability])
 AC_CONFIG_SRCDIR([log4g/log4g.c])
 # Checks for programs
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
-#DOLT
+GOBJECT_INTROSPECTION_CHECK([0.6.10])
+DOLT
 # Initialize package
 log4g_series_major=1
 log4g_series_minor=0
@@ -135,7 +136,8 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 AC_MSG_RESULT([
-Build options:
+Log4g build options:
 	Version: $VERSION
-	Modules: $LOG4G_CONFIGURED_MODULES
+	Modules:$LOG4G_CONFIGURED_MODULES
+	Introspection: $found_introspection
 ])

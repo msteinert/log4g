@@ -5,14 +5,14 @@ module_LTLIBRARIES = \
     liblog4g-filters.la
 liblog4g_filters_la_SOURCES = \
     deny-all-filter.c \
-    deny-all-filter.h \
+    filter/deny-all-filter.h \
+    filter/level-range-filter.h \
+    filter/level-match-filter.h \
+    filter/string-match-filter.h \
     level-range-filter.c \
-    level-range-filter.h \
     level-match-filter.c \
-    level-match-filter.h \
     module.c \
-    string-match-filter.c \
-    string-match-filter.h
+    string-match-filter.c
 liblog4g_filters_la_CFLAGS = \
     -std=gnu99 -Wall -Werror \
     -I$(srcdir) -I$(top_srcdir) \

@@ -44,15 +44,17 @@ liblog4g_@log4g_series_major@_@log4g_series_minor@_la_SOURCES = \
     support/marshal.h \
     thread.c
 # include directories & compiler switches
-liblog4g_@log4g_series_major@_@log4g_series_minor@_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
-    -DLOG4G_LOCALEDIR=\"$(localedir)\" \
-    -DLOG4G_MODULEDIR=\"$(moduledir)\" \
+liblog4g_@log4g_series_major@_@log4g_series_minor@_la_INCLUDES = \
     -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GMODULE_CFLAGS) \
     $(GOBJECT_CFLAGS) \
     $(LIBXML2_CFLAGS)
+liblog4g_@log4g_series_major@_@log4g_series_minor@_la_CFLAGS = \
+    -std=gnu99 -Wall -Werror \
+    -DLOG4G_LOCALEDIR=\"$(localedir)\" \
+    -DLOG4G_MODULEDIR=\"$(moduledir)\" \
+    $(liblog4g_@log4g_series_major@_@log4g_series_minor@_la_INCLUDES)
 liblog4g_@log4g_series_major@_@log4g_series_minor@_la_LDFLAGS = \
     $(GLIB_LIBS) \
     $(GMODULE_LIBS) \
@@ -63,7 +65,6 @@ pkgincludedir = $(includedir)/log4g-$(log4g_series)/log4g
 pkginclude_HEADERS = \
     appender.h \
     basic-configurator.h \
-    disable.h \
     dom-configurator.h \
     error.h \
     filter.h \
@@ -75,9 +76,13 @@ pkginclude_HEADERS = \
     logger.h \
     logging-event.h \
     mdc.h \
+    module.h \
     ndc.h \
     provision-node.h \
     root-logger.h
+disableincludedir = $(pkgincludedir)
+disableinclude_HEADERS = \
+    disable.h
 helperincludedir = $(includedir)/log4g-$(log4g_series)/log4g/helpers
 helperinclude_HEADERS = \
     helpers/appender-attachable-impl.h \
@@ -99,3 +104,34 @@ EXTRA_DIST = \
     support/marshal.list
 MAINTAINERCLEANFILES = \
     $(srcdir)/Makefile.in
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = \
+    --add-include-path=$(srcdir)
+INTROSPECTION_COMPILER_ARGS = \
+    --includedir=$(srcdir)
+if HAVE_INTROSPECTION
+introspection_files = \
+    $(liblog4g_@log4g_series_major@_@log4g_series_minor@_la_SOURCES) \
+    $(pkginclude_HEADERS) \
+    $(helperinclude_HEADERS) \
+    $(interfaceinclude_HEADERS)
+Log4g-$(log4g_series).gir: $(INTROSPECTION_SCANNER) liblog4g-$(log4g_series).la Makefile
+Log4g_@log4g_series_major@_@log4g_series_minor@_gir_SCANNERFLAGS = \
+    --strip-prefix=Log4g
+Log4g_@log4g_series_major@_@log4g_series_minor@_gir_INCLUDES = \
+    GObject-2.0 GModule-2.0 libxml2-2.0
+Log4g_@log4g_series_major@_@log4g_series_minor@_gir_CFLAGS = \
+    $(liblog4g_@log4g_series_major@_@log4g_series_minor@_la_INCLUDES)
+Log4g_@log4g_series_major@_@log4g_series_minor@_gir_LIBS = \
+    liblog4g-$(log4g_series).la
+Log4g_@log4g_series_major@_@log4g_series_minor@_gir_FILES = \
+    $(introspection_files:%=$(srcdir)/%)
+INTROSPECTION_GIRS += Log4g-$(log4g_series).gir
+girdir = $(datadir)/gir-1.0
+gir_DATA = Log4g-$(log4g_series).gir
+typelibdir = $(libdir)/girepository-1.0
+typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+Log4g-$(log4g_series).gir: liblog4g-@log4g_series_major@.@log4g_series_minor@.la
+CLEANFILES = $(gir_DATA) $(typelib_DATA)
+endif
