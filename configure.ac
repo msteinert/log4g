@@ -2,25 +2,51 @@
 # Process this file with autoconf to produce a configure script.
 
 # Initialize autoconf
-AC_PREREQ(2.62)
-AC_INIT([log4g], [0.1.2], [mike.steinert@gmail.com])
+AC_PREREQ([2.64])
+# Library versioning
+# Making releases:
+#   log4g_micro_version += 1
+#   log4g_interface_age += 1
+# If functions have been added or backward-compatibility has been broken:
+#   log4g_interface_age = 0
+m4_define([log4g_major_version], [0])
+m4_define([log4g_minor_version], [1])
+m4_define([log4g_micro_version], [2])
+m4_define([log4g_interface_age], [0])
+# Initialize autoconf & automake
+AC_INIT([Log4g], [log4g_major_version.log4g_minor_version.log4g_micro_version],
+    [http://github.com/msteinert/log4g/issues/], [log4g],
+    [http://msteinert.github.com/log4g/])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wno-portability])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR([log4g/log4g.c])
 # Checks for programs
-AC_PROG_CC
-AC_PROG_CPP
-AC_PROG_INSTALL
+AC_ENABLE_SHARED
+AC_DISABLE_STATIC
+AC_PROG_CC_C99
 AC_PROG_LIBTOOL
 GOBJECT_INTROSPECTION_CHECK([0.6.10])
-DOLT
-# Initialize package
+if test "x$GCC" = "xyes"; then
+    case " $CFLAGS " in
+    *[[\ \	]]-Wall[[\ \	]]*) ;;
+    *) CFLAGS="$CFLAGS -Wall" ;;
+    esac
+fi
+# Pkg-config versioning
 log4g_series_major=1
 log4g_series_minor=0
-log4g_series=${log4g_series_major}.${log4g_series_minor}
+log4g_series=$log4g_series_major.$log4g_series_minor
 AC_SUBST([log4g_series_major])
 AC_SUBST([log4g_series_minor])
 AC_SUBST([log4g_series])
+# Libtool versioning
+LT_CURRENT=m4_eval(100 * log4g_minor_version + log4g_micro_version - log4g_interface_age)
+LT_REVISION=log4g_interface_age
+LT_AGE=m4_eval(m4_eval(100 * log4g_minor_version + log4g_micro_version) - log4g_interface_age)
+AC_SUBST([LT_CURRENT])
+AC_SUBST([LT_REVISION])
+AC_SUBST([LT_AGE])
 # Check for Doxygen
 AC_PATH_PROG([DOXYGEN], [doxygen])
 AC_CACHE_VAL([log4g_cv_HAVE_DOT],
@@ -107,9 +133,9 @@ AC_SUBST(moduledir)
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
     [Always defined to indicate that i18n is enabled])
-AC_DEFINE_UNQUOTED([G_LOG_DOMAIN], ["$PACKAGE_NAME"],
+AC_DEFINE_UNQUOTED([G_LOG_DOMAIN], ["$PACKAGE_TARNAME"],
     [The log domain for this project])
-AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$PACKAGE_NAME"],
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$PACKAGE_TARNAME"],
     [The i18n domain for this project])
 AC_CHECK_FUNCS([bind_textdomain_codeset])
 AH_BOTTOM(

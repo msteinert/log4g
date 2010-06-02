@@ -22,7 +22,6 @@ liblog4g_layouts_la_SOURCES = \
     ttcc-layout.c \
     xml-layout.c
 liblog4g_layouts_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
     -I$(srcdir) -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)

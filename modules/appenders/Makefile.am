@@ -24,7 +24,6 @@ liblog4g_appenders_la_SOURCES = \
     syslog-appender.c \
     writer-appender.c
 liblog4g_appenders_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
     -I$(srcdir) -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)

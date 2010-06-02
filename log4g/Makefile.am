@@ -51,11 +51,11 @@ liblog4g_@log4g_series_major@_@log4g_series_minor@_la_INCLUDES = \
     $(GOBJECT_CFLAGS) \
     $(LIBXML2_CFLAGS)
 liblog4g_@log4g_series_major@_@log4g_series_minor@_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
     -DLOG4G_LOCALEDIR=\"$(localedir)\" \
     -DLOG4G_MODULEDIR=\"$(moduledir)\" \
     $(liblog4g_@log4g_series_major@_@log4g_series_minor@_la_INCLUDES)
 liblog4g_@log4g_series_major@_@log4g_series_minor@_la_LDFLAGS = \
+    -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
     $(GLIB_LIBS) \
     $(GMODULE_LIBS) \
     $(GOBJECT_LIBS) \

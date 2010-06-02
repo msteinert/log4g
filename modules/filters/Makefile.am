@@ -14,7 +14,6 @@ liblog4g_filters_la_SOURCES = \
     module.c \
     string-match-filter.c
 liblog4g_filters_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
     -I$(srcdir) -I$(top_srcdir) \
     $(GLIB_CFLAGS) \
     $(GOBJECT_CFLAGS)

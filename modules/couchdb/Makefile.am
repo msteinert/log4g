@@ -10,7 +10,6 @@ liblog4g_couchdb_la_SOURCES = \
     layout/couchdb-layout.h \
     module.c
 liblog4g_couchdb_la_CFLAGS = \
-    -std=gnu99 -Wall -Werror \
     -I$(srcdir) -I$(top_srcdir) \
     $(COUCHDB_GLIB_CFLAGS) \
     $(GLIB_CFLAGS) \
