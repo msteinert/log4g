@@ -15,10 +15,9 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \brief Implements the API in log4g/logger.h
- * \author Mike Steinert
- * \date 1-29-2010
+/* Implements the API in log4g/logger.h
+ * Author Mike Steinert
+ * Date: 1-29-2010
  */
 
 #ifdef HAVE_CONFIG_H

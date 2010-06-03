@@ -7,7 +7,7 @@
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
     <bookinfo>
         <title>Log4g Reference Manual</title>
-            <releaseinfo>
+        <releaseinfo>
             The latest version of this documentation can be found on-line at
             <ulink role="online-location" url="http://msteinert.github.com/log4g/doc/unstable/">http://msteinert.github.com/log4g/doc/unstable/</ulink>.
         </releaseinfo>
@@ -23,5 +23,14 @@ TODO
         <para>
 TODO
         </para>
+        <xi:include href="xml/logger.xml" />
     </chapter>
+    <index id="api-index-full">
+        <title>Index</title>
+        <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+    </index>
+    <index id="api-index-deprecated" role="deprecated">
+        <title>Index of deprecated symbols</title>
+        <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+    </index>
 </book>

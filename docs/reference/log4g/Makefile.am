@@ -47,7 +47,6 @@ CFILE_GLOB = \
 EXTRA_HFILES =
 
 # Header files to ignore when scanning. Use base file name, no paths
-# e.g. IGNORE_HFILES = gtkdebug.h gtkintl.h
 IGNORE_HFILES =
 
 # Images to copy into HTML directory.
@@ -63,8 +62,6 @@ expand_content_files =
 # CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties.
-# e.g. GTKDOC_CFLAGS = -I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
-# e.g. GTKDOC_LIBS = $(top_builddir)/gtk/$(gtktargetlib)
 GTKDOC_CFLAGS = \
     -DLOG4G_LOCALEDIR=\"$(localedir)\" \
     -DLOG4G_MODULEDIR=\"$(moduledir)\" \
@@ -86,6 +83,7 @@ MAINTAINERCLEANFILES = \
     $(srcdir)/$(DOC_MODULE).args $(srcdir)/$(DOC_MODULE).hierarchy \
     $(srcdir)/$(DOC_MODULE).interfaces $(srcdir)/$(DOC_MODULE)-overrides.txt \
     $(srcdir)/$(DOC_MODULE).prerequisites $(srcdir)/$(DOC_MODULE).signals \
-    $(srcdir)/$(DOC_MODULE).types Makefile.in $(DOC_MODULE)-scan.c
+    $(srcdir)/$(DOC_MODULE).types Makefile.in $(DOC_MODULE)-scan.c \
+    Makefile.in
 
 -include $(top_srcdir)/git.mk
