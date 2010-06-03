@@ -71,24 +71,20 @@ syslog_appender_test_SOURCES = syslog-appender-test.c
 ttcc_layout_test_SOURCES = ttcc-layout-test.c
 writer_appender_test_SOURCES = writer-appender-test.c
 xml_layout_test_SOURCES = xml-layout-test.c
-# run tests
-check-local: $(check_PROGRAMS)
+# generate XML report
+log4g.xml: $(check_PROGRAMS)
 	@srcdir=@srcdir@ \
         LOG4G_MODULE_SYSTEM_PATH="" \
         LOG4G_MODULE_PATH="../modules/appenders/.libs:../modules/couchdb/.libs:../modules/filters/.libs:../modules/layouts/.libs" \
-        gtester $(check_PROGRAMS)
-# generate XML report
-log4g.xml: $(check_PROGRAMS)
-	gtester -k -o $@ $(check_PROGRAMS)
+	    gtester -k -o $@ $(check_PROGRAMS)
 # generate HTML report
 log4g.html: log4g.xml
 	gtester-report $< > $@
 # generate report
-report: log4g.html
+check-local: log4g.html
 EXTRA_DIST = \
     dom-configurator-001.xml \
     perf-001.xml
-.PHONY: report
 CLEANFILES = \
     log4g.xml dom-configurator-*.txt *-test.txt *-test.txt.* *-test.html
 DISTCLEANFILES = \

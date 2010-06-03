@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY % local.common.attrib "xmlns:xi CDATA #FIXED
+    'http://www.w3.org/2003/XInclude'">
+]>
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+    <bookinfo>
+        <title>Log4g Reference Manual</title>
+            <releaseinfo>
+            The latest version of this documentation can be found on-line at
+            <ulink role="online-location" url="http://msteinert.github.com/log4g/doc/unstable/">http://msteinert.github.com/log4g/doc/unstable/</ulink>.
+        </releaseinfo>
+    </bookinfo>
+    <chapter id="log4g-overview">
+        <title>Log4g Overview</title>
+        <para>
+TODO
+        </para>
+    </chapter> 
+    <chapter id="log4g-core">
+        <title>Log4g Core API</title>
+        <para>
+TODO
+        </para>
+    </chapter>
+</book>

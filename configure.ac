@@ -20,13 +20,15 @@ AC_INIT([Log4g], [log4g_major_version.log4g_minor_version.log4g_micro_version],
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wno-portability])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-AC_CONFIG_SRCDIR([log4g/log4g.c])
+AC_CONFIG_SRCDIR([log4g/log4g.h])
 # Checks for programs
 AC_ENABLE_SHARED
 AC_DISABLE_STATIC
 AC_PROG_CC_C99
 AC_PROG_LIBTOOL
-GOBJECT_INTROSPECTION_CHECK([0.6.10])
+GOBJECT_INTROSPECTION_CHECK([0.6.8])
+GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
+# Enable -Wall for gcc
 if test "x$GCC" = "xyes"; then
     case " $CFLAGS " in
     *[[\ \	]]-Wall[[\ \	]]*) ;;
@@ -148,8 +150,9 @@ AH_BOTTOM(
 # Output files
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
-    doc/Doxyfile
-    doc/Makefile
+    docs/Makefile
+    docs/reference/Makefile
+    docs/reference/log4g/Makefile
     log4g/Makefile
     Makefile
     modules/Makefile

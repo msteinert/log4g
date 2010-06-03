@@ -258,7 +258,7 @@ parse_layout(Log4gConfigurator *base, xmlNodePtr node)
         goto exit;
     }
     if (!LOG4G_IS_LAYOUT(layout)) {
-        log4g_log_error(Q_("%s: not an instance of log4g_layout"), type);
+        log4g_log_error(Q_("%s: not an instance of Log4gLayout"), type);
         g_object_unref(layout);
         layout = NULL;
         goto exit;
@@ -308,7 +308,7 @@ parse_filter(Log4gConfigurator *base, xmlNodePtr node)
         goto exit;
     }
     if (!LOG4G_IS_FILTER(filter)) {
-        log4g_log_error(Q_("%s: not an instance of log4g_filter"), type);
+        log4g_log_error(Q_("%s: not an instance of Log4gFilter"), type);
         g_object_unref(filter);
         filter = NULL;
         goto exit;
@@ -357,7 +357,7 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
             goto exit;
         }
         if (!LOG4G_IS_APPENDER(appender)) {
-            log4g_log_error(Q_("%s: not an instance of log4g_appender"), type);
+            log4g_log_error(Q_("%s: not an instance of Log4gAppender"), type);
             g_object_unref(appender);
             appender = NULL;
             goto exit;

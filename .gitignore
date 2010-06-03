@@ -38,6 +38,7 @@ install-sh
 libtool
 log4g-*.tar.gz
 ltmain.sh
+m4/gtk-doc.m4
 m4/libtool.m4
 m4/lt*.m4
 Makefile
