@@ -128,6 +128,7 @@ log4g_logger_remove_all_appenders
 log4g_logger_remove_appender
 log4g_logger_remove_appender_name
 log4g_logger_close_nested_appenders
+log4g_logger_call_appenders
 log4g_logger_is_trace_enabled
 _log4g_logger_trace
 log4g_logger_is_debug_enabled
@@ -162,6 +163,7 @@ LOG4G_LOGGER_GET_CLASS
 <TITLE>Log4gAppender</TITLE>
 Log4gAppender
 Log4gAppenderClass
+log4g_appender_clear_filters
 log4g_appender_add_filter
 log4g_appender_get_filter
 log4g_appender_close
@@ -181,6 +183,19 @@ log4g_appender_set_threshold
 log4g_appender_get_threshold
 log4g_appender_get_closed
 log4g_appender_set_closed
+Log4gAppenderAddFilter
+Log4gAppenderGetFilter
+Log4gAppenderClose
+Log4gAppenderAppend
+Log4gAppenderDoAppend
+Log4gAppenderSetName
+Log4gAppenderGetName
+Log4gAppenderSetErrorHandler
+Log4gAppenderGetErrorHandler
+Log4gAppenderSetLayout
+Log4gAppenderGetLayout
+Log4gAppenderRequiresLayout
+Log4gAppenderActivateOptions
 <SUBSECTION Standard>
 LOG4G_APPENDER
 LOG4G_IS_APPENDER

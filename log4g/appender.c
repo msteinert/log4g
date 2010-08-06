@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: appender
+ * @short_description: the log output interface
+ *
+ * Extend this class to define your own strategy for outputting log
+ * statements.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -273,98 +275,14 @@ log4g_appender_class_init(Log4gAppenderClass *klass)
                     G_PARAM_WRITABLE));
 }
 
-void
-log4g_appender_add_filter(Log4gAppender *self, Log4gFilter *filter)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->add_filter(self, filter);
-}
-
-Log4gFilter *
-log4g_appender_get_filter(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    return LOG4G_APPENDER_GET_CLASS(self)->get_filter(self);
-}
-
-void
-log4g_appender_close(Log4gAppender *self)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->close(self);
-}
-
-void
-log4g_appender_do_append(Log4gAppender *self, Log4gLoggingEvent *event)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->do_append(self, event);
-}
-
-const gchar *
-log4g_appender_get_name(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    return LOG4G_APPENDER_GET_CLASS(self)->get_name(self);
-}
-
-void
-log4g_appender_set_error_handler(Log4gAppender *self, gpointer handler)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    g_return_if_fail(LOG4G_IS_ERROR_HANDLER(handler));
-    LOG4G_APPENDER_GET_CLASS(self)->set_error_handler(self, handler);
-}
-
-gpointer
-log4g_appender_get_error_handler(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    return LOG4G_APPENDER_GET_CLASS(self)->get_error_handler(self);
-}
-
-void
-log4g_appender_set_layout(Log4gAppender *self, Log4gLayout *layout)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->set_layout(self, layout);
-}
-
-Log4gLayout *
-log4g_appender_get_layout(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    return LOG4G_APPENDER_GET_CLASS(self)->get_layout(self);
-}
-
-void
-log4g_appender_set_name(Log4gAppender *self, const gchar *name)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->set_name(self, name);
-}
-
-gboolean
-log4g_appender_requires_layout(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), FALSE);
-    return LOG4G_APPENDER_GET_CLASS(self)->requires_layout(self);
-}
-
-void
-log4g_appender_activate_options(Log4gAppender *self)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->activate_options(self);
-}
-    
-void
-log4g_appender_append(Log4gAppender *self, Log4gLoggingEvent *event)
-{
-    g_return_if_fail(LOG4G_IS_APPENDER(self));
-    LOG4G_APPENDER_GET_CLASS(self)->append(self, event);
-}
-
+/**
+ * log4g_appender_clear_filters:
+ * @self: A #Log4gAppender object.
+ *
+ * Remove all filters attached to this appender.
+ *
+ * Since: 0.1
+ */
 void
 log4g_appender_clear_filters(Log4gAppender *self)
 {
@@ -376,6 +294,220 @@ log4g_appender_clear_filters(Log4gAppender *self)
     }
 }
 
+/**
+ * log4g_appender_add_filter:
+ * @self: A #Log4gAppender object.
+ * @filter: A filter to add to @self.
+ *
+ * Calls the @add_filter function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_add_filter(Log4gAppender *self, Log4gFilter *filter)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->add_filter(self, filter);
+}
+
+/**
+ * log4g_appender_get_filter:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @get_filter function from the #Log4gAppenderClass of @self.
+ *
+ * Returns: The first filter in the filter chain.
+ * Since: 0.1
+ */
+Log4gFilter *
+log4g_appender_get_filter(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_filter(self);
+}
+
+/**
+ * log4g_appender_close:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @close function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_close(Log4gAppender *self)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->close(self);
+}
+
+/**
+ * log4g_appender_do_append:
+ * @self: A #Log4gAppender object.
+ * @event: The log event to append.
+ *
+ * Calls the @do_append function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_do_append(Log4gAppender *self, Log4gLoggingEvent *event)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->do_append(self, event);
+}
+
+/**
+ * log4g_appender_get_name:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @get_name function from the #Log4gAppenderClass of @self.
+ *
+ * Returns: The name of @self (may be %NULL).
+ * Since: 0.1
+ */
+const gchar *
+log4g_appender_get_name(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_name(self);
+}
+
+/**
+ * log4g_appender_set_error_handler:
+ * @self: A #Log4gAppender object.
+ * @handler: The new error handler object for @self.
+ *
+ * Calls the @set_error_handler function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_set_error_handler(Log4gAppender *self, gpointer handler)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    g_return_if_fail(LOG4G_IS_ERROR_HANDLER(handler));
+    LOG4G_APPENDER_GET_CLASS(self)->set_error_handler(self, handler);
+}
+
+/**
+ * log4g_appender_get_error_handler:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @get_error_handler function from the #Log4gAppenderClass of @self.
+ *
+ * Returns: The error handler object used by @self.
+ * Since: 0.1
+ */
+gpointer
+log4g_appender_get_error_handler(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_error_handler(self);
+}
+
+/**
+ * log4g_appender_set_layout:
+ * @self: A #Log4gAppender object.
+ * @layout: The new layout for @self.
+ *
+ * Calls the @set_layout function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_set_layout(Log4gAppender *self, Log4gLayout *layout)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->set_layout(self, layout);
+}
+
+/**
+ * log4g_appender_get_layout:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @get_layout function from the #Log4gAppenderClass of @self.
+ *
+ * Returns: The layout set for @self.
+ * Since: 0.1
+ */
+Log4gLayout *
+log4g_appender_get_layout(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return LOG4G_APPENDER_GET_CLASS(self)->get_layout(self);
+}
+
+/**
+ * log4g_appender_set_name:
+ * @self: A #Log4gAppender object.
+ * @name: The new name for this appender.
+ *
+ * Calls the @set_name function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_set_name(Log4gAppender *self, const gchar *name)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->set_name(self, name);
+}
+
+/**
+ * log4g_appender_requires_layout:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @requires_layout function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+gboolean
+log4g_appender_requires_layout(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), FALSE);
+    return LOG4G_APPENDER_GET_CLASS(self)->requires_layout(self);
+}
+
+/**
+ * log4g_appender_activate_options:
+ * @self: A #Log4gAppender object.
+ *
+ * Calls the @activate_options function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_activate_options(Log4gAppender *self)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->activate_options(self);
+}
+ /**
+ * log4g_appender_append:
+ * @self: A #Log4gAppender object.
+ * @event: A log event.
+ *
+ * Calls the @append function from the #Log4gAppenderClass of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_appender_append(Log4gAppender *self, Log4gLoggingEvent *event)
+{
+    g_return_if_fail(LOG4G_IS_APPENDER(self));
+    LOG4G_APPENDER_GET_CLASS(self)->append(self, event);
+}
+
+/**
+ * log4g_appender_get_first_filter:
+ * @self: A #Log4gAppender object.
+ *
+ * Retrieve the first filter in the filter chain.
+ *
+ * Returns: The first filter in the filter chain, or %NULL if there is none.
+ * Since: 0.1
+ */
 Log4gFilter *
 log4g_appender_get_first_filter(Log4gAppender *self)
 {
@@ -383,13 +515,19 @@ log4g_appender_get_first_filter(Log4gAppender *self)
     return GET_PRIVATE(self)->head;
 }
 
-Log4gLevel *
-log4g_appender_get_threshold(Log4gAppender *self)
-{
-    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
-    return GET_PRIVATE(self)->threshold;
-}
-
+/**
+ * log4g_appender_is_as_severe_as:
+ * @self: A #Log4gAppender object.
+ * @level: A log level.
+ *
+ * Determine if a log level is below the appender's threshold.
+ *
+ * If there is no threshold set then the return value is always %TRUE.
+ *
+ * Returns: %TRUE if @level is above the level threshold of this appender,
+ *          %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_appender_is_as_severe_as(Log4gAppender *self, Log4gLevel *level)
 {
@@ -399,6 +537,15 @@ log4g_appender_is_as_severe_as(Log4gAppender *self, Log4gLevel *level)
                 || (log4g_level_is_greater_or_equal(level, priv->threshold)));
 }
 
+/**
+ * log4g_appender_set_threshold:
+ * @self: A #Log4gAppender object.
+ * @threshold: A string representation of a log level.
+ *
+ * Set the threshold property for this appender.
+ *
+ * Since: 0.1
+ */
 void
 log4g_appender_set_threshold(Log4gAppender *self, const gchar *threshold)
 {
@@ -406,6 +553,31 @@ log4g_appender_set_threshold(Log4gAppender *self, const gchar *threshold)
     g_object_set(self, "threshold", threshold, NULL);
 }
 
+/**
+ * log4g_appender_get_threshold:
+ * @self: A #Log4gAppender object.
+ *
+ * Retrieve the threshold property.
+ *
+ * Returns: The threshold value for this appender.
+ * Since: 0.1
+ */
+Log4gLevel *
+log4g_appender_get_threshold(Log4gAppender *self)
+{
+    g_return_val_if_fail(LOG4G_IS_APPENDER(self), NULL);
+    return GET_PRIVATE(self)->threshold;
+}
+
+/**
+ * log4g_appender_get_closed:
+ * @self: A #Log4gAppender object.
+ *
+ * Determine if an appender has been closed.
+ *
+ * Returns: %TRUE if this appender is closed, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_appender_get_closed(Log4gAppender *self)
 {
@@ -413,6 +585,18 @@ log4g_appender_get_closed(Log4gAppender *self)
     return GET_PRIVATE(self)->closed;
 }
 
+/**
+ * log4g_appender_set_closed:
+ * @self: A #Log4gAppender object.
+ *
+ * Set the closed parameter.
+ *
+ * Appenders should set this value appropriately. The default value is
+ * %FALSE.
+ * 
+ * Returns: %TRUE if this appender is closed, %FALSE otherwise.
+ * Since: 0.1
+ */
 void
 log4g_appender_set_closed(Log4gAppender *self, gboolean closed)
 {

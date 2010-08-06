@@ -24,6 +24,7 @@ TODO
 TODO
         </para>
         <xi:include href="xml/logger.xml" />
+        <xi:include href="xml/appender.xml" />
     </chapter>
     <index id="api-index-full">
         <title>Index</title>

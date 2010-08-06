@@ -84,6 +84,6 @@ MAINTAINERCLEANFILES = \
     $(srcdir)/$(DOC_MODULE).interfaces $(srcdir)/$(DOC_MODULE)-overrides.txt \
     $(srcdir)/$(DOC_MODULE).prerequisites $(srcdir)/$(DOC_MODULE).signals \
     $(srcdir)/$(DOC_MODULE).types Makefile.in $(DOC_MODULE)-scan.c \
-    Makefile.in
+    Makefile.in *.bak
 
 -include $(top_srcdir)/git.mk
