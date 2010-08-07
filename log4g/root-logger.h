@@ -15,20 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief The root logger
- * \author Mike Steinert
- * \date 2-10-2010
- *
- * The root logger sits on top of the logger hierarchy. It is a normal logger
- * with the following exceptions:
- * -# It may not be assigned a NULL level threshold
- * -# The root logger cannot have a parent (the get_effective_threshold()
- *    method always returns the value of the level field without walking
- *    the hierarchy)
- */
-
 #ifndef LOG4G_ROOT_LOGGER_H
 #define LOG4G_ROOT_LOGGER_H
 
@@ -57,32 +43,35 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_ROOT_LOGGER, \
             Log4gRootLoggerClass))
 
-/** \brief Log4gRootLogger object type definition */
 typedef struct _Log4gRootLogger Log4gRootLogger;
 
-/** \brief Log4gRootLogger class type definition */
 typedef struct _Log4gRootLoggerClass Log4gRootLoggerClass;
 
-/** \brief Log4gRootLoggerClass definition */
+/**
+ * Log4gRootLogger:
+ *
+ * The <structname>Log4gRootLogger</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gRootLogger {
+    /*< private >*/
     Log4gLogger parent_instance;
 };
 
-/** \brief Log4gRootLoggerClass definition */
+/**
+ * Log4gRootLoggerClass:
+ *
+ * The <structname>Log4gRootLogger</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gRootLoggerClass {
+    /*< private >*/
     Log4gLoggerClass parent_class;
 };
 
 GType
 log4g_root_logger_get_type(void);
 
-/**
- * \brief Create a new root logger.
- *
- * \param level [in] The level threshold of this root logger.
- *
- * \return A new root logger object.
- */
 Log4gLogger *
 log4g_root_logger_new(Log4gLevel *level);
 

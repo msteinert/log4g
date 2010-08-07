@@ -15,61 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Initialize the Log4g environment using a DOM tree.
- * \author Mike Steinert
- * \date 2-23-2010
- *
- * The DTD is specified in \e log4g.dtd. The Log4g DTD differs in some small
- * ways from the official Log4j DTD:
- *
- * - Use "appender" everywhere instead of "appender-ref"
- *     - Appenders may be declared inline to a logger. Appender references
- *       simply use a named "appender" tag and do not define a new appender.
- * - Use "property" instead of "param"
- *     - The decision was made to use the keyword "property" instead of
- *       "param" to reflect the underlying GLib/GObject implementation.
- *
- * The following configuration provides a cut-and-paste example:
- *
- * \code
- * <?xml version="1.0" encoding="UTF-8" ?>
- * <!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
- *     "http://www.gnome.org/log4g/1.0/log4g.dtd">
- * <log4g:configuration>
- *     <appender name="A1" type="Log4gConsoleAppender">
- *         <layout type="Log4gPatternLayout">
- *             <property name="conversion-pattern"
- *                       value="%-4r [%t] %-5p %c %x - %m%n" />
- *         </layout>
- *     </appender>
- *     <root>
- *         <level value="DEBUG" />
- *         <appender name="A1" />
- *     </root>
- * </log4g:configuration>
- * \endcode
- *
- * In this example all events will be logged to the console appender (stdout by
- * default) using the specified pattern layout.
- *
- * You may enable internal log messages by setting the \e LOG4G_FLAGS
- * environment variable to \e "debug". For example (Bash):
- * \code
- * $ export LOG4G_FLAGS=debug
- * \endcode
- *
- * Alternatively you may set the \e debug attribute in the
- * \e log4g:configuration element:
- * \code
- * <log4g:configuration debug="true">
- * </log4g:configuration>
- * \endcode
- *
- * \see log4g_init(), log4g_get_option_group()
- */
-
 #ifndef LOG4G_DOM_CONFIGURATOR_H
 #define LOG4G_DOM_CONFIGURATOR_H
 
@@ -98,42 +43,38 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_DOM_CONFIGURATOR, \
             Log4gDOMConfiguratorClass))
 
-/** \brief Log4gDOMConfigurator object type definition */
 typedef struct _Log4gDOMConfigurator Log4gDOMConfigurator;
 
-/** \brief Log4gDOMConfigurator class type definition */
 typedef struct _Log4gDOMConfiguratorClass Log4gDOMConfiguratorClass;
 
-/** \brief Log4gDOMConfiguratorClass definition */
+/**
+ * Log4gDOMConfigurator:
+ *
+ * The <structname>Log4gDOMConfigurator</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gDOMConfigurator {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gDOMConfiguratorClass definition */
+/**
+ * Log4gDOMConfiguratorClass:
+ *
+ * The <structname>Log4gDOMConfiguratorClass</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gDOMConfiguratorClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType
 log4g_dom_configurator_get_type(void);
 
-/**
- * \brief Create a new DOM configurator.
- *
- * \return A new DOM configurator object.
- */
 Log4gConfigurator *
 log4g_dom_configurator_new(void);
 
-/**
- * \brief Configure Log4g by reading a log4g.dtd compliant XML configuration
- *        file.
- *
- * \param uri [in] A file or URI to load the configuration from.
- * \param error [out] Returns any error messages.
- *
- * \return \e TRUE if the configuration was successful, \e FALSE otherwise.
- */
 gboolean
 log4g_dom_configurator_configure(const gchar *uri, GError **error);
 

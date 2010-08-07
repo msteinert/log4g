@@ -16,9 +16,17 @@
  */
 
 /**
- * \brief Implements the API in log4g/mdc.h
- * \author Mike Steinert
- * \date 2-3-2010
+ * SECTION: mdc
+ * @short_description: mapped data context
+ *
+ * The MDC class provides mapped data contexts. A mapped data context (MDC for
+ * short) is an instrument for distinguishing interleaved log output from
+ * different sources. An example of interleaved log output may occur when a
+ * server handles multiple clients simultaneously.
+ *
+ * Mapped data context is managed on a per-thread basis. The main difference
+ * between Log4g MDCs and Log4j MDCs is that Log4g contexts are
+ * <emphasis>not</emphasis> inherited by child threads.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -36,7 +44,7 @@ struct Log4gPrivate {
     GHashTable *table;
 };
 
-/** \brief Thread specific data. */
+/* Thread specific data. */
 static GPrivate *priv = NULL;
 
 static void
@@ -95,7 +103,14 @@ log4g_mdc_class_init(Log4gMDCClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
-Log4gMDC *
+/**
+ * log4g_mdc_get_instance:
+ *
+ * Retrieve the MDC instance object for currently executing thread.
+ *
+ * Returns: A mapped data context object.
+ */
+static Log4gMDC *
 log4g_mdc_get_instance(void)
 {
     Log4gMDC *self = g_private_get(priv);
@@ -105,6 +120,20 @@ log4g_mdc_get_instance(void)
     return self;
 }
 
+/**
+ * log4g_mdc_put:
+ * @key: The key to associate with @value.
+ * @value: The value to associate with @key (accepts printf formats).
+ * @...: Format parameters.
+ *
+ * Put a context @value as identified by a @key into the current thread's
+ * context map.
+ *
+ * If a context map has not been created for the current thread it will be
+ * created as a side-effect.
+ *
+ * Since: 0.1
+ */
 void
 log4g_mdc_put(const gchar *key, const gchar *value, ...)
 {
@@ -119,6 +148,16 @@ log4g_mdc_put(const gchar *key, const gchar *value, ...)
     va_end(ap);
 }
 
+/**
+ * log4g_mdc_get:
+ * @key: The key to retrieve.
+ *
+ * Retrieve a the context value associated with a @key from the current
+ * thread's context map.
+ *
+ * Returns: The context value associated with @key.
+ * Since: 0.1
+ */
 const gchar *
 log4g_mdc_get(const gchar *key)
 {
@@ -129,6 +168,15 @@ log4g_mdc_get(const gchar *key)
     return g_hash_table_lookup(GET_PRIVATE(self)->table, key);
 }
 
+/**
+ * log4g_mdc_remove:
+ * @key: The key to remove.
+ *
+ * Remove a context value associated with a @key from the current thread's
+ * context map.
+ *
+ * Since: 0.1
+ */
 void
 log4g_mdc_remove(const gchar *key)
 {
@@ -139,6 +187,18 @@ log4g_mdc_remove(const gchar *key)
     g_hash_table_remove(GET_PRIVATE(self)->table, key);
 }
 
+/**
+ * log4g_mdc_get_context:
+ * @stability Internal
+ *
+ * Retrieve the current thread's MDC as a hash table.
+ *
+ * This function is used internally by appenders that log asynchronously.
+ *
+ * Returns: The current MDC context as a hash table.
+ *
+ * Since: 0.1
+ */
 const GHashTable *
 log4g_mdc_get_context(void)
 {

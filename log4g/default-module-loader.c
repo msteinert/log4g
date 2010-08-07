@@ -53,7 +53,7 @@ is_valid_module_name(const gchar *basename)
 #endif
 }
 
-void
+static void
 load_directory(Log4gModuleLoader *base, const gchar *dirname)
 {
     if (!g_module_supported()) {
@@ -91,7 +91,7 @@ load_directory(Log4gModuleLoader *base, const gchar *dirname)
     g_dir_close(dir);
 }
 
-void
+static void
 load_env_var(Log4gModuleLoader *base, const gchar *env)
 {
     if ('\0' == *env) {

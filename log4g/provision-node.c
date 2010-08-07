@@ -16,9 +16,13 @@
  */
 
 /**
- * \brief Implements the API in log4g/provision-node.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: provision-node
+ * @short_description: Log repository temporary nodes.
+ *
+ * Provision nodes are place holders for non-instantiated loggers within the
+ * logger hierarchy.
+ *
+ * @see_also: #Log4gHierarchy
  */
 
 #ifdef HAVE_CONFIG_H
@@ -82,6 +86,15 @@ log4g_provision_node_class_init(Log4gProvisionNodeClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_provision_node_new:
+ * @object: The object to add to this provision node.
+ *
+ * Create a #Log4gProvisionNode object and add an element.
+ *
+ * Returns: A new Log4gProvisionNode object.
+ * Since: 0.1
+ */
 Log4gProvisionNode *
 log4g_provision_node_new(gpointer object)
 {
@@ -95,6 +108,15 @@ log4g_provision_node_new(gpointer object)
     return self;
 }
 
+/**
+ * log4g_provision_node_add_element:
+ * @self: A provision node object.
+ * @object: The object to add to @self.
+ *
+ * Add an element to a provision node.
+ *
+ * Since: 0.1
+ */
 void
 log4g_provision_node_add_element(Log4gProvisionNode *self, gpointer object)
 {
@@ -103,12 +125,30 @@ log4g_provision_node_add_element(Log4gProvisionNode *self, gpointer object)
     g_array_append_val(GET_PRIVATE(self)->array, object);
 }
 
+/**
+ * log4g_provision_node_size:
+ * @self: A provision node object.
+ *
+ * Retrieve the number of objects in a provision node.
+ *
+ * Since: 0.1
+ */
 guint
 log4g_provision_node_size(Log4gProvisionNode *self)
 {
     return GET_PRIVATE(self)->array->len;
 }
 
+/**
+ * log4g_provision_node_element_at:
+ * @self: A provision node object.
+ * @index: The object index to retrieve.
+ *
+ * Retrieve an indexed element from a provision node.
+ *
+ * Returns: The object at @index or %NULL if none exists.
+ * Since: 0.1
+ */
 gpointer
 log4g_provision_node_element_at(Log4gProvisionNode *self, guint index)
 {

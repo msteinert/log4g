@@ -16,9 +16,32 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: filter
+ * @short_description: log event filter base class
+ *
+ * Users may extend this class to implement custom log event filtering. Note
+ * that Log4gLogger & Log4gAppenderSkeleton (the parent of all standard
+ * appenders) have builtin filter rules. You should understand and use the
+ * builtin rules before writing custom filters.
+ *
+ * Filters are organized in a linear chain. Log4gAppenderSkeleton calls the
+ * decide() function of each filter sequentially in order to determine the
+ * outcome of the filtering process.
+ *
+ * Sub-classes must override the decide() virtual function. This function
+ * must return one of the integer constants %LOG4G_FILTER_DENY,
+ * %LOG4G_FILTER_NEUTRAL, or %LOG4G_FILTER_ACCEPT.
+ *
+ * If the value %LOG4G_FILTER_DENY is returned the log event is dropped
+ * immediately without consulting the remaining filters.
+ *
+ * If the value %LOG4G_FILTER_NEUTRAL is returned the remaining filters in
+ * the chain are consulted. If the final filter returns %LOG4G_FILTER_NEUTRAL
+ * then the log event is logged. If no filters exist then all messages are
+ * logged.
+ *
+ * If the value %LOG4G_FILTER_ACCEPT is returned the the log event is logged
+ * immediately without consulting the remaining filters.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -74,6 +97,16 @@ log4g_filter_class_init(Log4gFilterClass *klass)
     klass->activate_options = activate_options;
 }
 
+/**
+ * log4g_filter_decide:
+ * @self: A #Log4gFilter object.
+ * @event: A logging event.
+ *
+ * Calls the @decide function from the #Log4gFilterClass of @self.
+ *
+ * Returns: A filter decision based upon the logging event.
+ * Since: 0.1
+ */
 void
 log4g_filter_activate_options(Log4gFilter *self)
 {
@@ -81,6 +114,17 @@ log4g_filter_activate_options(Log4gFilter *self)
     LOG4G_FILTER_GET_CLASS(self)->activate_options(self);
 }
 
+/**
+ * log4g_filter_activate_options:
+ * @self: A #Log4gFilter object.
+ *
+ * Calls the @activate_options function from the #Log4gFilterClass of @self.
+ *
+ * Filters generally need to have their options activated before they can
+ * be used. This class provides a do-nothing implementation for convenience.
+ *
+ * Since: 0.1
+ */
 Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event)
 {
@@ -88,12 +132,36 @@ log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event)
     return LOG4G_FILTER_GET_CLASS(self)->decide(self, event);
 }
 
+/**
+ * log4g_filter_get_next:
+ * @self: A #Log4gFilter object.
+ *
+ * Retrieve the next filter in the chain.
+ *
+ * Filters are chained together. This function returns the next filter in
+ * the chain, or %NULL if there are no more.
+ *
+ * Returns: The next filter in the chain, or \e NULL if there are no more.
+ * Since: 0.1
+ */
 Log4gFilter *
 log4g_filter_get_next(Log4gFilter *self)
 {
     return GET_PRIVATE(self)->next;
 }
 
+/**
+ * log4g_filter_set_next:
+ * @self: A filter object.
+ * @next: The filter to set as the next in the chain.
+ *
+ * Set the next filter in the chain.
+ *
+ * Filters are chained together. This function sets the filter that will
+ * follow this one in the chain.
+ *
+ * Since: 0.1
+ */
 void
 log4g_filter_set_next(Log4gFilter *self, Log4gFilter *next)
 {

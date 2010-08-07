@@ -230,6 +230,10 @@ log4g_level_WARN
 log4g_level_ERROR
 log4g_level_FATAL
 log4g_level_OFF
+Log4gLevelStringToLevel
+Log4gLevelStringToLevelDefault
+Log4gLevelIntToLevel
+Log4gLevelIntToLevelDefault
 <SUBSECTION Standard>
 LOG4G_LEVEL
 LOG4G_IS_LEVEL
@@ -270,6 +274,11 @@ log4g_layout_get_content_type
 log4g_layout_get_header
 log4g_layout_get_footer
 log4g_layout_activate_options
+Log4gLayoutFormat
+Log4gLayoutGetContentType
+Log4gLayoutGetHeader
+Log4gLayoutGetFooter
+Log4gLayoutActivateOptions
 <SUBSECTION Standard>
 LOG4G_LAYOUT
 LOG4G_IS_LAYOUT
@@ -320,6 +329,7 @@ log4g_logging_event_get_file_name
 log4g_logging_event_get_line_number
 log4g_logging_event_get_full_info
 log4g_logging_event_get_start_time
+Log4gLoggingEventGetLevel
 <SUBSECTION Standard>
 LOG4G_LOGGING_EVENT
 LOG4G_IS_LOGGING_EVENT
@@ -356,6 +366,8 @@ log4g_filter_decide
 log4g_filter_activate_options
 log4g_filter_get_next
 log4g_filter_set_next
+Log4gFilterDecide
+Log4gFilterActivateOptions
 <SUBSECTION Standard>
 LOG4G_FILTER
 LOG4G_IS_FILTER

@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/module.h
- * \author Mike Steinert
- * \date 5-25-2010
+ * SECTION: module
+ * @short_description: loadable appender, filter & layout modules
+ *
+ * This class implements a dynamic module system in order to make appenders,
+ * layouts & filters available to the Log4g system.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -132,12 +134,27 @@ log4g_module_class_init(Log4gModuleClass *klass)
     GTypeModuleClass *module_class = G_TYPE_MODULE_CLASS(klass);
     module_class->load = load;
     module_class->unload = unload;
-    /* install properties */
+    /**
+     * Log4gModule:filename:
+     *
+     * The filename of the external module to load.
+     *
+     * Since: 0.1
+     */
     g_object_class_install_property(gobject_class, PROP_FILENAME,
             g_param_spec_string("filename", Q_("Filename"),
                     Q_("Filename of the module"), NULL, G_PARAM_WRITABLE));
 }
 
+/**
+ * log4g_module_new:
+ * @file: The path of the file to load as a module.
+ *
+ * Create a new module.
+ *
+ * Returns: A new module object.
+ * Since: 0.1
+ */
 GTypeModule *
 log4g_module_new(const gchar *file)
 {

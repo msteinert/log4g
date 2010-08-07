@@ -16,9 +16,14 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout.h
- * \author Mike Steinert
- * \date 2-5-2010
+ * SECTION: layout
+ * @short_description: log event layout base class
+ *
+ * Users may extend this class to implement custom log event layouts.
+ *
+ * Many appenders require a layout in order to log an event. Sub-classes
+ * must override the _Log4gLayoutClass::format() virtual function to implement
+ * custom formatting.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -64,6 +69,16 @@ log4g_layout_class_init(Log4gLayoutClass *klass)
     klass->activate_options = activate_options;
 }
 
+/**
+ * log4g_layout_format:
+ * @self: A layout object.
+ * @event: A logging event object to be laid out.
+ *
+ * Calls the @format function from the #Log4gLayoutClass of @self.
+ *
+ * Returns: The formatted logging event.
+ * Since: 0.1
+ */
 gchar *
 log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event)
 {
@@ -71,6 +86,15 @@ log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event)
     return LOG4G_LAYOUT_GET_CLASS(self)->format(self, event);
 }
 
+/**
+ * log4g_layout_get_content_type:
+ * @self: A layout object.
+ *
+ * Calls the @get_content_type function from the #Log4gLayoutClass of @self.
+ *
+ * Returns: The layout content type.
+ * Since: 0.1
+ */
 const gchar *
 log4g_layout_get_content_type(Log4gLayout *self)
 {
@@ -78,6 +102,15 @@ log4g_layout_get_content_type(Log4gLayout *self)
     return LOG4G_LAYOUT_GET_CLASS(self)->get_content_type(self);
 }
 
+/**
+ * log4g_layout_get_header:
+ * @self: A layout object.
+ *
+ * Calls the @get_header function from the #Log4gLayoutClass of @self.
+ *
+ * Returns: The layout header.
+ * Since: 0.1
+ */
 const gchar *
 log4g_layout_get_header(Log4gLayout *self)
 {
@@ -85,6 +118,15 @@ log4g_layout_get_header(Log4gLayout *self)
     return LOG4G_LAYOUT_GET_CLASS(self)->get_header(self);
 }
 
+/**
+ * log4g_layout_get_footer:
+ * @self: A layout object.
+ *
+ * Calls the @get_footer function from the #Log4gLayoutClass of @self.
+ *
+ * Returns: The layout footer.
+ * Since: 0.1
+ */
 const gchar *
 log4g_layout_get_footer(Log4gLayout *self)
 {
@@ -92,6 +134,17 @@ log4g_layout_get_footer(Log4gLayout *self)
     return LOG4G_LAYOUT_GET_CLASS(self)->get_footer(self);
 }
 
+/**
+ * log4g_layout_activate_options:
+ * @self: A layout object.
+ *
+ * Calls the @activate_options function from the #Log4gLayoutClass of @self.
+ *
+ * Layouts generally need to have their options activated before they can be
+ * used. This class provides a do-nothing implementation for convenience.
+ *
+ * Since: 0.1
+ */
 void
 log4g_layout_activate_options(Log4gLayout *self)
 {

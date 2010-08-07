@@ -16,9 +16,26 @@
  */
 
 /**
- * \brief Implements the API in log4g/hierarchy.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: hierarchy
+ * @short_description: maintain the logger hierarchy
+ * @see_also: #Log4gLoggerRepository
+ *
+ * This class specializes in retrieving loggers by name and maintaining the
+ * logger hierarchy.
+ *
+ * <note><para>
+ * The casual user has no need to deal with this class directly.
+ * </para></note>
+ *
+ * The structure of the logger hierarchy is maintained by the function
+ * log4g_logger_repository_get_logger() function. Children in the hierarchy
+ * link to their parent but parents do not have a pointer to their children.
+ * Descendant logger may be instantiated before their ancestors.
+ *
+ * In the case where a descendant is created before a particular ancestor
+ * a provision node (#Log4gProvisionNode) is created for the ancestor and
+ * the descendant is added to the provision node. Other descendants of the
+ * same ancestor are added to the previously created provision node.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -40,7 +57,7 @@ struct Log4gPrivate {
     gint threshold_int;
     gboolean warning;
     GArray *loggers;
-    GMutex *lock; /**< Synchronizes \e table */
+    GMutex *lock; /* Synchronizes 'table' */
 };
 
 static Log4gLogger *
@@ -404,6 +421,15 @@ static void log4g_hierarchy_class_init(Log4gHierarchyClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_hierarchy_new:
+ * @root: The root logger for the new hierarchy.
+ *
+ * Create a new logger hierarchy.
+ *
+ * Returns: A new logger hierarchy.
+ * Since: 0.1
+ */
 Log4gLoggerRepository *
 log4g_hierarchy_new(Log4gLogger *root)
 {
@@ -419,6 +445,14 @@ log4g_hierarchy_new(Log4gLogger *root)
     return self;
 }
 
+/**
+ * log4g_hierarchy_clear:
+ * @base: The logger hierarchy to clear.
+ *
+ * Clear a logger hierarchy.
+ *
+ * Since: 0.1
+ */
 void
 log4g_hierarchy_clear(Log4gLoggerRepository *object)
 {

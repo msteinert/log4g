@@ -15,15 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Quickly configure Log4g.
- * \author Mike Steinert
- * \date 2-22-2010
- *
- * For file based configuration, see log4g/dom-configurator.h.
- */
-
 #ifndef LOG4G_BASIC_CONFIGURATOR_H
 #define LOG4G_BASIC_CONFIGURATOR_H
 
@@ -31,29 +22,12 @@
 
 G_BEGIN_DECLS
 
-/**
- * \brief Quickly configure Log4g.
- *
- * This function adds a console appender to the
- * \ref log4g/root-logger.h "root logger" that uses the TTCC layout and
- * prints to \e stdout.
- */
 void
 log4g_basic_configurator_configure(void);
 
-/**
- * \brief Add an appender to the root category.
- *
- * \param appender [in] The appender to add to the root category.
- */
 void
 log4g_basic_configurator_configure_appender(Log4gAppender *appender);
 
-/**
- * \brief Reset configuration.
- *
- * Reset the default hierarchy to its default state.
- */
 void
 log4g_basic_configurator_reset_configuration(void);
 

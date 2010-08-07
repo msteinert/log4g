@@ -268,7 +268,14 @@ log4g_appender_class_init(Log4gAppenderClass *klass)
     klass->set_name = set_name;
     klass->requires_layout = NULL;
     klass->activate_options = activate_options;
-    /* install properties */
+    /**
+     * Log4gAppender:threshold:
+     *
+     * The level threshold for this appender.
+     * @See: #Log4gLevel
+     *
+     * Since: 0.1
+     */
     g_object_class_install_property(gobject_class, PROP_THRESHOLD,
             g_param_spec_string("threshold", Q_("Threshold"),
                     Q_("Threshold for this appender"), NULL,

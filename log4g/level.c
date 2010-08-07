@@ -16,9 +16,21 @@
  */
 
 /**
- * \brief Implements the API in log4g/level.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: level
+ * @short_description: minimum set of logging levels recognized by the system
+ *
+ * The following base log levels are defined:
+ * <itemizedlist>
+ * <listitem><para>OFF</para></listitem>
+ * <listitem><para>FATAL</para></listitem>
+ * <listitem><para>ERROR</para></listitem>
+ * <listitem><para>WARN</para></listitem>
+ * <listitem><para>INFO</para></listitem>
+ * <listitem><para>DEBUG</para></listitem>
+ * <listitem><para>ALL</para></listitem>
+ * </itemizedlist>
+ *
+ * The #Log4gLevel class may be sub-classed to define a larger level set.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -81,6 +93,17 @@ log4g_level_class_init(Log4gLevelClass *klass)
     klass->OFF = log4g_level_new(LOG4G_LEVEL_OFF_INT, "OFF", LOG_EMERG);
 }
 
+/**
+ * log4g_level_new:
+ * @level: The log priority.
+ * @string: The string representation of this level.
+ * @syslog: The syslog equivalent of this level.
+ *
+ * Create a Log4gLevel object.
+ *
+ * Returns: A new Log4gLevel object.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_new(gint level, const gchar *string, gint syslog)
 {
@@ -100,6 +123,16 @@ log4g_level_new(gint level, const gchar *string, gint syslog)
     return self;
 }
 
+/**
+ * log4g_level_equals:
+ * @self: A level object.
+ * @level: A level to compare with @self.
+ *
+ * Determine if two log levels are equal.
+ *
+ * Returns: %TRUE if @self & @level are equal, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_level_equals(Log4gLevel *self, Log4gLevel *level)
 {
@@ -109,12 +142,32 @@ log4g_level_equals(Log4gLevel *self, Log4gLevel *level)
     return FALSE;
 }
 
+/**
+ * log4g_level_get_syslog_equivalent:
+ * @self: A level object.
+ *
+ * Retrieve the syslog(3) equivalent integer of level object.
+ *
+ * Returns: The syslog equivalent integer of @self.
+ * Since: 0.1
+ */
 gint
 log4g_level_get_syslog_equivalent(Log4gLevel *self)
 {
     return GET_PRIVATE(self)->syslog;
 }
 
+/**
+ * log4g_level_is_greater_or_equal:
+ * @self: A level object.
+ * @level: A level object to compare with @self.
+ *
+ * Determine if a level is greater or equal than another level.
+ *
+ * Returns: %TRUE if @level is greater than or equal to @self, or %FALSE if
+ *          @self is greater than @level.
+ * Since: 0.1
+ */
 gboolean
 log4g_level_is_greater_or_equal(Log4gLevel *self, Log4gLevel *level)
 {
@@ -125,18 +178,44 @@ log4g_level_is_greater_or_equal(Log4gLevel *self, Log4gLevel *level)
     }
 }
 
+/**
+ * log4g_level_to_string:
+ * @self: A level object.
+ *
+ * Retrieve the string representation of a level.
+ *
+ * Returns: The string representation of @self.
+ */
 const gchar *
 log4g_level_to_string(Log4gLevel *self)
 {
     return GET_PRIVATE(self)->string;
 }
 
+/**
+ * log4g_level_to_int:
+ * @self: A level object.
+ *
+ * Retrieve the integer representation of a level.
+ *
+ * Returns: The integer representation of @self.
+ * Since: 0.1
+ */
 gint
 log4g_level_to_int(Log4gLevel *self)
 {
     return GET_PRIVATE(self)->level;
 }
 
+/**
+ * log4g_level_string_to_level:
+ * @string: A string representation of a level.
+ *
+ * Calls the @string_to_level function from the #Log4gLevelClass of @self.
+ *
+ * Returns: The level represented by @string.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_string_to_level(const gchar *level)
 {
@@ -150,6 +229,17 @@ log4g_level_string_to_level(const gchar *level)
     return to;
 }
 
+/**
+ * log4g_level_string_to_level_default:
+ * @string: A string representation of a level.
+ * @def: The level to return if the conversion failed.
+ *
+ * Calls the @string_to_level_default function of the #Log4gLevelClass of
+ * @self.
+ *
+ * Returns: The level represented by @string or @def if the conversion failed.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_string_to_level_default(const gchar *level, Log4gLevel *def)
 {
@@ -181,6 +271,15 @@ log4g_level_string_to_level_default(const gchar *level, Log4gLevel *def)
     return to;
 }
 
+/**
+ * log4g_level_int_to_level:
+ * @level: An integer representation of a level.
+ *
+ * Calls the @int_to_level function from the #Log4gLevelClass of @self.
+ *
+ * Returns: The level represented by @level.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_int_to_level(gint level)
 {
@@ -189,6 +288,16 @@ log4g_level_int_to_level(gint level)
     return to;
 }
 
+/**
+ * log4g_level_int_to_level_default:
+ * @level: An integer representation of a level.
+ * @def: The level to return if the conversion failed.
+ *
+ * Calls the @int_to_level_default from the #Log4gLevelClass of @self.
+ *
+ * Returns: The level represented by @level or @def if the conversion failed.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_int_to_level_default(gint level, Log4gLevel *def)
 {
@@ -220,6 +329,14 @@ log4g_level_int_to_level_default(gint level, Log4gLevel *def)
     return to;
 }
 
+/**
+ * log4g_level_ALL:
+ *
+ * Retrieve the log level #Log4gLevelClass.ALL.
+ *
+ * Returns: The log level #Log4gLevelClass.ALL.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_ALL(void)
 {
@@ -232,6 +349,14 @@ log4g_level_ALL(void)
     return level;
 }
 
+/**
+ * log4g_level_TRACE:
+ *
+ * Retrieve the log level #Log4gLevelClass.TRACE.
+ *
+ * Returns: The log level #Log4gLevelClass.TRACE.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_TRACE(void)
 {
@@ -244,6 +369,14 @@ log4g_level_TRACE(void)
     return level;
 }
 
+/**
+ * log4g_level_DEBUG:
+ *
+ * Retrieve the log level #Log4gLevelClass.DEBUG.
+ *
+ * Returns: The log level #Log4gLevelClass.DEBUG.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_DEBUG(void)
 {
@@ -256,6 +389,14 @@ log4g_level_DEBUG(void)
     return level;
 }
 
+/**
+ * log4g_level_INFO:
+ *
+ * Retrieve the log level #Log4gLevelClass.INFO.
+ *
+ * Returns: The log level #Log4gLevelClass.INFO.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_INFO(void)
 {
@@ -268,6 +409,14 @@ log4g_level_INFO(void)
     return level;
 }
 
+/**
+ * log4g_level_WARN:
+ *
+ * Retrieve the log level #Log4gLevelClass.WARN.
+ *
+ * Returns: The log level #Log4gLevelClass.WARN.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_WARN(void)
 {
@@ -280,6 +429,14 @@ log4g_level_WARN(void)
     return level;
 }
 
+/**
+ * log4g_level_ERROR:
+ *
+ * Retrieve the log level #Log4gLevelClass.ERROR.
+ *
+ * Returns: The log level #Log4gLevelClass.ERROR.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_ERROR(void)
 {
@@ -292,6 +449,14 @@ log4g_level_ERROR(void)
     return level;
 }
 
+/**
+ * log4g_level_FATAL:
+ *
+ * Retrieve the log level #Log4gLevelClass.FATAL.
+ *
+ * Returns: The log level #Log4gLevelClass.FATAL.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_FATAL(void)
 {
@@ -304,6 +469,14 @@ log4g_level_FATAL(void)
     return level;
 }
 
+/**
+ * log4g_level_OFF:
+ *
+ * Retrieve the log level #Log4gLevelClass.OFF.
+ *
+ * Returns: The log level #Log4gLevelClass.OFF.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_level_OFF(void)
 {

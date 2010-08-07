@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in log4g/log-manager.h
- * \author Mike Steinert
- * \date 2-10-2010
+ * SECTION: log-manager
+ * @short_description: Operate on the current logger repository.
+ * @see_also: #Log4gLogger, #log4gLoggerRepository
+ *
+ * Use the log manager class to retrieve logger instances or operate on the
+ * current logger repository.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -123,7 +126,16 @@ log4g_log_manager_class_init(Log4gLogManagerClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
-Log4gLogManager *
+/**
+ * log4g_log_manager_get_instance:
+ *
+ * Retrieve the current log manager instance.
+ *
+ * If one does not exist it will be created.
+ *
+ * Returns: The current log manager instance.
+ */
+static Log4gLogManager *
 log4g_log_manager_get_instance(void)
 {
     Log4gLogManager *self = g_atomic_pointer_get(&singleton);
@@ -133,6 +145,17 @@ log4g_log_manager_get_instance(void)
     return self;
 }
 
+/**
+ * log4g_log_manager_remove_instance:
+ *
+ * Remove the current log manager instance.
+ *
+ * <note><para>
+ * Do not call this function unless you really know what you are doing.
+ * </para></note>
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_manager_remove_instance(void)
 {
@@ -142,6 +165,16 @@ log4g_log_manager_remove_instance(void)
     }
 }
 
+/**
+ * log4g_log_manager_set_repository_selector:
+ * @selector: The new repository selector.
+ * @guard: The previous guard object (if one was set).
+ *
+ * Sets a new repository selector. If a guard object has been set then it
+ * must be supplied.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
         GObject *guard)
@@ -171,6 +204,16 @@ log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
     priv->selector = selector;
 }
 
+/**
+ * log4g_log_manager_get_logger_repository:
+ *
+ * Retrieve the current logger repository.
+ *
+ * @See: log4g/interface/logger-repository.h
+ *
+ * Returns: The current logger repository.
+ * Since: 0.1
+ */
 Log4gLoggerRepository *
 log4g_log_manager_get_logger_repository(void)
 {
@@ -178,22 +221,18 @@ log4g_log_manager_get_logger_repository(void)
     if (!self) {
         return NULL;
     }
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-#if 0
-    if (!instance->selector) {
-        Log4gLoggerRepository = log4g_nop_logger_repository_new();
-        instance->selector = log4g_default_repository_selector_new(repository);
-        if (instance->guard) {
-            g_object_unref(instance->guard);
-            instance->guard = NULL;
-        }
-        log4g_log_warn(Q_("RepositorySelector was NULL likely due to error "
-                "in class reloading, using Log4gNOPLoggerRepository"));
-    }
-#endif
-    return log4g_repository_selector_get_logger_repository(priv->selector);
+    return log4g_repository_selector_get_logger_repository(
+                GET_PRIVATE(self)->selector);
 }
 
+/**
+ * log4g_log_manager_get_root_logger:
+ *
+ * Retrieve the root logger.
+ *
+ * Returns: The root logger.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_log_manager_get_root_logger(void)
 {
@@ -205,6 +244,17 @@ log4g_log_manager_get_root_logger(void)
     return log4g_logger_repository_get_root_logger(repository);
 }
 
+/**
+ * log4g_log_manager_get_logger:
+ * @name: The name of the logger to retrieve.
+ *
+ * Retrieve a named logger.
+ *
+ * If the named logger does not exist it will be created.
+ *
+ * Returns: A logger instance.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_log_manager_get_logger(const gchar *name)
 {
@@ -216,6 +266,20 @@ log4g_log_manager_get_logger(const gchar *name)
     return log4g_logger_repository_get_logger(repository, name);
 }
 
+/**
+ * log4g_log_manager_get_logger_factory:
+ * @name: The name of the logger to retrieve.
+ * @factory: The factory to use if @name does not already exist.
+ *
+ * Retrieve a named logger.
+ *
+ * If the named logger does not exist it will be created using the provided
+ * logger factory.
+ *
+ * @See: log4g/interface/logger-factory.h
+ *
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_log_manager_get_logger_factory(const gchar *name,
         Log4gLoggerFactory *factory)
@@ -229,6 +293,17 @@ log4g_log_manager_get_logger_factory(const gchar *name,
         log4g_logger_repository_get_logger_factory(repository, name, factory);
 }
 
+/**
+ * log4g_log_manager_exists:
+ * @name: The name of the logger to retrieve.
+ *
+ * Retrieve a named logger if it already exists.
+ *
+ * If @name does not exist it will not be created.
+ *
+ * Returns: A logger named @name or %NULL if @name does not exist.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_log_manager_exists(const gchar *name)
 {
@@ -240,6 +315,19 @@ log4g_log_manager_exists(const gchar *name)
     return log4g_logger_repository_exists(repository, name);
 }
 
+/**
+ * log4g_log_manager_get_current_loggers:
+ *
+ * Retrieve an array containing all current existing loggers.
+ *
+ * <note><para>
+ * It is the callers responsibility to call g_array_free() for the returned
+ * value.
+ * </para></note>
+ *
+ * Returns: An array containing all current loggers.
+ * Since: 0.1
+ */
 const GArray *
 log4g_log_manager_get_current_loggers(void)
 {
@@ -251,6 +339,13 @@ log4g_log_manager_get_current_loggers(void)
     return log4g_logger_repository_get_current_loggers(repository);
 }
 
+/**
+ * log4g_log_manager_shutdown:
+ *
+ * Shut down the current logger repository.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_manager_shutdown(void)
 {
@@ -262,6 +357,13 @@ log4g_log_manager_shutdown(void)
     log4g_logger_repository_shutdown(repository);
 }
 
+/**
+ * log4g_log_manager_reset_configuration:
+ *
+ * Reset the configuration for the current logger repository.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_manager_reset_configuration(void)
 {

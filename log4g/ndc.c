@@ -16,9 +16,37 @@
  */
 
 /**
- * \brief Implements the API in log4g/ndc.h
- * \author Mike Steinert
- * \date 2-3-2010
+ * SECTION: ndc
+ * @short_description: nested data context.
+ *
+ * The NDC class implements nested data contexts. A nested data context (NDC
+ * for short) is an instrument to distinguish interleaved log output from
+ * different sources. An example of interleaved log output may occur when
+ * a server handles multiple simultaneous connections.
+ *
+ * Nested diagnostic contexts are handled on a per-thread basis. Calling
+ * log4g_ndc_push(), log4g_ndc_pop(), and log4g_ndc_clear() do not affect the
+ * NDCs of other threads.
+ *
+ * Contexts are nested. When enting a context, call ndc_push(). If there is
+ * currently no NDC for the current thread, one is created as a side-effect.
+ *
+ * When leaving a context call log4g_ndc_pop().
+ *
+ * To clear the current context call log4g_ndc_clear().
+ *
+ * <note><para>
+ * It is not necessary to call log4g_ndc_clear() when exiting a thread. NDCs
+ * are automatically removed when a thread exits.
+ * </para></note>
+ *
+ * #Log4gPatternLayout & #Log4gTTCCLayout may be configured to  automatically
+ * retrieve the the nested data context for the current thread without user
+ * intervention.
+ *
+ * Child threads do not automatically inherit the NDC of their parent. To
+ * force a thread to inherit a nested data context use log4g_ndc_clone() &
+ * log4g_ndc_inherit().
  */
 
 #ifdef HAVE_CONFIG_H
@@ -33,21 +61,32 @@ G_DEFINE_TYPE(Log4gNDC, log4g_ndc, G_TYPE_OBJECT)
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_NDC, \
             struct Log4gPrivate))
 
+/**
+ * Log4gPrivate:
+ * @stack: The NDC stack
+ * @pop: The most recently popped complete context
+ */
 struct Log4gPrivate {
-    GArray *stack; /**< The NDC stack */
-    gchar *pop; /**< The most recently popped complete context */
+    GArray *stack;
+    gchar *pop;
 };
 
-/** \brief A diagnostic context node. */
+/**
+ * Log4gDiagnosticContext:
+ * A diagnostic context node.
+ * @message: The current diagnostic context
+ * @full: The complete diagnostic context
+ */
 typedef struct _Log4gDiagnosticContext {
-    gchar *message; /**< The current diagnostic context */
-    gchar *full; /**< The complete diagnostic context */
+    gchar *message;
+    gchar *full;
 } Log4gDiagnosticContext;
 
 /**
- * \brief Free dynamic resources used by a diagnostic context object.
+ * log4g_diagnostic_context_destroy:
+ * @self: A diagnostic context object.
  *
- * \param self [in] A diagnostic context object.
+ * Free dynamic resources used by a diagnostic context object.
  */
 static void
 log4g_diagnostic_context_destroy(Log4gDiagnosticContext *self)
@@ -60,13 +99,14 @@ log4g_diagnostic_context_destroy(Log4gDiagnosticContext *self)
 }
 
 /**
- * \brief Create a new diagnostic context object.
+ * log4g_diagnostic_context_new:
+ * @parent: The parent diagnostic context.
+ * @message: The current diagnostic context message.
+ * @ap: Format parameters for @message.
  *
- * \param parent [in] The parent diagnostic context.
- * \param message [in] The current diagnostic context message.
- * \param ap [in] Format parameters for \e message.
+ * Create a new diagnostic context object.
  *
- * \return A new diagnostic context object.
+ * Returns: A new diagnostic context object.
  */
 static Log4gDiagnosticContext *
 log4g_diagnostic_context_new(Log4gDiagnosticContext *parent,
@@ -98,11 +138,12 @@ error:
 }
 
 /**
- * \brief Clone a diagnostic context object.
+ * log4g_diagnostic_context_clone:
+ * @self: The object to clone.
  *
- * \param self [in] The object to clone.
+ * Clone a diagnostic context object.
  *
- * \return An exact copy of \e self.
+ * Returns: An exact copy of @self.
  */
 static Log4gDiagnosticContext *
 log4g_diagnostic_context_clone(const Log4gDiagnosticContext *self)
@@ -129,15 +170,8 @@ error:
     return NULL;
 }
 
-/** \brief Thread specific data */
+/** Thread specific data */
 static GPrivate *priv = NULL;
-
-/**
- * \brief Get the current NDC stack.
- *
- * \return The current NDC stack or NULL if none exists.
- */
-static GArray *log4g_ndc_get_current_stack(void);
 
 static void
 log4g_ndc_init(Log4gNDC *self)
@@ -201,6 +235,30 @@ finalize(GObject *base)
     G_OBJECT_CLASS(log4g_ndc_parent_class)->finalize(base);
 }
 
+/**
+ * log4g_ndc_get_instance:
+ *
+ * Retrieve the nested data context object for the current thread.
+ *
+ * Returns: A nested data context object.
+ */
+static Log4gNDC *
+log4g_ndc_get_instance(void)
+{
+    Log4gNDC *self = g_private_get(priv);
+    if (!self) {
+        self = g_object_new(LOG4G_TYPE_NDC, NULL);
+    }
+    return self;
+}
+
+/**
+ * log4g_ndc_get_current_stack:
+ *
+ * Get the current NDC stack.
+ *
+ * Returns: The current NDC stack or NULL if none exists.
+ */
 static GArray *
 log4g_ndc_get_current_stack(void)
 {
@@ -222,16 +280,16 @@ log4g_ndc_class_init(Log4gNDCClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
-Log4gNDC *
-log4g_ndc_get_instance(void)
-{
-    Log4gNDC *self = g_private_get(priv);
-    if (!self) {
-        self = g_object_new(LOG4G_TYPE_NDC, NULL);
-    }
-    return self;
-}
-
+/**
+ * log4g_ndc_clear:
+ *
+ * Clear current nested data context.
+ *
+ * This function is useful when a thread is used again in a different
+ * unrelated context (e.g. thread pools).
+ *
+ * Since: 0.1
+ */
 void
 log4g_ndc_clear(void)
 {
@@ -242,6 +300,22 @@ log4g_ndc_clear(void)
     }
 }
 
+/**
+ * log4g_ndc_clone:
+ *
+ * Clone the current nested data context.
+ *
+ * Another thread may inherit the value returned by this function by calling
+ * log4g_ndc_inherit().
+ *
+ * <note><para>
+ * The caller is responsible for calling g_array_free() or log4g_ndc_inherit()
+ * for the returned value.
+ * </para></note>
+ *
+ * Returns: A clone of the current nested data context.
+ * Since: 0.1
+ */
 GArray *
 log4g_ndc_clone(void)
 {
@@ -274,6 +348,19 @@ error:
     return NULL;
 }
 
+/**
+ * Inherit a cloned nested data context.
+ *
+ * @stack: A cloned nested data context.
+ *
+ * <note><para>
+ * After calling this function the caller should no longer reference @stack.
+ * </para></note>
+ *
+ * @See: log4g_ndc_clone()
+ *
+ * Since: 0.1
+ */
 void
 log4g_ndc_inherit(GArray *stack)
 {
@@ -289,6 +376,18 @@ log4g_ndc_inherit(GArray *stack)
     priv->stack = stack;
 }
 
+/**
+ * log4g_ndc_get:
+ *
+ * Retrieve the current diagnostic context formatted as a string.
+ *
+ * <note><para>
+ * You should call log4g_logging_event_get_ndc() instead of this function.
+ * </para></note>
+ *
+ * Returns: The current diagnostic context.
+ * Since: 0.1
+ */
 const gchar *
 log4g_ndc_get(void)
 {
@@ -303,6 +402,14 @@ log4g_ndc_get(void)
             stack, Log4gDiagnosticContext *, stack->len - 1)->full;
 }
 
+/**
+ * log4g_ndc_size:
+ *
+ * Retrieve the size (depth) of the current nested data context.
+ *
+ * Returns: The number of elements on the nested data context stack.
+ * Since: 0.1
+ */
 guint
 log4g_ndc_size(void)
 {
@@ -313,6 +420,18 @@ log4g_ndc_size(void)
     return stack->len;
 }
 
+/**
+ * log4g_ndc_pop:
+ *
+ * Call this function before leaving a diagnostic context.
+ *
+ * The returned value is the the value that most recently added with
+ * log4g_ndc_push(). If no context is available, this function returns
+ * %NULL.
+ *
+ * Returns: The innermost diagnostic context.
+ * Since: 0.1
+ */
 const gchar *
 log4g_ndc_pop(void)
 {
@@ -337,6 +456,18 @@ log4g_ndc_pop(void)
     return priv->pop;
 }
 
+/**
+ * log4g_ndc_peek:
+ *
+ * Look at the innermost diagnostic context without removing it.
+ *
+ * The returned value is the the value that most recently added with
+ * log4g_ndc_push(). If no context is available, this function returns
+ * %NULL.
+ *
+ * Returns: The innermost diagnostic context.
+ * Since: 0.1
+ */
 const gchar *
 log4g_ndc_peek(void)
 {
@@ -349,6 +480,15 @@ log4g_ndc_peek(void)
     return context->message;
 }
 
+/**
+ * log4g_ndc_push:
+ * @message: A NDC message (accepts printf formats).
+ * @...: Format parameters.
+ *
+ * Push new diagnostic context information for the current thread.
+ *
+ * Since: 0.1
+ */
 void
 log4g_ndc_push(const char *message, ...)
 {
@@ -396,6 +536,13 @@ log4g_ndc_push(const char *message, ...)
     }
 }
 
+/**
+ * log4g_ndc_remove:
+ *
+ * Remove all diagnostic context for the current thread.
+ *
+ * Since: 0.1
+ */
 void
 log4g_ndc_remove(void)
 {
@@ -408,6 +555,30 @@ log4g_ndc_remove(void)
     }
 }
 
+/**
+ * log4g_ndc_set_max_depth:
+ * @maxdepth: The new size to truncate the context stack to.
+ *
+ * Set the maximum depth of the current diagnostic context.
+ *
+ * If the current depth is smaller or equal to @maxdepth then no action
+ * is taken.
+ *
+ * This function is a convenient alternative to calling log4g_ndc_pop()
+ * multiple times. The following code example will preserve the depth of the
+ * diagnostic context stack after a complex sequence of calls:
+ *
+ * |[
+ * void foo()
+ * {
+ *     guint depth = log4g_ndc_get_size();
+ *     ... complex sequence of calls ...
+ *     log4g_ndc_set_max_depth(depth);
+ * }
+ * ]|
+ *
+ * Since: 0.1
+ */
 void
 log4g_ndc_set_max_depth(guint maxdepth)
 {

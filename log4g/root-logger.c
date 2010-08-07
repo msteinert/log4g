@@ -16,9 +16,20 @@
  */
 
 /**
- * \brief Implements the API in log4g/root-logger.h
- * \author Mike Steinert
- * \date 2-10-2010
+ * SECTION: root-logger
+ * @short_description: the root logger
+ *
+ * The root logger sits on top of the logger hierarchy. It is a normal logger
+ * with the following exceptions:
+ * <itemizedlist>
+ * <listitem><para>
+ * It may not be assigned a NULL level threshold
+ * </para></listitem>
+ * <listitem><para>
+ * The root logger cannot have a parent (the get_effective_threshold() method
+ * always returns the value of the level field without walking the hierarchy)
+ * </para></listitem>
+ * </itemizedlist>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -35,11 +46,12 @@ log4g_root_logger_init(Log4gRootLogger *self)
 }
 
 /**
- * \brief Get the effective log level of this root logger.
+ * get_effective_level:
+ * @self: A root logger object.
  *
- * \param self [in] A root logger object.
+ * Get the effective log level of this root logger.
  *
- * \return The log level threshold for this root logger.
+ * Returns: The log level threshold for this root logger.
  */
 static Log4gLevel *
 get_effective_level(Log4gLogger *self)
@@ -48,13 +60,14 @@ get_effective_level(Log4gLogger *self)
 }
 
 /**
- * \brief Set the log level threshold for this root logger.
+ * set_level:
+ * @self: A root logger object.
+ * @level: The new level threshold for this root logger.
  *
- * Setting a NULL value to the level of the root logger may have
+ * Set the log level threshold for this root logger.
+ *
+ * Setting a %NULL value to the level of the root logger may have
  * catastrophic results. This is prevented here.
- *
- * \param self [in] A root logger object.
- * \param level [in] The new level threshold for this root logger.
  */
 static void
 set_level(Log4gLogger *self, Log4gLevel *level)
@@ -75,6 +88,15 @@ log4g_root_logger_class_init(Log4gRootLoggerClass *klass)
     logger_class->set_level = set_level;
 }
 
+/**
+ * log4g_root_logger_new:
+ * @level: The level threshold of this root logger.
+ *
+ * Create a new root logger.
+ *
+ * Returns: A new root logger object.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_root_logger_new(Log4gLevel *level)
 {

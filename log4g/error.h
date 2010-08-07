@@ -15,13 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Log4g error definition.
- * \author Mike Steinert
- * \date 1-29-2010
- */
-
 #ifndef LOG4G_ERROR_H
 #define LOG4G_ERROR_H
 
@@ -29,9 +22,14 @@ G_BEGIN_DECLS
 
 #define LOG4G_ERROR log4g_error_quark()
 
+/**
+ * Log4gError:
+ * @LOG4G_ERROR_FAILURE: General Log4g failure
+ * @LOG4G_ERROR_MAX: Sentinel value
+ */
 typedef enum {
-    LOG4G_ERROR_FAILURE, /**< General Log4g failure */
-    LOG4G_ERROR_MAX /**< Sentinel value */
+    LOG4G_ERROR_FAILURE,
+    LOG4G_ERROR_MAX
 } Log4gError;
 
 GQuark

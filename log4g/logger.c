@@ -164,7 +164,9 @@ log4g_logger_class_init(Log4gLoggerClass *klass)
  * Create a new logger object and set its name.
  *
  * This fuction is intended for internal use. You should not create Loggers
- * directly. See log4g_logger_get_logger()
+ * directly.
+ *
+ * @See: log4g_logger_get_logger()
  *
  * Returns: A new #Log4gLogger object.
  * Since: 0.1
@@ -294,7 +296,9 @@ log4g_logger_set_level(Log4gLogger *self, Log4gLevel *level)
  * log4g_logger_get_additivity:
  * @self: A #Log4gLogger object.
  *
- * Retrieve the additivity flag for a logger. See log4g_logger_set_additivity()
+ * Retrieve the additivity flag for a logger.
+ *
+ * @See: log4g_logger_set_additivity()
  *
  * Returns: %TRUE if @self is additive, %FALSE otherwise.
  * Since: 0.1
@@ -351,7 +355,7 @@ log4g_logger_get_logger_repository(Log4gLogger *self)
  *
  * You probably do not want to call this function.
  *
- * See #Log4gLoggerRepositoryClass
+ * @See: #Log4gLoggerRepositoryClass
  *
  * Since: 0.1
  */
@@ -388,7 +392,7 @@ log4g_logger_get_effective_level(Log4gLogger *self)
  * If @appender is already in the list of appenders for @self then
  * it will not be added again.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -416,7 +420,7 @@ exit:
  *
  * Retrieve all appenders attached to a @self.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: A #GArray of appenders attached to @self or %NULL if there are
  *          none.
@@ -443,7 +447,7 @@ log4g_logger_get_all_appenders(Log4gLogger *self)
  *
  * Retrieve an appender attached to a logger by name.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: The appender named @name or %NULL if no such appender is attached.
  * Since: 0.1
@@ -469,7 +473,7 @@ log4g_logger_get_appender(Log4gLogger *self, const gchar *name)
  *
  * Determine if an appender is attached to a logger.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: %TRUE if @appender is attached to @self, %FALSE otherwise.
  * Since: 0.1
@@ -490,7 +494,7 @@ log4g_logger_is_attached(Log4gLogger *self, Log4gAppender *appender)
  *
  * Remove all appenders from a logger.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -540,7 +544,7 @@ exit:
  *
  * If @appender is not attached to @self then this function does nothing.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -571,7 +575,7 @@ log4g_logger_remove_appender(Log4gLogger *self, Log4gAppender *appender)
  *
  * If @name is not found then this function does nothing.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -601,7 +605,7 @@ log4g_logger_remove_appender_name(Log4gLogger *self, const gchar *name)
  * Close all attached appenders implementing the #Log4gAppenderAttachable
  * interface.
  *
- * See #Log4gAppenderAttachableInterface
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -630,7 +634,7 @@ log4g_logger_close_nested_appenders(Log4gLogger *self)
  *
  * Append a logging event to all appenders attached to this logger.
  *
- * See #Log4gLoggingEvent
+ * @See: #Log4gLoggingEvent
  *
  * Since: 0.1
  */
@@ -674,7 +678,7 @@ log4g_logger_call_appenders(Log4gLogger *self, Log4gLoggingEvent *event)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_assert(), log4g_logger_assert()
+ * @See: log4g_assert(), log4g_logger_assert()
  *
  * Since: 0.1
  */
@@ -745,7 +749,7 @@ log4g_logger_is_trace_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_trace(), log4g_logger_trace()
+ * @See: log4g_trace(), log4g_logger_trace()
  *
  * Since: 0.1
  */
@@ -809,7 +813,7 @@ log4g_logger_is_debug_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_debug(), log4g_logger_debug()
+ * @See: log4g_debug(), log4g_logger_debug()
  *
  * Since: 0.1
  */
@@ -873,7 +877,7 @@ log4g_logger_is_info_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_info(), log4g_logger_info()
+ * @See: log4g_info(), log4g_logger_info()
  *
  * Since: 0.1
  */
@@ -937,7 +941,7 @@ log4g_logger_is_warn_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_warn(), log4g_logger_warn()
+ * @See: log4g_warn(), log4g_logger_warn()
  *
  * Since: 0.1
  */
@@ -1001,7 +1005,7 @@ log4g_logger_is_error_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_error(), log4g_logger_error()
+ * @See: log4g_error(), log4g_logger_error()
  *
  * Since: 0.1
  */
@@ -1065,7 +1069,7 @@ log4g_logger_is_fatal_enabled(Log4gLogger *self)
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_fatal(), log4g_logger_fatal()
+ * @See: log4g_fatal(), log4g_logger_fatal()
  *
  * Since: 0.1
  */
@@ -1105,7 +1109,7 @@ _log4g_logger_fatal(Log4gLogger *self, const gchar *function,
  *
  * This function is intended for use by wrapper classes.
  *
- * See log4g_log(), log4g_logger_log()
+ * @See: log4g_log(), log4g_logger_log()
  *
  * Since: 0.1
  */

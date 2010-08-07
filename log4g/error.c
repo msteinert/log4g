@@ -16,9 +16,10 @@
  */
 
 /**
- * \brief Implements the API in log4g/error.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: error
+ * @short_description: Log4g error definition.
+ * @title: Log4gError
+ * @section_id: Log4gError
  */
 
 #ifdef HAVE_CONFIG_H

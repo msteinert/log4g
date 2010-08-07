@@ -16,9 +16,16 @@
  */
 
 /**
- * \brief Implements the API in log4g/logging-event.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: logging-event
+ * @short_description: The internal representation of logging events.
+ *
+ * Once an affirmative decision is made to log an event a logging event
+ * instance is created. This instance is passed to appenders and filters to
+ * perform actual logging.
+ *
+ * <note><para>
+ * This class is only useful to those wishing to extend Log4g.
+ * </para></note>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -126,6 +133,21 @@ log4g_logging_event_class_init(Log4gLoggingEventClass *klass)
     klass->start = (start.tv_sec * 1000) + (start.tv_usec * 0.001);
 }
 
+/**
+ * log4g_logging_event_new:
+ * @logger: The name of the logger that is creating this event.
+ * @level: The log level of this event.
+ * @function: The function where this event was logged.
+ * @file: The file where this event was logged.
+ * @line: The line in @file where this event was logged.
+ * @message: A printf formatted log message.
+ * @ap: Format parameters.
+ *
+ * Create a new logging event.
+ *
+ * Returns: A new logging event object.
+ * Since: 0.1
+ */
 Log4gLoggingEvent *
 log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
         const gchar *function, const gchar *file, const gchar *line,
@@ -162,6 +184,15 @@ error:
     return NULL;
 }
 
+/**
+ * log4g_logging_event_get_level:
+ * @self: A logging event object.
+ *
+ * Calls the @get_level function from the #Log4gLoggingEventClass of @self.
+ *
+ * Returns: The log level of @self.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_logging_event_get_level(Log4gLoggingEvent *self)
 {
@@ -169,24 +200,67 @@ log4g_logging_event_get_level(Log4gLoggingEvent *self)
     return priv->level;
 }
 
+/**
+ * log4g_logging_event_get_logger_name:
+ * @self: A logging event object.
+ *
+ * Retrieve the name of the logger that created a logging event.
+ *
+ * Returns: The name of the logger that created @self.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_logger_name(Log4gLoggingEvent *self)
 {
     return GET_PRIVATE(self)->logger;
 }
 
+/**
+ * log4g_logging_event_get_rendered_message:
+ * @self: A logging event object.
+ *
+ * Retrieve the rendered logging message.
+ *
+ * @See: log4g_logging_event_get_message()
+ *
+ * Returns: The rendered logging message.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_rendered_message(Log4gLoggingEvent *self)
 {
     return GET_PRIVATE(self)->message;
 }
 
+/**
+ * log4g_logging_event_get_message:
+ * @self: A logging event object.
+ *
+ * Retrieve the log message.
+ *
+ * This function is equivalent to log4g_logging_event_get_rendered_message().
+ *
+ * Returns: The log message.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_message(Log4gLoggingEvent *self)
 {
     return GET_PRIVATE(self)->message;
 }
 
+/**
+ * log4g_logging_event_get_mdc:
+ * @self: A logging event object.
+ * @key: A mapped data context key.
+ *
+ * Retrieve a mapped data context value for a logging event.
+ *
+ * @See: #Log4gMDC
+ *
+ * Returns: The MDC value for @key.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key)
 {
@@ -203,12 +277,30 @@ log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key)
     return NULL;
 }
 
+/**
+ * log4g_logging_event_get_time_stamp:
+ * @self: A logging event object.
+ *
+ * Retrieve the timestamp of a logging event.
+ *
+ * Returns: The timestamp of @self.
+ * Since: 0.1
+ */
 GTimeVal *
 log4g_logging_event_get_time_stamp(Log4gLoggingEvent *self)
 {
     return &GET_PRIVATE(self)->timestamp;
 }
 
+/**
+ * log4g_logging_event_get_thread_name:
+ * @self: A logging event object.
+ *
+ * Retrieve the name of the thread where a logging event was logged.
+ *
+ * Returns: The name of the thread where @self was logged.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_thread_name(Log4gLoggingEvent *self)
 {
@@ -222,6 +314,17 @@ log4g_logging_event_get_thread_name(Log4gLoggingEvent *self)
     return NULL;
 }
 
+/**
+ * log4g_logging_event_get_ndc:
+ * @self: A logging event object.
+ *
+ * Retrieve the nested data context for a logging event.
+ *
+ * @See: #Log4gNDC
+ *
+ * Returns: The rendered NDC string for @self.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_ndc(Log4gLoggingEvent *self)
 {
@@ -236,11 +339,12 @@ log4g_logging_event_get_ndc(Log4gLoggingEvent *self)
 }
 
 /**
- * \brief Callback for g_hash_table_foreach().
+ * _get_keys:
+ * @key: The hash table key.
+ * @value: The hash table value (unused).
+ * @user_data: An array to append @key to.
  *
- * \param key [in] The hash table key.
- * \param value [in] The hash table value (unused).
- * \param user_data [in] An array to append \e key to.
+ * Callback for g_hash_table_foreach().
  */
 static void
 _get_keys(gpointer key, gpointer value, gpointer user_data)
@@ -249,10 +353,11 @@ _get_keys(gpointer key, gpointer value, gpointer user_data)
 }
 
 /**
- * \brief Construct a key set from an MDC hash table.
+ * _get_property_key_set:
+ * @self: A logging event object.
+ * @mdc: The hash table to get keys from.
  *
- * \param self [in] A logging event object.
- * \param mdc [in] The hash table to get keys from.
+ * Construct a key set from an MDC hash table.
  */
 static void
 _get_property_key_set(Log4gLoggingEvent *self, GHashTable *mdc)
@@ -272,6 +377,17 @@ _get_property_key_set(Log4gLoggingEvent *self, GHashTable *mdc)
     g_hash_table_foreach(mdc, _get_keys, priv->keys);
 }
 
+/**
+ * log4g_logging_event_get_property_key_set:
+ * @self: A logging event object.
+ *
+ * Get the MDC keys (if any) for this event.
+ *
+ * @See: #Log4gMDC
+ *
+ * Returns: An array of keys, or %NULL if no keys exist.
+ * Since: 0.1
+ */
 const GArray *
 log4g_logging_event_get_property_key_set(Log4gLoggingEvent *self)
 {
@@ -290,11 +406,12 @@ log4g_logging_event_get_property_key_set(Log4gLoggingEvent *self)
 }
 
 /**
- * \brief Callback for g_hash_table_foreach().
+ * _mdc_copy:
+ * @key: The hash table key.
+ * @value: The hash table value (unused).
+ * @user_data: A hash table to insert @key & @value into.
  *
- * \param key [in] The hash table key.
- * \param value [in] The hash table value (unused).
- * \param user_data [in] A hash table to insert \e key & \e value into.
+ * Callback for g_hash_table_foreach().
  */
 static void
 _mdc_copy(gpointer key, gpointer value, gpointer user_data)
@@ -302,6 +419,15 @@ _mdc_copy(gpointer key, gpointer value, gpointer user_data)
     g_hash_table_insert((GHashTable *)user_data, key, value);
 }
 
+/**
+ * Copy the current thread name into a logging object.
+ *
+ * Asynchronous appenders should call this function.
+ *
+ * @self: A logging event object.
+ *
+ * \see log4g/helpers/thread.h
+ */
 void
 log4g_logging_event_get_thread_copy(Log4gLoggingEvent *self)
 {
@@ -313,6 +439,18 @@ log4g_logging_event_get_thread_copy(Log4gLoggingEvent *self)
     priv->thread = g_strdup(log4g_thread_get_name());
 }
 
+/**
+ * log4g_logging_event_get_mdc_copy:
+ * @self: A logging event object.
+ *
+ * Copy the current mapped data context into a logging event.
+ *
+ * Asynchronous appenders should call this function.
+ *
+ * @See #Log4gMDC
+ *
+ * Since: 0.1
+ */
 void
 log4g_logging_event_get_mdc_copy(Log4gLoggingEvent *self)
 {
@@ -333,6 +471,18 @@ log4g_logging_event_get_mdc_copy(Log4gLoggingEvent *self)
     g_hash_table_foreach((GHashTable *)mdc, _mdc_copy, priv->mdc);
 }
 
+/**
+ * log4g_logging_event_get_ndc_copy:
+ * @self: A logging event object.
+ *
+ * Copy the current nested data context into a logging event.
+ *
+ * Asynchronous appenders should call this function.
+ *
+ * @See #Log4gNDC
+ *
+ * Since: 0.1
+ */
 void
 log4g_logging_event_get_ndc_copy(Log4gLoggingEvent *self)
 {
@@ -344,14 +494,15 @@ log4g_logging_event_get_ndc_copy(Log4gLoggingEvent *self)
     priv->ndc = g_strdup(log4g_ndc_get());
 }
 
-glong
-log4g_logging_event_get_start_time(void)
-{
-    Log4gLoggingEventClass *klass =
-        g_type_class_peek(LOG4G_TYPE_LOGGING_EVENT);
-    return klass->start;
-}
-
+/**
+ * log4g_logging_event_get_function_name:
+ * @self: A logging event object.
+ *
+ * Retrieve the function where a logging event was logged.
+ *
+ * Returns: The function where @self was logged.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_function_name(Log4gLoggingEvent *self)
 {
@@ -359,6 +510,15 @@ log4g_logging_event_get_function_name(Log4gLoggingEvent *self)
     return (function ? function : "?");
 }
 
+/**
+ * log4g_logging_event_get_file_name:
+ * @self: A logging event object.
+ *
+ * Retrieve the file where a logging event was logged.
+ *
+ * Returns: The file where @self was logged.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_file_name(Log4gLoggingEvent *self)
 {
@@ -366,6 +526,15 @@ log4g_logging_event_get_file_name(Log4gLoggingEvent *self)
     return (file ? file : "?");
 }
 
+/**
+ * log4g_logging_event_get_line_number:
+ * @self: A logging event object.
+ *
+ * Retrieve the line number where a logging event was logged.
+ *
+ * Returns: The line number where @self was logged.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_line_number(Log4gLoggingEvent *self)
 {
@@ -373,6 +542,21 @@ log4g_logging_event_get_line_number(Log4gLoggingEvent *self)
     return (line ? line : "?");
 }
 
+/**
+ * log4g_logging_event_get_full_info:
+ * @self: A logging event object.
+ *
+ * Retrieve the full location information where a logging event was logged.
+ *
+ * The full location information is in the format:
+ *
+ * |[
+ * function(file:line)
+ * ]|
+ *
+ * Returns: The full log location information for @self.
+ * Since: 0.1
+ */
 const gchar *
 log4g_logging_event_get_full_info(Log4gLoggingEvent *self)
 {
@@ -385,4 +569,21 @@ log4g_logging_event_get_full_info(Log4gLoggingEvent *self)
                     (priv->line ? priv->line : "?"));
     }
     return priv->fullinfo;
+}
+
+/**
+ * log4g_logging_event_get_start_time:
+ *
+ * Retrieve the time when the log system was initialized.
+ *
+ * Returns: The number of seconds elapsed since the Unix epoch when the log
+ *         system was initialized
+ * Since: 0.1
+ */
+glong
+log4g_logging_event_get_start_time(void)
+{
+    Log4gLoggingEventClass *klass =
+        g_type_class_peek(LOG4G_TYPE_LOGGING_EVENT);
+    return klass->start;
 }

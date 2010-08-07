@@ -15,11 +15,7 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Disable logging.
- * \author Mike Steinert
- * \date 2-22-2010
+/* Disable logging.
  *
  * Including this file instead of log4g/log4g.h will disable all logging in
  * your application. All functions and macros defined in log4g/log4g.h,

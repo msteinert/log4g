@@ -15,16 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Loadable appender, filter & layout modules
- * \author Mike Steinert
- * \date 5-25-2010
- *
- * This class implements a dynamic module system in order to make  appenders,
- * layouts & filters available to the Log4g system.
- */
-
 #ifndef LOG4G_MODULE_H
 #define LOG4G_MODULE_H
 
@@ -51,42 +41,48 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_MODULE, \
             Log4gModuleClass))
 
-/** \brief Log4gModule object type definition */
 typedef struct _Log4gModule Log4gModule;
 
-/** \brief Log4gModule class type definition */
 typedef struct _Log4gModuleClass Log4gModuleClass;
 
-/** \brief Log4gModuleClass definition */
+/**
+ * Log4gModule:
+ *
+ * The <structname>Log4gModule</structname> structure does not have any public
+ * members.
+ */
 struct _Log4gModule {
+    /*< private >*/
     GTypeModule parent_instance;
 };
 
-/** \brief Log4gModuleClass definition */
+/**
+ * Log4gModuleClass:
+ *
+ * The <structname>Log4gModuleClass</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gModuleClass {
+    /*< private >*/
     GTypeModuleClass parent_class;
 };
 
 GType
 log4g_module_get_type(void);
 
-/**
- * \brief Create a new module.
- *
- * \param file [in] The path of the file to load as a module.
- *
- * \return A new module object.
- */
 GTypeModule *
 log4g_module_new(const gchar *file);
 
 /**
- * \brief Extension modules must implement this function.
+ * log4g_module_load:
+ * @module: A Log4gModule object.
  *
- * This function is run after the module has been loaded in order to
- * load dynamic types for use by the Log4g system.
+ * Extension modules must implement this function.
  *
- * \param module [in] A Log4gModule object.
+ * This function is run after the module has been loaded in order to load
+ * dynamic types for use by the Log4g system.
+ *
+ * Since: 0.1
  */
 void
 log4g_module_load(GTypeModule *module);

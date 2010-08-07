@@ -16,9 +16,55 @@
  */
 
 /**
- * \brief Implements the API in log4g/dom-configurator.h
- * \author Mike Steinert
- * \date 2-23-2010
+ * SECTION: dom-configurator
+ * @short_description: initialize the Log4g environment using a DOM tree
+ * @see_also: log4g_init(), log4g_get_option_group()
+ *
+ * The DTD is specified in log4g.dtd. The Log4g DTD differs in some small
+ * ways from the official Log4j DTD.
+ *
+ * Use "appender" everywhere instead of "appender-ref". Appenders may be
+ * declared inline to a logger. Appender references simply use a named
+ * "appender" tag and do not define a new appender.
+ *
+ * Use "property" instead of "param". The keyword "property" was used instead
+ * of "param" to reflect the underlying GLib/GObject implementation.
+ *
+ * The following configuration provides a cut-and-paste example:
+ *
+ * |[
+ * &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+ * &lt;!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
+ *     "http://www.gnome.org/log4g/1.0/log4g.dtd"&gt;
+ * &lt;log4g:configuration&gt;
+ *     &lt;appender name="A1" type="Log4gConsoleAppender"&gt;
+ *         &lt;layout type="Log4gPatternLayout"&gt;
+ *             &lt;property name="conversion-pattern"
+ *                       value="%-4r [%t] %-5p %c %x - %m%n" /&gt;
+ *         &lt;/layout&gt;
+ *     &lt;/appender&gt;
+ *     &lt;root&gt;
+ *         &lt;level value="DEBUG" /&gt;
+ *         &lt;appender name="A1" /&gt;
+ *     &lt;/root&gt;
+ * &lt;/log4g:configuration&gt;
+ * ]|
+ *
+ * In this example all events will be logged to the console appender (stdout by
+ * default) using the specified pattern layout.
+ *
+ * You may enable internal log messages by setting the \e LOG4G_FLAGS
+ * environment variable to "debug". For example (Bash):
+ * |[
+ * $ export LOG4G_FLAGS=debug
+ * ]|
+ *
+ * Alternatively you may set the \e debug attribute in the log4g:configuration
+ * element:
+ * |[
+ * &lt;log4g:configuration debug="true"&gt;
+ * &lt;/log4g:configuration&gt;
+ * ]|
  */
 
 #ifdef HAVE_CONFIG_H
@@ -780,6 +826,14 @@ log4g_dom_configurator_class_init(Log4gDOMConfiguratorClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_dom_configurator_new:
+ *
+ * Create a new DOM configurator.
+ *
+ * Returns: A new DOM configurator object.
+ * Since: 0.1
+ */
 Log4gConfigurator *
 log4g_dom_configurator_new(void)
 {
@@ -795,6 +849,16 @@ log4g_dom_configurator_new(void)
     return self;
 }
 
+/**
+ * log4g_dom_configurator_configure:
+ * @uri: A file or URI to load the configuration from.
+ * @error: Returns any error messages.
+ *
+ * Configure Log4g by reading a log4g.dtd compliant XML configuration file.
+ *
+ * Returns: %TRUE if the configuration was successful, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_dom_configurator_configure(const gchar *uri, GError **error)
 {

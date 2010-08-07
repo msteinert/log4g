@@ -65,7 +65,7 @@ struct _Log4gAppender {
  *
  * Add a filter to the end of the filter chain.
  *
- * See #Log4gFilter
+ * @See: #Log4gFilter
  *
  * Since: 0.1
  */
@@ -79,7 +79,7 @@ typedef void
  * Filters are organized in a linked list so all filters are available
  * through the result of this function.
  *
- * See #Log4gFilter
+ * @See: #Log4gFilter
  *
  * Returns: The first filter in the filter chain.
  * Since: 0.1
@@ -108,7 +108,7 @@ typedef void
  * Sub-classes should implement this abstract virtual function to perform
  * actual logging.
  *
- * See #Log4gLoggingEvent
+ * @See: #Log4gLoggingEvent
  *
  * Since: 0.1
  */
@@ -121,7 +121,7 @@ typedef void
  *
  * Loggers will call this function in order to log events.
  *
- * See #Log4gLoggingEvent
+ * @See: #Log4gLoggingEvent
  *
  * Since: 0.1
  */
@@ -160,7 +160,7 @@ typedef const gchar *
  *
  * Set the error handler for this appender.
  *
- * See #Log4gErrorHandler
+ * @See: #Log4gErrorHandler
  *
  * Since: 0.1
  */
@@ -173,7 +173,7 @@ typedef void
  *
  * Retrieve the error handler for an appender.
  *
- * See #Log4gErrorHandler
+ * @See: #Log4gErrorHandler
  *
  * Returns: The error handler set for this appender.
  * Since: 0.1
@@ -188,7 +188,7 @@ typedef gpointer
  *
  * Set the layout for this appender.
  *
- * See #Log4gLayout
+ * @See: #Log4gLayout
  *
  * Since: 0.1
  */
@@ -201,7 +201,7 @@ typedef void
  *
  * Retrieve the layout for this appender.
  *
- * See #Log4gLayout
+ * @See: #Log4gLayout
  *
  * Returns: The layout for this appender;
  * Since: 0.1
@@ -219,7 +219,7 @@ typedef Log4gLayout *
  * In the exceptional case where an appender accepts a layout but can also
  * work without it the appender should return %TRUE.
  *
- * See #Log4gAppenderSetLayout, #Log4gAppenderGetLayout, #Log4gLayout
+ * @See: #Log4gAppenderSetLayout, #Log4gAppenderGetLayout, #Log4gLayout
  *
  * Returns: %TRUE if this appender requires a layout, %FALSE otherwise.
  * Since: 0.1

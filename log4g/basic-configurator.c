@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in log4g/basic-configurator.h
- * \author Mike Steinert
- * \date 2-22-2010
+ * SECTION: basic-configurator
+ * @short_description: quickly configure Log4g
+ * @title: Log4gBasicConfigurator
+ * @section_id: Log4gBasicConfigurator
+ *
+ * For file based configuration, see #Log4gDOMConfigurator
  */
 
 #ifdef HAVE_CONFIG_H
@@ -29,6 +32,18 @@
 #include "log4g/layout.h"
 #include "log4g/log-manager.h"
 
+/**
+ * log4g_basic_configurator_configure:
+ *
+ * Quickly configure Log4g.
+ *
+ * This function adds a console appender to the root logger that uses the
+ * TTCC layout and prints to stdout.
+ *
+ * @See: #Log4gRootLogger, #Log4gTTCCLayout
+ *
+ * Since: 0.1
+ */
 void
 log4g_basic_configurator_configure(void)
 {
@@ -72,6 +87,14 @@ exit:
     }
 }
 
+/**
+ * log4g_basic_configurator_configure_appender:
+ * @appender: The appender to add to the root category.
+ *
+ * Add an appender to the root category.
+ *
+ * Since: 0.1
+ */
 void
 log4g_basic_configurator_configure_appender(Log4gAppender *appender)
 {
@@ -82,6 +105,13 @@ log4g_basic_configurator_configure_appender(Log4gAppender *appender)
     log4g_logger_add_appender(root, appender);
 }
 
+/**
+ * log4g_basic_configurator_reset_configuration:
+ *
+ * Reset the default hierarchy to its default state.
+ *
+ * Since: 0.1
+ */
 void
 log4g_basic_configurator_reset_configuration()
 {

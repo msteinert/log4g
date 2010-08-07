@@ -25,6 +25,20 @@ TODO
         </para>
         <xi:include href="xml/logger.xml" />
         <xi:include href="xml/appender.xml" />
+        <xi:include href="xml/layout.xml" />
+        <xi:include href="xml/filter.xml" />
+        <xi:include href="xml/level.xml" />
+        <xi:include href="xml/root-logger.xml" />
+        <xi:include href="xml/provision-node.xml" />
+        <xi:include href="xml/ndc.xml" />
+        <xi:include href="xml/module.xml" />
+        <xi:include href="xml/mdc.xml" />
+        <xi:include href="xml/log-manager.xml" />
+        <xi:include href="xml/logging-event.xml" />
+        <xi:include href="xml/hierarchy.xml" />
+        <xi:include href="xml/error.xml" />
+        <xi:include href="xml/dom-configurator.xml" />
+        <xi:include href="xml/basic-configurator.xml" />
     </chapter>
     <index id="api-index-full">
         <title>Index</title>
