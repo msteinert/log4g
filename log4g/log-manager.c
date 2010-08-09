@@ -17,7 +17,7 @@
 
 /**
  * SECTION: log-manager
- * @short_description: Operate on the current logger repository.
+ * @short_description: operate on the current logger repository
  * @see_also: #Log4gLogger, #log4gLoggerRepository
  *
  * Use the log manager class to retrieve logger instances or operate on the

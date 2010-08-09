@@ -189,7 +189,6 @@ log4g_mdc_remove(const gchar *key)
 
 /**
  * log4g_mdc_get_context:
- * @stability Internal
  *
  * Retrieve the current thread's MDC as a hash table.
  *

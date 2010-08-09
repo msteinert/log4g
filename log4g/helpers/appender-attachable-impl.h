@@ -15,18 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief An implementation of the appender attachable interface.
- * \author Mike Steinert
- * \date 1-29-2010
- *
- * This is a straightforward implementation of the appender attachable
- * interface.
- *
- * \see log4g/interface/appender-attachable.h
- */
-
 #ifndef LOG4G_APPENDER_ATTACHABLE_IMPL_H
 #define LOG4G_APPENDER_ATTACHABLE_IMPL_H
 
@@ -57,41 +45,39 @@ G_BEGIN_DECLS
             LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
             Log4gAppenderAttachableImplClass))
 
-/** \brief Log4gAppenderAttachableImpl object type definition */
 typedef struct _Log4gAppenderAttachableImpl Log4gAppenderAttachableImpl;
 
-/** \brief Log4gAppenderAttachableImpl class type definition */
 typedef struct _Log4gAppenderAttachableImplClass
-                        Log4gAppenderAttachableImplClass;
+        Log4gAppenderAttachableImplClass;
 
-/** \brief Log4gAppenderAttachableImplClass definition */
+/**
+ * Log4gAppenderAttachableImpl:
+ *
+ * The <structname>Log4gAppenderAttachableImpl</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gAppenderAttachableImpl {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gAppenderAttachableImplClass definition */
+/**
+ * Log4gAppenderAttachableImplClass:
+ *
+ * The <structname>Log4gAppenderAttachableImplClass</structname> structure does
+ * not have any public members.
+ */
 struct _Log4gAppenderAttachableImplClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType
 log4g_appender_attachable_impl_get_type(void);
 
-/**
- * \brief Create a new appender attachable impl object.
- *
- * \return A new appender attachable impl object.
- */
 Log4gAppenderAttachable *
 log4g_appender_attachable_impl_new(void);
 
-/**
- * \brief Call the _Log4gAppenderInterface::do_append() virtual function for
- *        all attached appenders.
- *
- * \param base [in] An appender attachable impl object.
- * \param event [in] A log event to append.
- */
 guint
 log4g_appender_attachable_impl_append_loop_on_appenders(
         Log4gAppenderAttachable *base, Log4gLoggingEvent *event);

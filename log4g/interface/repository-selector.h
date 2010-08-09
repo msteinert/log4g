@@ -15,22 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Select the correct logger repository.
- * \author Mike Steinert
- * \date 2-11-2010
- *
- * The log manager uses a repository selector implementation to select the
- * logger repository for a particular application context.
- *
- * It is the responsibility of the repository selector implementation to
- * track the application context. Log4g makes no assumptions about the
- * application context.
- *
- * \see log4g/interface/logger-repository.h
- */
-
 #ifndef LOG4G_REPOSITORY_SELECTOR_H
 #define LOG4G_REPOSITORY_SELECTOR_H
 
@@ -52,47 +36,42 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_INTERFACE((instance), \
             LOG4G_TYPE_REPOSITORY_SELECTOR, Log4gRepositorySelectorInterface));
 
-/** \brief Log4gRepositorySelector object type definition */
 typedef struct _Log4gRepositorySelector Log4gRepositorySelector;
 
-/** \brief Log4gRepositorySelector interface type definition */
 typedef struct _Log4gRepositorySelectorInterface
         Log4gRepositorySelectorInterface;
 
-/** \brief Log4gRepositorySelectorInterface definition */
-struct _Log4gRepositorySelectorInterface {
-    GTypeInterface parent_interface;
+/**
+ * Log4gRepositorySelectorGetLoggerRepository:
+ * @self: A repository selector object.
+ *
+ * Select the logger repository for the current application context.
+ * 
+ * Implementors must assure that a valid (non-%NULL) logger repository
+ * is returned.
+ *
+ * @See: #Log4gLoggerRepositoryInterface
+ *
+ * Returns: The logger repository for the current application context.
+ * Since: 0.1
+ */
+typedef Log4gLoggerRepository *
+(*Log4gRepositorySelectorGetLoggerRepository)(Log4gRepositorySelector *self);
 
-    /**
-     * \brief Select the logger repository for the current application
-     *        context.
-     * 
-     * Implementors must assure that a valid (\e non-NULL) logger repository
-     * is returned.
-     *
-     * \param self [in] A repository selector object.
-     *
-     * \return The logger repository for the current application context.
-     *
-     * \see log4g/interface/logger-repository.h
-     */
-    Log4gLoggerRepository *
-    (*get_logger_repository)(Log4gRepositorySelector *self);
+/**
+ * Log4gRepositorySelectorInterface:
+ * @get_logger_repository: Select the current logger repository.
+ */
+struct _Log4gRepositorySelectorInterface {
+    /*< private >*/
+    GTypeInterface parent_interface;
+    /*< public >*/
+    Log4gRepositorySelectorGetLoggerRepository get_logger_repository;
 };
 
 GType
 log4g_repository_selector_get_type(void);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gRepositorySelectorInterface::get_logger_repository().
- *
- * \param self [in] A repository selector object.
- *
- * \return The logger repository for the current application context.
- *
- * \see log4g/interface/logger-repository.h
- */
 Log4gLoggerRepository *
 log4g_repository_selector_get_logger_repository(Log4gRepositorySelector *self);
 

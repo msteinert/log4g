@@ -15,23 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Emit an error only once.
- * \author Mike Steinert
- * \date 2-8-2010
- *
- * This class implements Log4g's default error handling policy. Only the first
- * error will be logged, following errors will be ignored.
- *
- * The error message is printed on stderr.
- *
- * This policy is intended to prevent a working application from being
- * flooded with errors if there is a failure within Log4g.
- *
- * \see stdio(3), log4g/interface/error-handler.h
- */
-
 #ifndef LOG4G_ONLY_ONCE_ERROR_HANDLER_H
 #define LOG4G_ONLY_ONCE_ERROR_HANDLER_H
 
@@ -62,30 +45,35 @@ G_BEGIN_DECLS
             LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, \
             Log4gOnlyOnceErrorHandlerClass))
 
-/** \brief Log4gOnlyOnceErrorHandler object type definition */
 typedef struct _Log4gOnlyOnceErrorHandler Log4gOnlyOnceErrorHandler;
 
-/** \brief Log4gOnlyOnceErrorHandler class type definition */
 typedef struct _Log4gOnlyOnceErrorHandlerClass Log4gOnlyOnceErrorHandlerClass;
 
-/** \brief Log4gOnlyOnceErrorHandlerClass definition */
+/**
+ * Log4gOnlyOnceErrorHandler:
+ *
+ * The <structname>Log4gOnlyOnceErrorHandler</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gOnlyOnceErrorHandler {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gOnlyOnceErrorHandlerClass definition */
+/**
+ * Log4gOnlyOnceErrorHandlerClass:
+ *
+ * The <structname>Log4gOnlyOnceErrorHandlerClass</structname> structure does
+ * not have any public members.
+ */
 struct _Log4gOnlyOnceErrorHandlerClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType
 log4g_only_once_error_handler_get_type(void);
 
-/**
- * \brief Create a new only once error handler object.
- *
- * \return A new only once error handler object.
- */
 Log4gErrorHandler *
 log4g_only_once_error_handler_new(void);
 

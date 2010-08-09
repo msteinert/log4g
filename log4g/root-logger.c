@@ -26,8 +26,9 @@
  * It may not be assigned a NULL level threshold
  * </para></listitem>
  * <listitem><para>
- * The root logger cannot have a parent (the get_effective_threshold() method
- * always returns the value of the level field without walking the hierarchy)
+ * The root logger cannot have a parent (the
+ * #Log4gLoggerClass.get_effective_level method always returns the value of
+ * the level field without walking the hierarchy)
  * </para></listitem>
  * </itemizedlist>
  */

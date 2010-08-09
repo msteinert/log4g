@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/default-module-loader.h
- * \author Mike Steinert
- * \date 5-30-2010
+ * SECTION: default-module-loader
+ * @short_description: an implementation of the module loader interface
+ * @see_also: #Log4gModuleLoaderInterface
+ *
+ * This class provides the default module loader implementation used by Log4g.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -36,10 +38,10 @@ struct Log4gPrivate {
     GSList *modules;
 };
 
-/** \brief Default system plugin path environment variable */
+/* Default system plugin path environment variable */
 #define MODULE_SYSTEM_PATH ("LOG4G_MODULE_SYSTEM_PATH")
 
-/** \brief Default plugin path environment variable */
+/* Default plugin path environment variable */
 #define MODULE_PATH ("LOG4G_MODULE_PATH")
 
 static gboolean
@@ -168,6 +170,14 @@ log4g_default_module_loader_class_init(Log4gDefaultModuleLoaderClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_default_module_loader_new:
+ *
+ * Create a new default repository selector object.
+ *
+ * Returns: A new default repository selector object.
+ * Since: 0.1
+ */
 Log4gModuleLoader *
 log4g_default_module_loader_new(void)
 {

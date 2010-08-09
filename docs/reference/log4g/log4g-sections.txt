@@ -3,7 +3,6 @@
 <TITLE>Log4gMDC</TITLE>
 Log4gMDC
 Log4gMDCClass
-log4g_mdc_get_instance
 log4g_mdc_put
 log4g_mdc_get
 log4g_mdc_remove
@@ -57,7 +56,6 @@ LOG4G_HIERARCHY_GET_CLASS
 <TITLE>Log4gLogManager</TITLE>
 Log4gLogManager
 Log4gLogManagerClass
-log4g_log_manager_get_instance
 log4g_log_manager_remove_instance
 log4g_log_manager_get_logger_repository
 log4g_log_manager_get_root_logger
@@ -67,6 +65,7 @@ log4g_log_manager_exists
 log4g_log_manager_get_current_loggers
 log4g_log_manager_shutdown
 log4g_log_manager_reset_configuration
+log4g_log_manager_set_repository_selector
 <SUBSECTION Standard>
 LOG4G_LOG_MANAGER
 LOG4G_IS_LOG_MANAGER
@@ -82,7 +81,6 @@ LOG4G_LOG_MANAGER_GET_CLASS
 <TITLE>Log4gNDC</TITLE>
 Log4gNDC
 Log4gNDCClass
-log4g_ndc_get_instance
 log4g_ndc_clear
 log4g_ndc_clone
 log4g_ndc_inherit
@@ -130,18 +128,11 @@ log4g_logger_remove_appender_name
 log4g_logger_close_nested_appenders
 log4g_logger_call_appenders
 log4g_logger_is_trace_enabled
-_log4g_logger_trace
 log4g_logger_is_debug_enabled
-_log4g_logger_debug
 log4g_logger_is_info_enabled
-_log4g_logger_info
 log4g_logger_is_warn_enabled
-_log4g_logger_warn
 log4g_logger_is_error_enabled
-_log4g_logger_error
 log4g_logger_is_fatal_enabled
-_log4g_logger_fatal
-_log4g_logger_log
 log4g_logger_get_logger
 log4g_logger_get_root_logger
 log4g_logger_get_logger_factory
@@ -390,6 +381,13 @@ log4g_appender_attachable_is_attached
 log4g_appender_attachable_remove_all_appenders
 log4g_appender_attachable_remove_appender
 log4g_appender_attachable_remove_appender_name
+Log4gAppenderAttachableAddAppender
+Log4gAppenderAttachableGetAllAppenders
+Log4gAppenderAttachableGetAppender
+Log4gAppenderAttachableIsAttached
+Log4gAppenderAttachableRemoveAllAppenders
+Log4gAppenderAttachableRemoveAppender
+Log4gAppenderAttachableRemoveAppenderName
 <SUBSECTION Standard>
 LOG4G_APPENDER_ATTACHABLE
 LOG4G_IS_APPENDER_ATTACHABLE
@@ -404,6 +402,7 @@ LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE
 Log4gRepositorySelector
 Log4gRepositorySelectorInterface
 log4g_repository_selector_get_logger_repository
+Log4gRepositorySelectorGetLoggerRepository
 <SUBSECTION Standard>
 LOG4G_REPOSITORY_SELECTOR
 LOG4G_IS_REPOSITORY_SELECTOR
@@ -432,6 +431,7 @@ LOG4G_MODULE_LOADER_GET_INTERFACE
 Log4gLoggerFactory
 Log4gLoggerFactoryInterface
 log4g_logger_factory_make_new_logger_instance
+Log4gLoggerFactoryMakeNewLoggerInstance
 <SUBSECTION Standard>
 LOG4G_LOGGER_FACTORY
 LOG4G_IS_LOGGER_FACTORY
@@ -459,6 +459,18 @@ log4g_logger_repository_set_threshold
 log4g_logger_repository_set_threshold_string
 log4g_logger_repository_shutdown
 log4g_logger_repository_emit_no_appender_warning
+Log4gLoggerRepositoryExists
+Log4gLoggerRepositoryGetCurrentLoggers
+Log4gLoggerRepositoryGetLogger
+Log4gLoggerRepositoryGetLoggerFactory
+Log4gLoggerRepositoryGetRootLogger
+Log4gLoggerRepositoryGetThreshold
+Log4gLoggerRepositoryIsDisabled
+Log4gLoggerRepositoryResetConfiguration
+Log4gLoggerRepositorySetThreshold
+Log4gLoggerRepositorySetThresholdString
+Log4gLoggerRepositoryShutdown
+Log4gLoggerRepositoryEmitNoAppenderWarning
 <SUBSECTION Standard>
 LOG4G_LOGGER_REPOSITORY
 LOG4G_IS_LOGGER_REPOSITORY
@@ -473,6 +485,7 @@ LOG4G_LOGGER_REPOSITORY_GET_INTERFACE
 Log4gConfigurator
 Log4gConfiguratorInterface
 log4g_configurator_do_configure
+Log4gConfiguratorDoConfigure
 <SUBSECTION Standard>
 LOG4G_CONFIGURATOR
 LOG4G_IS_CONFIGURATOR
@@ -490,6 +503,10 @@ log4g_error_handler_set_logger
 log4g_error_handler_error
 log4g_error_handler_set_appender
 log4g_error_handler_set_backup_appender
+Log4gErrorHandlerSetLogger
+Log4gErrorHandlerError
+Log4gErrorHandlerSetAppender
+Log4gErrorHandlerSetBackupAppender
 <SUBSECTION Standard>
 LOG4G_ERROR_HANDLER
 LOG4G_IS_ERROR_HANDLER
@@ -569,6 +586,7 @@ LOG4G_APPENDER_ATTACHABLE_IMPL_GET_CLASS
 Log4gDefaultModuleLoader
 Log4gDefaultModuleLoaderClass
 log4g_default_module_loader_new
+Log4gModuleLoaderLoadModules
 <SUBSECTION Standard>
 LOG4G_DEFAULT_MODULE_LOADER
 LOG4G_IS_DEFAULT_MODULE_LOADER
@@ -584,8 +602,6 @@ LOG4G_DEFAULT_MODULE_LOADER_GET_CLASS
 <TITLE>Log4gThread</TITLE>
 Log4gThread
 Log4gThreadClass
-log4g_thread_get_instance
-log4g_thread_remove_instance
 log4g_thread_get_name
 log4g_thread_set_name
 <SUBSECTION Standard>
@@ -636,55 +652,10 @@ log4g_logger_fatal
 </SECTION>
 
 <SECTION>
-<FILE>disable</FILE>
-log4g_init
-log4g_get_option_group
-log4g_get_logger
-log4g_get_root_logger
-log4g_assert
-log4g_logger_assert
-log4g_is_trace_enabled
-log4g_trace
-log4g_logger_trace
-log4g_is_debug_enabled
-log4g_debug
-log4g_logger_debug
-log4g_is_info_enabled
-log4g_info
-log4g_logger_info
-log4g_is_warn_enabled
-log4g_warn
-log4g_logger_warn
-log4g_is_error_enabled
-log4g_error
-log4g_logger_error
-log4g_is_fatal_enabled
-log4g_fatal
-log4g_logger_fatal
-log4g_mdc_put
-log4g_mdc_get
-log4g_mdc_remove
-log4g_ndc_clear
-log4g_ndc_clone
-log4g_ndc_inherit
-log4g_ndc_get
-log4g_ndc_push
-log4g_ndc_peek
-log4g_ndc_pop
-log4g_ndc_remove
-log4g_ndc_set_max_depth
-</SECTION>
-
-<SECTION>
 <FILE>error</FILE>
 LOG4G_ERROR
 Log4gError
 log4g_error_quark
-</SECTION>
-
-<SECTION>
-<FILE>marshal</FILE>
-g_cclosure_user_marshal_VOID__OBJECT_OBJECT
 </SECTION>
 
 <SECTION>

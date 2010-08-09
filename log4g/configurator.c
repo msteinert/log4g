@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/interface/configurator.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: configurator
+ * @short_description: Log4g configuration interface
+ *
+ * This interface should be implemented by classes capable of configuring
+ * Log4g via a URI.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,6 +36,19 @@ log4g_configurator_default_init(Log4gConfiguratorInterface *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_configurator_do_configure:
+ * @self: A configurator object.
+ * @uri: The URI from which load configuration.
+ * @repository: The repository to configure.
+ * @error: Errors are returned here.
+ *
+ * Calls the @do_configure function from the #Log4gConfiguratorInterface
+ * of @self.
+ *
+ * Returns: %TRUE if the configuration was successful, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *url,
         Log4gLoggerRepository *repository, GError **error)

@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/default-logger-factory.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: default-logger-factory
+ * @short_description: an implementation of logger factory interface
+ * @see_also: #Log4gLoggerFactoryInterface
+ *
+ * This class provides the default logger factory implementation used by Log4g.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -54,6 +56,14 @@ log4g_default_logger_factory_class_init(Log4gDefaultLoggerFactoryClass *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_default_logger_factory_new:
+ *
+ * Create a new default logger factory object.
+ *
+ * Returns: A new default logger factory object.
+ * Since: 0.1
+ */
 Log4gLoggerFactory *
 log4g_default_logger_factory_new(void)
 {

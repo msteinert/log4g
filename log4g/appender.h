@@ -118,6 +118,7 @@ typedef void
 /**
  * Log4gAppenderDoAppend:
  * @self: A #Log4gAppender object.
+ * @event: The logging event to append.
  *
  * Loggers will call this function in order to log events.
  *

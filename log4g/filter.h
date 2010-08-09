@@ -47,7 +47,6 @@ typedef struct _Log4gFilterClass Log4gFilterClass;
 
 /**
  * Log4gFilterDecision:
- * Possible filter decisions
  * @LOG4G_FILTER_ACCEPT: The log event must be logged immediately. The
  *                       remaining filters (if any) should not be consulted.
  * @LOG4G_FILTER_NEUTRAL: This filter is neutral regarding the event. The

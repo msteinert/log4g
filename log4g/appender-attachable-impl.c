@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender-attachable-impl.h
- * \author Mike Steinert
- * \date 2-5-2010
+ * SECTION: appender-attachable-impl
+ * @short_description: an implementation of the appender attachable interface
+ * @see_also: #Log4gAppenderAttachableInterface
+ *
+ * This is a straightforward implementation of the appender attachable
+ * interface.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -220,12 +223,30 @@ log4g_appender_attachable_impl_class_init(
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_appender_attachable_impl_new:
+ *
+ * Create a new appender attachable implementation object.
+ *
+ * Returns: A new appender attachable implementation object.
+ * Since: 0.1
+ */
 Log4gAppenderAttachable *
 log4g_appender_attachable_impl_new(void)
 {
     return g_object_new(LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, NULL);
 }
 
+/**
+ * log4g_appender_attachable_impl_append_loop_on_appenders:
+ * @base: An appender attachable implementation object.
+ * @event: A log event to append.
+ *
+ * Call the Log4gAppenderInterface.do_append virtual function for all
+ * attached appenders.
+ *
+ * Since: 0.1
+ */
 guint
 log4g_appender_attachable_impl_append_loop_on_appenders(
         Log4gAppenderAttachable *base, Log4gLoggingEvent *event)

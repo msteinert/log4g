@@ -595,11 +595,11 @@ log4g_appender_get_closed(Log4gAppender *self)
 /**
  * log4g_appender_set_closed:
  * @self: A #Log4gAppender object.
+ * @closed: The new closed value for @self.
  *
  * Set the closed parameter.
  *
- * Appenders should set this value appropriately. The default value is
- * %FALSE.
+ * Appenders should set this value appropriately. The default value is %FALSE.
  * 
  * Returns: %TRUE if this appender is closed, %FALSE otherwise.
  * Since: 0.1

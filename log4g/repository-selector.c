@@ -16,9 +16,16 @@
  */
 
 /**
- * \brief Implements the API in log4g/interface/repository-selector.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: repository-selector
+ * @short_description: select the correct logger repository
+ * @see_also: #Log4gLoggerRepositoryInterface
+ *
+ * The log manager uses a repository selector implementation to select the
+ * logger repository for a particular application context.
+ *
+ * It is the responsibility of the repository selector implementation to
+ * track the application context. Log4g makes no assumptions about the
+ * application context.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -35,6 +42,18 @@ log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_repository_selector_get_logger_repository:
+ * @self: A repository selector object.
+ *
+ * Call the @get_logger_repository function from the
+ * #Log4gRepositorySelectorInterface of @self.
+ *
+ * @See: #Log4gLoggerRepositoryInterface
+ *
+ * Returns: The logger repository for the current application context.
+ * Since: 0.1
+ */
 Log4gLoggerRepository *
 log4g_repository_selector_get_logger_repository(Log4gRepositorySelector *self)
 {

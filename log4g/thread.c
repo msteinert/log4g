@@ -16,9 +16,21 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/thread.h
- * \author Mike Steinert
- * \date 2-14-2010
+ * SECTION: thread
+ * @short_description: set the thread name for log messages
+ *
+ * In order for a thread to have a name in the log output it must first be
+ * set. This class allows the user to set the thread name. If the thread
+ * name is not explicitly set then the name "thread1", with the number
+ * incrementing for each thread, is used.
+ *
+ * The initialization process will set the name of the main thread to "main".
+ *
+ * <note><para>
+ * The thread numbers are created in the order that messages are logged not
+ * the order that the threads were created. If you are debugging a thread
+ * issue it is recommended to explicitly set the thread name.
+ * </para></note>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -36,10 +48,10 @@ struct Log4gPrivate {
     gchar *name;
 };
 
-/** \brief Thread specific data. */
+/* Thread specific data. */
 static GPrivate *priv = NULL;
 
-/** \brief Count the number of thread name requests. */
+/* Count the number of thread name requests. */
 static gint counter = 0;
 
 static void
@@ -96,7 +108,16 @@ log4g_thread_class_init(Log4gThreadClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
-Log4gThread *
+/**
+ * log4g_thread_get_instance:
+ *
+ * Retrieve a Log4gThread object.
+ *
+ * If one does not exist a new one will be created.
+ *
+ * Returns: A Log4gThread object.
+ */
+static Log4gThread *
 log4g_thread_get_instance(void)
 {
     Log4gThread *self = (Log4gThread *)g_private_get(priv);
@@ -106,16 +127,14 @@ log4g_thread_get_instance(void)
     return self;
 }
 
-void
-log4g_thread_remove_instance(void)
-{
-    Log4gThread *self = (Log4gThread *)g_private_get(priv);
-    if (self) {
-        g_object_unref(self);
-        g_private_set(priv, NULL);
-    }
-}
-
+/**
+ * log4g_thread_get_name:
+ *
+ * Retrieve the name of the current thread.
+ *
+ * Returns: The name of the current thread.
+ * Since: 0.1
+ */
 const gchar *
 log4g_thread_get_name(void)
 {
@@ -131,6 +150,14 @@ log4g_thread_get_name(void)
     return priv->name;
 }
 
+/**
+ * log4g_thread_set_name:
+ * @name: The new name of the current thread.
+ *
+ * Set the name of the current thread.
+ *
+ * Since: 0.1
+ */
 void
 log4g_thread_set_name(const gchar *name)
 {

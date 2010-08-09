@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/default-repository-selector.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: default-repository-selector
+ * @short_description: an implementation of the repository selector interface
+ * @see_also: #Log4gRepositorySelectorInterface
+ *
+ * This class provides the repository selector implementation used by Log4g.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -82,6 +84,15 @@ log4g_default_repository_selector_class_init(
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
 }
 
+/**
+ * log4g_default_repository_selector_new:
+ * @repository: The logger repository to be selected.
+ *
+ * Create a new default repository selector object.
+ *
+ * Returns: A new default repository selector object.
+ * Since: 0.1
+ */
 Log4gRepositorySelector *
 log4g_default_repository_selector_new(Log4gLoggerRepository *repository)
 {

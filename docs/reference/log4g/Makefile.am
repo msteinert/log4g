@@ -47,13 +47,15 @@ CFILE_GLOB = \
 EXTRA_HFILES =
 
 # Header files to ignore when scanning. Use base file name, no paths
-IGNORE_HFILES =
+IGNORE_HFILES = \
+    support
 
 # Images to copy into HTML directory.
 HTML_IMAGES =
 
 # Extra SGML files that are included by $(DOC_MAIN_SGML_FILE).
-content_files =
+content_files = \
+    introduction.sgml
 
 # SGML files where gtk-doc abbrevations (#GtkWidget) are expanded
 # These files must be listed here *and* in content_files

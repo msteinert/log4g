@@ -46,7 +46,6 @@ typedef struct _Log4gLevelClass Log4gLevelClass;
 
 /**
  * Log4gLevelInt:
- * Integer values of logging levels
  * @LOG4G_LEVEL_ALL_INT: ALL level integer value
  * @LOG4G_LEVEL_TRACE_INT: TRACE level integer value
  * @LOG4G_LEVEL_DEBUG_INT: DEBUG level integer value

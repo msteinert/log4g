@@ -15,18 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief An implementation of logger factory interface.
- * \author Mike Steinert
- * \date 1-29-2010
- *
- * This class provides the default logger factory implementation used by
- * Log4g.
- *
- * \see log4g/interface/logger-factory.h
- */
-
 #ifndef LOG4G_DEFAULT_LOGGER_FACTORY_H
 #define LOG4G_DEFAULT_LOGGER_FACTORY_H
 
@@ -57,30 +45,34 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), \
             LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, Log4gDefaultLoggerFactoryClass))
 
-/** \brief Log4gDefaultLoggerFactory type definition */
 typedef struct _Log4gDefaultLoggerFactory Log4gDefaultLoggerFactory;
 
-/** \brief Log4gDefaultLoggerFactory class type definition */
-typedef struct _Log4gDefaultLoggerFactoryClass
-    Log4gDefaultLoggerFactoryClass;
+typedef struct _Log4gDefaultLoggerFactoryClass Log4gDefaultLoggerFactoryClass;
 
-/** \brief Log4gDefaultLoggerFactoryClass definition */
+/**
+ * Log4gDefaultLoggerFactory:
+ *
+ * The <structname>Log4gDefaultLoggerFactory</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gDefaultLoggerFactory {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gDefaultLoggerFactoryClass definition */
+/**
+ * Log4gDefaultLoggerFactoryClass:
+ *
+ * The <structname>Log4gDefaultLoggerFactoryClass</structname> structure does
+ * not have any public members.
+ */
 struct _Log4gDefaultLoggerFactoryClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType log4g_default_logger_factory_get_type(void);
 
-/**
- * \brief Create a new default logger factory object.
- *
- * \return A new default logger factory object.
- */
 Log4gLoggerFactory *
 log4g_default_logger_factory_new(void);
 

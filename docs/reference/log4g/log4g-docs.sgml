@@ -17,12 +17,14 @@
         <para>
 TODO
         </para>
+        <xi:include href="introduction.sgml" />
     </chapter> 
     <chapter id="log4g-core">
         <title>Log4g Core API</title>
         <para>
 TODO
         </para>
+        <xi:include href="xml/log4g.xml" />
         <xi:include href="xml/logger.xml" />
         <xi:include href="xml/appender.xml" />
         <xi:include href="xml/layout.xml" />
@@ -39,6 +41,20 @@ TODO
         <xi:include href="xml/error.xml" />
         <xi:include href="xml/dom-configurator.xml" />
         <xi:include href="xml/basic-configurator.xml" />
+        <xi:include href="xml/appender-attachable.xml" />
+        <xi:include href="xml/configurator.xml" />
+        <xi:include href="xml/error-handler.xml" />
+        <xi:include href="xml/logger-factory.xml" />
+        <xi:include href="xml/logger-repository.xml" />
+        <xi:include href="xml/module-loader.xml" />
+        <xi:include href="xml/repository-selector.xml" />
+        <xi:include href="xml/appender-attachable-impl.xml" />
+        <xi:include href="xml/default-logger-factory.xml" />
+        <xi:include href="xml/default-module-loader.xml" />
+        <xi:include href="xml/default-repository-selector.xml" />
+        <xi:include href="xml/log.xml" />
+        <xi:include href="xml/only-once-error-handler.xml" />
+        <xi:include href="xml/thread.xml" />
     </chapter>
     <index id="api-index-full">
         <title>Index</title>

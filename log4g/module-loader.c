@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in log4g/interface/module-loader.h
- * \author Mike Steinert
- * \date 5-30-2010
+ * SECTION: module-loader
+ * @short_description: load external modules
+ * @see_also: #Log4gModuleClass
+ *
+ * The log manager uses a module loader implementation to load external
+ * modules for a particular application context.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -35,6 +38,15 @@ log4g_module_loader_default_init(Log4gModuleLoaderInterface *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_module_loader_load_modules:
+ * @self: A module loader object.
+ *
+ * Call the @load_modules function from the #Log4gModuleLoaderInterface
+ * of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_module_loader_load_modules(Log4gModuleLoader *self)
 {

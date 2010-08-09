@@ -16,9 +16,11 @@
  */
 
 /**
- * \brief Implements the API in log4g/interface/error-handler.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: error-handler
+ * @short_description: delegate error handling
+ * @see_also: #Log4gAppenderClass
+ *
+ * Appenders may delegate their error handling via this interface.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,6 +36,15 @@ log4g_error_handler_default_init(Log4gErrorHandlerInterface *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_error_handler_set_logger:
+ * @self: An error handler object.
+ * @logger: The logger to set for @self.
+ *
+ * Call the @set_logger function for the #Log4gErrorHandlerInterface of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_error_handler_set_logger(Log4gErrorHandler *self,
         Log4gLogger *logger)
@@ -44,9 +55,20 @@ log4g_error_handler_set_logger(Log4gErrorHandler *self,
     interface->set_logger(self, logger);
 }
 
+/**
+ * log4g_error_handler_error:
+ * @self: An error handler object.
+ * @event: The event for which the error occurred.
+ * @message: A printf formatted error message.
+ * @...: Format parameters.
+ *
+ * Call the @error function from the #Log4gErrorHandlerInterface of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
-        const char *message, ...)
+        const gchar *message, ...)
 {
     g_return_if_fail(LOG4G_IS_ERROR_HANDLER(self));
     Log4gErrorHandlerInterface *interface =
@@ -57,6 +79,16 @@ log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
     va_end(ap);
 }
 
+/**
+ * log4g_error_handler_set_appender:
+ * @self: An error handler object.
+ * @appender: The appender to set for @self.
+ *
+ * Call the @set_appender function from the #Log4gErrorHandlerInterface
+ * of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_error_handler_set_appender(Log4gErrorHandler *self,
         Log4gAppender *appender)
@@ -67,6 +99,16 @@ log4g_error_handler_set_appender(Log4gErrorHandler *self,
     interface->set_appender(self, appender);
 }
 
+/**
+ * log4g_error_handler_set_backup_appender:
+ * @self: An error handler object.
+ * @appender: The backup appender to set for @self.
+ *
+ * Call the @set_backup_appender function from the #Log4gErrorHandlerInterface
+ * of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
         Log4gAppender *appender)

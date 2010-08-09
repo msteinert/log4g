@@ -16,9 +16,42 @@
  */
 
 /**
- * \brief Implements the API in log4g/logger-repository.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: logger-repository
+ * @short_description: create and retrieve loggers
+ * @see_also: #Log4gLoggerClass
+ *
+ * A logger repository is used to create and retrieve loggers. The
+ * relationship between loggers and the repository depends on the repository
+ * implementation but usually loggers are arranged in a named hierarchy.
+ *
+ * In addition to the create functions, a logger repository can be queried
+ * for existing loggers and act as a registry for events related to loggers.
+ *
+ * Logger repositories have the following signals:
+ * <itemizedlist>
+ * <listitem><para>add-appender</para></listitem>
+ * <listitem><para>remove-appender</para></listitem>
+ * </itemizedlist>
+ *
+ * The add-appender signal is invoked whenever an appender is added to a
+ * logger in the repository.
+ *
+ * The type signature for the add-appender signal is:
+ *
+ * |[
+ * typedef void
+ * (*add_appender)(Log4gLogger *logger, Log4gAppender *appender);
+ * ]|
+ *
+ * The remove-appender signal is invoked whenever an appender is removed from
+ * a logger in the repository.
+ *
+ * The type signature for the remove-appender signal is:
+ *
+ * |[
+ * typedef void
+ * (*remove_appender)(Log4gLogger *logger, Log4gAppender *appender);
+ * ]|
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,26 +63,38 @@
 G_DEFINE_INTERFACE(Log4gLoggerRepository, log4g_logger_repository,
         G_TYPE_INVALID)
 
-/** \brief Signals */
 enum signals_t {
-    SIGNAL_ADD_APPENDER, /**< Add an appender */
-    SIGNAL_REMOVE_APPENDER, /**< Remove an appender */
-    SIGNAL_LAST /**< Sentinel value */
+    SIGNAL_ADD_APPENDER,
+    SIGNAL_REMOVE_APPENDER,
+    SIGNAL_LAST
 };
 
-/** \brief Signal definitions */
 static guint signals[SIGNAL_LAST] = { 0 };
 
 static void
 log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
 {
-    /* install add-appender signal */
+    /**
+     * Log4gLoggerRepository::add-appender
+     * @logger: The logger to which an appender was added.
+     * @appender: The appender that was added.
+     *
+     * The ::add-appender signal is emitted when an appender is added to
+     * a logger.
+     */
     signals[SIGNAL_ADD_APPENDER] =
         g_signal_new(Q_("add-appender"), G_OBJECT_CLASS_TYPE(klass),
                 G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
                 0, NULL, NULL, g_cclosure_user_marshal_VOID__OBJECT_OBJECT,
                 G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
-    /* install remove-appender signal */
+    /**
+     * Log4gLoggerRepository::remove-appender
+     * @logger: The logger from which an appender was removed.
+     * @appender: The appender that was removed.
+     *
+     * The ::remove-appender signal is emitted when an appender is removed
+     * from a logger.
+     */
     signals[SIGNAL_REMOVE_APPENDER] =
         g_signal_new(Q_("remove-appender"), G_OBJECT_CLASS_TYPE(klass),
                 G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
@@ -57,6 +102,16 @@ log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
                 G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
 }
 
+/**
+ * log4g_logger_repository_exists:
+ * @self: A logger repository object.
+ * @name: The name of the logger to check.
+ *
+ * Call the @exists function from the #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Returns: The logger named @name or %NULL if it does not exist.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name)
 {
@@ -66,15 +121,16 @@ log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name)
     return interface->exists(self, name);
 }
 
-const GArray *
-log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
-{
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_current_loggers(self);
-}
-
+/**
+ * log4g_logger_repository_emit_add_appender_signal:
+ * @self: A logger repository object.
+ * @logger: The logger from to @appender was added.
+ * @appender: The appender that was added.
+ *
+ * Emit the the add-appender signal of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
         Log4gLogger *logger, Log4gAppender *appender)
@@ -85,6 +141,16 @@ log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
             logger, appender);
 }
 
+/**
+ * log4g_logger_repository_emit_remove_appender_signal:
+ * @self: A logger repository object.
+ * @logger: The logger from which @appender was removed.
+ * @appender: The appender that was removed.
+ *
+ * Emit the remove-appender signal of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_emit_remove_appender_signal(
         Log4gLoggerRepository *self, Log4gLogger *logger,
@@ -96,6 +162,37 @@ log4g_logger_repository_emit_remove_appender_signal(
             logger, appender);
 }
 
+/**
+ * log4g_logger_repository_get_current_loggers:
+ * @self: A logger repository object.
+ *
+ * Call the @get_current_loggers function from the
+ * #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Returns: An array containing all loggers in the repository or %NULL
+ *          if there are none.
+ * Since: 0.1
+ */
+const GArray *
+log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
+{
+    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+    Log4gLoggerRepositoryInterface *interface =
+        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+    return interface->get_current_loggers(self);
+}
+
+/**
+ * log4g_logger_repository_get_logger:
+ * @self: A logger repository object.
+ * @name: The name of the logger to retrieve.
+ *
+ * Call the @get_logger function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * Returns: The logger named @name.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
         const gchar *name)
@@ -106,7 +203,18 @@ log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
     return interface->get_logger(self, name);
 }
 
-
+/**
+ * log4g_logger_repository_get_logger_factory:
+ * @self: A logger repository object.
+ * @name: The name of the logger to retrieve.
+ * @factory: The factory to use.
+ *
+ * Call the @get_logger_factory function from the
+ * #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Returns: The logger named @name.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
         const gchar *name, Log4gLoggerFactory *factory)
@@ -117,6 +225,16 @@ log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
     return interface->get_logger_factory(self, name, factory);
 }
 
+/**
+ * log4g_logger_repository_get_root_logger:
+ * @self: A logger repository object.
+ *
+ * Call the @get_root_logger function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * Returns: The root logger.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
 {
@@ -126,6 +244,18 @@ log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
     return interface->get_root_logger(self);
 }
 
+/**
+ * log4g_logger_repository_get_threshold:
+ * @self: A logger repository object.
+ *
+ * Call the @get_threshold function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * @See: #Log4gLevelClass
+ *
+ * Returns: The threshold level for @self.
+ * Since: 0.1
+ */
 Log4gLevel *
 log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
 {
@@ -135,6 +265,19 @@ log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
     return interface->get_threshold(self);
 }
 
+/**
+ * log4g_logger_repository_is_disabled:
+ * @self: A logger repository object.
+ * @level: The integer representation of a log level.
+ *
+ * Call the @is_disabled function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * @See: #Log4gLevelClass
+ *
+ * Returns: %TRUE if @self is disabled for @level, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level)
 {
@@ -144,6 +287,15 @@ log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level)
     return interface->is_disabled(self, level);
 }
 
+/**
+ * log4g_logger_repository_reset_configuration:
+ * @self: A logger repository object.
+ *
+ * Call the @reset_configuration function from the
+ * #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
 {
@@ -153,6 +305,18 @@ log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
     interface->reset_configuration(self);
 }
 
+/**
+ * log4g_logger_repository_set_threshold:
+ * @self: A logger repository object.
+ * @level: The new threshold for @self.
+ *
+ * Call the @set_threshold function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * @See: #Log4gLevelClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
         Log4gLevel *level)
@@ -163,6 +327,16 @@ log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
     interface->set_threshold(self, level);
 }
 
+/**
+ * log4g_logger_repository_set_threshold_string:
+ * @self: A logger repository object.
+ * @string: The name of the new threshold to set.
+ *
+ * Call the @set_threshold_string function from the
+ * #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
         const gchar *string)
@@ -173,6 +347,15 @@ log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
     interface->set_threshold_string(self, string);
 }
 
+/**
+ * log4g_logger_repository_shutdown:
+ * @self: A logger repository object.
+ *
+ * Call the @shutdown function from the #Log4gLoggerRepositoryInterface
+ * of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_shutdown(Log4gLoggerRepository *self)
 {
@@ -182,6 +365,16 @@ log4g_logger_repository_shutdown(Log4gLoggerRepository *self)
     interface->shutdown(self);
 }
 
+/**
+ * log4g_logger_repository_emit_no_appender_warning:
+ * @self: A logger repository object.
+ * @logger: The logger that produced the warning.
+ *
+ * Call the @emit_no_appender_warning function from the
+ * #Log4gLoggerRepositoryInterface of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_logger_repository_emit_no_appender_warning(Log4gLoggerRepository *self,
         Log4gLogger *logger)

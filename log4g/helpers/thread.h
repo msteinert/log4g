@@ -15,24 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Set the thread name for log messages.
- * \author Mike Steinert
- * \date 2-14-2010
- *
- * In order for a thread to have a name in the log output it must first be
- * set. This class allows the user to set the thread name. If the thread
- * name is not explicitly set then the name "thread1", with the number
- * incrementing for each thread, is used.
- *
- * The initialization process will set the name of the main thread to "main".
- *
- * \note The thread numbers are created in the order that messages are logged
- *       not the order that the threads were created. If you are debugging
- *       a thread issue it is recommended to explicitly set the thread name.
- */
-
 #ifndef LOG4G_THREAD_H
 #define LOG4G_THREAD_H
 
@@ -59,56 +41,38 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_THREAD, \
             Log4gThreadClass))
 
-/** \brief Log4gThread object type definition */
 typedef struct _Log4gThread Log4gThread;
 
-/** \brief Log4gThread class type definition */
 typedef struct _Log4gThreadClass Log4gThreadClass;
 
-/** \brief Log4gThreadClass definition */
+/**
+ * Log4gThread:
+ *
+ * The <structname>Log4gThread</structname> structure does not have any public
+ * members.
+ */
 struct _Log4gThread {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gThreadClass definition */
+/**
+ * Log4gThreadClass:
+ *
+ * The <structname>Log4gThreadClass</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gThreadClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType
 log4g_thread_get_type(void);
 
-/**
- * \internal
- * \brief Retrieve a Log4gThread object.
- *
- * If one does not exist a new one will be created.
- *
- * \return A Log4gThread object.
- */
-Log4gThread *
-log4g_thread_get_instance(void);
-
-/**
- * \internal
- * \brief Remove the instance of Log4gThread from the current thread.
- */
-void
-log4g_thread_remove_instance(void);
-
-/**
- * \brief Retrieve the name of the current thread.
- *
- * \return The name of the current thread.
- */
 const gchar *
 log4g_thread_get_name(void);
 
-/**
- * \brief Set the name of the current thread.
- *
- * \param name [in] The new name of the current thread.
- */
 void
 log4g_thread_set_name(const gchar *name);
 

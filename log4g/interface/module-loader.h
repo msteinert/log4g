@@ -15,18 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Load external modules.
- * \author Mike Steinert
- * \date 5-30-2010
- *
- * The log manager uses a module loader implementation to load external
- * modules for a particular application context.
- *
- * \see log4g/module.h
- */
-
 #ifndef LOG4G_MODULE_LOADER_H
 #define LOG4G_MODULE_LOADER_H
 
@@ -48,35 +36,35 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_INTERFACE((instance), \
             LOG4G_TYPE_MODULE_LOADER, Log4gModuleLoaderInterface));
 
-/** \brief Log4gModuleLoader object type definition */
 typedef struct _Log4gModuleLoader Log4gModuleLoader;
 
-/** \brief Log4gModuleLoader interface type definition */
-typedef struct _Log4gModuleLoaderInterface
-        Log4gModuleLoaderInterface;
+typedef struct _Log4gModuleLoaderInterface Log4gModuleLoaderInterface;
 
-/** \brief Log4gModuleLoaderInterface definition */
+/**
+ * Log4gModuleLoaderLoadModules:
+ * @self: A module loader object.
+ *
+ * Load external modules for the current application context.
+ * 
+ * Since: 0.1
+ */
+typedef void
+(*Log4gModuleLoaderLoadModules)(Log4gModuleLoader *self);
+
+/**
+ * Log4gModuleLoaderInterface:
+ * @load_modules: Load external modules.
+ */
 struct _Log4gModuleLoaderInterface {
+    /*< private >*/
     GTypeInterface parent_interface;
-
-    /**
-     * \brief Load external modules for the current application context.
-     * 
-     * \param self [in] A module loader object.
-     */
-    void
-    (*load_modules)(Log4gModuleLoader *self);
+    /*< public >*/
+    Log4gModuleLoaderLoadModules load_modules;
 };
 
 GType
 log4g_module_loader_get_type(void);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gModuleLoaderInterface::load_modules().
- *
- * \param self [in] A module loader object.
- */
 void
 log4g_module_loader_load_modules(Log4gModuleLoader *self);
 

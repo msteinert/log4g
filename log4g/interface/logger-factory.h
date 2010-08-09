@@ -15,18 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Create a logger via a factory class.
- * \author Mike Steinert
- * \date 1-29-2010
- *
- * Implement this interface to create new instances of Log4gLogger or a
- * sub-class of Log4gLogger.
- *
- * \see log4g/logger.h
- */
-
 #ifndef LOG4G_LOGGER_FACTORY_H
 #define LOG4G_LOGGER_FACTORY_H
 
@@ -48,40 +36,38 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_LOGGER_FACTORY, \
             Log4gLoggerFactoryInterface));
 
-/** \brief Log4gLoggerFactory object type definition */
 typedef struct _Log4gLoggerFactory Log4gLoggerFactory;
 
-/** \brief Log4gLoggerFactory interface type definition */
 typedef struct _Log4gLoggerFactoryInterface Log4gLoggerFactoryInterface;
 
-/** \brief Log4gLoggerFactoryInterface definition */
-struct _Log4gLoggerFactoryInterface {
-    GTypeInterface parent_interface;
+/**
+ * Log4gLoggerFactoryMakeNewLoggerInstance:
+ * @self: A logger factory object.
+ * @name: The name of the logger to create.
+ *
+ * Create a new logger object.
+ *
+ * Returns: A new logger named \e name.
+ * Since: 0.1
+ */
+typedef Log4gLogger *
+(*Log4gLoggerFactoryMakeNewLoggerInstance)(Log4gLoggerFactory *self,
+        const gchar *name);
 
-    /**
-     * \brief Create a new logger object.
-     *
-     * \param self [in] A logger factory object.
-     * \param name [in] The name of the logger to create.
-     *
-     * \return A new logger named \e name.
-     */
-    Log4gLogger *
-    (*make_new_logger_instance)(Log4gLoggerFactory *self, const gchar *name);
+/**
+ * Log4gLoggerFactoryInterface:
+ * @make_new_logger_instance: Create a new logger object.
+ */
+struct _Log4gLoggerFactoryInterface {
+    /*< private >*/
+    GTypeInterface parent_interface;
+    /*< public >*/
+    Log4gLoggerFactoryMakeNewLoggerInstance make_new_logger_instance;
 };
 
 GType
 log4g_logger_factory_get_type(void);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerFactoryInterface::make_new_logger_instance().
- *
- * \param self [in] A logger factory object.
- * \param name [in] The name of the logger to create.
- *
- * \return A new logger named \e name.
- */
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,
         const gchar *name);

@@ -17,9 +17,9 @@
 
 /**
  * SECTION: error
- * @short_description: Log4g error definition.
- * @title: Log4gError
- * @section_id: Log4gError
+ * @short_description: Log4g error definition
+ * @title: Log4gErrorQuark
+ * @section_id: Log4gErrorQuark
  */
 
 #ifdef HAVE_CONFIG_H

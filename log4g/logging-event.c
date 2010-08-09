@@ -17,7 +17,7 @@
 
 /**
  * SECTION: logging-event
- * @short_description: The internal representation of logging events.
+ * @short_description: the internal representation of logging events
  *
  * Once an affirmative decision is made to log an event a logging event
  * instance is created. This instance is passed to appenders and filters to
@@ -420,13 +420,14 @@ _mdc_copy(gpointer key, gpointer value, gpointer user_data)
 }
 
 /**
+ * log4g_logging_event_get_thread_copy:
+ * @self: A logging event object.
+ *
  * Copy the current thread name into a logging object.
  *
  * Asynchronous appenders should call this function.
  *
- * @self: A logging event object.
- *
- * \see log4g/helpers/thread.h
+ * @See: #Log4gThreadClass
  */
 void
 log4g_logging_event_get_thread_copy(Log4gLoggingEvent *self)

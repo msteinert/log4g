@@ -57,13 +57,13 @@ G_DEFINE_TYPE_WITH_CODE(Log4gLogger, log4g_logger, G_TYPE_OBJECT,
             struct Log4gPrivate))
 
 struct Log4gPrivate {
-    gboolean additive; /**< Indicates if children inherit appenders */
-    Log4gLevel *level; /**< The assigned level of this logger */
-    gchar *name; /**< The name of this logger */
-    Log4gLogger *parent; /**< The parent of the logger */
-    Log4gLoggerRepository *repository; /**< Owner of this logger */
-    Log4gAppenderAttachable *aai; /**< Appenders attached to this logger */
-    GMutex *lock; /**< Synchronizes access to \e aai */
+    gboolean additive; /* Indicates if children inherit appenders */
+    Log4gLevel *level; /* The assigned level of this logger */
+    gchar *name; /* The name of this logger */
+    Log4gLogger *parent; /* The parent of the logger */
+    Log4gLoggerRepository *repository; /* Owner of this logger */
+    Log4gAppenderAttachable *aai; /* Appenders attached to this logger */
+    GMutex *lock; /* Synchronizes access to 'aai' */
 };
 
 static void
@@ -335,7 +335,7 @@ log4g_logger_set_additivity(Log4gLogger *self, gboolean additive)
  * @self: A #Log4gLogger object.
  *
  * Retrieve the repository where a logger is attached. See
- * #Log4gLoggerRepositoryClass.
+ * #Log4gLoggerRepositoryInterface.
  *
  * Returns: The logger repository @self is attached to.
  * Since: 0.1
@@ -355,7 +355,7 @@ log4g_logger_get_logger_repository(Log4gLogger *self)
  *
  * You probably do not want to call this function.
  *
- * @See: #Log4gLoggerRepositoryClass
+ * @See: #Log4gLoggerRepositoryInterface
  *
  * Since: 0.1
  */
@@ -712,12 +712,12 @@ _log4g_logger_assert(Log4gLogger *self, gboolean assertion,
  * log4g_logger_is_trace_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_TRACE level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_TRACE level.
  *
  * This function is useful if you have a to perform a costly operation to
  * construct a log message.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_TRACE level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_TRACE level, %FALSE
  *         otherwise.
  * Since: 0.1
  */
@@ -745,7 +745,7 @@ log4g_logger_is_trace_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_TRACE level.
+ * Log a message with the @LOG4G_LEVEL_TRACE level.
  *
  * This function is intended for use by wrapper classes.
  *
@@ -779,9 +779,9 @@ _log4g_logger_trace(Log4gLogger *self, const gchar *function,
  * log4g_logger_is_debug_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_DEBUG level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_DEBUG level.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_DEBUG level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_DEBUG level, %FALSE
  *          otherwise.
  * Since: 0.1
  */
@@ -809,7 +809,7 @@ log4g_logger_is_debug_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_DEBUG level.
+ * Log a message with the @LOG4G_LEVEL_DEBUG level.
  *
  * This function is intended for use by wrapper classes.
  *
@@ -843,9 +843,9 @@ _log4g_logger_debug(Log4gLogger *self, const gchar *function,
  * log4g_logger_is_info_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_INFO level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_INFO level.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_INFO level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_INFO level, %FALSE
  *          otherwise.
  * Since: 0.1
  */
@@ -873,7 +873,7 @@ log4g_logger_is_info_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_INFO level.
+ * Log a message with the @LOG4G_LEVEL_INFO level.
  *
  * This function is intended for use by wrapper classes.
  *
@@ -907,9 +907,9 @@ _log4g_logger_info(Log4gLogger *self, const gchar *function, const gchar *file,
  * log4g_logger_is_warn_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_WARN level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_WARN level.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_WARN level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_WARN level, %FALSE
  *          otherwise.
  * Since: 0.1
  */
@@ -937,7 +937,7 @@ log4g_logger_is_warn_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_WARN level.
+ * Log a message with the @LOG4G_LEVEL_WARN level.
  *
  * This function is intended for use by wrapper classes.
  *
@@ -971,9 +971,9 @@ _log4g_logger_warn(Log4gLogger *self, const gchar *function, const gchar *file,
  * log4g_logger_is_error_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_ERROR level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_ERROR level.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_ERROR level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_ERROR level, %FALSE
  *          otherwise.
  * Since: 0.1
  */
@@ -1001,7 +1001,7 @@ log4g_logger_is_error_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_ERROR level.
+ * Log a message with the @LOG4G_LEVEL_ERROR level.
  *
  * This function is intended for use by wrapper classes.
  *
@@ -1035,9 +1035,9 @@ _log4g_logger_error(Log4gLogger *self, const gchar *function,
  * log4g_logger_is_fatal_enabled:
  * @self: A #Log4gLogger object.
  *
- * Check if a logger is enabled for the %LOG4G_LEVEL_FATAL level.
+ * Check if a logger is enabled for the @LOG4G_LEVEL_FATAL level.
  *
- * Returns: %TRUE if @self is enabled for the %LOG4G_LEVEL_FATAL level, %FALSE
+ * Returns: %TRUE if @self is enabled for the @LOG4G_LEVEL_FATAL level, %FALSE
  *          otherwise.
  * Since: 0.1
  */
@@ -1065,7 +1065,7 @@ log4g_logger_is_fatal_enabled(Log4gLogger *self)
  * @format: A printf formatted message.
  * @...: Format parameters.
  *
- * Log a message with the %LOG4G_LEVEL_FATAL level.
+ * Log a message with the @LOG4G_LEVEL_FATAL level.
  *
  * This function is intended for use by wrapper classes.
  *

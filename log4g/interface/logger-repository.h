@@ -15,46 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Create and retrieve loggers.
- * \author Mike Steinert
- * \date 1-29-2010
- *
- * A logger repository is used to create and retrieve loggers. The
- * relationship between loggers and the repository depends on the repository
- * implementation but usually loggers are arranged in a named hierarchy.
- *
- * In addition to the create functions, a logger repository can be queried
- * for existing loggers and act as a registry for events related to loggers.
- *
- * Logger repositories have the following signals:
- * -# add-appender
- * -# remove-appender
- *
- * The add-appender signal is invoked whenever an appender is added to a
- * logger in the repository.
- *
- * The type signature for the add-appender signal is:
- *
- * \code
- * typedef void
- * (*add_appender)(Log4gLogger *logger, Log4gAppender *appender);
- * \endcode
- *
- * The remove-appender signal is invoked whenever an appender is removed from
- * a logger in the repository.
- *
- * The type signature for the remove-appender signal is:
- *
- * \code
- * typedef void
- * (*remove_appender)(Log4gLogger *logger, Log4gAppender *appender);
- * \endcode
- *
- * \see log4g/logger.h
- */
-
 #ifndef LOG4G_LOGGER_REPOSITORY_H
 #define LOG4G_LOGGER_REPOSITORY_H
 
@@ -76,327 +36,272 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_LOGGER_REPOSITORY, \
             Log4gLoggerRepositoryInterface));
 
-/** \brief Log4gLoggerRepository object type definition */
 typedef struct _Log4gLoggerRepository Log4gLoggerRepository;
 
-/** \brief Log4gLoggerRepository interface type definition */
 typedef struct _Log4gLoggerRepositoryInterface Log4gLoggerRepositoryInterface;
 
-/** \brief Log4gLoggerRepositoryInterface definition */
+/**
+ * Log4gLoggerRepositoryExists:
+ * @self: A logger repository object.
+ * @name: The name of the logger to check.
+ *
+ * Determine if a named logger exists.
+ *
+ * If the named logger does not exist it is not created.
+ *
+ * Returns: The logger named @name or %NULL if it does not exist.
+ * Since: ).1
+ */
+typedef Log4gLogger *
+(*Log4gLoggerRepositoryExists)(Log4gLoggerRepository *self, const gchar *name);
+
+/**
+ * Log4gLoggerRepositoryGetCurrentLoggers:
+ * @self: A logger repository object.
+ *
+ * Retrieve all loggers in the repository.
+ *
+ * <note><para>
+ * It is the responsibility of the caller to call g_array_free() for the
+ * returned value.
+ * </para></note>
+ *
+ * Returns: An array containing all loggers in the repository or %NULL if
+ *          there are none.
+ * Since: 0.1
+ */
+typedef const GArray *
+(*Log4gLoggerRepositoryGetCurrentLoggers)(Log4gLoggerRepository *self);
+
+/**
+ * Log4gLoggerRepositoryGetLogger:
+ * @self: A logger repository object.
+ * @name: The name of the logger to retrieve.
+ *
+ * Retrieve a named logger from the repository.
+ *
+ * If the logger named @name does not already exist it should be
+ * created and added to the repository.
+ *
+ * Returns: The logger named @name.
+ * Since: 0.1
+ */
+typedef Log4gLogger *
+(*Log4gLoggerRepositoryGetLogger)(Log4gLoggerRepository *self,
+        const gchar *name);
+
+/**
+ * Log4gLoggerRepositoryGetLoggerFactory:
+ * @self: A logger repository object.
+ * @name: The name of the logger to retrieve.
+ * @factory: The factory to use.
+ *
+ * Retrieve a named logger from the repository.
+ *
+ * If the logger named @name does not already exist it should be
+ * created using @factory and added to the repository.
+ *
+ * Returns: The logger named @name.
+ * Since: 0.1
+ */
+typedef Log4gLogger *
+(*Log4gLoggerRepositoryGetLoggerFactory)(Log4gLoggerRepository *self,
+        const gchar *name, Log4gLoggerFactory *factory);
+
+/**
+ * Log4gLoggerRepositoryGetRootLogger:
+ * @self: A logger repository object.
+ *
+ * Retrieve the root logger.
+ *
+ * Returns: The root logger.
+ * Since: 0.1
+ */
+typedef Log4gLogger *
+(*Log4gLoggerRepositoryGetRootLogger)(Log4gLoggerRepository *self);
+
+/**
+ * Log4gLoggerRepositoryGetThreshold:
+ * @self: A logger repository object.
+ *
+ * Retrieve the repository threshold.
+ *
+ * @See: #Log4gLevelClass, #Log4gLoggerRepositoryInterface.set_threshold
+ *
+ * Returns: The threshold level for @self.
+ * Since: 0.1
+ */
+typedef Log4gLevel *
+(*Log4gLoggerRepositoryGetThreshold)(Log4gLoggerRepository *self);
+
+/**
+ * Log4gLoggerRepositoryIsDisabled:
+ * @self: A logger repository object.
+ * @level: The integer representation of a log level.
+ *
+ * Determine if the repository is disabled for a given log level.
+ *
+ * \see #Log4gLevelClass, #Log4gLoggerRepositoryInterface.set_threshold
+ *
+ * Returns: %TRUE if @self is disabled for @level, %FALSE otherwise.
+ * Since: 0.1
+ */
+typedef gboolean
+(*Log4gLoggerRepositoryIsDisabled)(Log4gLoggerRepository *self, gint level);
+
+/**
+ * Log4gLoggerRepositoryResetConfiguration:
+ * @self: A logger repository object.
+ *
+ * Reset a repository to its initial state.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gLoggerRepositoryResetConfiguration)(Log4gLoggerRepository *self);
+
+/**
+ * Log4gLoggerRepositorySetThreshold:
+ * @self: A logger repository object.
+ * @level: The new threshold for @self.
+ *
+ * Set the repository threshold.
+ *
+ * All logging requests below the threshold are immediately dropped.
+ * By default the threshold is set to @ALL, which has the lowest
+ * possible rank.
+ *
+ * @See: #Log4gLevelClass
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gLoggerRepositorySetThreshold)(Log4gLoggerRepository *self,
+        Log4gLevel *level);
+
+/**
+ * Log4gLoggerRepositorySetThresholdString:
+ * @self: A logger repository object.
+ * @level: The new threshold level name to set.
+ *
+ * Set the repository threshold from a string.
+ *
+ * @See: #Log4gLevelClass
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gLoggerRepositorySetThresholdString)(Log4gLoggerRepository *self,
+        const gchar *level);
+
+/**
+ * Log4gLoggerRepositoryShutdown:
+ * @self: A logger repository object.
+ *
+ * Shutdown the repository.
+ *
+ * Once the repository is shut down it cannot be used by the Log4g system.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gLoggerRepositoryShutdown)(Log4gLoggerRepository *self);
+
+/**
+ * Log4gLoggerRepositoryGetCurrentEmitNoAppenderWarning:
+ * @self: A logger repository object.
+ * @logger: The logger that produced the warning.
+ *
+ * Emit a warning after attempting to use a logger that has no appenders
+ * attached.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gLoggerRepositoryEmitNoAppenderWarning)(Log4gLoggerRepository *self,
+        Log4gLogger *logger);
+
+/**
+ * Log4gLoggerRepositoryInterface:
+ * @exists: Determine if a given logger exists in the repository.
+ * @get_current_loggers: Get all loggers in the repository.
+ * @get_logger: Get an existing logger or create a new one.
+ * @get_logger_factory: Get an existing logger or create it with a factory.
+ * @get_root_logger: Get the root logger.
+ * @get_threshold: Get the repository threshold.
+ * @is_disabled: Determine if the repository is disabled at a given level.
+ * @reset_configuration: Reset the repository configuration.
+ * @set_threshold: Set the repository threshold.
+ * @set_threshold_string: Set the repository threshold by string value.
+ * @shutdown: Shut down the logger repository.
+ * @emit_no_appender_warning: Emit a warning if no appenders are attached.
+ */
 struct _Log4gLoggerRepositoryInterface {
+    /*< private >*/
     GTypeInterface parent_interface;
-
-    /**
-     * \brief Determine if a named logger exists.
-     *
-     * If the named logger does not exist it is not created.
-     *
-     * \param self [in] A logger repository object.
-     * \param name [in] The name of the logger to check.
-     *
-     * \return The logger named \e name or \e NULL if it does not exist.
-     */
-    Log4gLogger *
-    (*exists)(Log4gLoggerRepository *self, const gchar *name);
-
-    /**
-     * \brief Retrieve all loggers in the repository.
-     *
-     * \param self [in] A logger repository object.
-     *
-     * \return An array containing all loggers in the repository or \e NULL
-     *         if there are none.
-     *
-     * \note It is the responsibility of the caller to call g_array_free()
-     *       for the returned value.
-     */
-    const GArray *
-    (*get_current_loggers)(Log4gLoggerRepository *self);
-
-    /**
-     * \brief Retrieve a named logger from the repository.
-     *
-     * If the logger named \e name does not already exist it should be
-     * created and added to the repository.
-     *
-     * \param self [in] A logger repository object.
-     * \param name [in] The name of the logger to retrieve.
-     *
-     * \return The logger named \e name.
-     */
-    Log4gLogger *
-    (*get_logger)(Log4gLoggerRepository *self, const gchar *name);
-
-    /**
-     * \brief Retrieve a named logger from the repository.
-     *
-     * If the logger named \e name does not already exist it should be
-     * created using \e factory and added to the repository.
-     *
-     * \param self [in] A logger repository object.
-     * \param name [in] The name of the logger to retrieve.
-     * \param factory [in] The factory to use.
-     *
-     * \return The logger named \e name.
-     */
-    Log4gLogger *
-    (*get_logger_factory)(Log4gLoggerRepository *self, const gchar *name,
-            Log4gLoggerFactory *factory);
-
-    /**
-     * \brief Retrieve the root logger.
-     *
-     * \param self [in] A logger repository object.
-     *
-     * \return The root logger.
-     */
-    Log4gLogger *
-    (*get_root_logger)(Log4gLoggerRepository *self);
-
-    /**
-     * \brief Retrieve the repository threshold.
-     *
-     * \see _Log4gLoggerRepositoryInterface::set_threshold()
-     *
-     * \param self [in] A logger repository object.
-     *
-     * \return The threshold level for \e self.
-     *
-     * \see log4g/level.h
-     */
-    Log4gLevel *
-    (*get_threshold)(Log4gLoggerRepository *self);
-
-    /**
-     * \brief Determine if the repository is disabled for a given log level.
-     *
-     * \see _Log4gLoggerRepositoryInterface::set_threshold()
-     *
-     * \param self [in] A logger repository object.
-     * \param level [in] The integer representation of a log level.
-     *
-     * \return \e TRUE if \e self is disabled for \e level, \e FALSE otherwise.
-     *
-     * \see log4g/level.h
-     */
-    gboolean
-    (*is_disabled)(Log4gLoggerRepository *self, gint level);
-
-    /**
-     * \brief Reset a repository to its initial state.
-     *
-     * \param self [in] A logger repository object.
-     */
-    void
-    (*reset_configuration)(Log4gLoggerRepository *self);
-
-    /**
-     * \brief Set the repository threshold.
-     *
-     * All logging requests below the threshold are immediately dropped.
-     * By default the threshold is set to \e ALL, which has the lowest
-     * possible rank.
-     *
-     * \param self [in] A logger repository object.
-     * \param level [in] The new threshold for \e self.
-     *
-     * \see log4g/level.h
-     */
-    void
-    (*set_threshold)(Log4gLoggerRepository *self, Log4gLevel *level);
-
-    /**
-     * \brief
-     *
-     * \param self [in] A logger repository object.
-     */
-    void
-    (*set_threshold_string)(Log4gLoggerRepository *self, const gchar *level);
-
-    /**
-     * \brief Shutdown the repository.
-     *
-     * Once the repository is shut down it cannot be used by the Log4g system.
-     *
-     * \param self [in] A logger repository object.
-     */
-    void
-    (*shutdown)(Log4gLoggerRepository *self);
-
-    /**
-     * \brief Emit a warning after attempting to use a logger that has no
-     *        appenders attached.
-     *
-     * \param self [in] A logger repository object.
-     * \param logger [in] The logger that produced the warning.
-     */
-    void
-    (*emit_no_appender_warning)(Log4gLoggerRepository *self,
-            Log4gLogger *logger);
+    /*< public >*/
+    Log4gLoggerRepositoryExists exists;
+    Log4gLoggerRepositoryGetCurrentLoggers get_current_loggers;
+    Log4gLoggerRepositoryGetLogger get_logger;
+    Log4gLoggerRepositoryGetLoggerFactory get_logger_factory;
+    Log4gLoggerRepositoryGetRootLogger get_root_logger;
+    Log4gLoggerRepositoryGetThreshold get_threshold;
+    Log4gLoggerRepositoryIsDisabled is_disabled;
+    Log4gLoggerRepositoryResetConfiguration reset_configuration;
+    Log4gLoggerRepositorySetThreshold set_threshold;
+    Log4gLoggerRepositorySetThresholdString set_threshold_string;
+    Log4gLoggerRepositoryShutdown shutdown;
+    Log4gLoggerRepositoryEmitNoAppenderWarning emit_no_appender_warning;
 };
 
 GType log4g_logger_repository_get_type(void);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::exists().
- *
- * \param self [in] A logger repository object.
- * \param name [in] The name of the logger to check.
- *
- * \return The logger named \e name or \e NULL if it does not exist.
- */
 Log4gLogger *
 log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name);
 
-/**
- * \brief Invoke the add-appender signal.
- *
- * \param self [in] A logger repository object.
- * \param logger [in] The logger from to \e appender was added.
- * \param appender [in] The appender that was added.
- */
 void
 log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
         Log4gLogger *logger, Log4gAppender *appender);
 
-/**
- * \brief Invokes the remove-appender signal.
- *
- * \param self [in] A logger repository object.
- * \param logger [in] The logger from which \e appender was removed.
- * \param appender [in] The appender that was removed.
- */
 void
 log4g_logger_repository_emit_remove_appender_signal(
         Log4gLoggerRepository *self, Log4gLogger *logger,
         Log4gAppender *appender);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::get_current_loggers().
- *
- * \param self [in] A logger repository object.
- *
- * \return An array containing all loggers in the repository or \e NULL
- *         if there are none.
- */
 const GArray *
 log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::get_logger().
- *
- * \param self [in] A logger repository object.
- * \param name [in] The name of the logger to retrieve.
- *
- * \return The logger named \e name.
- */
 Log4gLogger *
 log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
         const gchar *name);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::get_logger_factory().
- *
- * \param self [in] A logger repository object.
- * \param name [in] The name of the logger to retrieve.
- * \param factory [in] The factory to use.
- *
- * \return The logger named \e name.
- */
 Log4gLogger *
 log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
         const gchar *name, Log4gLoggerFactory *factory);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::get_root_logger().
- *
- * \param self [in] A logger repository object.
- *
- * \return The root logger.
- */
 Log4gLogger *
 log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::get_threshold().
- *
- * \param self [in] A logger repository object.
- *
- * \return The threshold level for \e self.
- *
- * \see log4g/level.h
- */
 Log4gLevel *
 log4g_logger_repository_get_threshold(Log4gLoggerRepository *self);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::is_disabled().
- *
- * \param self [in] A logger repository object.
- * \param level [in] The integer representation of a log level.
- *
- * \return \e TRUE if \e self is disabled for \e level, \e FALSE otherwise.
- *
- * \see log4g/level.h
- */
 gboolean
 log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::reset_configuration().
- *
- * \param self [in] A logger repository object.
- */
 void
 log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::set_threshold().
- *
- * \param self [in] A logger repository object.
- * \param level [in] The new threshold for \e self.
- *
- * \see log4g/level.h
- */
 void
 log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
         Log4gLevel *level);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::set_threshold_string().
- *
- * \param self [in] A logger repository object.
- */
 void
 log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
         const gchar *string);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::shutdown().
- *
- * \param self [in] A logger repository object.
- */
 void
 log4g_logger_repository_shutdown(Log4gLoggerRepository *self);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gLoggerRepositoryInterface::emit_no_appender_warning().
- *
- * \param self [in] A logger repository object.
-     * \param logger [in] The logger that produced the warning.
- */
 void
 log4g_logger_repository_emit_no_appender_warning(Log4gLoggerRepository *self,
         Log4gLogger *logger);

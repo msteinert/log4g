@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in log4g/interface/logger-factory.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: logger-factory
+ * @short_description: create a logger via a factory class
+ * @see_also: #Log4gLoggerClass
+ *
+ * Implement this interface to create new instances of #Log4gLogger or a
+ * sub-class of #Log4gLogger.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,11 +37,23 @@ log4g_logger_factory_default_init(Log4gLoggerFactoryInterface *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_logger_factory_make_new_logger_instance:
+ * @self: A logger factory object.
+ * @name: The name of the logger to create.
+ *
+ * Call the @make_new_logger_instance function from the
+ * #Log4gLoggerFactoryInterface of @self.
+ *
+ * Returns: A new logger named \e name.
+ * Since: 0.1
+ */
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,
         const gchar *name)
 {
     g_return_val_if_fail(LOG4G_IS_LOGGER_FACTORY(self), NULL);
-    Log4gLoggerFactoryInterface *interface = LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
+    Log4gLoggerFactoryInterface *interface =
+        LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
     return interface->make_new_logger_instance(self, name);
 }

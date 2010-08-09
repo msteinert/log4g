@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+    "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+]>
+<refentry id="log4g-introduction" revision="9 August 2010">
+
+<refmeta>
+<refentrytitle>Introduction to Log4g</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>Log4g Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Introduction to Log4g</refname>
+<refpurpose>
+Getting started with Log4g
+</refpurpose>
+</refnamediv>
+
+<refsect1 id="overview">
+<title>Overview</title>
+<para>
+Log4g is a GObject-based logging utility. The design of Log4g is based on a
+port of the popular <ulink url="http://logging.apache.org/log4j/1.2/">Log4j 1.2</ulink>
+logging package. Log4j has been ported to many programming languages, including
+(but not limited to) <ulink url="http://logging.apache.org/log4cxx/">C</ulink>
+<ulink url="http://log4cplus.ssourceforge.net/">++</ulink>,
+<ulink url="http://mschilli.github.com/log4perl/">Perl</ulink> and
+<ulink url="http://docs.python.org/library/logging.html">Python</ulink>. Log4g
+brings this functionality to the
+C/<ulink url="http://library.gnome.org/devel/glib/stable/">GLib</ulink>/<ulink url="htthttp://library.gnome.org/devel/gobject/stable/">GObject</ulink>
+programming stack.
+</para>
+<para>
+For more information on what the Log4g API can do for you, refer to the
+articles in the references section of this document.
+</para>
+</refsect1>
+
+<refsect1 id="description">
+<title>Description</title>
+<para>
+The core components of Log4g are loggers, appenders and layouts.
+</para>
+<para>
+Log4g elements (i.e. appenders, layouts and filters) are configured via
+<ulink url="http://library.gnome.org/devel/gobject/stable/gobject-properties.html">GObject properties</ulink>.
+For a summary of the properties available to each element refer to the
+API documentation.
+</para>
+
+<refsect2 id="loggers">
+<title>Loggers</title>
+<para>
+Loggers are the central object in the Log4g package.
+</para>
+<para>
+Loggers are arranged in a named hierarchy. The naming convention used by
+Log4g is to separate logger "classes" with a dot (.). For example, the
+logger named "org.gnome" is an ancestor of the logger named "org.gnome.foo".
+Loggers can inherit the appenders of their ancestors. This means that any
+events logged to the logger named "org.gnome.foo" will also be logged to the
+appenders of "org.gnome". This property is known as logger
+<emphasis>additivity</emphasis>. By default all loggers are additive. This
+property can be disabled via a configuration file (the
+<emphasis>additivity</emphasis> property of loggers) or with
+log4g_logger_set_additivity().
+</para>
+</refsect2>
+
+<refsect2 id="appenders">
+<title>Appenders</title>
+<para>
+Appenders determine how events are logged.
+</para>
+<para>
+Log4g ships with the following appenders:
+</para>
+<para>
+<itemizedlist>
+<listitem><para>Asynchronous appender</para></listitem>
+<listitem><para>Console appender</para></listitem>
+<listitem><para>File appender</para></listitem>
+<listitem><para>Rolling file appender</para></listitem>
+<listitem><para>Syslog appender</para></listitem>
+</itemizedlist>
+</para>
+</refsect2>
+
+<refsect2 id="layouts">
+<title>Layouts</title>
+<para>
+Layouts determine the format of an event before it is logged by an appender.
+</para>
+<para>
+Log4g ships with the following layouts:
+</para>
+<para>
+<itemizedlist>
+<listitem><para>HTML layout</para></listitem>
+<listitem><para>Pattern layout</para></listitem>
+<listitem><para>Simple layout</para></listitem>
+<listitem><para>TTCC layout</para></listitem>
+<listitem><para>XML layout</para></listitem>
+</itemizedlist>
+</para>
+</refsect2>
+
+<refsect2 id="filters">
+<title>Filters</title>
+<para>
+Log4g has builtin filtering rules, however custom filtering is also possible
+through the use of filters.
+</para>
+<para>
+Log4g ships with the following filters:
+</para>
+<para>
+<itemizedlist>
+<listitem><para>Deny all filter</para></listitem>
+<listitem><para>Level match filter</para></listitem>
+<listitem><para>Level range filter</para></listitem>
+<listitem><para>String match filter</para></listitem>
+</itemizedlist>
+</para>
+</refsect2>
+
+<refsect2 id="configuration">
+<title>Configuration</title>
+<para>
+One powerful feature of Log4g is the ability to easily configure the package
+in different ways (via configurators) without recompiling your application.
+</para>
+<para>
+Log4g ships with the following configurators:
+</para>
+<para>
+<itemizedlist>
+<listitem><para>Basic configurator</para></listitem>
+<listitem><para>DOM configurator</para></listitem>
+</itemizedlist>
+</para>
+</refsect2>
+</refsect1>
+
+<refsect1 id="examples">
+<title>Examples</title>
+<para>
+Log4g must be initialized before it can be used in an application. The
+documentation for log4g_init() &amp; log4g_get_option_group() provides some
+initialization and usage examples.
+</para>
+<para>
+See: The Log4g core API (log4g/log4g.h)
+</para>
+</refsect1>
+
+<refsect1 id="references">
+<title>References</title>
+<para>
+<orderedlist>
+<listitem>
+<ulink url="http://logging.apache.org/log4j/1.2/manual.html">
+Gulcu, Ceki. "Short introduction to log4j." Apache Software Foundation.
+N.p., Mar. 2002. Web. 17 Mar. 2010.
+</ulink>
+</listitem>
+<listitem>
+<ulink url="http://www.vipan.com/htdocs/log4jhelp.html">
+Singla, Vipan. "Don't Use System.out.println! Use Log4j." Vipan.com.
+N.p., 2001. Web. 17 Mar. 2010.
+</ulink>
+</listitem>
+</orderedlist>
+</para>
+</refsect1>
+
+<refsect1 id="other">
+<title>Other Implementations</title>
+<para>
+<itemizedlist>
+<listitem><para>
+<ulink url="http://log4c.sourceforge.net/">Log4c: Logging for C Library</ulink>
+</para></listitem>
+</itemizedlist>
+</para>
+</refsect1>
+
+<refsect1 id="thanks">
+<title>Thanks</title>
+<para>
+<itemizedlist>
+<listitem><para>
+<ulink url="http://ceki.blogspot.com/">Ceki Gulcu</ulink> and the developers
+of Log4j. This work is entirely based upon their effort.
+</para></listitem>
+<listitem><para>
+The <ulink url="http://www.gtk.org/development.html#Team">GLib/GObject
+development team</ulink> for their fantastic work.
+</para></listitem>
+</itemizedlist>
+</para>
+</refsect1>
+
+<refsect1 id="copyright">
+<title>Copyright &amp; License</title>
+<para>
+Copyright 2010 Michael Steinert
+</para>
+<para>
+Log4g is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 2.1 of the License, or (at your option)
+any later version.
+</para>
+<para>
+Log4g is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+more details.
+</para>
+<para>
+You should have received a copy of the GNU Lesser General Public License
+along with Log4g. If not, see <ulink role="gnu-licenses" url="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</ulink>.
+</para>
+</refsect1>
+
+</refentry>

@@ -28,8 +28,8 @@
  * log4g_ndc_push(), log4g_ndc_pop(), and log4g_ndc_clear() do not affect the
  * NDCs of other threads.
  *
- * Contexts are nested. When enting a context, call ndc_push(). If there is
- * currently no NDC for the current thread, one is created as a side-effect.
+ * Contexts are nested. When enting a context, call log4g_ndc_push(). If there
+ * is currently no NDC for the current thread, one is created as a side-effect.
  *
  * When leaving a context call log4g_ndc_pop().
  *
@@ -73,7 +73,6 @@ struct Log4gPrivate {
 
 /**
  * Log4gDiagnosticContext:
- * A diagnostic context node.
  * @message: The current diagnostic context
  * @full: The complete diagnostic context
  */
@@ -349,9 +348,10 @@ error:
 }
 
 /**
- * Inherit a cloned nested data context.
- *
+ * log4g_ndc_inherit
  * @stack: A cloned nested data context.
+ *
+ * Inherit a cloned nested data context.
  *
  * <note><para>
  * After calling this function the caller should no longer reference @stack.

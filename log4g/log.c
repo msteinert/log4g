@@ -16,9 +16,23 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/log.h
- * \author Mike Steinert
- * \date 3-10-2010
+ * SECTION: log
+ * @short_description: internal logging API
+ * @title: Log4gInternalLogging
+ * @section_id: Log4gInternalLogging
+ *
+ * This class is used to output log statements from within the Log4g package.
+ *
+ * Log4g components cannot use the Log4g API. This API allows Log4g to output
+ * debugging statements to stdout. To enable debugging define the @debug
+ * flag (Bash):
+ * |[
+ * export LOG4G_FLAGS=debug
+ * ]|
+ *
+ * All internal @debug statements go to stdout, @error and @warn messages are
+ * sent to stderr. All internal messages are prepended with the string
+ * "log4g: ".
  */
 
 #ifdef HAVE_CONFIG_H
@@ -26,10 +40,10 @@
 #endif
 #include <stdio.h>
 
-/** \brief Indicates if internal debugging is enabled */
+/** Indicates if internal debugging is enabled */
 static gboolean debug = FALSE;
 
-/** \brief Indicates if quiet mode is enabled */
+/** Indicates if quiet mode is enabled */
 static gboolean quiet = FALSE;
 
 static void
@@ -51,6 +65,15 @@ log4g_log_log(FILE *stream, const gchar *prefix,
 #endif
 }
 
+/**
+ * log4g_log_debug:
+ * @format: A printf message format.
+ * @...: Format parameters.
+ *
+ * Log an debugging message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_debug(const gchar *format, ...)
 {
@@ -65,6 +88,15 @@ log4g_log_debug(const gchar *format, ...)
     }
 }
 
+/**
+ * log4g_log_debugv:
+ * @format: A printf message format.
+ * @ap: Format parameters.
+ *
+ * Log an debugging message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_debugv(const gchar *format, va_list ap)
 {
@@ -76,6 +108,15 @@ log4g_log_debugv(const gchar *format, va_list ap)
     }
 }
 
+/**
+ * log4g_log_warn:
+ * @format: A printf message format.
+ * @...: Format parameters.
+ *
+ * Log a warning message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_warn(const gchar *format, ...)
 {
@@ -90,6 +131,15 @@ log4g_log_warn(const gchar *format, ...)
     }
 }
 
+/**
+ * log4g_log_warnv:
+ * @format: A printf message format.
+ * @ap: Format parameters.
+ *
+ * Log an warning message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_warnv(const gchar *format, va_list ap) 
 {
@@ -101,6 +151,15 @@ log4g_log_warnv(const gchar *format, va_list ap)
     }
 }
 
+/**
+ * log4g_log_error:
+ * @format: A printf message format.
+ * @...: Format parameters.
+ *
+ * Log an error message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_error(const gchar *format, ...)
 {
@@ -115,6 +174,15 @@ log4g_log_error(const gchar *format, ...)
     }
 }
 
+/**
+ * log4g_log_errorv:
+ * @format: A printf message format.
+ * @ap: Format parameters.
+ *
+ * Log an error message.
+ *
+ * Since: 0.1
+ */
 void
 log4g_log_errorv(const gchar *format, va_list ap)
 {
@@ -126,12 +194,33 @@ log4g_log_errorv(const gchar *format, va_list ap)
     }
 }
 
+/**
+ * log4g_set_internal_debugging:
+ * @value: The new debugging flag.
+ *
+ * Set the internal debugging flag.
+ *
+ * If the debugging flag is %TRUE then Log4g will print debugging messages
+ * to stdout.
+ *
+ * Since: 0.1
+ */
 void
 log4g_set_internal_debugging(gboolean value)
 {
     g_atomic_int_set(&debug, value);
 }
 
+/**
+ * log4g_set_quiet_mode:
+ * @value: The new quiet mode flag.
+ *
+ * Set the quiet mode flag.
+ *
+ * If the quiet mode flag is %TRUE then Log4g will not print any messages.
+ *
+ * Since: 0.1
+ */
 void
 log4g_set_quiet_mode(gboolean value)
 {

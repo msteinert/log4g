@@ -15,18 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief An implementation of the repository selector interface.
- * \author Mike Steinert
- * \date 2-11-2010
- *
- * This class provides the default repository selector implementation used
- * by Log4g.
- *
- * \see log4g/interface/repository-selector.h
- */
-
 #ifndef LOG4G_DEFAULT_REPOSITORY_SELECTOR_H
 #define LOG4G_DEFAULT_REPOSITORY_SELECTOR_H
 
@@ -58,31 +46,36 @@ G_BEGIN_DECLS
             LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, \
             Log4gDefaultRepositorySelectorClass))
 
-/** \brief Log4gDefaultRepositorySelector type definition */
 typedef struct _Log4gDefaultRepositorySelector Log4gDefaultRepositorySelector;
 
-/** \brief Log4gDefaultRepositorySelector class type definition */
 typedef struct _Log4gDefaultRepositorySelectorClass
     Log4gDefaultRepositorySelectorClass;
 
-/** \brief Log4gDefaultRepositorySelectorClass definition */
+/**
+ * Log4gDefaultRepositorySelector:
+ *
+ * The <structname>Log4gDefaultRepositorySelector</structname> structure does
+ * not have any public members.
+ */
 struct _Log4gDefaultRepositorySelector {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gDefaultRepositorySelectorClass definition */
+/**
+ * Log4gDefaultRepositorySelectorClass:
+ *
+ * The <structname>Log4gDefaultRepositorySelectorClass</structname> structure
+ * does not have any public members.
+ */
 struct _Log4gDefaultRepositorySelectorClass {
+    /*< private >*/
     GObjectClass parent_class;
 };
 
 GType
 log4g_default_repository_selector_get_type(void);
 
-/**
- * \brief Create a new default repository selector object.
- *
- * \return A new default repository selector object.
- */
 Log4gRepositorySelector *
 log4g_default_repository_selector_new(Log4gLoggerRepository *repository);
 
