@@ -16,9 +16,98 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout/couchdb-layout.h
- * \author Mike Steinert
- * \date 2-5-2010
+ * SECTION: couchdb-layout
+ * @short_description: Format events into a CouchDB document
+ * @see_also: <ulink url="http://www.couchdb.apache.org/">Apache CouchDB</ulink>,
+ *            <ulink url="http://git.gnome.org/browse/couchdb-glib/">couchdb-glib</ulink>
+ *
+ * This class formats a log event into a CouchDB document with the following
+ * schema:
+ *
+ * |[
+ * {
+ *    "description": "Log4g-CouchDB JSON-Schema",
+ *    "type": "object",
+ *    "properties": {
+ *        "_id": {
+ *            "description": "Unique ID for this document, internal to CouchDB",
+ *            "type": "string"
+ *        },
+ *        "_rev": {
+ *            "description": "Revision for this document, internal to CouchDB",
+ *            "type": "string"
+ *        },
+ *        "record_type": {
+ *            "description": "The schema URI",
+ *            "type": "string",
+ *            "format": "uri"
+ *        },
+ *        "record_type_version": {
+ *            "description": "The schema version number",
+ *            "type": "string"
+ *        },
+ *        "message": {
+ *            "description": "The log message",
+ *            "type": "string"
+ *        },
+ *        "level": {
+ *            "description": "The log level of the logging event",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "logger": {
+ *            "description": "The name of the logger",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "mdc": {
+ *            "description": "The mapped data context",
+ *            "type": "object",
+ *            "properties": {
+ *                "type": { "type": "string" },
+ *                "value": { "type": "string" },
+ *            },
+ *            "optional": true
+ *        },
+ *        "ndc": {
+ *            "description": "The nested data context",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "timestamp": {
+ *            "description": "The timestamp of the logging event",
+ *            "type": "string",
+ *            "format": "utc-millisec",
+ *            "optional": true
+ *        },
+ *        "thread": {
+ *            "description": "The thread where the event was logged",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "function": {
+ *            "description": "The function name",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "file": {
+ *            "description": "The file name",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "line": {
+ *            "description": "The line number",
+ *            "type": "string",
+ *            "optional": true
+ *        },
+ *        "application_annotations": {
+ *            "description": "Application-specific data",
+ *            "type": "any",
+ *            "optional": true
+ *        }
+ *    }
+ * }
+ * ]|
  */
 
 #ifdef HAVE_CONFIG_H
@@ -179,6 +268,20 @@ log4g_couchdb_layout_register(GTypeModule *module)
     log4g_couchdb_layout_register_type(module);
 }
 
+/**
+ * log4g_couchdb_layout_format_document:
+ * @base: A CouchDB layout object.
+ * @event: The logging event object to be formatted into a
+ *                   CouchDB document.
+ * @session: The CouchdbSession to associate the returned
+ *                     document with.
+ *
+ * Call the @format_document function from the #Log4gCouchdbLayoutClass
+ * of @base.
+ *
+ * Returns: A logging event formatted into a CouchdbDocument object.
+ * Since: 0.1
+ */
 CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
         Log4gLoggingEvent *event, CouchdbSession *session)

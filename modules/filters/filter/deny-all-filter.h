@@ -15,19 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Drop all logging events.
- * \author Mike Steinert
- * \date 1-29-2010
- *
- * This filter drops all logging events.
- *
- * Add this filter to the end of a filter chain to switch from the default
- * behavior of "accept all unless instructed otherwise" to a "deny all unless
- * instructed otherwise" behavior.
- */
-
 #ifndef LOG4G_DENY_ALL_FILTER_H
 #define LOG4G_DENY_ALL_FILTER_H
 
@@ -56,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_DENY_ALL_FILTER, \
             Log4gDenyAllFilterClass))
 
-/** \brief Log4gDenyAllFilter object type definition */
 typedef struct _Log4gDenyAllFilter Log4gDenyAllFilter;
 
-/** \brief Log4gDenyAllFilter class type definition */
 typedef struct _Log4gDenyAllFilterClass Log4gDenyAllFilterClass;
 
-/** \brief Log4gDenyAllFilterClass definition */
+/**
+ * Log4gDenyAllFilter:
+ *
+ * The <structname>Log4gDenyAllFilter</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gDenyAllFilter {
+    /*< private >*/
     Log4gFilter parent_instance;
 };
 
-/** \brief Log4gDenyAllFilterClass definition */
+/**
+ * Log4gDenyAllFilterClass:
+ *
+ * The <structname>Log4gDenyAllFilterClass</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gDenyAllFilterClass {
+    /*< private >*/
     Log4gFilterClass parent_class;
 };
 

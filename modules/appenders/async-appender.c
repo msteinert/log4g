@@ -63,9 +63,11 @@ enum _properties_t {
 };
 
 /**
- * Log4gDiscardSummary: A discarded event summary object
+ * Log4gDiscardSummary:
  * @event: The last event missed.
  * @count: The number of events missed.
+ *
+ * A discarded event summary object.
  */
 typedef struct _Log4gDiscardSummary {
     Log4gLoggingEvent *event;
@@ -450,7 +452,7 @@ log4g_async_appender_register(GTypeModule *module)
  * If @appender is already attached to @base then this function does not do
  * anything.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -471,7 +473,7 @@ log4g_async_appender_add_appender(Log4gAppender *base, Log4gAppender *appender)
  *
  * Retrieve an array of appenders attached to an async appender.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: An array of appenders attached to @base, or %NULL if there are
  *          none. The caller is responsible for calling g_array_free() for the
@@ -497,7 +499,7 @@ log4g_async_appender_get_all_appenders(Log4gAppender *base)
  *
  * Retrieve an attached named appender.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: The appender named @name or %NULL if @name is not found.
  * Since: 0.1
@@ -521,7 +523,7 @@ log4g_async_appender_get_appender(Log4gAppender *base, const gchar *name)
  *
  * Determine if an appender is attached.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Returns: %TRUE is @appender is attached to @base, %FALSE otherwise.
  * Since: 0.1
@@ -544,7 +546,7 @@ log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender)
  *
  * Remove all attached appenders.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -565,7 +567,7 @@ log4g_async_appender_remove_all_appenders(Log4gAppender *base)
  *
  * Remove an attached appender.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */
@@ -587,7 +589,7 @@ log4g_async_appender_remove_appender(Log4gAppender *base,
  *
  * Remove a named appender.
  *
- * @See: #Log4gAppenderAttachableClass
+ * @See: #Log4gAppenderAttachableInterface
  *
  * Since: 0.1
  */

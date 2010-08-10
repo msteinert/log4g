@@ -50,7 +50,7 @@ typedef struct _Log4gLoggerRepositoryInterface Log4gLoggerRepositoryInterface;
  * If the named logger does not exist it is not created.
  *
  * Returns: The logger named @name or %NULL if it does not exist.
- * Since: ).1
+ * Since: 0.1
  */
 typedef Log4gLogger *
 (*Log4gLoggerRepositoryExists)(Log4gLoggerRepository *self, const gchar *name);

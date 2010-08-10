@@ -16,9 +16,14 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter/deny-all-filter.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: deny-all-filter
+ * @short_description: Drop all logging events
+ *
+ * This filter drops all logging events.
+ *
+ * Add this filter to the end of a filter chain to switch from the default
+ * behavior of "accept all unless instructed otherwise" to a "deny all unless
+ * instructed otherwise" behavior.
  */
 
 #ifdef HAVE_CONFIG_H

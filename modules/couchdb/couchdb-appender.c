@@ -16,13 +16,29 @@
  */
 
 /**
- * \brief Implements the API in log4g/appender/couchdb-appender.h
- * \author Mike Steinert
- * \date 5-20-2010
+ * SECTION: couchdb-appender
+ * @short_description: Log events to an Apache CouchDB
+ * @see_also: <ulink url="http://www.couchdb.apache.org/">Apache CouchDB</ulink>,
+ *            <ulink url="http://git.gnome.org/browse/couchdb-glib/">couchdb-glib</ulink>
  *
- * TODO: investigate the bulk document API
- *       http://wiki.apache.org/couchdb/HTTP_Bulk_Document_API
- * TODO: implement "append" functionality
+ * The CouchDB appender logs events to a specified database using a
+ * #Log4gCouchdbLayoutClass.
+ *
+ * CouchDB appenders accept the following properties:
+ * <orderedlist>
+ * <listitem><para>uri</para></listitem>
+ * <listitem><para>database-name</para></listitem>
+ * <listitem><para>credentials</para></listitem>
+ * </orderedlist>
+ *
+ * The value of uri determines the network location of the CouchDB where
+ * output will be logged. If the value of uri is %NULL then this appender
+ * will attempt to log messages to the CouchDB at &lt;http://127.0.0.1:5984&gt;.
+ *
+ * The value of database-name determines the name of the database that will
+ * store the log output. The default value is "log4g_messages".
+ *
+ * The credentials property enables authentication with the CouchDB server.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -47,8 +63,8 @@ enum _properties_t {
 };
 
 struct Log4gPrivate {
-    gchar *uri; /**< CouchDB server */
-    gchar *name; /**< database name */
+    gchar *uri; /* CouchDB server */
+    gchar *name; /* database name */
     CouchdbSession *session;
     CouchdbCredentials *credentials;
 };
@@ -248,8 +264,8 @@ log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
     Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
     appender_class->append = append ;
     appender_class->close = _close;
-    appender_class->requires_layout = requires_layout ;
-    appender_class->activate_options = activate_options ;
+    appender_class->requires_layout = requires_layout;
+    appender_class->activate_options = activate_options;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_URI,
             g_param_spec_string("uri", Q_("URI"),

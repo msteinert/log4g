@@ -15,11 +15,8 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Tests for Log4gModule
- * \author Mike Steinert
- * \date 2-25-2010
+/*
+ * Tests for Log4gModule
  */
 
 #ifdef HAVE_CONFIG_H

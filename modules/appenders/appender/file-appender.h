@@ -91,7 +91,7 @@ typedef void
 (*Log4gFileAppenderSetQwForFiles)(Log4gAppender *base, FILE *file);
 
 /**
- * Log4gFileAppender:
+ * Log4gFileAppenderClass:
  * @set_file_full: Set the file and other options.
  * @set_qw_for_files: Set the quiet writer used for output.
  */

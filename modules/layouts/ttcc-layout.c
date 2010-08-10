@@ -16,9 +16,46 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout/ttcc-layout.h
- * \author Mike Steinert
- * \date 2-9-2010
+ * SECTION: ttcc-layout
+ * @short_description: Output the time, thread, category &amp; context
+ *
+ * The TTCC layout outputs the time, thread, category (logger name), and
+ * context (nested diagnostic context) of a log event, hence the name.
+ *
+ * Some fields can be individually enabled or disabled via the corresponding
+ * properties:
+ * <orderedlist>
+ * <listitem><para>thread-printing</para></listitem>
+ * <listitem><para>category-prefixing</para></listitem>
+ * <listitem><para>context-printing</para></listitem>
+ * </orderedlist>
+ *
+ * Here is an example of the TTCC output:
+ *
+ * |[
+ * 176 [main] INFO  org.gnome.log4g.foo - an example message
+ * 225 [main] DEBUG org.gnome.log4g.bar - another example message
+ * ]|
+ *
+ * The first field is the number of milliseconds elapsed since the Log4g
+ * system was initialized. The second field is the name of the thread that
+ * logged the event. The third field is the log level. The fourth field is
+ * the logger category to which the statement belongs.
+ *
+ * The fifth field (just before the '-') is the nested diagnostic context.
+ *
+ * <note><para>
+ * The nested diagnostic context may be empty (as in the example).
+ * </para></note>
+ *
+ * <note><para>
+ * Do not use the same TTCC layout instance from within different appenders.
+ * The TTCC layout is not thread-safe when used in this way.
+ * </para></note>
+ *
+ * <note><para>
+ * The #Log4gPatternLayoutClass provides a more flexible alternative.
+ * </para></note>
  */
 
 #ifdef HAVE_CONFIG_H

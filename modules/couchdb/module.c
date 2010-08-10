@@ -15,12 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \brief Register types for the CouchDB module
- * \author Mike Steinert
- * \date 5-25-2010
- */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

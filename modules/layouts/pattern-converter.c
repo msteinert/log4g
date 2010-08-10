@@ -16,9 +16,41 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/pattern-converter.h
- * \author Mike Steinert
- * \date 2-15-2010
+ * SECTION: pattern-converter
+ * @short_description: Provide formatting functionality for pattern converters
+ * @see_also: #Log4gPatternLayoutClass, #Log4gPatternParserClass,
+ *            #Log4gMDCClass, #Log4gNDCClass, #Log4gDateLayoutClass
+ *
+ * The pattern converter is an abstract class that provides the formatting
+ * functionality needed by pattern converters.
+ *
+ * Conversion specifiers in a conversion pattern are parsed into individual
+ * pattern converters. Each pattern converter is responsible for converting
+ * a logging event in a converter-specific way.
+ *
+ * Log4g includes the following pattern converters:
+ * <itemizedlist>
+ * <listitem><para>Basic pattern converter</para></listitem>
+ * <listitem><para>Literal pattern converter</para></listitem>
+ * <listitem><para>Date pattern converter</para></listitem>
+ * <listitem><para>MDC (mapped data context) pattern converter</para></listitem>
+ * <listitem><para>Location pattern converter</para></listitem>
+ * <listitem><para>Logger category pattern converter</para></listitem>
+ * </itemizedlist>
+ *
+ * The basic pattern converter handles relative time, thread names,
+ * NDC (nested data context) values and log messages.
+ *
+ * The literal pattern converter is used to print non-pattern text from the
+ * conversion pattern.
+ *
+ * The date pattern converter converts a date into a string.
+ *
+ * The MDC pattern converter handles converting MDC values.
+ *
+ * The location pattern converter handles location information.
+ *
+ * The logger category pattern converter handles logger names.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -108,6 +140,16 @@ log4g_pattern_converter_class_finalize(Log4gPatternConverterClass *klass)
     /* do nothing */
 }
 
+/**
+ * log4g_pattern_converter_convert:
+ * @self: A pattern converter object.
+ * @event: The log event to convert.
+ *
+ * Call the @convert function from the #Log4gPatternConverterClass of @self.
+ *
+ * Returns: The converted pattern.
+ * Since: 0.1
+ */
 const gchar *
 log4g_pattern_converter_convert(Log4gPatternConverter *self,
         Log4gLoggingEvent *event)
@@ -118,6 +160,16 @@ log4g_pattern_converter_convert(Log4gPatternConverter *self,
     return klass->convert(self, event);
 }
 
+/**
+ * log4g_pattern_converter_format:
+ * @self: A pattern converter object.
+ * @string: The formatted output is placed here.
+ * @event: The log event to format.
+ *
+ * Call the @format function from the #Log4gPatternConverterClass of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_pattern_converter_format(Log4gPatternConverter *self,
         GString *string, Log4gLoggingEvent *event)
@@ -128,6 +180,15 @@ log4g_pattern_converter_format(Log4gPatternConverter *self,
     klass->format(self, string, event);
 }
 
+/**
+ * log4g_pattern_converter_get_next:
+ * @self: A pattern converter object.
+ *
+ * Retrieve the next pattern converter in the chain.
+ *
+ * Returns: The next pattern converter in the chain.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_pattern_converter_get_next(Log4gPatternConverter *self)
 {
@@ -135,6 +196,15 @@ log4g_pattern_converter_get_next(Log4gPatternConverter *self)
     return GET_PRIVATE(self)->next;
 }
 
+/**
+ * log4g_pattern_converter_set_next:
+ * @self: A pattern converter object.
+ * @next: The next pattern converter in the chain.
+ *
+ * Set the next pattern converter in the chain.
+ *
+ * Since: 0.1
+ */
 void
 log4g_pattern_converter_set_next(Log4gPatternConverter *self,
         Log4gPatternConverter *next)
@@ -148,6 +218,16 @@ log4g_pattern_converter_set_next(Log4gPatternConverter *self,
     priv->next = next;
 }
 
+/**
+ * log4g_pattern_converter_space_pad:
+ * @self: A pattern converter object.
+ * @buffer: The string to pad.
+ * @length: The number of spaces to pad.
+ *
+ * A fast space padding function.
+ *
+ * Since: 0.1
+ */
 void
 log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
         GString *buffer, gint length)
@@ -230,6 +310,16 @@ log4g_basic_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_basic_pattern_converter_new:
+ * @formatting: Formatting parameters.
+ * @type: The type of converter to create.
+ *
+ * Create a new basic pattern converter object.
+ *
+ * Returns: A new basic pattern converter object.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_basic_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type)
@@ -315,6 +405,15 @@ log4g_literal_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_literal_pattern_converter_new:
+ * @pattern: The literal text to "convert".
+ *
+ * Create a new literal pattern converter object.
+ *
+ * Returns: A new literal pattern converter object.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_literal_pattern_converter_new(const gchar *pattern)
 {
@@ -404,6 +503,18 @@ log4g_date_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_date_pattern_converter_new:
+ * @formatting: Formatting parameters.
+ * @format: A strfime(3) date conversion pattern.
+ *
+ * Create a new date pattern converter.
+ *
+ * @See: strftime(3)
+ *
+ * Returns: Create a new date pattern converter.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *format)
@@ -474,6 +585,18 @@ log4g_mdc_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_mdc_pattern_converter_new:
+ * @formatting: Formatting parameters.
+ * @key: The MDC key to look up.
+ *
+ * Create a new MDC (mapped data context) pattern converter object.
+ *
+ * @See: #Log4gMDCClass
+ *
+ * Returns: A new MDC pattern converter object.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *key)
@@ -545,6 +668,16 @@ log4g_location_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_location_pattern_converter_new:
+ * @formatting: Formatting parameters.
+ * @type: The type of converter to create.
+ *
+ * Create a new location pattern converter object.
+ *
+ * Returns: A new location pattern converter object.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type)
@@ -624,6 +757,18 @@ log4g_category_pattern_converter_class_finalize(
     /* do nothing */
 }
 
+/**
+ * log4g_category_pattern_converter_new:
+ * @formatting: Formatting parameters.
+ * @precision: The logger category precision value.
+ *
+ * Create a new logger category pattern converter object.
+ *
+ * @See: #Log4gLoggerClass, #Log4gPatternLayoutClass
+ *
+ * Returns: A new logger category pattern converter object.
+ * Since: 0.1
+ */
 Log4gPatternConverter *
 log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gint precision)

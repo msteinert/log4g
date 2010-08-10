@@ -15,27 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Format events into an HTML table.
- * \author Mike Steinert
- * \date 2-16-2010
- *
- * This layout formats log events into an HTML table.
- *
- * HTML layouts accept two properties:
- * -# title
- * -# location-info
- *
- * Setting the title property will change the title of the generated HTML
- * document. If this property is not set then the title will be "Log4g Log
- * Messages".
- *
- * Setting the location-info property to \e TRUE will cause the HTML layout
- * to include the log message location, i.e. function(file:line). The default
- * value is \e FALSE.
- */
-
 #ifndef LOG4G_HTML_LAYOUT_H
 #define LOG4G_HTML_LAYOUT_H
 
@@ -64,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_HTML_LAYOUT, \
             Log4gHTMLLayoutClass))
 
-/** \brief Log4gHTMLLayout object type definition */
 typedef struct _Log4gHTMLLayout Log4gHTMLLayout;
 
-/** \brief Log4gHTMLLayout class type definition */
 typedef struct _Log4gHTMLLayoutClass Log4gHTMLLayoutClass;
 
-/** \brief Log4gHTMLLayoutClass definition */
+/**
+ * Log4gHTMLLayout:
+ *
+ * The <structname>Log4gHTMLLayout</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gHTMLLayout {
+    /*< private >*/
     Log4gLayout parent_instance;
 };
 
-/** \brief Log4gHTMLLayoutClass definition */
+/**
+ * Log4gHTMLLayoutClass:
+ *
+ * The <structname>Log4gHTMLLayoutClass</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gHTMLLayoutClass {
+    /*< private >*/
     Log4gLayoutClass parent_class;
 };
 

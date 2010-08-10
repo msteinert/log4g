@@ -15,28 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief A filter based on string matching.
- * \author Mike Steinert
- * \date 2-11-2010
- *
- * A simple filter based on string matching.
- *
- * This filter accepts two parameters:
- * -# string-to-match
- * -# accept-on-match
- *
- * If there is a match between the string-to-match value and the log event
- * message then the _Log4gLevelClass::decide() function returns:
- * - \e ACCEPT if accept-on-match is \e TRUE
- * - \e DENY if accept-on-match is \e FALSE
- *
- * The default value for accept-on-match is \e TRUE.
- *
- * If there is no match \e NEUTRAL is returned.
- */
-
 #ifndef LOG4G_STRING_MATCH_FILTER_H
 #define LOG4G_STRING_MATCH_FILTER_H
 
@@ -65,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_STRING_MATCH_FILTER, \
             Log4gStringMatchFilterClass))
 
-/** \brief Log4gStringMatchFilter object type definition */
 typedef struct _Log4gStringMatchFilter Log4gStringMatchFilter;
 
-/** \brief Log4gStringMatchFilter class type definition */
 typedef struct _Log4gStringMatchFilterClass Log4gStringMatchFilterClass;
 
-/** \brief Log4gStringMatchFilterClass definition */
+/**
+ * Log4gStringMatchFilter:
+ *
+ * The <structname>Log4gStringMatchFilter</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gStringMatchFilter {
+    /*< private >*/
     Log4gFilter parent_instance;
 };
 
-/** \brief Log4gStringMatchFilterClass definition */
+/**
+ * Log4gStringMatchFilterClass:
+ *
+ * The <structname>Log4gStringMatchFilterClass</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gStringMatchFilterClass {
+    /*< private >*/
     Log4gFilterClass parent_class;
 };
 

@@ -15,11 +15,8 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Tests for Log4gSyslogAppender
- * \author Mike Steinert
- * \date 4-28-2010
+/*
+ * Tests for Log4gSyslogAppender
  */
 
 #ifdef HAVE_CONFIG_H

@@ -59,6 +59,8 @@ EXTRA_HFILES =
 
 # Header files to ignore when scanning. Use base file name, no paths
 IGNORE_HFILES = \
+    config.h \
+    tests \
     support
 
 # Images to copy into HTML directory.

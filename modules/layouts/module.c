@@ -15,12 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \brief Register types for the Layouts module
- * \author Mike Steinert
- * \date 5-26-2010
- */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

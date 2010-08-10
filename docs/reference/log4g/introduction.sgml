@@ -5,15 +5,15 @@
 <refentry id="log4g-introduction" revision="9 August 2010">
 
 <refmeta>
-<refentrytitle>Introduction to Log4g</refentrytitle>
+<refentrytitle>Introduction</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>Log4g Library</refmiscinfo>
 </refmeta>
 
 <refnamediv>
-<refname>Introduction to Log4g</refname>
+<refname>Introduction</refname>
 <refpurpose>
-getting started with Log4g
+Getting started with Log4g
 </refpurpose>
 </refnamediv>
 

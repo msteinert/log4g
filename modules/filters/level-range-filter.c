@@ -16,9 +16,36 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter/level-range-filter.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: level-range-filter
+ * @short_description: A filter based on level ranges
+ * @see_also: #Log4gLevelClass
+ *
+ * This is a simple filter which can reject message with levels outside a
+ * specified range.
+ *
+ * This filter accept three properties:
+ * <orderedlist>
+ * <listitem><para>level-min</para></listitem>
+ * <listitem><para>level-max</para></listitem>
+ * <listitem><para>accept-on-range</para></listitem>
+ * </orderedlist>
+ *
+ * If the level of the logging event is not between level-min and level-max
+ * (inclusive) then the decide function returns deny.
+ *
+ * If the logging logging event is within the specified range and
+ * accept-on-range is %TRUE then the decide function returns accept. If
+ * accept-on-range is set to %FALSE then decide will return neutral in this
+ * case.
+ *
+ * The default value for accept-on-range is %TRUE.
+ *
+ * If level-min is not defined then there is no minimum level (a level is
+ * never rejected for being too low). If level-max is not defined then
+ * there is no maximum level (a level is never rejected for being too high).
+ *
+ * Refer to log4g_appender_set_threshold() for a more convenient way to filter
+ * out log events by level.
  */
 
 #ifdef HAVE_CONFIG_H

@@ -16,9 +16,42 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout/xml-layout.h
- * \author Mike Steinert
- * \date 2-17-2010
+ * SECTION: xml-layout
+ * @short_description: Format events into XML
+ * @see_also: #Log4gMDCClass, #Log4gNDCClass
+ *
+ * The output of this layout consists of a series of Log4g log event elements.
+ * It does not output a complete well-formed XML document. The output is
+ * designed to be included as an external entity in a separate file to form
+ * a complete XML document.
+ *
+ * For example, if "abc" is the name of the file where the XML layout output
+ * is directed, a well-formed XML document would be:
+ *
+ * |[<![CDATA[
+ * <?xml version="1.0" ?>
+ * <!DOCTYPE log4g:events SYSTEM "log4g.dtd"
+ *     [<!ENTITY data SYSTEM "abc">]>
+ * <log4g:events version="1.0" xmlns:lo4g="http://gnome.org/log4g/1.0/">
+ *     &data;
+ * </log4g:events>
+ * ]]>]|
+ *
+ * This approach enforces the independence of the XML layout and the appender
+ * where it is embedded.
+ *
+ * XML layouts accept two properties:
+ * <orderedlist>
+ * <listitem><para>properties</para></listitem>
+ * <listitem><para>location-info</para></listitem>
+ * </orderedlist>
+ *
+ * Setting properties to %TRUE causes the XML layout to output all MDC (mapped
+ * data context) values.
+ *
+ * Setting the location-info property to %TRUE will cause the XML layout to
+ * include the log message location, i.e. function(file:line). The default
+ * value is %FALSE.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -39,10 +72,10 @@ G_DEFINE_DYNAMIC_TYPE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT)
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_XML_LAYOUT, \
             struct Log4gPrivate))
 
-/** \brief Default string buffer size */
+/* Default string buffer size */
 #define BUF_SIZE (256)
 
-/** \brief Maximum string buffer size */
+/* Maximum string buffer size */
 #define MAX_CAPACITY (2048)
 
 struct Log4gPrivate {

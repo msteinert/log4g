@@ -16,9 +16,16 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout/simple-layout.h
- * \author Mike Steinert
- * \date 2-5-2010
+ * SECTION: simple-layout
+ * @short_description: A simple log layout
+ * @see_also: #Log4gPatternLayoutClass
+ *
+ * The simple layout consists of the level of a log statement and the log
+ * message itself separated by " - ". For example:
+ *
+ * |[
+ * DEBUG - Hello, World!
+ * ]|
  */
 
 #ifdef HAVE_CONFIG_H

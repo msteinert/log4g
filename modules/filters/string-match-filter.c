@@ -16,9 +16,27 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter/string-match-filter.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: string-match-filter
+ * @short_description: A filter based on string matching
+ *
+ * A simple filter based on string matching.
+ *
+ * This filter accepts two parameters:
+ * <orderedlist>
+ * <listitem><para>string-to-match</para></listitem>
+ * <listitem><para>accept-on-match</para></listitem>
+ * </orderedlist>
+ *
+ * If there is a match between the string-to-match value and the log event
+ * message then the decide function returns:
+ * <orderedlist>
+ * <listitem><para>accept if accept-on-match is %TRUE</para></listitem>
+ * <listitem><para>deny if accept-on-match is %FALSE</para></listitem>
+ * </orderedlist>
+ *
+ * The default value for accept-on-match is %TRUE.
+ *
+ * If there is no match neutral is returned.
  */
 
 #ifdef HAVE_CONFIG_H

@@ -15,33 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief A filter based on level matching.
- * \author Mike Steinert
- * \date 2-11-2010
- *
- * This is a simple filter based on level matching.
- *
- * This filter accepts two properties:
- * -# level-to-match
- * -# accept-on-match
- *
- * The level-to-match is a string that represents a log level. If there is
- * an exact match between the value of level-to-match and the level of the
- * logging event then the _Log4gFilterClass::decide() function returns
- * \e ACCEPT.
- *
- * If the accept-on-match value is set to \e FALSE then the
- * _Log4gFilterClass::decide() function will return \e DENY when there is a
- * level match. The default value is \e TRUE.
- *
- * If there is no match then the _Log4gFilterClass::decide() function returns
- * \e NEUTRAL.
- *
- * \see log4g/level.h
- */
-
 #ifndef LOG4G_LEVEL_MATCH_FILTER_H
 #define LOG4G_LEVEL_MATCH_FILTER_H
 
@@ -71,19 +44,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
             Log4gLevelMatchFilterClass))
 
-/** \brief Log4gLevelMatchFilter object type definition */
 typedef struct _Log4gLevelMatchFilter Log4gLevelMatchFilter;
 
-/** \brief Log4gLevelMatchFilter class type definition */
 typedef struct _Log4gLevelMatchFilterClass Log4gLevelMatchFilterClass;
 
-/** \brief Log4gLevelMatchFilterClass definition */
+/**
+ * Log4gLevelMatchFilter:
+ *
+ * The <structname>Log4gLevelMatchFilter</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gLevelMatchFilter {
+    /*< private >*/
     Log4gFilter parent_instance;
 };
 
-/** \brief Log4gLevelMatchFilterClass definition */
+/**
+ * Log4gLevelMatchFilterClass:
+ *
+ * The <structname>Log4gLevelMatchFilterClass</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gLevelMatchFilterClass {
+    /*< private >*/
     Log4gFilterClass parent_class;
 };
 

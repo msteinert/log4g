@@ -15,44 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Format events into XML.
- * \author Mike Steinert
- * \date 2-17-2010
- *
- * The output of this layout consists of a series of Log4g log event elements.
- * It does not output a complete well-formed XML document. The output is
- * designed to be included as an external entity in a separate file to form
- * a complete XML document.
- *
- * For example, if "abc" is the name of the file where the XML layout output
- * is directed, a well-formed XML document would be:
- *
- * \code
- * <?xml version="1.0" ?>
- * <!DOCTYPE log4g:events SYSTEM "log4g.dtd"
- *     [<!ENTITY data SYSTEM "abc">]>
- * <log4g:events version="1.0" xmlns:lo4g="http://gnome.org/log4g/1.0/">
- *     &data;
- * </log4g:events>
- * \endcode
- *
- * This approach enforces the independence of the XML layout and the appender
- * where it is embedded.
- *
- * XML layouts accept two properties:
- * -# properties
- * -# location-info
- *
- * Setting properties to \e TRUE causes the XML layout to output all
- * MDC (mapped data context) values.
- *
- * Setting the location-info property to \e TRUE will cause the HTML layout
- * to include the log message location, i.e. function(file:line). The default
- * value is \e FALSE.
- */
-
 #ifndef LOG4G_XML_LAYOUT_H
 #define LOG4G_XML_LAYOUT_H
 
@@ -81,20 +43,30 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_XML_LAYOUT, \
             Log4gXMLLayoutClass))
 
-/** \brief Log4gXMLLayout object type definition */
 typedef struct _Log4gXMLLayout Log4gXMLLayout;
 
-/** \brief Log4gXMLLayout class type definition */
 typedef struct _Log4gXMLLayoutClass Log4gXMLLayoutClass;
 
-/** \brief Log4gXMLLayoutClass definition */
+/**
+ * Log4gXMLLayout:
+ *
+ * The <structname>Log4gXMLLayout</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gXMLLayout {
+    /*< private >*/
     Log4gLayout parent_instance; /**< parent instance */
 };
 
-/** \brief Log4gXMLLayoutClass definition */
+/**
+ * Log4gXMLLayoutClass:
+ *
+ * The <structname>Log4gXMLLayoutClass</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gXMLLayoutClass {
-    Log4gLayoutClass parent_class; /**< parent class */
+    /*< private >*/
+    Log4gLayoutClass parent_class;
 };
 
 GType

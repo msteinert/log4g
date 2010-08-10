@@ -15,45 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Output the time, thread, category & context.
- * \author Mike Steinert
- * \date 2-9-2010
- *
- * The TTCC layout outputs the time, thread, category (logger name), and
- * context (nested diagnostic context) of a log event, hence the name.
- *
- * Some fields can be individually enabled or disabled via the corresponding
- * properties:
- * -# thread-printing
- * -# category-prefixing
- * -# context-printing
- *
- * Here is an example of the TTCC output:
- *
- * \code
- * 176 [main] INFO  org.gnome.log4g.foo - an example message
- * 225 [main] DEBUG org.gnome.log4g.bar - another example message
- * \endcode
- *
- * The first field is the number of milliseconds elapsed since the Log4g
- * system was initialized. The second field is the name of the thread that
- * logged the event. The third field is the log level. The fourth field is
- * the logger category to which the statement belongs.
- *
- * The fifth field (just before the '-') is the nested diagnostic context.
- *
- * \note The nested diagnostic context may be empty (as in the example).
- *
- * \warning Do not use the same TTCC layout instance from within different
- *          appenders. The TTCC layout is not thread-safe when used in this
- *          way.
- *
- * \note The \ref pattern-layout.h "pattern layout" provides a more flexible
- *       alternative.
- */
-
 #ifndef LOG4G_TTCC_LAYOUT_H
 #define LOG4G_TTCC_LAYOUT_H
 
@@ -82,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_TTCC_LAYOUT, \
             Log4gTTCCLayoutClass))
 
-/** \brief Log4gTTCCLayout object type definition */
 typedef struct _Log4gTTCCLayout Log4gTTCCLayout;
 
-/** \brief Log4gTTCCLayout class type definition */
 typedef struct _Log4gTTCCLayoutClass Log4gTTCCLayoutClass;
 
-/** \brief Log4gTTCCLayoutClass definition */
+/**
+ * Log4gDateLayout:
+ *
+ * The <structname>Log4gDateLayout</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gTTCCLayout {
+    /*< private >*/
     Log4gDateLayout parent_instance;
 };
 
-/** \brief Log4gTTCCLayoutClass definition */
+/**
+ * Log4gTTCCLayoutClass:
+ *
+ * The <structname>Log4gTTCCLayoutClass</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gTTCCLayoutClass {
+    /*< private >*/
     Log4gDateLayoutClass parent_class;
 };
 

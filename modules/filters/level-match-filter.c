@@ -16,9 +16,26 @@
  */
 
 /**
- * \brief Implements the API in log4g/filter/level-match-filter.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: level-match-filter
+ * @short_description: A filter based on level matching
+ * @see_also: #Log4gLevelClass
+ *
+ * This is a simple filter based on level matching.
+ *
+ * This filter accepts two properties:
+ * <orderedlist>
+ * <listitem><para>level-to-match</para></listitem>
+ * <listitem><para>accept-on-match</para></listitem>
+ * </orderedlist>
+ *
+ * The level-to-match is a string that represents a log level. If there is
+ * an exact match between the value of level-to-match and the level of the
+ * logging event then the decide function returns accept.
+ *
+ * If the accept-on-match value is set to %FALSE then the decide function
+ * will return deny when there is a level match. The default value is %TRUE.
+ *
+ * If there is no match then the decide function returns neutral.
  */
 
 #ifdef HAVE_CONFIG_H

@@ -15,11 +15,8 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Tests for Log4gDenyAllFilter
- * \author Mike Steinert
- * \date 1-29-2010
+/*
+ * Tests for Log4gDenyAllFilter
  */
 
 #ifdef HAVE_CONFIG_H

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
     "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-<!ENTITY % local.common.attrib "xmlns:xi CDATA #FIXED
-    'http://www.w3.org/2003/XInclude'">
+<!ENTITY % local.common.attrib
+    "xmlns:xi CDATA #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
 <book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
     <bookinfo>
@@ -12,54 +12,90 @@
             <ulink role="online-location" url="http://msteinert.github.com/log4g/doc/unstable/">http://msteinert.github.com/log4g/doc/unstable/</ulink>.
         </releaseinfo>
     </bookinfo>
-    <chapter id="log4g-overview">
-        <title>Log4g Overview</title>
+    <part>
+    <title>Log4g Overview</title>
         <para>
 TODO
         </para>
         <xi:include href="introduction.sgml" />
-    </chapter> 
-    <chapter id="log4g-core">
-        <title>Log4g Core API</title>
+    </part>
+    <part>
+    <title>API Reference</title>
+        <chapter id="log4g-core">
+        <title>Public API</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/log4g.xml" />
+            <xi:include href="xml/logger.xml" />
+            <xi:include href="xml/ndc.xml" />
+            <xi:include href="xml/mdc.xml" />
+            <xi:include href="xml/thread.xml" />
+        </chapter>
+        <chapter>
+        <title>Configuration</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/configurator.xml" />
+            <xi:include href="xml/dom-configurator.xml" />
+            <xi:include href="xml/basic-configurator.xml" />
+        </chapter>
+        <chapter id="">
+        <title>Core API</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/logging-event.xml" />
+            <xi:include href="xml/root-logger.xml" />
+            <xi:include href="xml/appender.xml" />
+            <xi:include href="xml/layout.xml" />
+            <xi:include href="xml/filter.xml" />
+            <xi:include href="xml/level.xml" />
+            <xi:include href="xml/error.xml" />
+        </chapter>
+        <chapter id="log4g-backend">
+        <title>Backend API</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/log-manager.xml" />
+            <xi:include href="xml/logger-repository.xml" />
+            <xi:include href="xml/hierarchy.xml" />
+            <xi:include href="xml/provision-node.xml" />
+            <xi:include href="xml/appender-attachable.xml" />
+            <xi:include href="xml/appender-attachable-impl.xml" />
+            <xi:include href="xml/logger-factory.xml" />
+            <xi:include href="xml/default-logger-factory.xml" />
+            <xi:include href="xml/repository-selector.xml" />
+            <xi:include href="xml/default-repository-selector.xml" />
+            <xi:include href="xml/error-handler.xml" />
+            <xi:include href="xml/only-once-error-handler.xml" />
+            <xi:include href="xml/log.xml" />
+        </chapter>
+    </part>
+    <part>
+    <title>Modules</title>
         <para>
 TODO
         </para>
-        <xi:include href="xml/log4g.xml" />
-        <xi:include href="xml/logger.xml" />
-        <xi:include href="xml/appender.xml" />
-        <xi:include href="xml/layout.xml" />
-        <xi:include href="xml/filter.xml" />
-        <xi:include href="xml/level.xml" />
-        <xi:include href="xml/root-logger.xml" />
-        <xi:include href="xml/provision-node.xml" />
-        <xi:include href="xml/ndc.xml" />
-        <xi:include href="xml/module.xml" />
-        <xi:include href="xml/mdc.xml" />
-        <xi:include href="xml/log-manager.xml" />
-        <xi:include href="xml/logging-event.xml" />
-        <xi:include href="xml/hierarchy.xml" />
-        <xi:include href="xml/error.xml" />
-        <xi:include href="xml/dom-configurator.xml" />
-        <xi:include href="xml/basic-configurator.xml" />
-        <xi:include href="xml/appender-attachable.xml" />
-        <xi:include href="xml/configurator.xml" />
-        <xi:include href="xml/error-handler.xml" />
-        <xi:include href="xml/logger-factory.xml" />
-        <xi:include href="xml/logger-repository.xml" />
-        <xi:include href="xml/module-loader.xml" />
-        <xi:include href="xml/repository-selector.xml" />
-        <xi:include href="xml/appender-attachable-impl.xml" />
-        <xi:include href="xml/default-logger-factory.xml" />
-        <xi:include href="xml/default-module-loader.xml" />
-        <xi:include href="xml/default-repository-selector.xml" />
-        <xi:include href="xml/log.xml" />
-        <xi:include href="xml/only-once-error-handler.xml" />
-        <xi:include href="xml/thread.xml" />
-    </chapter>
-    <part>
-    <title>Log4g Modules</title>
-        <chapter id="log4g-appenders">
-        <title>Appenders</title>
+        <chapter id="log4g-extending">
+        <title>Extending Log4g</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/module.xml" />
+            <xi:include href="xml/module-loader.xml" />
+            <xi:include href="xml/default-module-loader.xml" />
+        </chapter>
+        <para>
+TODO
+        </para>
+        <chapter id="log4g-core-appenders">
+        <title>Core Appenders</title>
+            <para>
+TODO
+            </para>
             <xi:include href="xml/async-appender.xml" />
             <xi:include href="xml/console-appender.xml" />
             <xi:include href="xml/file-appender.xml" />
@@ -69,6 +105,38 @@ TODO
             <xi:include href="xml/writer-appender.xml" />
             <xi:include href="xml/quiet-writer.xml" />
             <xi:include href="xml/counting-quiet-writer.xml" />
+        </chapter>
+        <chapter id="log4g-core-filters">
+        <title>Core Filters</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/deny-all-filter.xml" />
+            <xi:include href="xml/level-match-filter.xml" />
+            <xi:include href="xml/level-range-filter.xml" />
+            <xi:include href="xml/string-match-filter.xml" />
+        </chapter>
+        <chapter id="log4g-core-layouts">
+        <title>Core Layouts</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/date-layout.xml" />
+            <xi:include href="xml/html-layout.xml" />
+            <xi:include href="xml/pattern-layout.xml" />
+            <xi:include href="xml/simple-layout.xml" />
+            <xi:include href="xml/ttcc-layout.xml" />
+            <xi:include href="xml/xml-layout.xml" />
+            <xi:include href="xml/pattern-converter.xml" />
+            <xi:include href="xml/pattern-parser.xml" />
+        </chapter>
+        <chapter id="log4g-couchdb">
+        <title>CouchDB</title>
+            <para>
+TODO
+            </para>
+            <xi:include href="xml/couchdb-appender.xml" />
+            <xi:include href="xml/couchdb-layout.xml" />
         </chapter>
     </part>
     <index id="api-index-full">

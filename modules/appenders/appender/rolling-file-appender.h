@@ -59,7 +59,7 @@ struct _Log4gRollingFileAppender {
 };
 
 /**
- * Log4gFileAppenderRollOver:
+ * Log4gRollingFileAppenderRollOver:
  * @base: A rolling file appender object.
  *
  * Subclasses may overload this function to implement custom rollover schemes.
@@ -67,7 +67,7 @@ struct _Log4gRollingFileAppender {
  * Since: 0.1
  */
 typedef void
-(*Log4gFileAppenderRollOver)(Log4gAppender *base);
+(*Log4gRollingFileAppenderRollOver)(Log4gAppender *base);
 
 /**
  * Log4gRollingFileAppenderClass:
@@ -77,7 +77,7 @@ struct _Log4gRollingFileAppenderClass {
     /*< private >*/
     Log4gFileAppenderClass parent_class;
     /*< public >*/
-    Log4gFileAppenderRollOver roll_over;
+    Log4gRollingFileAppenderRollOver roll_over;
 };
 
 GType

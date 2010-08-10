@@ -16,9 +16,24 @@
  */
 
 /**
- * \brief Implements the API in log4g/layout/html-layout.h
- * \author Mike Steinert
- * \date 2-16-2010
+ * SECTION: html-layout
+ * @short_description: Format events into an HTML table
+ *
+ * This layout formats log events into an HTML table.
+ *
+ * HTML layouts accept two properties:
+ * <orderedlist>
+ * <listitem><para>title</para></listitem>
+ * <listitem><para>location-info</para></listitem>
+ * </orderedlist>
+ *
+ * Setting the title property will change the title of the generated HTML
+ * document. If this property is not set then the title will be "Log4g Log
+ * Messages".
+ *
+ * Setting the location-info property to %TRUE will cause the HTML layout
+ * to include the log message location, i.e. function(file:line). The default
+ * value is %FALSE.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -26,7 +41,7 @@
 #endif
 #include "layout/html-layout.h"
 
-/** \brief The default HTML document title */
+/* The default HTML document title */
 #define LOG4G_HTML_LAYOUT_TITLE ("Log4g Log Messages")
 
 enum _properties_t {
@@ -42,10 +57,10 @@ G_DEFINE_DYNAMIC_TYPE(Log4gHTMLLayout, log4g_html_layout, LOG4G_TYPE_LAYOUT)
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_HTML_LAYOUT, \
             struct Log4gPrivate))
 
-/** \brief Default string buffer size */
+/* Default string buffer size */
 #define BUF_SIZE (256)
 
-/** \brief Maximum string buffer size */
+/* Maximum string buffer size */
 #define MAX_CAPACITY (1024)
 
 struct Log4gPrivate {

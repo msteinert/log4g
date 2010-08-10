@@ -15,11 +15,8 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Tests for Log4gSimpleLayout
- * \author Mike Steinert
- * \date 5-26-2010
+/*
+ * Tests for Log4gSimpleLayout
  */
 
 #ifdef HAVE_CONFIG_H

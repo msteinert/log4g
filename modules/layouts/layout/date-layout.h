@@ -15,27 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief A layout that formats dates.
- * \author Mike Steinert
- * \date 2-5-2010
- *
- * This is an abstract layout class that takes care of all date related
- * options and formatting. This class understands date formats understood
- * by strftime(3).
- *
- * Date layouts accept two properties:
- * -# date-format
- * -# time-zone
- *
- * The date-format property set the strftime(3) conversion pattern that will
- * be used to format the date.
- *
- * The time-zone property can be used to explicitly set the timezone. The
- * default is \e NULL.
- */
-
 #ifndef LOG4G_DATE_LAYOUT_H
 #define LOG4G_DATE_LAYOUT_H
 
@@ -64,26 +43,41 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_DATE_LAYOUT, \
             Log4gDateLayoutClass))
 
-/** \brief ... */
+/**
+ * Log4gDateLayoutType:
+ * @INVALID_DATE_FORMAT: Senteinel value
+ * @RELATIVE_TIME_DATE_FORMAT: Milliseconds since Log4g was initialized
+ * @MAX_DATE_FORMAT: Sentinel value
+ */
 typedef enum {
-    INVALID_DATE_FORMAT = 0, /**< [private] Sentinel value */
-    RELATIVE_TIME_DATE_FORMAT, /**< Milliseconds since Log4g was initialized */
-    MAX_DATE_FORMAT /**< [private] Sentinel value */
+    INVALID_DATE_FORMAT = 0,
+    RELATIVE_TIME_DATE_FORMAT,
+    MAX_DATE_FORMAT
 } Log4gDateLayoutType;
 
-/** \brief Log4gDateLayout object type definition */
 typedef struct _Log4gDateLayout Log4gDateLayout;
 
-/** \brief Log4gDateLayout class type definition */
 typedef struct _Log4gDateLayoutClass Log4gDateLayoutClass;
 
-/** \brief Log4gDateLayoutClass definition */
+/**
+ * Log4gDateLayout:
+ *
+ * The <structname>Log4gDateLayout</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gDateLayout {
+    /*< private >*/
     Log4gLayout parent_instance;
 };
 
-/** \brief Log4gDateLayoutClass definition */
+/**
+ * Log4gDateLayoutClass:
+ *
+ * The <structname>Log4gDateLayoutClass</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gDateLayoutClass {
+    /*< private >*/
     Log4gLayoutClass parent_class;
 };
 
@@ -93,15 +87,8 @@ log4g_date_layout_get_type(void);
 void
 log4g_date_layout_register(GTypeModule *module);
 
-/**
- * \brief Format a date layout for a log event info a buffer.
- *
- * \param self [in] A date format object.
- * \param buffer [in] The buffer in which to layout the date.
- * \param even [in] The log event to get the date from.
- */
 void
-log4g_date_layout_date_format(Log4gLayout *self, GString *buffer,
+log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event);
 
 G_END_DECLS

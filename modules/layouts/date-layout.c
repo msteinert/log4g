@@ -16,9 +16,24 @@
  */
 
 /**
- * \brief Implements the API in log4g/helpers/date-layout.h
- * \author Mike Steinert
- * \date 2-5-2010
+ * SECTION: date-layout
+ * @short_description: A layout that formats dates
+ *
+ * This is an abstract layout class that takes care of all date related
+ * options and formatting. This class understands date formats understood
+ * by strftime(3).
+ *
+ * Date layouts accept two properties:
+ * <orderedlist>
+ * <listitem><para>date-format</para></listitem>
+ * <listitem><para>time-zone</para></listitem>
+ * </orderedlist>
+ *
+ * The date-format property set the strftime(3) conversion pattern that will
+ * be used to format the date.
+ *
+ * The time-zone property can be used to explicitly set the timezone. The
+ * default is %NULL.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -137,6 +152,16 @@ log4g_date_layout_register(GTypeModule *module)
     log4g_date_layout_register_type(module);
 }
 
+/**
+ * log4g_date_layout_date_format:
+ * @base: A date format object.
+ * @string: The buffer in which to layout the date.
+ * @event: The log event to get the date from.
+ *
+ * Format a date layout for a log event info a buffer.
+ *
+ * Since: 0.1
+ */
 void
 log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event)
