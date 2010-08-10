@@ -17,7 +17,7 @@
 
 /**
  * SECTION: level
- * @short_description: minimum set of logging levels recognized by the system
+ * @short_description: Minimum set of logging levels recognized by the system
  *
  * The following base log levels are defined:
  * <itemizedlist>

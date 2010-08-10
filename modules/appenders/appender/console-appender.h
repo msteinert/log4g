@@ -15,28 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Log events to stdout or stderr.
- * \author Mike Steinert
- * \date 2-8-2010
- *
- * The console appender logs events to \e stdout or \e stderr using a layout
- * specified by the user. The default target is \e stdout.
- *
- * Console appenders accept two properties:
- * -# target
- * -# follow
- *
- * The value of target determines where the output will be logged. The value
- * must be one of "stdout" or "stderr". The default is "stdout".
- *
- * The value of follow determines if the log output will follow reopens of
- * the target stream. The default value is \e TRUE.
- *
- * \see freopen(3)
- */
-
 #ifndef LOG4G_CONSOLE_APPENDER_H
 #define LOG4G_CONSOLE_APPENDER_H
 
@@ -65,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_CONSOLE_APPENDER, \
             Log4gConsoleAppenderClass))
 
-/** \brief Log4gConsoleAppender object type definition */
 typedef struct _Log4gConsoleAppender Log4gConsoleAppender;
 
-/** \brief Log4gConsoleAppender class type definition */
 typedef struct _Log4gConsoleAppenderClass Log4gConsoleAppenderClass;
 
-/** \brief Log4gConsoleAppenderClass definition */
+/**
+ * Log4gConsoleAppender:
+ *
+ * The <structname>Log4gConsoleAppender</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gConsoleAppender {
+    /*< private >*/
     Log4gWriterAppender parent_instance;
 };
 
-/** \brief Log4gConsoleAppenderClass definition */
+/**
+ * Log4gConsoleAppenderClass:
+ *
+ * The <structname>Log4gConsoleAppenderClass</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gConsoleAppenderClass {
+    /*< private >*/
     Log4gWriterAppenderClass parent_class;
 };
 

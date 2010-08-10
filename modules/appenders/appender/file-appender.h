@@ -15,34 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Log events to a file.
- * \author Mike Steinert
- * \date 2-9-2010
- *
- * The file appender logs events to a regular text file.
- *
- * File appenders accept the following properties:
- * -# file
- * -# append
- * -# buffered-io
- * -# buffer-size
- *
- * The value of file specifies the location of the output. This may be an
- * absolute or relative path.
- *
- * The value of append determines if the file will be truncated when it is
- * opened for writing. The default value is \e TRUE (i.e. do not truncate).
- *
- * The value of buffered-io determines if file I/O will be buffered. Buffered
- * I/O may exhibit improved performance, however messages in the buffer will
- * be lost if your application crashes. Buffering is turned off by default.
- *
- * The buffer-size property controls the size of the I/O buffer. The default
- * value is eight kilobytes (8192 bytes).
- */
-
 #ifndef LOG4G_FILE_APPENDER_H
 #define LOG4G_FILE_APPENDER_H
 
@@ -71,50 +43,64 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_FILE_APPENDER, \
             Log4gFileAppenderClass))
 
-/** \brief Log4gFileAppender object type definition */
 typedef struct _Log4gFileAppender Log4gFileAppender;
 
-/** \brief Log4gFileAppender class type definition */
 typedef struct _Log4gFileAppenderClass Log4gFileAppenderClass;
 
-/** \brief Log4gFileAppenderClass definition */
+/**
+ * Log4gFileAppender:
+ *
+ * The <structname>Log4gFileAppender</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gFileAppender {
+    /*< private >*/
     Log4gWriterAppender parent_instance;
 };
 
-/** \brief Log4gFileAppenderClass definition */
+/**
+ * Log4gFileAppenderSetFileFull:
+ * @base: A file appender object.
+ * @file: The new value for the file property.
+ * @append: The new value for the append property.
+ * @buffered: The new value for the buffered-io property.
+ * @size: The new value for the size property.
+ *
+ * The rolling file appender overloads this function.
+ *
+ * @See: #Log4gRollingFileAppender
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gFileAppenderSetFileFull)(Log4gAppender *base, const gchar *file,
+        gboolean append, gboolean buffered, guint size);
+
+/**
+ * Log4gFileAppenderSetQwForFiles:
+ * @base: A file appender object.
+ * @file: The open file handle to write to.
+ *
+ * The rolling file appender overloads this function.
+ *
+ * @See: #Log4gRollingFileAppender, #Log4gQuietWriter, stdio(3)
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gFileAppenderSetQwForFiles)(Log4gAppender *base, FILE *file);
+
+/**
+ * Log4gFileAppender:
+ * @set_file_full: Set the file and other options.
+ * @set_qw_for_files: Set the quiet writer used for output.
+ */
 struct _Log4gFileAppenderClass {
+    /*< private >*/
     Log4gWriterAppenderClass parent_class;
-
-    /**
-     * \brief Set the file and other options.
-     *
-     * The rolling file appender overloads this function.
-     *
-     * \param base [in] A file appender object.
-     * \param file [in] The new value for the file property.
-     * \param append [in] The new value for the append property.
-     * \param buffered [in] The new value for the buffered-io property.
-     * \param size [in] The new value for the size property.
-     *
-     * \see rolling-file-appender.h
-     */
-    void
-    (*set_file_full)(Log4gAppender *base, const gchar *file, gboolean append,
-            gboolean buffered, guint size);
-
-    /**
-     * \brief Set the quiet writer used for output.
-     *
-     * The rolling file appender overloads this function.
-     *
-     * \param base [in] A file appender object.
-     * \param file [in] The open file handle to write to.
-     *
-     * \see rolling-file-appender.h, quiet-writer.h, stdio(3)
-     */
-    void
-    (*set_qw_for_files)(Log4gAppender *base, FILE *file);
+    /*< public >*/
+    Log4gFileAppenderSetFileFull set_file_full;
+    Log4gFileAppenderSetQwForFiles set_qw_for_files;
 };
 
 GType
@@ -123,66 +109,22 @@ log4g_file_appender_get_type(void);
 void
 log4g_file_appender_register(GTypeModule *module);
 
-/**
- * \brief Invokes the virtual function _Log4gFileAppender::set_file_full().
- *
- * \param base [in] A file appender object.
- * \param file [in] The new value for the file property.
- * \param append [in] The new value for the append property.
- * \param buffered [in] The new value for the buffered-io property.
- * \param size [in] The new value for the size property.
- */
 void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         gboolean append, gboolean buffered, guint size);
 
-/**
- * \brief Close the log file.
- *
- * Once a file appender is closed it is no longer usable.
- *
- * \param base [in] A file appender object.
- */
 void
 log4g_file_appender_close_file(Log4gAppender *base);
 
-/**
- * \brief Invokes the virtual function
- *        _Log4gFileAppenderClass::set_qw_for_files().
- *
- * \param base [in] A file appender object.
- * \param file [in] An open file descriptor.
- */
 void
 log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file);
 
-/**
- * \brief Retrieve the file property.
- *
- * \param base [in] A file appender object.
- *
- * \return The name of the file being appended to.
- */
 const gchar *
 log4g_file_appender_get_file(Log4gAppender *base);
 
-/**
- * \brief Retrieve the buffered-io property.
- *
- * \param base [in] A file appender object.
- *
- * \return The buffered-io value for \e base.
- */
 gboolean
 log4g_file_appender_get_buffered_io(Log4gAppender *base);
 
-/**
- * \brief Retrieve the buffer-size property.
- *
- * \param base [in] A file appender object.
- *
- * \return The buffer-size value for \e base.
- */
 guint
 log4g_file_appender_get_buffer_size(Log4gAppender *base);
 

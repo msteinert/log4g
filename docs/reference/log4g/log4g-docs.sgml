@@ -56,6 +56,21 @@ TODO
         <xi:include href="xml/only-once-error-handler.xml" />
         <xi:include href="xml/thread.xml" />
     </chapter>
+    <part>
+    <title>Log4g Modules</title>
+        <chapter id="log4g-appenders">
+        <title>Appenders</title>
+            <xi:include href="xml/async-appender.xml" />
+            <xi:include href="xml/console-appender.xml" />
+            <xi:include href="xml/file-appender.xml" />
+            <xi:include href="xml/null-appender.xml" />
+            <xi:include href="xml/rolling-file-appender.xml" />
+            <xi:include href="xml/syslog-appender.xml" />
+            <xi:include href="xml/writer-appender.xml" />
+            <xi:include href="xml/quiet-writer.xml" />
+            <xi:include href="xml/counting-quiet-writer.xml" />
+        </chapter>
+    </part>
     <index id="api-index-full">
         <title>Index</title>
         <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>

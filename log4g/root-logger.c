@@ -17,7 +17,7 @@
 
 /**
  * SECTION: root-logger
- * @short_description: the root logger
+ * @short_description: The root logger
  *
  * The root logger sits on top of the logger hierarchy. It is a normal logger
  * with the following exceptions:

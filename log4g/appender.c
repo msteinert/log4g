@@ -17,7 +17,7 @@
 
 /**
  * SECTION: appender
- * @short_description: the log output interface
+ * @short_description: The log output interface
  *
  * Extend this class to define your own strategy for outputting log
  * statements.

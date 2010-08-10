@@ -16,9 +16,36 @@
  */
 
 /**
- * \brief Implements the API in async-appender.h
- * \author Mike Steinert
- * \date 2-17-2010
+ * SECTION: async-appender
+ * @short_description: Log events asynchronously
+ *
+ * The async appender will collect events sent to it and then dispatch them
+ * to all appenders that are attached to it. Multiple appenders may be
+ * attached to an async appender.
+ *
+ * The async appender uses a separate thread to serve the events in its
+ * buffer. You must call g_thread_init() before attempting to configure an
+ * async appender.
+ *
+ * Async appenders accept the following properties:
+ * <orderedlist>
+ * <listitem><para>blocking</para></listitem>
+ * <listitem><para>buffer-size</para></listitem>
+ * </orderedlist>
+ *
+ * The blocking property determines the behavior of the async appender when
+ * its log event buffer is full. If blocking is %TRUE then the client will
+ * block until there is room in the buffer. Otherwise the client will not
+ * block and the log event will be dropped. In non-blocking mode the async
+ * appender will keep a summary of all dropped logging events. The default
+ * value is %TRUE.
+ *
+ * The buffer-size property determines how many messages are allowed in the
+ * buffer before the client will block. The default value is 128.
+ *
+ * <note><para>
+ * If blocking is %FALSE then the value of buffer-size has no effect.
+ * </para></note>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -35,15 +62,21 @@ enum _properties_t {
     PROP_MAX
 };
 
-/** \brief A discarded event summary object */
+/**
+ * Log4gDiscardSummary: A discarded event summary object
+ * @event: The last event missed.
+ * @count: The number of events missed.
+ */
 typedef struct _Log4gDiscardSummary {
-    Log4gLoggingEvent *event; /**< The last event missed */
-    gint count; /**< The number of events missed */
+    Log4gLoggingEvent *event;
+    gint count;
 } Log4gDiscardSummary;
 
 /**
- * \brief Free dynamic resources used by a discard summary object.
- * \param self [in] A discard summary object.
+ * log4g_discard_summary_destroy:
+ * @self: A discard summary object.
+ *
+ * Free dynamic resources used by a discard summary object.
  */
 static void
 log4g_discard_summary_destroy(Log4gDiscardSummary *self)
@@ -57,9 +90,12 @@ log4g_discard_summary_destroy(Log4gDiscardSummary *self)
 }
 
 /**
- * \brief Create a new discard summary object.
- * \param event [in] A discarded logging event.
- * \return A new discard summary object.
+ * log4g_discard_summary_new:
+ * @event: A discarded logging event.
+ *
+ * Create a new discard summary object.
+ *
+ * Returns: A new discard summary object.
  */
 static Log4gDiscardSummary *
 log4g_discard_summary_new(Log4gLoggingEvent *event)
@@ -79,9 +115,11 @@ log4g_discard_summary_new(Log4gLoggingEvent *event)
 }
 
 /**
- * \brief Add a discarded logging event to a discard summary object.
- * \param self [in] A discard summary object.
- * \param event [in] A discarded logging event.
+ * log4g_discard_summary_add:
+ * @self: A discard summary object.
+ * @event: A discarded logging event.
+ *
+ * Add a discarded logging event to a discard summary object.
  */
 static void
 log4g_discard_summary_add(Log4gDiscardSummary *self, Log4gLoggingEvent *event)
@@ -95,13 +133,15 @@ log4g_discard_summary_add(Log4gDiscardSummary *self, Log4gLoggingEvent *event)
 }
 
 /**
- * \brief [private] Create a discard summary logging event.
- * This function is called by log4g_discard_summary_create_event() to
- * create the logging event.
- * \param self [in] A discard summary object.
- * \param message [in] A log message format.
- * \param ... [in] Format parameters.
- * \return A new logging event.
+ * log4g_discard_summary_create_event0:
+ * @self: A discard summary object.
+ * @message: A log message format.
+ * @...: Format parameters.
+ *
+ * Create a discard summary logging event. This function is called by
+ * log4g_discard_summary_create_event() to create the logging event.
+ *
+ * Returns: A new logging event.
  */
 static inline Log4gLoggingEvent *
 log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
@@ -118,9 +158,12 @@ log4g_discard_summary_create_event0(Log4gDiscardSummary *self,
 }
 
 /**
- * \brief Create a discard summary logging event.
- * \param self [in] A discard summary object.
- * \return A new logging event.
+ * log4g_discard_summary_create_event:
+ * @self: A discard summary object.
+ *
+ * Create a discard summary logging event.
+ *
+ * Returns: A new logging event.
  */
 static Log4gLoggingEvent *
 log4g_discard_summary_create_event(Log4gDiscardSummary *self)
@@ -131,13 +174,13 @@ log4g_discard_summary_create_event(Log4gDiscardSummary *self)
 }
 
 struct Log4gPrivate {
-    Log4gAppenderAttachable *appenders; /**< Asynchronous appenders */
-    GHashTable *summary; /**< Summary of discarded events */
-    GThreadPool *pool; /**< Worker thread pool */
-    gboolean blocking; /**< Indicates if logging thread should block */
-    gint size; /**< Maximum size of the event queue */
-    GMutex *lock; /**< Synchronizes access to \e appenders */
-    GMutex *discard; /**< Synchronizes access to \e summary */
+    Log4gAppenderAttachable *appenders; /* Asynchronous appenders */
+    GHashTable *summary; /* Summary of discarded events */
+    GThreadPool *pool; /* Worker thread pool */
+    gboolean blocking; /* Indicates if logging thread should block */
+    gint size; /* Maximum size of the event queue */
+    GMutex *lock; /* Synchronizes access to \e appenders */
+    GMutex *discard; /* Synchronizes access to \e summary */
 };
 
 static void
@@ -397,6 +440,20 @@ log4g_async_appender_register(GTypeModule *module)
     log4g_async_appender_register_type(module);
 }
 
+/**
+ * log4g_async_appender_add_appender:
+ * @base: An async appender object.
+ * @appender: The appender to add.
+ *
+ * Add an appender to an async appender.
+ *
+ * If @appender is already attached to @base then this function does not do
+ * anything.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_async_appender_add_appender(Log4gAppender *base, Log4gAppender *appender)
 {
@@ -408,6 +465,19 @@ log4g_async_appender_add_appender(Log4gAppender *base, Log4gAppender *appender)
     g_mutex_unlock(priv->lock);
 }
 
+/**
+ * log4g_async_appender_get_all_appenders:
+ * @base: An async appender object.
+ *
+ * Retrieve an array of appenders attached to an async appender.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Returns: An array of appenders attached to @base, or %NULL if there are
+ *          none. The caller is responsible for calling g_array_free() for the
+ *          returned value.
+ * Since: 0.1
+ */
 const GArray *
 log4g_async_appender_get_all_appenders(Log4gAppender *base)
 {
@@ -420,6 +490,18 @@ log4g_async_appender_get_all_appenders(Log4gAppender *base)
     return appenders;
 }
 
+/**
+ * log4g_async_appender_get_appender:
+ * @base: An async appender object.
+ * @name: The name of the appender to look up.
+ *
+ * Retrieve an attached named appender.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Returns: The appender named @name or %NULL if @name is not found.
+ * Since: 0.1
+ */
 Log4gAppender *
 log4g_async_appender_get_appender(Log4gAppender *base, const gchar *name)
 {
@@ -432,6 +514,18 @@ log4g_async_appender_get_appender(Log4gAppender *base, const gchar *name)
     return appender;
 }
 
+/**
+ * log4g_async_appender_is_attached:
+ * @base: An async appender object.
+ * @appender: An appender.
+ *
+ * Determine if an appender is attached.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Returns: %TRUE is @appender is attached to @base, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender)
 {
@@ -444,6 +538,16 @@ log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender)
     return attached;
 }
 
+/**
+ * log4g_async_appender_remove_all_appenders:
+ * @base: An async appender object.
+ *
+ * Remove all attached appenders.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_async_appender_remove_all_appenders(Log4gAppender *base)
 {
@@ -454,6 +558,17 @@ log4g_async_appender_remove_all_appenders(Log4gAppender *base)
     g_mutex_unlock(priv->lock);
 }
 
+/**
+ * log4g_async_appender_remove_appender:
+ * @base: An async appender object.
+ * @appender: The appender to remove.
+ *
+ * Remove an attached appender.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_async_appender_remove_appender(Log4gAppender *base,
         Log4gAppender *appender)
@@ -465,6 +580,17 @@ log4g_async_appender_remove_appender(Log4gAppender *base,
     g_mutex_unlock(priv->lock);
 }
 
+/**
+ * log4g_async_appender_remove_appender_name:
+ * @base: An async appender object.
+ * @name: The name of the appender to remove.
+ *
+ * Remove a named appender.
+ *
+ * @See: #Log4gAppenderAttachableClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_async_appender_remove_appender_name(Log4gAppender *base,
         const gchar *name)

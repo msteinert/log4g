@@ -16,9 +16,12 @@
  */
 
 /**
- * \brief Implements the API in quiet-writer.h
- * \author Mike Steinert
- * \date 1-29-2010
+ * SECTION: quiet-writer
+ * @short_description: Write to a stdio(3) stream
+ *
+ * The quiet writer class handles errors via an error handler.
+ *
+ * @See: #Log4gErrorHandlerInterface
  */
 
 #ifdef HAVE_CONFIG_H
@@ -103,6 +106,18 @@ log4g_quiet_writer_register(GTypeModule *module)
     log4g_quiet_writer_register_type(module);
 }
 
+/**
+ * log4g_quiet_writer_new:
+ * @file: An open stdio(3) stream.
+ * @error: The error handler to use.
+ *
+ * Create a new quiet writer object.
+ *
+ * @See: stdio(3)
+ *
+ * Returns: A new quiet writer object.
+ * Since: 0.1
+ */
 Log4gQuietWriter *
 log4g_quiet_writer_new(FILE *file, gpointer error)
 {
@@ -118,6 +133,16 @@ log4g_quiet_writer_new(FILE *file, gpointer error)
     return self;
 }
 
+/**
+ * log4g_quiet_writer_close:
+ * @self: A quiet writer object.
+ *
+ * Close the stdio(3) stream held by a quiet writer object.
+ *
+ * @See: stdio(3)
+ *
+ * Since: 0.1
+ */
 void
 log4g_quiet_writer_close(Log4gQuietWriter *self)
 {
@@ -132,6 +157,15 @@ log4g_quiet_writer_close(Log4gQuietWriter *self)
     priv->file = NULL;
 }
 
+/**
+ * log4g_quiet_writer_write:
+ * @self: A quiet writer object.
+ * @string: The string to write.
+ *
+ * Call the @write function from the #Log4gQuietWriterClass of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_quiet_writer_write(Log4gQuietWriter *self, const char *string)
 {
@@ -139,6 +173,16 @@ log4g_quiet_writer_write(Log4gQuietWriter *self, const char *string)
     LOG4G_QUIET_WRITER_GET_CLASS(self)->write(self, string);
 }
 
+/**
+ * log4g_quiet_writer_flush:
+ * @self: A quiet writer object.
+ *
+ * Flush the stdio(3) stream.
+ *
+ * @See: stdio(3)
+ *
+ * Since: 0.1
+ */
 void
 log4g_quiet_writer_flush(Log4gQuietWriter *self)
 {
@@ -152,6 +196,17 @@ log4g_quiet_writer_flush(Log4gQuietWriter *self)
     }
 }
 
+/**
+ * log4g_quiet_writer_set_error_handler:
+ * @self: A quiet writer object.
+ * @error: A new error handler for @self.
+ *
+ * Set the error handler for a quiet writer.
+ *
+ * @See: #Log4gErrorHandlerInterface
+ *
+ * Since: 0.1
+ */
 void
 log4g_quiet_writer_set_error_handler(Log4gQuietWriter *self, gpointer error)
 {
@@ -169,6 +224,17 @@ log4g_quiet_writer_set_error_handler(Log4gQuietWriter *self, gpointer error)
     }
 }
 
+/**
+ * log4g_quiet_writer_set_file:
+ * @self: A quiet writer object.
+ * @file: An open stdio(3) stream.
+ *
+ * Set the stdio(3) stream to write to.
+ *
+ * @See: stdio(3)
+ *
+ * Since: 0.1
+ */
 void
 log4g_quiet_writer_set_file(Log4gQuietWriter *self, FILE *file)
 {

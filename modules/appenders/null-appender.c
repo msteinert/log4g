@@ -16,9 +16,10 @@
  */
 
 /**
- * \brief Implements the API in null-appender.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: null-appender
+ * @short_description: A do-nothing appender
+ *
+ * The null appender merely exists; It never outputs any log messages.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -29,7 +30,7 @@
 G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
         LOG4G_TYPE_APPENDER)
 
-/** \brief The single instance of this class */
+/* The single instance of this class */
 static GObject *singleton = NULL;
 
 static void

@@ -17,7 +17,7 @@
 
 /**
  * SECTION: mdc
- * @short_description: mapped data context
+ * @short_description: Mapped data context
  *
  * The MDC class provides mapped data contexts. A mapped data context (MDC for
  * short) is an instrument for distinguishing interleaved log output from

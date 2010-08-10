@@ -17,7 +17,7 @@
 
 /**
  * SECTION: module-loader
- * @short_description: load external modules
+ * @short_description: Load external modules
  * @see_also: #Log4gModuleClass
  *
  * The log manager uses a module loader implementation to load external

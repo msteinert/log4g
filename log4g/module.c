@@ -17,7 +17,7 @@
 
 /**
  * SECTION: module
- * @short_description: loadable appender, filter & layout modules
+ * @short_description: Loadable appender, filter & layout modules
  *
  * This class implements a dynamic module system in order to make appenders,
  * layouts & filters available to the Log4g system.

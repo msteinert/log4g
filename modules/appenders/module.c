@@ -15,12 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \brief Register type for the Appenders module
- * \author Mike Steinert
- * \date 5-26-2010
- */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -38,7 +32,7 @@
 void
 log4g_module_load(GTypeModule *module)
 {
-    g_type_module_set_name(module, "core");
+    g_type_module_set_name(module, "core-appenders");
     log4g_async_appender_register(module);
     log4g_writer_appender_register(module);
     log4g_console_appender_register(module);

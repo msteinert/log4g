@@ -17,7 +17,7 @@
 
 /**
  * SECTION: log4g
- * @short_description: the main Log4g interface
+ * @short_description: The main Log4g interface
  * @see_also: #Log4gNDCClass, #Log4gMDCClass
  *
  * The file defines the API that most users of Log4g will want to use.

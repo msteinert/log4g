@@ -15,33 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Append to the local syslog
- * \author Mike Steinert
- * \date 2-11-2010
- *
- * This is a simple syslog appender that appends to the local syslog (usually
- * /var/log/messages) using the syslog(3) system call.
- *
- * Syslog appenders accept the following properties:
- * -# ident
- * -# option
- * -# facility
- *
- * The value of ident will be the first parameter to openlog(3).
- *
- * The value of option will be the second parameter to openlog(3).
- *
- * The value of facility will be the third parameter to openlog(3).
- *
- * \note The behavior of this appender may be affected by the configuration
- *       of the syslog daemon. Refer to the syslog documentation for more
- *       information.
- *
- * \see syslog(3), syslog.conf(5), syslogd(8)
- */
-
 #ifndef LOG4G_SYSLOG_APPENDER_H
 #define LOG4G_SYSLOG_APPENDER_H
 
@@ -70,20 +43,30 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_SYSLOG_APPENDER, \
             Log4gSyslogAppenderClass))
 
-/** \brief Log4gSyslogAppender object type definition */
 typedef struct _Log4gSyslogAppender Log4gSyslogAppender;
 
-/** \brief Log4gSyslogAppender class type definition */
 typedef struct _Log4gSyslogAppenderClass Log4gSyslogAppenderClass;
 
-/** \brief Log4gSyslogAppenderClass definition */
+/**
+ * Log4gSyslogAppender:
+ *
+ * The <structname>Log4gSyslogAppender</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gSyslogAppender {
-    Log4gAppender parent_instance; /**< parent instance */
+    /*< private >*/
+    Log4gAppender parent_instance;
 };
 
-/** \brief Log4gSyslogAppenderClass definition */
+/**
+ * Log4gSyslogAppenderClass:
+ *
+ * The <structname>Log4gSyslogAppenderClass</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gSyslogAppenderClass {
-    Log4gAppenderClass parent_class; /**< parent class */
+    /*< private >*/
+    Log4gAppenderClass parent_class;
 };
 
 GType

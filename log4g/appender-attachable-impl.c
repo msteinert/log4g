@@ -17,7 +17,7 @@
 
 /**
  * SECTION: appender-attachable-impl
- * @short_description: an implementation of the appender attachable interface
+ * @short_description: An implementation of the appender attachable interface
  * @see_also: #Log4gAppenderAttachableInterface
  *
  * This is a straightforward implementation of the appender attachable

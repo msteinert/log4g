@@ -15,23 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Append to a stdio(3) stream.
- * \author Mike Steinert
- * \date 2-8-2010
- *
- * This class is a base class for appenders that write to stdio(3) streams.
- *
- * Writer appenders accept one property:
- * -# immediate-flush
- *
- * The value of immediate-flush determines if the I/O stream will be flushed
- * after each write. The default value is \e TRUE.
- *
- * \see stdio(3)
- */
-
 #ifndef LOG4G_WRITER_APPENDER_H
 #define LOG4G_WRITER_APPENDER_H
 
@@ -61,49 +44,66 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_WRITER_APPENDER, \
             Log4gWriterAppenderClass))
 
-/** \brief Log4gWriterAppender object type definition */
 typedef struct _Log4gWriterAppender Log4gWriterAppender;
 
-/** \brief Log4gWriterAppender class type definition */
 typedef struct _Log4gWriterAppenderClass Log4gWriterAppenderClass;
 
-/** \brief Log4gWriterAppenderClass definition */
 struct _Log4gWriterAppender {
+    /*< private >*/
     Log4gAppender parent_instance;
 };
 
-/** \brief Log4gWriterAppenderClass definition */
+/**
+ * Log4gWriterAppenderSubAppend:
+ * @base: A writer appender object.
+ * @event: The log event to append.
+ *
+ * Actual writing occurs here.
+ *
+ * Most subclasses of writer appender will need to override this method.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gWriterAppenderSubAppend)(Log4gAppender *base, Log4gLoggingEvent *event);
+
+/**
+ * Log4gWriterAppenderCloseWriter:
+ * @base: A writer appender object.
+ *
+ * Close the underlying stdio(3) stream.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gWriterAppenderCloseWriter)(Log4gAppender *base);
+
+/**
+ * Log4gWriterAppenderReset:
+ * @base: A writer appender object.
+ *
+ * Clear internal references to the writer and other variables.
+ *
+ * Subclasses can override this method for alternate closing behavior.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gWriterAppenderReset)(Log4gAppender *base);
+
+/**
+ * Log4gWriterAppenderClass:
+ * @sub_append: Actual writing occurs here.
+ * @close_writer: Close the underlying stream.
+ * @reset: Clear internal references and variables.
+ */
 struct _Log4gWriterAppenderClass {
+    /*< private >*/
     Log4gAppenderClass parent_class;
-
-    /**
-     * \brief Actual writing occurs here.
-     *
-     * Most subclasses of writer appender will need to override this method.
-     *
-     * \param base [in] A writer appender object.
-     * \param event [in] The log event to append.
-     */
-    void
-    (*sub_append)(Log4gAppender *base, Log4gLoggingEvent *event);
-
-    /**
-     * \brief Close the underlying stdio(3) stream.
-     *
-     * \param base [in] A writer appender object.
-     */
-    void
-    (*close_writer)(Log4gAppender *base);
-
-    /**
-     * \brief Clear internal references to the writer and other variables.
-     *
-     * Subclasses can override this method for alternate closing behavior.
-     *
-     * \param base [in] A writer appender object.
-     */
-    void
-    (*reset)(Log4gAppender *base);
+    /*< public >*/
+    Log4gWriterAppenderSubAppend sub_append;
+    Log4gWriterAppenderCloseWriter close_writer;
+    Log4gWriterAppenderReset reset;
 };
 
 GType
@@ -112,93 +112,31 @@ log4g_writer_appender_get_type(void);
 void
 log4g_writer_appender_register(GTypeModule *module);
 
-/**
- * \brief Determine if it is OK to append.
- *
- * Checks the following conditions:
- * - The output target is set
- * - The layout is set
- * 
- * \param base [in] A writer appender object.
- *
- * \return \e TRUE if all entry conditions pass, \e FALSE otherwise.
- */
 gboolean
 log4g_writer_appender_check_entry_conditions(Log4gAppender *base);
 
-/**
- * \brief Set the stdio(3) stream to use.
- *
- * \param base [in] A writer appender object.
- * \param file [in] An open stdio(3) stream.
- *
- * \see stdio(3)
- */
 void
 log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file);
 
-/**
- * \brief Invokes the virtual function _Log4gWriterAppender::close_writer().
- *
- * \param base [in] A writer appender object.
- */
 void
 log4g_writer_appender_close_writer(Log4gAppender *base);
 
-/**
- * \brief Invokes the virtual function _Log4gWriterAppender::sub_append().
- *
- * \param base [in] A writer appender object.
- * \param event [in] The log event to append.
- */
 void
 log4g_writer_appender_sub_append(Log4gAppender *base,
         Log4gLoggingEvent *event);
 
-/**
- * \brief Invokes the virtual function _Log4gWriterAppender::reset().
- *
- * \param base [in] A writer appender object.
- */
 void
 log4g_writer_appender_reset(Log4gAppender *base);
 
-/**
- * \brief Write the layout footer.
- *
- * \param base [in] A writer appender object.
- */
 void
 log4g_writer_appender_write_footer(Log4gAppender *base);
 
-/**
- * \brief Write the layout header.
- *
- * \param base [in] A writer appender object.
- */
 void
 log4g_writer_appender_write_header(Log4gAppender *base);
 
-/**
- * \brief [protected] Retrieve the current quiet writer object.
- *
- * \param base [in] A writer appender object.
- *
- * \return The current quiet writer object used by \e base.
- *
- * \see quiet-writer.h
- */
 Log4gQuietWriter *
 log4g_writer_appender_get_quiet_writer(Log4gAppender *base);
 
-/**
- * \brief [protected] Set the quiet writer to use.
- *
- * \param base [in] A writer appender object.
- * \param writer [in] A quiet writer.
- *
- * \see quiet-writer.h
- */
 void
 log4g_writer_appender_set_quiet_writer(Log4gAppender *base,
         Log4gQuietWriter *writer);

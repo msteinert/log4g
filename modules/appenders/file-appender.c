@@ -16,9 +16,31 @@
  */
 
 /**
- * \brief Implements the API in file-appender.h
- * \author Mike Steinert
- * \date 2-9-2010
+ * SECTION: file-appender
+ * @short_description: Log events to a file
+ *
+ * The file appender logs events to a regular text file.
+ *
+ * File appenders accept the following properties:
+ * <orderedlist>
+ * <listitem><para>file</para></listitem>
+ * <listitem><para>append</para></listitem>
+ * <listitem><para>buffered-io</para></listitem>
+ * <listitem><para>buffer-size</para></listitem>
+ * </orderedlist>
+ *
+ * The value of file specifies the location of the output. This may be an
+ * absolute or relative path.
+ *
+ * The value of append determines if the file will be truncated when it is
+ * opened for writing. The default value is %TRUE (i.e. do not truncate).
+ *
+ * The value of buffered-io determines if file I/O will be buffered. Buffered
+ * I/O may exhibit improved performance, however messages in the buffer will
+ * be lost if your application crashes. Buffering is turned off by default.
+ *
+ * The buffer-size property controls the size of the I/O buffer. The default
+ * value is eight kilobytes (8192 bytes).
  */
 
 #ifdef HAVE_CONFIG_H
@@ -238,6 +260,18 @@ log4g_file_appender_register(GTypeModule *module)
     log4g_file_appender_register_type(module);
 }
 
+/**
+ * log4g_file_appender_set_file_full:
+ * @base: A file appender object.
+ * @file: The new value for the file property.
+ * @append: The new value for the append property.
+ * @buffered: The new value for the buffered-io property.
+ * @size: The new value for the size property.
+ *
+ * Calls the @set_file_full function from the #Log4gFileAppender of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         gboolean append, gboolean buffered, guint size)
@@ -247,13 +281,16 @@ log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         set_file_full(base, file, append, buffered, size);
 }
 
-void
-log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file)
-{
-    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
-    LOG4G_FILE_APPENDER_GET_CLASS(base)->set_qw_for_files(base, file);
-}
-
+/**
+ * log4g_file_appender_close_file:
+ * @base: A file appender object.
+ *
+ * Close the log file.
+ *
+ * Once a file appender is closed it is no longer usable.
+ *
+ * Since: 0.1
+ */
 void
 log4g_file_appender_close_file(Log4gAppender *base)
 {
@@ -264,6 +301,32 @@ log4g_file_appender_close_file(Log4gAppender *base)
     }
 }
 
+/**
+ * log4g_file_appender_set_qw_for_files:
+ * @base: A file appender object.
+ * @file: An open file descriptor.
+ *
+ * Calls the @set_qw_for_files function from the #Log4gFileAppenderClass
+ * of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file)
+{
+    g_return_if_fail(LOG4G_IS_FILE_APPENDER(base));
+    LOG4G_FILE_APPENDER_GET_CLASS(base)->set_qw_for_files(base, file);
+}
+
+/**
+ * log4g_file_appender_get_file:
+ * @base: A file appender object.
+ *
+ * Retrieve the file property.
+ *
+ * Returns: The name of the file being appended to.
+ * Since: 0.1
+ */
 const gchar *
 log4g_file_appender_get_file(Log4gAppender *base)
 {
@@ -271,6 +334,15 @@ log4g_file_appender_get_file(Log4gAppender *base)
     return GET_PRIVATE(base)->file;
 }
 
+/**
+ * log4g_file_appender_get_buffered_io:
+ * @base: A file appender object.
+ *
+ * Retrieve the buffered-io property.
+ *
+ * Returns: The buffered-io value for \e base.
+ * Since: 0.1
+ */
 gboolean
 log4g_file_appender_get_buffered_io(Log4gAppender *base)
 {
@@ -278,6 +350,15 @@ log4g_file_appender_get_buffered_io(Log4gAppender *base)
     return GET_PRIVATE(base)->buffered;
 }
 
+/**
+ * log4g_file_appender_get_buffer_size:
+ * @base: A file appender object.
+ *
+ * Retrieve the buffer-size property.
+ *
+ * Returns: The buffer-size value for \e base.
+ * Since: 0.1
+ */
 guint
 log4g_file_appender_get_buffer_size(Log4gAppender *base)
 {

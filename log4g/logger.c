@@ -17,7 +17,7 @@
 
 /**
  * SECTION: logger
- * @short_description: the central class in the Log4g package
+ * @short_description: The central class in the Log4g package
  *
  * Most logging operations (except configuration) are performed through this
  * class.

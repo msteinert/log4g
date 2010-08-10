@@ -17,7 +17,7 @@
 
 /**
  * SECTION: thread
- * @short_description: set the thread name for log messages
+ * @short_description: Set the thread name for log messages
  *
  * In order for a thread to have a name in the log output it must first be
  * set. This class allows the user to set the thread name. If the thread

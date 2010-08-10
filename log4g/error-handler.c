@@ -17,7 +17,7 @@
 
 /**
  * SECTION: error-handler
- * @short_description: delegate error handling
+ * @short_description: Delegate error handling
  * @see_also: #Log4gAppenderClass
  *
  * Appenders may delegate their error handling via this interface.

@@ -17,7 +17,7 @@
 
 /**
  * SECTION: filter
- * @short_description: log event filter base class
+ * @short_description: Log event filter base class
  *
  * Users may extend this class to implement custom log event filtering. Note
  * that Log4gLogger & Log4gAppenderSkeleton (the parent of all standard

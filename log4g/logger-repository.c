@@ -17,7 +17,7 @@
 
 /**
  * SECTION: logger-repository
- * @short_description: create and retrieve loggers
+ * @short_description: Create and retrieve loggers
  * @see_also: #Log4gLoggerClass
  *
  * A logger repository is used to create and retrieve loggers. The

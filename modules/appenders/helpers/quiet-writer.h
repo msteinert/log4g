@@ -15,17 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Write to a stdio(3) stream.
- * \author Mike Steinert
- * \date 2-8-2010
- *
- * The quiet writer class handles errors via an error handler.
- *
- * \see log4g/interface/error-handler.h
- */
-
 #ifndef LOG4G_QUIET_WRITER_H
 #define LOG4G_QUIET_WRITER_H
 
@@ -55,29 +44,42 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_QUIET_WRITER, \
             Log4gQuietWriterClass))
 
-/** \brief Log4gQuietWriter object type definition */
 typedef struct _Log4gQuietWriter Log4gQuietWriter;
 
-/** \brief Log4gQuietWriter class type definition */
 typedef struct _Log4gQuietWriterClass Log4gQuietWriterClass;
 
-/** \brief Log4gQuietWriterClass definition */
+/**
+ * Log4gQuietWriter:
+ *
+ * The <structname>Log4gQuietWriter</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gQuietWriter {
+    /*< private >*/
     GObject parent_instance;
 };
 
-/** \brief Log4gQuietWriterClass definition */
-struct _Log4gQuietWriterClass {
-    GObjectClass parent_class;
+/**
+ * Log4gQuietWriterWrite:
+ * @self: A quiet writer object.
+ * @string: The string to write.
+ *
+ * Write a string to a stdio(3) stream.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gQuietWriterWrite)(Log4gQuietWriter *self, const gchar *string);
 
-    /**
-     * \brief Write a string to a stdio(3) stream.
-     *
-     * \param self [in] A quiet writer object.
-     * \param string [in] The string to write.
-     */
-    void
-    (*write)(Log4gQuietWriter *self, const gchar *string);
+/**
+ * Log4gQuietWriterClass:
+ * @write: Write to a stdio(3) stream.
+ */
+struct _Log4gQuietWriterClass {
+    /*< private >*/
+    GObjectClass parent_class;
+    /*< public >*/
+    Log4gQuietWriterWrite write;
 };
 
 GType
@@ -86,67 +88,21 @@ log4g_quiet_writer_get_type(void);
 void
 log4g_quiet_writer_register(GTypeModule *module);
 
-/**
- * \brief Create a new quiet writer object.
- *
- * \param file [in] An open stdio(3) stream.
- * \param error [in] The error handler to use.
- *
- * \return A new quiet writer object.
- *
- * \see stdio(3), log4g/interface/quiet-writer.h
- */
 Log4gQuietWriter *
 log4g_quiet_writer_new(FILE *file, gpointer error);
 
-/**
- * \brief Close the stdio(3) stream held by a quiet writer object.
- *
- * \param self [in] A quiet writer object.
- *
- * \see stdio(3)
- */
 void
 log4g_quiet_writer_close(Log4gQuietWriter *self);
 
-/**
- * \brief Invokes the virtual function _Log4gQuietWriterClass::write().
- *
- * \param self [in] A quiet writer object.
- * \param string [in] The string to write.
- */
 void
 log4g_quiet_writer_write(Log4gQuietWriter *self, const char *string);
 
-/**
- * \brief Flush the stdio(3) stream.
- *
- * \param self [in] A quiet writer object.
- *
- * \see stdio(3)
- */
 void
 log4g_quiet_writer_flush(Log4gQuietWriter *self);
 
-/**
- * \brief Set the error handler for a quiet writer.
- *
- * \param self [in] A quiet writer object.
- * \param error [in] A new error handler for \e self.
- *
- * \see log4g/interface/error-handler.h
- */
 void
 log4g_quiet_writer_set_error_handler(Log4gQuietWriter *self, gpointer error);
 
-/**
- * \brief [protected] Set the stdio(3) stream to write to.
- *
- * \param self [in] A quiet writer object.
- * \param file [in] An open stdio(3) stream.
- *
- * \see stdio(3)
- */
 void
 log4g_quiet_writer_set_file(Log4gQuietWriter *self, FILE *file);
 

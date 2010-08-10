@@ -17,7 +17,7 @@
 
 /**
  * SECTION: ndc
- * @short_description: nested data context.
+ * @short_description: Nested data context
  *
  * The NDC class implements nested data contexts. A nested data context (NDC
  * for short) is an instrument to distinguish interleaved log output from

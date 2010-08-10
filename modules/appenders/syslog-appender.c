@@ -16,9 +16,30 @@
  */
 
 /**
- * \brief Implements the API in syslog-appender.h
- * \author Mike Steinert
- * \date 2-11-2010
+ * SECTION: syslog-appender
+ * @short_description: Append to the local syslog
+ * @see_also: syslog(3), syslog.conf(5), syslogd(8)
+ *
+ * This is a simple syslog appender that appends to the local syslog (usually
+ * /var/log/messages) using the syslog(3) system call.
+ *
+ * Syslog appenders accept the following properties:
+ * <orderedlist>
+ * <listitem><para>ident</para></listitem>
+ * <listitem><para>option</para></listitem>
+ * <listitem><para>facility</para></listitem>
+ * </orderedlist>
+ *
+ * The value of ident will be the first parameter to openlog(3).
+ *
+ * The value of option will be the second parameter to openlog(3).
+ *
+ * The value of facility will be the third parameter to openlog(3).
+ *
+ * <note><para>
+ * The behavior of this appender may be affected by the configuration of the
+ * syslog daemon. Refer to the syslog documentation for more information.
+ * </para></note>
  */
 
 #ifdef HAVE_CONFIG_H

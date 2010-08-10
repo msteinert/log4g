@@ -16,9 +16,24 @@
  */
 
 /**
- * \brief Implements the API in rolling_file-appender.h
- * \author Mike Steinert
- * \date 2-17-2010
+ * SECTION: rolling-file-appender
+ * @short_description: Backup log files when they reach a specified size
+ *
+ * This class extends #Log4gFileAppenderClass to backup log files when they
+ * reach a specified size.
+ *
+ * Rolling file appenders accept two properties:
+ * <orderedlist>
+ * <listitem><para>max-backup-index</para></listitem>
+ * <listitem><para>maximum-file-size</para></listitem>
+ * </orderedlist>
+ *
+ * The value of max-backup-index sets the number of backup files that will
+ * be kept. For example if the value is ten, then eleven files will be kept
+ * (indexes zero through ten). The default value is one.
+ *
+ * The log files will be rotated when the current log file reaches a size of
+ * maximum-file-size or larger. The default value is ten megabytes.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -44,8 +59,8 @@ G_DEFINE_DYNAMIC_TYPE(Log4gRollingFileAppender, log4g_rolling_file_appender,
             struct Log4gPrivate))
 
 struct Log4gPrivate {
-    guint backup; /**< The number of backup indexes to keep */
-    gulong max; /**< The maximum file size (default is 10MB) */
+    guint backup; /* The number of backup indexes to keep */
+    gulong max; /* The maximum file size (default is 10MB) */
     gulong next;
 };
 
@@ -202,6 +217,14 @@ log4g_rolling_file_appender_register(GTypeModule *module)
     log4g_rolling_file_appender_register_type(module);
 }
 
+/**
+ * log4g_rolling_file_appender_roll_over:
+ * @base: A rolling file appender object.
+ *
+ * Calls the @roll_over function from the #Log4gRollingFileAppender of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_rolling_file_appender_roll_over(Log4gAppender *base)
 {

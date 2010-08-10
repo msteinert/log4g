@@ -17,7 +17,7 @@
 
 /**
  * SECTION: log
- * @short_description: internal logging API
+ * @short_description: Internal logging API
  * @title: Log4gInternalLogging
  * @section_id: Log4gInternalLogging
  *

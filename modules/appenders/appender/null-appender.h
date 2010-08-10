@@ -15,15 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief A do-nothing appender.
- * \author Mike Steinert
- * \date 2-8-2010
- *
- * The null appender merely exists; It never outputs any log messages.
- */
-
 #ifndef LOG4G_NULL_APPENDER_H
 #define LOG4G_NULL_APPENDER_H
 
@@ -52,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_NULL_APPENDER, \
             Log4gNullAppenderClass))
 
-/** \brief Log4gNullAppender object type definition */
 typedef struct _Log4gNullAppender Log4gNullAppender;
 
-/** \brief Log4gNullAppender class type definition */
 typedef struct _Log4gNullAppenderClass Log4gNullAppenderClass;
 
-/** \brief Log4gNullAppenderClass definition */
+/**
+ * Log4gNullAppender:
+ *
+ * The <structname>Log4gNullAppender</structname> structure does not have any
+ * public members.
+ */
 struct _Log4gNullAppender {
+    /*< private >*/
     Log4gAppender parent_instance;
 };
 
-/** \brief Log4gNullAppenderClass definition */
+/**
+ * Log4gNullAppenderClass:
+ *
+ * The <structname>Log4gNullAppenderClass</structname> structure does not have
+ * any public members.
+ */
 struct _Log4gNullAppenderClass {
+    /*< private >*/
     Log4gAppenderClass parent_class;
 };
 

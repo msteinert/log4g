@@ -17,7 +17,7 @@
 
 /**
  * SECTION: default-module-loader
- * @short_description: an implementation of the module loader interface
+ * @short_description: An implementation of the module loader interface
  * @see_also: #Log4gModuleLoaderInterface
  *
  * This class provides the default module loader implementation used by Log4g.

@@ -17,7 +17,7 @@
 
 /**
  * SECTION: layout
- * @short_description: log event layout base class
+ * @short_description: Log event layout base class
  *
  * Users may extend this class to implement custom log event layouts.
  *

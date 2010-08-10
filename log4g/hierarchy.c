@@ -17,7 +17,7 @@
 
 /**
  * SECTION: hierarchy
- * @short_description: maintain the logger hierarchy
+ * @short_description: Maintain the logger hierarchy
  * @see_also: #Log4gLoggerRepository
  *
  * This class specializes in retrieving loggers by name and maintaining the

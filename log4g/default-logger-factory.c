@@ -17,7 +17,7 @@
 
 /**
  * SECTION: default-logger-factory
- * @short_description: an implementation of logger factory interface
+ * @short_description: An implementation of logger factory interface
  * @see_also: #Log4gLoggerFactoryInterface
  *
  * This class provides the default logger factory implementation used by Log4g.

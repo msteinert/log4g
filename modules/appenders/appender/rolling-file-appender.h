@@ -15,27 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Backup log files when they reach a specified size.
- * \author Mike Steinert
- * \date 2-17-2010
- *
- * This class extends \ref file-appender.h "file appender" to backup log
- * files when they reach a specified size.
- *
- * Rolling file appenders accept two properties:
- * -# max-backup-index
- * -# maximum-file-size
- *
- * The value of max-backup-index sets the number of backup files that will
- * be kept. For example if the value is ten, then eleven files will be kept
- * (indexes zero through ten). The default value is one.
- *
- * The log files will be rotated when the current log file reaches a size of
- * maximum-file-size or larger. The default value is ten megabytes.
- */
-
 #ifndef LOG4G_ROLLING_FILE_APPENDER_H
 #define LOG4G_ROLLING_FILE_APPENDER_H
 
@@ -64,31 +43,41 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_ROLLING_FILE_APPENDER, \
             Log4gRollingFileAppenderClass))
 
-/** \brief Log4gRollingFileAppender object type definition */
 typedef struct _Log4gRollingFileAppender Log4gRollingFileAppender;
 
-/** \brief Log4gRollingFileAppender class type definition */
 typedef struct _Log4gRollingFileAppenderClass Log4gRollingFileAppenderClass;
 
-/** \brief Log4gRollingFileAppenderClass definition */
+/**
+ * Log4gRollingFileAppender:
+ *
+ * The <structname>Log4gRollingFileAppender</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gRollingFileAppender {
+    /*< private >*/
     Log4gFileAppender parent_instance;
 };
 
-/** \brief Log4gRollingFileAppenderClass definition */
-struct _Log4gRollingFileAppenderClass {
-    Log4gFileAppenderClass parent_class;
+/**
+ * Log4gFileAppenderRollOver:
+ * @base: A rolling file appender object.
+ *
+ * Subclasses may overload this function to implement custom rollover schemes.
+ *
+ * Since: 0.1
+ */
+typedef void
+(*Log4gFileAppenderRollOver)(Log4gAppender *base);
 
-    /**
-     * \brief Roll the current log file over.
-     *
-     * Subclasses may overload this function to implement custom rollover
-     * schemes.
-     *
-     * \param base [in] A rolling file appender object.
-     */
-    void
-    (*roll_over)(Log4gAppender *base);
+/**
+ * Log4gRollingFileAppenderClass:
+ * @roll_over: Roll the current log file over.
+ */
+struct _Log4gRollingFileAppenderClass {
+    /*< private >*/
+    Log4gFileAppenderClass parent_class;
+    /*< public >*/
+    Log4gFileAppenderRollOver roll_over;
 };
 
 GType
@@ -97,11 +86,6 @@ log4g_rolling_file_appender_get_type(void);
 void
 log4g_rolling_file_appender_register(GTypeModule *module);
 
-/**
- * \brief Invokes the virtual function _Log4gRollingFileAppender::roll_over().
- *
- * \param base [in] A rolling file appender object.
- */
 void
 log4g_rolling_file_appender_roll_over(Log4gAppender *base);
 

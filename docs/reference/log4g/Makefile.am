@@ -14,7 +14,7 @@ DOC_MODULE_VERSION = 1
 DOC_MAIN_SGML_FILE = $(DOC_MODULE)-docs.sgml
 
 # The directory containing the source code. Relative to $(srcdir).
-DOC_SOURCE_DIR = ../../../log4g
+DOC_SOURCE_DIR = ../../..
 
 # Extra options to pass to gtkdoc-scangobj. Not normally needed.
 SCANGOBJ_OPTIONS =
@@ -38,10 +38,21 @@ FIXXREF_OPTIONS =
 HFILE_GLOB = \
     $(top_srcdir)/log4g/*.h \
     $(top_srcdir)/log4g/helpers/*.h \
-    $(top_srcdir)/log4g/interface/*.h
+    $(top_srcdir)/log4g/interface/*.h \
+    $(top_srcdir)/modules/appenders/appender/*.h \
+    $(top_srcdir)/modules/appenders/helpers/*.h \
+    $(top_srcdir)/modules/couchdb/appender/*.h \
+    $(top_srcdir)/modules/couchdb/layout/*.h \
+    $(top_srcdir)/modules/filters/filter/*.h \
+    $(top_srcdir)/modules/layouts/helpers/*.h \
+    $(top_srcdir)/modules/layouts/layout/*.h
 
 CFILE_GLOB = \
-    $(top_srcdir)/log4g/*.c
+    $(top_srcdir)/log4g/*.c \
+    $(top_srcdir)/modules/appenders/*.c \
+    $(top_srcdir)/modules/couchdb/*.c \
+    $(top_srcdir)/modules/filters/*.c \
+    $(top_srcdir)/modules/layouts/*.c
 
 # Extra header to include when scanning, which are not under DOC_SOURCE_DIR
 EXTRA_HFILES =

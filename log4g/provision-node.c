@@ -17,7 +17,7 @@
 
 /**
  * SECTION: provision-node
- * @short_description: log repository temporary nodes
+ * @short_description: Log repository temporary nodes
  *
  * Provision nodes are place holders for non-instantiated loggers within the
  * logger hierarchy.

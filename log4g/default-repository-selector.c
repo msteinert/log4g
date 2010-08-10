@@ -17,7 +17,7 @@
 
 /**
  * SECTION: default-repository-selector
- * @short_description: an implementation of the repository selector interface
+ * @short_description: An implementation of the repository selector interface
  * @see_also: #Log4gRepositorySelectorInterface
  *
  * This class provides the repository selector implementation used by Log4g.

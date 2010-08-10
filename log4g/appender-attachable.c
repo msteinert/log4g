@@ -17,7 +17,7 @@
 
 /**
  * SECTION: appender-attachable
- * @short_description: attach appenders to objects
+ * @short_description: Attach appenders to objects
  * @see_also: #Log4gAppenderClass
  *
  * This interface defines a standard API for attaching appenders to other

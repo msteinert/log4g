@@ -17,7 +17,7 @@
 
 /**
  * SECTION: basic-configurator
- * @short_description: quickly configure Log4g
+ * @short_description: Quickly configure Log4g
  * @title: Log4gBasicConfigurator
  * @section_id: Log4gBasicConfigurator
  *

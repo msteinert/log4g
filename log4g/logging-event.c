@@ -17,7 +17,7 @@
 
 /**
  * SECTION: logging-event
- * @short_description: the internal representation of logging events
+ * @short_description: The internal representation of logging events
  *
  * Once an affirmative decision is made to log an event a logging event
  * instance is created. This instance is passed to appenders and filters to

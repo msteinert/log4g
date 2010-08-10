@@ -15,17 +15,6 @@
  * along with Log4g. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- * \brief Counts the number of bytes written.
- * \author Mike Steinert
- * \date 2-17-2010
- *
- * A quiet writer that counts the number of bytes it has written.
- *
- * \see quiet-writer.h
- */
-
 #ifndef LOG4G_COUNTING_QUIET_WRITER_H
 #define LOG4G_COUNTING_QUIET_WRITER_H
 
@@ -54,19 +43,29 @@ G_BEGIN_DECLS
     (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_COUNTING_QUIET_WRITER, \
             Log4gCountingQuietWriterClass))
 
-/** \brief Log4gCountingQuietWriter object type definition */
 typedef struct _Log4gCountingQuietWriter Log4gCountingQuietWriter;
 
-/** \brief Log4gCountingQuietWriter class type definition */
 typedef struct _Log4gCountingQuietWriterClass Log4gCountingQuietWriterClass;
 
-/** \brief Log4gCountingQuietWriterClass definition */
+/**
+ * Log4gCountingQuietWriter:
+ *
+ * The <structname>Log4gCountingQuietWriter</structname> structure does not
+ * have any public members.
+ */
 struct _Log4gCountingQuietWriter {
+    /*< private >*/
     Log4gQuietWriter parent_instance;
 };
 
-/** \brief Log4gCountingQuietWriterClass definition */
+/**
+ * Log4gCountingQuietWriterClass:
+ *
+ * The <structname>Log4gCountingQuietWriterClass</structname> structure does
+ * not have any public members.
+ */
 struct _Log4gCountingQuietWriterClass {
+    /*< private >*/
     Log4gQuietWriterClass parent_class;
 };
 
@@ -76,38 +75,12 @@ log4g_counting_quiet_writer_get_type(void);
 void
 log4g_counting_quiet_writer_register(GTypeModule *module);
 
-/**
- * \brief Create a new counting quiet writer object.
- *
- * \param file [in] The an open stdio(3) stream to write to.
- * \param error [in] The error handler to use.
- *
- * \return A new counting quiet writer object.
- *
- * \see stdio(3), log4g/interface/error-handler.h
- */
 Log4gQuietWriter *
 log4g_counting_quiet_writer_new(FILE *file, GObject *error);
 
-/**
- * \brief Retrieve the number of bytes written.
- *
- * \param base [in] A counting quiet writer object.
- *
- * \return The number of bytes written by \e base.
- */
 gulong
 log4g_counting_quiet_writer_get_count(Log4gQuietWriter *base);
 
-/**
- * \brief Set the number of bytes a counting quiet writer thinks it has
- *        written.
- *
- * This function is mostly useful for resetting the count to zero.
- *
- * \param base [in] A counting quiet writer object.
- * \param count [in] The number of bytes \e self will think it has written.
- */
 void
 log4g_counting_quiet_writer_set_count(Log4gQuietWriter *base, gulong count);
 

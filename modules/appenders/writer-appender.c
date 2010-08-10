@@ -16,9 +16,19 @@
  */
 
 /**
- * \brief Implements the API in writer-appender.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: writer-appender
+ * @short_description: Append to a stdio(3) stream.
+ * @see_also: stdio(3)
+ *
+ * This class is a base class for appenders that write to stdio(3) streams.
+ *
+ * Writer appenders accept one property:
+ * <orderedlist>
+ * <listitem><para>immediate-flush</para></listitem>
+ * </orderedlist>
+ *
+ * The value of immediate-flush determines if the I/O stream will be flushed
+ * after each write. The default value is %TRUE.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -211,6 +221,21 @@ log4g_writer_appender_register(GTypeModule *module)
     log4g_writer_appender_register_type(module);
 }
 
+/**
+ * log4g_writer_appender_check_entry_conditions:
+ * @base: A writer appender object.
+ *
+ * Determine if it is OK to append.
+ *
+ * Checks the following conditions:
+ * <itemizedlist>
+ * <listitem><para>The output target is set</para></listitem>
+ * <listitem><para>The layout is set</para></listitem>
+ * </itemizedlist>
+ * 
+ * Returns: %TRUE if all entry conditions pass, %FALSE otherwise.
+ * Since: 0.1
+ */
 gboolean
 log4g_writer_appender_check_entry_conditions(Log4gAppender *base)
 {
@@ -242,13 +267,17 @@ log4g_writer_appender_check_entry_conditions(Log4gAppender *base)
     return TRUE;
 }
 
-void
-log4g_writer_appender_close_writer(Log4gAppender *base)
-{
-    g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
-    LOG4G_WRITER_APPENDER_GET_CLASS(base)->close_writer(base);
-}
-
+/**
+ * log4g_writer_appender_set_writer:
+ * @base: A writer appender object.
+ * @file: An open stdio(3) stream.
+ *
+ * Set the stdio(3) stream to use.
+ *
+ * @See: stdio(3)
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file)
 {
@@ -256,6 +285,30 @@ log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file)
     g_object_set(base, "writer", file, NULL);
 }
 
+/**
+ * log4g_writer_appender_close_writer:
+ * @base: A writer appender object.
+ *
+ * Calls the @close_writer function from the #Log4gWriterAppender of @self.
+ *
+ * Since: 0.1
+ */
+void
+log4g_writer_appender_close_writer(Log4gAppender *base)
+{
+    g_return_if_fail(LOG4G_IS_WRITER_APPENDER(base));
+    LOG4G_WRITER_APPENDER_GET_CLASS(base)->close_writer(base);
+}
+
+/**
+ * log4g_writer_appender_sub_append:
+ * @base: A writer appender object.
+ * @event: The log event to append.
+ *
+ * Calls the @sub_append function from the #Log4gWriterAppender of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_sub_append(Log4gAppender *base,
         Log4gLoggingEvent *event)
@@ -264,6 +317,14 @@ log4g_writer_appender_sub_append(Log4gAppender *base,
     LOG4G_WRITER_APPENDER_GET_CLASS(base)->sub_append(base, event);
 }
 
+/**
+ * log4g_writer_appender_reset:
+ * @base: A writer appender object.
+ *
+ * Calls the @reset function from the #Log4gWriterAppender of @self.
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_reset(Log4gAppender *base)
 {
@@ -271,6 +332,14 @@ log4g_writer_appender_reset(Log4gAppender *base)
     LOG4G_WRITER_APPENDER_GET_CLASS(base)->reset(base);
 }
 
+/**
+ * log4g_writer_appender_write_footer:
+ * @base: A writer appender object.
+ *
+ * Write the layout footer.
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_write_footer(Log4gAppender *base)
 {
@@ -286,6 +355,14 @@ log4g_writer_appender_write_footer(Log4gAppender *base)
     }
 }
 
+/**
+ * log4g_writer_appender_write_header:
+ * @base: A writer appender object.
+ *
+ * Write the layout header.
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_write_header(Log4gAppender *base)
 {
@@ -300,6 +377,17 @@ log4g_writer_appender_write_header(Log4gAppender *base)
     }
 }
 
+/**
+ * log4g_writer_appender_get_quiet_writer:
+ * @base: A writer appender object.
+ *
+ * Retrieve the current quiet writer object.
+ *
+ * @See: #Log4gQuietWriterClass
+ *
+ * Returns: The current quiet writer object used by @base.
+ * Since: 0.1
+ */
 Log4gQuietWriter *
 log4g_writer_appender_get_quiet_writer(Log4gAppender *base)
 {
@@ -307,6 +395,17 @@ log4g_writer_appender_get_quiet_writer(Log4gAppender *base)
     return GET_PRIVATE(base)->writer;
 }
 
+/**
+ * log4g_writer_appender_set_quiet_writer:
+ * @base: A writer appender object.
+ * @writer: A quiet writer.
+ *
+ * Set the quiet writer to use.
+ *
+ * @See: #Log4gQuietWriterClass
+ *
+ * Since: 0.1
+ */
 void
 log4g_writer_appender_set_quiet_writer(Log4gAppender *base,
         Log4gQuietWriter *writer)

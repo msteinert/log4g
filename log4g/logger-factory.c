@@ -17,7 +17,7 @@
 
 /**
  * SECTION: logger-factory
- * @short_description: create a logger via a factory class
+ * @short_description: Create a logger via a factory class
  * @see_also: #Log4gLoggerClass
  *
  * Implement this interface to create new instances of #Log4gLogger or a

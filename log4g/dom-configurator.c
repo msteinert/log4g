@@ -17,7 +17,7 @@
 
 /**
  * SECTION: dom-configurator
- * @short_description: initialize the Log4g environment using a DOM tree
+ * @short_description: Initialize the Log4g environment using a DOM tree
  * @see_also: log4g_init(), log4g_get_option_group()
  *
  * The DTD is specified in log4g.dtd. The Log4g DTD differs in some small

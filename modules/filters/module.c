@@ -33,7 +33,7 @@
 void
 log4g_module_load(GTypeModule *module)
 {
-    g_type_module_set_name(module, "core");
+    g_type_module_set_name(module, "core-filters");
     log4g_deny_all_filter_register(module);
     log4g_level_range_filter_register(module);
     log4g_level_match_filter_register(module);

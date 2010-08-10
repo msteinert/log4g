@@ -17,7 +17,7 @@
 
 /**
  * SECTION: repository-selector
- * @short_description: select the correct logger repository
+ * @short_description: Select the correct logger repository
  * @see_also: #Log4gLoggerRepositoryInterface
  *
  * The log manager uses a repository selector implementation to select the

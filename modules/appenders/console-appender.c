@@ -16,9 +16,25 @@
  */
 
 /**
- * \brief Implements the API in console-appender.h
- * \author Mike Steinert
- * \date 2-8-2010
+ * SECTION: console-appender
+ * @short_description: Log events to stdout or stderr
+ * @see_also: freopen(3)
+ *
+ * The console appender logs events to stdout or stderr using a layout
+ * specified by the user. The default target is stdout.
+ *
+ * Console appenders accept two properties:
+ * <orderedlist>
+ * <listitem><para>target</para></listitem>
+ * <listitem><para>follow</para></listitem>
+ * </orderedlist>
+ *
+ * The value of target determines where the output will be logged. The value
+ * must be one of "stdout" or "stderr". The default is "stdout".
+ *
+ * The value of follow determines if the log output will follow reopens of
+ * the target stream. The default value is %TRUE.
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -41,10 +57,10 @@ G_DEFINE_DYNAMIC_TYPE(Log4gConsoleAppender, log4g_console_appender,
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_CONSOLE_APPENDER, \
             struct Log4gPrivate))
 
-/** \brief System output identifier */
+/* System output identifier */
 #define SYSTEM_OUT "stdout"
 
-/** \brief System error identifier */
+/* System error identifier */
 #define SYSTEM_ERR "stderr"
 
 struct Log4gPrivate {

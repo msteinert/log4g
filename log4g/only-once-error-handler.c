@@ -17,7 +17,7 @@
 
 /**
  * SECTION: only-once-error-handler
- * @short_description: emit an error only once
+ * @short_description: Emit an error only once
  * @see_also: #Log4gErrorHandlerInterface
  *
  * This class implements Log4g's default error handling policy. Only the first
