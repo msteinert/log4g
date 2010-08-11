@@ -13,16 +13,16 @@
         </releaseinfo>
     </bookinfo>
     <part>
-    <title>Log4g Overview</title>
+        <title>Log4g Overview</title>
         <para>
 TODO
         </para>
         <xi:include href="introduction.sgml" />
     </part>
     <part>
-    <title>API Reference</title>
-        <chapter id="log4g-core">
-        <title>Public API</title>
+        <title>API Reference</title>
+        <chapter id="log4g-public">
+        <title>Public Interface</title>
             <para>
 TODO
             </para>
@@ -33,7 +33,7 @@ TODO
             <xi:include href="xml/thread.xml" />
         </chapter>
         <chapter>
-        <title>Configuration</title>
+            <title>Configuration</title>
             <para>
 TODO
             </para>
@@ -41,8 +41,8 @@ TODO
             <xi:include href="xml/dom-configurator.xml" />
             <xi:include href="xml/basic-configurator.xml" />
         </chapter>
-        <chapter id="">
-        <title>Core API</title>
+        <chapter id="log4g-core">
+            <title>Core Classes</title>
             <para>
 TODO
             </para>
@@ -54,8 +54,8 @@ TODO
             <xi:include href="xml/level.xml" />
             <xi:include href="xml/error.xml" />
         </chapter>
-        <chapter id="log4g-backend">
-        <title>Backend API</title>
+        <chapter id="log4g-logger-management">
+            <title>Logger Management</title>
             <para>
 TODO
             </para>
@@ -75,12 +75,12 @@ TODO
         </chapter>
     </part>
     <part>
-    <title>Modules</title>
+        <title>Modules</title>
         <para>
 TODO
         </para>
         <chapter id="log4g-extending">
-        <title>Extending Log4g</title>
+            <title>Extending Log4g</title>
             <para>
 TODO
             </para>
@@ -91,8 +91,8 @@ TODO
         <para>
 TODO
         </para>
-        <chapter id="log4g-core-appenders">
-        <title>Core Appenders</title>
+        <chapter id="log4g-appenders">
+            <title>Appenders</title>
             <para>
 TODO
             </para>
@@ -106,8 +106,8 @@ TODO
             <xi:include href="xml/quiet-writer.xml" />
             <xi:include href="xml/counting-quiet-writer.xml" />
         </chapter>
-        <chapter id="log4g-core-filters">
-        <title>Core Filters</title>
+        <chapter id="log4g-filters">
+            <title>Filters</title>
             <para>
 TODO
             </para>
@@ -116,8 +116,8 @@ TODO
             <xi:include href="xml/level-range-filter.xml" />
             <xi:include href="xml/string-match-filter.xml" />
         </chapter>
-        <chapter id="log4g-core-layouts">
-        <title>Core Layouts</title>
+        <chapter id="log4g-layouts">
+            <title>Layouts</title>
             <para>
 TODO
             </para>
@@ -131,7 +131,7 @@ TODO
             <xi:include href="xml/pattern-parser.xml" />
         </chapter>
         <chapter id="log4g-couchdb">
-        <title>CouchDB</title>
+            <title>CouchDB</title>
             <para>
 TODO
             </para>

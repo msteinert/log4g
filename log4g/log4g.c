@@ -18,7 +18,11 @@
 /**
  * SECTION: log4g
  * @short_description: The main Log4g interface
- * @see_also: #Log4gNDCClass, #Log4gMDCClass
+ * @title: Log4g
+ * @section_id: Log4g
+ * @see_also: #Log4gNDC, #Log4gMDC, #Log4gDOMConfigurator,
+ *            #Log4gBasicConfigurator, #Log4gThread, #Log4gAsyncAppender,
+ *            #Log4gLogger, #Log4gRootLogger
  *
  * The file defines the API that most users of Log4g will want to use.
  * Sticking to this API will allow you to easily compile Log4g out of your
@@ -272,8 +276,6 @@ post_parse_hook(GOptionContext *context, GOptionGroup *group,
  * If you use the returned option group in a GLib option parser you do not
  * need to call log4g_init().
  *
- * @See: log4g_init(), log4g_finalize()
- *
  * Returns: A GLib option group.
  * Since: 0.1
  */
@@ -376,9 +378,6 @@ log4g_get_option_group(void)
  * After calling this function the Log4g API is ready for use within your
  * application.
  *
- * @See: log4g_get_option_group(), log4g_finalize(), #Log4gDOMConfiguratorClass
- *       #Log4gBasicConfigurator, #Log4gThreadClass
- *
  * Since: 0.1
  */
 void
@@ -436,8 +435,6 @@ log4g_init(int *argc, char ***argv)
  *
  * If you call this function you must call log4g_init() again before using
  * the Log4g API.
- *
- * @See: log4g_init(), log4g_get_option_group(), #Log4gAsyncAppenderClass
  *
  * Since: 0.1
  */
