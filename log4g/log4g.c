@@ -93,7 +93,7 @@ typedef struct _Options {
 static Options *
 options_new(void)
 {
-    Options *self = g_try_malloc(sizeof *self);
+    Options *self = g_slice_new(Options);
     if (!self) {
         return NULL;
     }
@@ -110,7 +110,7 @@ options_destroy(gpointer object)
     if (self) {
         g_free(self->configuration);
         g_free(self->thread);
-        g_free(self);
+        g_slice_free(Options, self);
     }
 }
 

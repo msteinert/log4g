@@ -87,7 +87,7 @@ log4g_discard_summary_destroy(Log4gDiscardSummary *self)
         if (self->event) {
             g_object_unref(self->event);
         }
-        g_free(self);
+        g_slice_free(Log4gDiscardSummary, self);
     }
 }
 
@@ -104,7 +104,7 @@ log4g_discard_summary_new(Log4gLoggingEvent *event)
 {
     g_return_val_if_fail(event, NULL);
     g_return_val_if_fail(LOG4G_IS_LOGGING_EVENT(event), NULL);
-    Log4gDiscardSummary *self = g_try_malloc(sizeof *self);
+    Log4gDiscardSummary *self = g_slice_new(Log4gDiscardSummary);
     if (!self) {
         log4g_discard_summary_destroy(self);
         return NULL;
