@@ -71,12 +71,12 @@ pre {
 }
 
 ul > li {
-    list-style-image: url(images/bullet.gif);
+    list-style-image: url(images/bullet.png);
     list-style-type: circle;
 }
 
 ul > li:hover {
-    list-style-image: url(images/bullet.gif);
+    list-style-image: url(images/bullet.png);
 }
 
 os.ul {
