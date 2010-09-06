@@ -636,7 +636,7 @@ error_handler(void *ctx, const char *format, ...)
     g_string_append_vprintf(string, format, ap);
     if (string->str[string->len - 1] == '\n') {
         string->str[string->len - 1] = '\0';
-        log4g_log_warn(string->str);
+        log4g_log_warn("%s", string->str);
         g_string_set_size(string, 0);
     }
     va_end(ap);
@@ -657,8 +657,7 @@ do_configure(Log4gConfigurator *base, const char *uri,
     xmlSetGenericErrorFunc(string, error_handler);
     gint options =
         XML_PARSE_NOWARNING | XML_PARSE_NOERROR | XML_PARSE_NOBLANKS;
-    const gchar *env = g_getenv("LOG4G_PARSE_DTDVALID");
-    if (env) {
+    if (g_getenv("LOG4G_PARSE_DTDVALID")) {
         options |= XML_PARSE_DTDVALID;
     }
     /* read XML file */
