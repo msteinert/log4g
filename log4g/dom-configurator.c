@@ -53,13 +53,13 @@
  * In this example all events will be logged to the console appender (stdout by
  * default) using the specified pattern layout.
  *
- * You may enable internal log messages by setting the \e LOG4G_FLAGS
+ * You may enable internal log messages by setting the LOG4G_FLAGS
  * environment variable to "debug". For example (Bash):
  * |[
  * $ export LOG4G_FLAGS=debug
  * ]|
  *
- * Alternatively you may set the \e debug attribute in the log4g:configuration
+ * Alternatively you may set the "debug" attribute in the log4g:configuration
  * element:
  * |[
  * &lt;log4g:configuration debug="true"&gt;

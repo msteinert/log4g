@@ -146,18 +146,6 @@ log4g_arg_main_thread_cb(const gchar *key, const gchar *value,
     return TRUE;
 }
 
-G_GNUC_NORETURN static gboolean
-log4g_arg_version_cb(const gchar *key, const gchar *value, gpointer user_data)
-{
-    g_print("Log4g %s\n\n"
-            "Copyright 2010 Michael Steinert\n"
-            "This is free software; see the source "
-            "for copying conditions. There is NO\n"
-            "warranty; not even for MERCHANTABILITY "
-            "or FITNESS FOR A PARTICULAR PURPOSE.\n" , VERSION);
-    exit(EXIT_SUCCESS);
-}
-
 static const GOptionEntry log4g_args[] = {
     { "log4g-configuration", '\0', G_OPTION_FLAG_FILENAME,
       G_OPTION_ARG_CALLBACK, log4g_arg_configuration_cb,
@@ -168,9 +156,6 @@ static const GOptionEntry log4g_args[] = {
     { "log4g-main-thread", '\0', 0,
       G_OPTION_ARG_CALLBACK, log4g_arg_main_thread_cb,
       N_("Set the name of the main thread"), N_("NAME") },
-    { "log4g-version", '\0', G_OPTION_FLAG_NO_ARG,
-      G_OPTION_ARG_CALLBACK, log4g_arg_version_cb,
-      N_("Display the Log4g version"), NULL },
     { NULL }
 };
 
@@ -370,10 +355,6 @@ log4g_get_option_group(void)
  * <emphasis>--log4g-main-thread=&lt;NAME&gt;</emphasis>
  *
  * Set the name of the main thread (the default is "main").
- *
- * <emphasis>--log4g-version</emphasis>
- *
- * Display the version of Log4g that your application is linked with.
  *
  * After calling this function the Log4g API is ready for use within your
  * application.

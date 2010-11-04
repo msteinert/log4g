@@ -77,6 +77,7 @@ log4g_couchdb_appender_init(Log4gCouchdbAppender *self)
     priv->uri = NULL;
     priv->name = g_strdup("log4g_messages");
     priv->session = NULL;
+    priv->database = NULL;
     priv->credentials = NULL;
     Log4gLayout *layout = g_object_new(LOG4G_TYPE_COUCHDB_LAYOUT, NULL);
     if (layout) {
@@ -121,35 +122,20 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
     switch (id) {
     case PROP_URI:
         g_free(priv->uri);
-        const gchar *uri = g_value_get_string(value);
-        priv->uri = uri ? g_strdup(uri) : NULL;
+        priv->uri = g_value_dup_string(value);
         break;
     case PROP_DATABASE_NAME:
         g_free(priv->name);
-        const gchar *name = g_value_get_string(value);
-        priv->name = name ? g_strdup(name) : NULL;
+        priv->name = g_value_dup_string(value);
         break;
     case PROP_CREDENTIALS:
         if (priv->credentials) {
             g_object_unref(priv->credentials);
         }
-        CouchdbCredentials *credentials = g_value_get_object(value);
-        if (credentials) {
-            if (!COUCHDB_IS_CREDENTIALS(credentials)) {
-                log4g_log_warn("object is not of type CouchdbCredentials");
-                return;
-            }
-            g_object_ref(credentials);
-            priv->credentials = credentials;
-            if (priv->session) {
-                couchdb_session_enable_authentication(priv->session,
-                        priv->credentials);
-            }
-        } else {
-            priv->credentials = NULL;
-            if (priv->session) {
-                couchdb_session_disable_authentication(priv->session);
-            }
+        priv->credentials = g_value_dup_object(value);
+        if (priv->session) {
+            couchdb_session_enable_authentication(priv->session,
+                    priv->credentials);
         }
         break;
     default:
@@ -171,26 +157,27 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
                     "appender named [%s]"), log4g_appender_get_name(base));
         return;
     }
-    if (!priv->name) {
+    if (!priv->name || !priv->database) {
         log4g_log_error(Q_("attempted to append to a CouchDB appender named "
                 "[%s] without specifying a database"),
                 log4g_appender_get_name(base));
         return;
     }
-    if (LOG4G_IS_COUCHDB_LAYOUT(layout)) {
-        CouchdbDocument *document =
-            log4g_couchdb_layout_format_document(layout, event);
-        if (document) {
-            GError *error = NULL;
-            if (!couchdb_database_put_document(priv->database, document,
-                        &error)) {
-                log4g_log_error(Q_("failed to store document in database "
-                        "%s: %s"), priv->name, error->message);
-                g_error_free(error);
-            }
-            g_object_unref(document);
-        }
+    if (!LOG4G_IS_COUCHDB_LAYOUT(layout)) {
+        return;
     }
+    CouchdbDocument *document =
+        log4g_couchdb_layout_format_document(layout, event);
+    if (!document) {
+        return;
+    }
+    GError *error = NULL;
+    if (!couchdb_database_put_document(priv->database, document, &error)) {
+        log4g_log_error(Q_("failed to store document in database %s: %s"),
+                priv->name, error->message);
+        g_error_free(error);
+    }
+    g_object_unref(document);
 }
 
 static void
@@ -266,21 +253,21 @@ log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gAppenderClass */
     Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
-    appender_class->append = append ;
+    appender_class->append = append;
     appender_class->close = _close;
     appender_class->requires_layout = requires_layout;
     appender_class->activate_options = activate_options;
     /* install properties */
     g_object_class_install_property(gobject_class, PROP_URI,
-            g_param_spec_string("uri", Q_("URI"),
+            g_param_spec_string("uri", Q_("CouchDB server URI"),
                     Q_("URI of a CouchDB server"), NULL, G_PARAM_WRITABLE));
     g_object_class_install_property(gobject_class, PROP_DATABASE_NAME,
             g_param_spec_string("database-name", Q_("Database name"),
                     Q_("Name of a CouchDB database"), "log4g_messages",
                     G_PARAM_WRITABLE));
     g_object_class_install_property(gobject_class, PROP_CREDENTIALS,
-            g_param_spec_object("credentials", Q_("Database credentials"),
-                    Q_("Credentials for a CouchDB database"),
+            g_param_spec_object("credentials", Q_("CouchDB credentials"),
+                    Q_("Credentials for a CouchDB server"),
                     COUCHDB_TYPE_CREDENTIALS, G_PARAM_WRITABLE));
 }
 
