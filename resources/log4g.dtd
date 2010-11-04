@@ -34,7 +34,7 @@ configuration is performed. -->
     debug (true|false|null) "null"
     reset (true|false) "false"
 >
-<!-- Appender must have a name, a type, or both. If only the name is defined
+<!-- Appenders must have a name, a type, or both. If only the name is defined
 then the this appender is treated as a reference to a previously defined
 appender. If both are defined then this is an appender definition and is
 stored for retrieval. If only the type is defined then this appender is being

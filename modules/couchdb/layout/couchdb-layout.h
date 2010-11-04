@@ -63,8 +63,6 @@ struct _Log4gCouchdbLayout {
  * Log4gCouchdbLayoutFormatDocument:
  * @base: A couchdb layout object.
  * @event: A logging event object to be laid out.
- * @session: The CouchDB session with which the resulting
- *                     document will be associated.
  *
  * Sub-classes may override this function to return a custom CouchDB document.
  * The #Log4gCouchdbAppender will call this function to format logging events
@@ -76,7 +74,7 @@ struct _Log4gCouchdbLayout {
  */
 typedef CouchdbDocument *
 (*Log4gCouchdbLayoutFormatDocument)(Log4gLayout *base,
-        Log4gLoggingEvent *event, CouchdbSession *session);
+        Log4gLoggingEvent *event);
 
 /**
  * Log4gCouchdbLayoutClass:
@@ -97,7 +95,7 @@ log4g_couchdb_layout_register(GTypeModule *module);
 
 CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
-        Log4gLoggingEvent *event, CouchdbSession *session);
+        Log4gLoggingEvent *event);
 
 G_END_DECLS
 

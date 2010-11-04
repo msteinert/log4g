@@ -66,6 +66,7 @@ struct Log4gPrivate {
     gchar *uri; /* CouchDB server */
     gchar *name; /* database name */
     CouchdbSession *session;
+    CouchdbDatabase *database;
     CouchdbCredentials *credentials;
 };
 
@@ -87,6 +88,10 @@ static void
 dispose(GObject *base)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
+    if (priv->database) {
+        g_object_unref(priv->database);
+        priv->database = NULL;
+    }
     if (priv->session) {
         g_object_unref(priv->session);
         priv->session = NULL;
@@ -174,10 +179,11 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     }
     if (LOG4G_IS_COUCHDB_LAYOUT(layout)) {
         CouchdbDocument *document =
-            log4g_couchdb_layout_format_document(layout, event, priv->session);
+            log4g_couchdb_layout_format_document(layout, event);
         if (document) {
             GError *error = NULL;
-            if (!couchdb_document_put(document, priv->name, &error)) {
+            if (!couchdb_database_put_document(priv->database, document,
+                        &error)) {
                 log4g_log_error(Q_("failed to store document in database "
                         "%s: %s"), priv->name, error->message);
                 g_error_free(error);
@@ -235,10 +241,8 @@ activate_options(Log4gAppender *base)
     if (!info) {
         log4g_log_debug("%s: %s", priv->name, error->message);
         g_error_free(error);
-        error = NULL;
-        gboolean status =
-            couchdb_session_create_database(priv->session, priv->name, &error);
-        if (!status) {
+        priv->database = couchdb_database_new(priv->session, priv->name);
+        if (!priv->database) {
             log4g_log_error("failed to create database %s: %s", priv->name,
                     error->message);
         }

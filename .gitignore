@@ -4,6 +4,7 @@
 # exclude patterns (uncomment them if you want to use them):
 *.[oa]
 *~
+*.gir
 *.la
 *.lai
 *.lo
@@ -14,6 +15,7 @@
 *.pyc
 *.swo
 *.swp
+*.typelib
 .libs
 .scons*
 .svn

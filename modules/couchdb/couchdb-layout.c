@@ -149,7 +149,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     g_free(priv->string);
     CouchdbDocument *document =
-        log4g_couchdb_layout_format_document(base, event, NULL);
+        log4g_couchdb_layout_format_document(base, event);
     if (!document) {
         return NULL;
     }
@@ -159,10 +159,9 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 }
 
 static CouchdbDocument *
-format_document(Log4gLayout *base, Log4gLoggingEvent *event,
-        CouchdbSession *session)
+format_document(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-    CouchdbDocument *document = couchdb_document_new(session);
+    CouchdbDocument *document = couchdb_document_new();
     if (!document) {
         return NULL;
     }
@@ -272,9 +271,7 @@ log4g_couchdb_layout_register(GTypeModule *module)
  * log4g_couchdb_layout_format_document:
  * @base: A CouchDB layout object.
  * @event: The logging event object to be formatted into a
- *                   CouchDB document.
- * @session: The CouchdbSession to associate the returned
- *                     document with.
+ *         CouchDB document.
  *
  * Call the @format_document function from the #Log4gCouchdbLayoutClass
  * of @base.
@@ -284,9 +281,9 @@ log4g_couchdb_layout_register(GTypeModule *module)
  */
 CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
-        Log4gLoggingEvent *event, CouchdbSession *session)
+        Log4gLoggingEvent *event)
 {
     g_return_val_if_fail(LOG4G_IS_COUCHDB_LAYOUT(base), NULL);
     return LOG4G_COUCHDB_LAYOUT_GET_CLASS(base)->
-        format_document(base, event, session);
+        format_document(base, event);
 }

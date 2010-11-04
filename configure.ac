@@ -21,9 +21,9 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wno-portability])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR([log4g/log4g.h])
-# Checks for programs
 AC_ENABLE_SHARED
 AC_DISABLE_STATIC
+# Checks for programs
 AC_PROG_CC_C99
 AC_PROG_LIBTOOL
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
@@ -49,17 +49,6 @@ LT_AGE=m4_eval(m4_eval(100 * log4g_minor_version + log4g_micro_version) - log4g_
 AC_SUBST([LT_CURRENT])
 AC_SUBST([LT_REVISION])
 AC_SUBST([LT_AGE])
-# Check for Doxygen
-AC_PATH_PROG([DOXYGEN], [doxygen])
-AC_CACHE_VAL([log4g_cv_HAVE_DOT],
-    [AC_PATH_PROG([DOT], [dot])
-    if test "x$DOT" != "x"; then
-        log4g_cv_HAVE_DOT=YES
-    else
-        log4g_cv_HAVE_DOT=NO
-    fi])
-HAVE_DOT="$log4g_cv_HAVE_DOT"
-AC_SUBST([HAVE_DOT])
 # Checks for dependencies
 log4g_glib_minimum_version=2.24
 log4g_libxml_minimum_version=2.6
