@@ -91,8 +91,8 @@ See INSTALL for detailed build and installation instructions.
 Log4g ships with an Autotools build environment. First run the provided
 configure script (supplying any desired options) and then run make:
 
-    $ tar zxf log4g.tar.gz
-    $ cd log4g
+    $ tar zxf log4g-0.1.2.tar.gz
+    $ cd log4g-0.1.2
     $ ./configure
     $ make
     $ sudo make install
@@ -105,15 +105,13 @@ Note: If you are building an unstable release (cloned with git) then you will
 Documentation
 =============
 
-Log4g is documented using Doxygen. If configure finds Doxygen during
-configuration a `doc' target will be generated in the Makefile. Execute the
-following command to build the documentation:
-
-    $ make doc
+Log4g is documented using GTK-Doc. To build the documentation pass the
+--enable-gtk-doc flag to the configure script. The documentation will be built
+when you type `make'.
 
 Once the documentation is generated, point your web browser to:
 
-    doc/html/index.html
+    docs/reference/log4g/html/index.html
 
 A reasonably up to date version of the documentation can be found at:
 
@@ -122,7 +120,7 @@ A reasonably up to date version of the documentation can be found at:
 Dependencies
 ============
 
-GNU Make is recommended:
+GNU Make is required:
 
     http://www.gnu.org/software/make/
 
