@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Part II. API Reference</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="index.html" title="Log4g Reference Manual">
+<link rel="prev" href="log4g-introduction.html" title="Introduction">
+<link rel="next" href="log4g-public.html" title="Public Interface">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="log4g-introduction.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td> </td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-public.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="part" title="Part II. API Reference">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="id525726"></a>Part II. API Reference</h1></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="chapter"><a href="log4g-public.html">Public Interface</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="Log4g.html">Log4g</a></span><span class="refpurpose"> — The main Log4g interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLogger.html">Log4gLogger</a></span><span class="refpurpose"> — The central class in the Log4g package</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gNDC.html">Log4gNDC</a></span><span class="refpurpose"> — Nested data context</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gMDC.html">Log4gMDC</a></span><span class="refpurpose"> — Mapped data context</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gThread.html">Log4gThread</a></span><span class="refpurpose"> — Set the thread name for log messages</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch02.html">Configuration</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gConfigurator.html">Log4gConfigurator</a></span><span class="refpurpose"> — Log4g configuration interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gDOMConfigurator.html">Log4gDOMConfigurator</a></span><span class="refpurpose"> — Initialize the Log4g environment using a DOM tree</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="Log4gBasicConfigurator.html">Log4gBasicConfigurator</a></span><span class="refpurpose"> — Quickly configure Log4g</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="log4g-core.html">Core Classes</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLoggingEvent.html">Log4gLoggingEvent</a></span><span class="refpurpose"> — The internal representation of logging events</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gRootLogger.html">Log4gRootLogger</a></span><span class="refpurpose"> — The root logger</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gAppender.html">Log4gAppender</a></span><span class="refpurpose"> — The log output interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLayout.html">Log4gLayout</a></span><span class="refpurpose"> — Log event layout base class</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gFilter.html">Log4gFilter</a></span><span class="refpurpose"> — Log event filter base class</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLevel.html">Log4gLevel</a></span><span class="refpurpose"> — Minimum set of logging levels recognized by the system</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="Log4gErrorQuark.html">Log4gErrorQuark</a></span><span class="refpurpose"> — Log4g error definition</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="log4g-logger-management.html">Logger Management</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLogManager.html">Log4gLogManager</a></span><span class="refpurpose"> — Operate on the current logger repository</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLoggerRepository.html">Log4gLoggerRepository</a></span><span class="refpurpose"> — Create and retrieve loggers</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gHierarchy.html">Log4gHierarchy</a></span><span class="refpurpose"> — Maintain the logger hierarchy</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gProvisionNode.html">Log4gProvisionNode</a></span><span class="refpurpose"> — Log repository temporary nodes</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gAppenderAttachable.html">Log4gAppenderAttachable</a></span><span class="refpurpose"> — Attach appenders to objects</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gAppenderAttachableImpl.html">Log4gAppenderAttachableImpl</a></span><span class="refpurpose"> — An implementation of the appender attachable interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gLoggerFactory.html">Log4gLoggerFactory</a></span><span class="refpurpose"> — Create a logger via a factory class</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gDefaultLoggerFactory.html">Log4gDefaultLoggerFactory</a></span><span class="refpurpose"> — An implementation of logger factory interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gRepositorySelector.html">Log4gRepositorySelector</a></span><span class="refpurpose"> — Select the correct logger repository</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gDefaultRepositorySelector.html">Log4gDefaultRepositorySelector</a></span><span class="refpurpose"> — An implementation of the repository selector interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gErrorHandler.html">Log4gErrorHandler</a></span><span class="refpurpose"> — Delegate error handling</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="log4g-Log4gOnlyOnceErrorHandler.html">Log4gOnlyOnceErrorHandler</a></span><span class="refpurpose"> — Emit an error only once</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="Log4gInternalLogging.html">Log4gInternalLogging</a></span><span class="refpurpose"> — Internal logging API</span>
+</dt>
+</dl></dd>
+</dl>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

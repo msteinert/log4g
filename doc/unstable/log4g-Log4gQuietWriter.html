@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gQuietWriter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-Log4gWriterAppender.html" title="Log4gWriterAppender">
+<link rel="next" href="log4g-Log4gCountingQuietWriter.html" title="Log4gCountingQuietWriter">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gWriterAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gCountingQuietWriter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gQuietWriter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gQuietWriter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gQuietWriter">
+<a name="log4g-Log4gQuietWriter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gQuietWriter.top_of_page"></a>Log4gQuietWriter</span></h2>
+<p>Log4gQuietWriter — Write to a stdio(3) stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gQuietWriter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter">Log4gQuietWriter</a>;
+                    <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass" title="Log4gQuietWriterClass">Log4gQuietWriterClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-close" title="log4g_quiet_writer_close ()">log4g_quiet_writer_close</a>            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-flush" title="log4g_quiet_writer_flush ()">log4g_quiet_writer_flush</a>            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-new" title="log4g_quiet_writer_new ()">log4g_quiet_writer_new</a>              (<em class="parameter"><code><span class="type">FILE</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-set-error-handler" title="log4g_quiet_writer_set_error_handler ()">log4g_quiet_writer_set_error_handler</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-set-file" title="log4g_quiet_writer_set_file ()">log4g_quiet_writer_set_file</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gQuietWriter.html#log4g-quiet-writer-write" title="log4g_quiet_writer_write ()">log4g_quiet_writer_write</a>            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *string</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterWrite" title="Log4gQuietWriterWrite ()">*Log4gQuietWriterWrite</a>)            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gQuietWriter.description"></a><h2>Description</h2>
+<p>
+The quiet writer class handles errors via an error handler.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gQuietWriter.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gQuietWriter">
+<a name="Log4gQuietWriter"></a><h3>Log4gQuietWriter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gQuietWriter;
+</pre>
+<p>
+The <span class="structname">Log4gQuietWriter</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gQuietWriterClass">
+<a name="Log4gQuietWriterClass"></a><h3>Log4gQuietWriterClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gQuietWriterWrite write;
+} Log4gQuietWriterClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterWrite" title="Log4gQuietWriterWrite ()"><span class="type">Log4gQuietWriterWrite</span></a> <em class="structfield"><code><a name="Log4gQuietWriterClass.write"></a>write</code></em>;</span></p></td>
+<td>Write to a stdio(3) stream.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_close ()">
+<a name="log4g-quiet-writer-close"></a><h3>log4g_quiet_writer_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_quiet_writer_close            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>);</pre>
+<p>
+Close the stdio(3) stream held by a quiet writer object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_flush ()">
+<a name="log4g-quiet-writer-flush"></a><h3>log4g_quiet_writer_flush ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_quiet_writer_flush            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>);</pre>
+<p>
+Flush the stdio(3) stream.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_new ()">
+<a name="log4g-quiet-writer-new"></a><h3>log4g_quiet_writer_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  log4g_quiet_writer_new              (<em class="parameter"><code><span class="type">FILE</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> error</code></em>);</pre>
+<p>
+Create a new quiet writer object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>An open stdio(3) stream.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>The error handler to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new quiet writer object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_set_error_handler ()">
+<a name="log4g-quiet-writer-set-error-handler"></a><h3>log4g_quiet_writer_set_error_handler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_quiet_writer_set_error_handler
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> error</code></em>);</pre>
+<p>
+Set the error handler for a quiet writer.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>A new error handler for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_set_file ()">
+<a name="log4g-quiet-writer-set-file"></a><h3>log4g_quiet_writer_set_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_quiet_writer_set_file         (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);</pre>
+<p>
+Set the stdio(3) stream to write to.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>An open stdio(3) stream.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_quiet_writer_write ()">
+<a name="log4g-quiet-writer-write"></a><h3>log4g_quiet_writer_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_quiet_writer_write            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *string</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>write</code></em> function from the <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass" title="Log4gQuietWriterClass"><span class="type">Log4gQuietWriterClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The string to write.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gQuietWriterWrite ()">
+<a name="Log4gQuietWriterWrite"></a><h3>Log4gQuietWriterWrite ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gQuietWriterWrite)            (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);</pre>
+<p>
+Write a string to a stdio(3) stream.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The string to write.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

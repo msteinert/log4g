@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gCouchdbLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-couchdb.html" title="CouchDB">
+<link rel="prev" href="log4g-Log4gCouchdbAppender.html" title="Log4gCouchdbAppender">
+<link rel="next" href="api-index-full.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gCouchdbAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-couchdb.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gCouchdbLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gCouchdbLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gCouchdbLayout">
+<a name="log4g-Log4gCouchdbLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gCouchdbLayout.top_of_page"></a>Log4gCouchdbLayout</span></h2>
+<p>Log4gCouchdbLayout — Format events into a CouchDB document</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gCouchdbLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayout" title="Log4gCouchdbLayout">Log4gCouchdbLayout</a>;
+                    <a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutClass" title="Log4gCouchdbLayoutClass">Log4gCouchdbLayoutClass</a>;
+<a href="/usr/share/gtk-doc/html/couchdb-glib/CouchdbDocument.html"><span class="returnvalue">CouchdbDocument</span></a> *   <a class="link" href="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-format-document" title="log4g_couchdb_layout_format_document ()">log4g_couchdb_layout_format_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">GType</span>               <a class="link" href="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-get-type" title="log4g_couchdb_layout_get_type ()">log4g_couchdb_layout_get_type</a>       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-register" title="log4g_couchdb_layout_register ()">log4g_couchdb_layout_register</a>       (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);
+<a href="/usr/share/gtk-doc/html/couchdb-glib/CouchdbDocument.html"><span class="returnvalue">CouchdbDocument</span></a>     (<a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutFormatDocument" title="Log4gCouchdbLayoutFormatDocument ()">*Log4gCouchdbLayoutFormatDocument</a>) (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gCouchdbLayout.description"></a><h2>Description</h2>
+<p>
+This class formats a log event into a CouchDB document with the following
+schema:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+{
+   "description": "Log4g-CouchDB JSON-Schema",
+   "type": "object",
+   "properties": {
+       "_id": {
+           "description": "Unique ID for this document, internal to CouchDB",
+           "type": "string"
+       },
+       "_rev": {
+           "description": "Revision for this document, internal to CouchDB",
+           "type": "string"
+       },
+       "record_type": {
+           "description": "The schema URI",
+           "type": "string",
+           "format": "uri"
+       },
+       "record_type_version": {
+           "description": "The schema version number",
+           "type": "string"
+       },
+       "message": {
+           "description": "The log message",
+           "type": "string"
+       },
+       "level": {
+           "description": "The log level of the logging event",
+           "type": "string",
+           "optional": true
+       },
+       "logger": {
+           "description": "The name of the logger",
+           "type": "string",
+           "optional": true
+       },
+       "mdc": {
+           "description": "The mapped data context",
+           "type": "object",
+           "properties": {
+               "type": { "type": "string" },
+               "value": { "type": "string" },
+           },
+           "optional": true
+       },
+       "ndc": {
+           "description": "The nested data context",
+           "type": "string",
+           "optional": true
+       },
+       "timestamp": {
+           "description": "The timestamp of the logging event",
+           "type": "string",
+           "format": "utc-millisec",
+           "optional": true
+       },
+       "thread": {
+           "description": "The thread where the event was logged",
+           "type": "string",
+           "optional": true
+       },
+       "function": {
+           "description": "The function name",
+           "type": "string",
+           "optional": true
+       },
+       "file": {
+           "description": "The file name",
+           "type": "string",
+           "optional": true
+       },
+       "line": {
+           "description": "The line number",
+           "type": "string",
+           "optional": true
+       },
+       "application_annotations": {
+           "description": "Application-specific data",
+           "type": "any",
+           "optional": true
+       }
+   }
+}
+</pre></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gCouchdbLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gCouchdbLayout">
+<a name="Log4gCouchdbLayout"></a><h3>Log4gCouchdbLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCouchdbLayout;
+</pre>
+<p>
+The <span class="structname">Log4gCouchdbLayout</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gCouchdbLayoutClass">
+<a name="Log4gCouchdbLayoutClass"></a><h3>Log4gCouchdbLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gCouchdbLayoutFormatDocument format_document;
+} Log4gCouchdbLayoutClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutFormatDocument" title="Log4gCouchdbLayoutFormatDocument ()"><span class="type">Log4gCouchdbLayoutFormatDocument</span></a> <em class="structfield"><code><a name="Log4gCouchdbLayoutClass.format-document"></a>format_document</code></em>;</span></p></td>
+<td>Create a new CouchdbDocument object.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_couchdb_layout_format_document ()">
+<a name="log4g-couchdb-layout-format-document"></a><h3>log4g_couchdb_layout_format_document ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/couchdb-glib/CouchdbDocument.html"><span class="returnvalue">CouchdbDocument</span></a> *   log4g_couchdb_layout_format_document
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>format_document</code></em> function from the <a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutClass" title="Log4gCouchdbLayoutClass"><span class="type">Log4gCouchdbLayoutClass</span></a>
+of <em class="parameter"><code>base</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A CouchDB layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The logging event object to be formatted into a
+        CouchDB document.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A logging event formatted into a CouchdbDocument object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_couchdb_layout_get_type ()">
+<a name="log4g-couchdb-layout-get-type"></a><h3>log4g_couchdb_layout_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               log4g_couchdb_layout_get_type       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="log4g_couchdb_layout_register ()">
+<a name="log4g-couchdb-layout-register"></a><h3>log4g_couchdb_layout_register ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_couchdb_layout_register       (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gCouchdbLayoutFormatDocument ()">
+<a name="Log4gCouchdbLayoutFormatDocument"></a><h3>Log4gCouchdbLayoutFormatDocument ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/couchdb-glib/CouchdbDocument.html"><span class="returnvalue">CouchdbDocument</span></a>     (*Log4gCouchdbLayoutFormatDocument) (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Sub-classes may override this function to return a custom CouchDB document.
+The <a class="link" href="log4g-Log4gCouchdbAppender.html#Log4gCouchdbAppender" title="Log4gCouchdbAppender"><span class="type">Log4gCouchdbAppender</span></a> will call this function to format logging events
+before they are inserted into the database.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A couchdb layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A logging event object to be laid out.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new CouchdbDocument object. Call <code class="function">g_object_unref()</code> on the
+         returned object to free memory.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gCouchdbLayout.see-also"></a><h2>See Also</h2>
+<a class="ulink" href="http://www.couchdb.apache.org/" target="_top">Apache CouchDB</a>,
+           <a class="ulink" href="http://git.gnome.org/browse/couchdb-glib/" target="_top">couchdb-glib</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

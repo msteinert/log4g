@@ -1,0 +1,1026 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-core.html" title="Core Classes">
+<link rel="prev" href="log4g-Log4gRootLogger.html" title="Log4gRootLogger">
+<link rel="next" href="log4g-Log4gLayout.html" title="Log4gLayout">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gRootLogger.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gLayout.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gAppender">
+<a name="log4g-Log4gAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gAppender.top_of_page"></a>Log4gAppender</span></h2>
+<p>Log4gAppender — The log output interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender">Log4gAppender</a>;
+                    <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass">Log4gAppenderClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-clear-filters" title="log4g_appender_clear_filters ()">log4g_appender_clear_filters</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-add-filter" title="log4g_appender_add_filter ()">log4g_appender_add_filter</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *filter</code></em>);
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-filter" title="log4g_appender_get_filter ()">log4g_appender_get_filter</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-close" title="log4g_appender_close ()">log4g_appender_close</a>                (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-do-append" title="log4g_appender_do_append ()">log4g_appender_do_append</a>            (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-name" title="log4g_appender_get_name ()">log4g_appender_get_name</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-error-handler" title="log4g_appender_set_error_handler ()">log4g_appender_set_error_handler</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> handler</code></em>);
+<span class="returnvalue">gpointer</span>            <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-error-handler" title="log4g_appender_get_error_handler ()">log4g_appender_get_error_handler</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-layout" title="log4g_appender_set_layout ()">log4g_appender_set_layout</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *layout</code></em>);
+<a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="returnvalue">Log4gLayout</span></a> *       <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-layout" title="log4g_appender_get_layout ()">log4g_appender_get_layout</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-name" title="log4g_appender_set_name ()">log4g_appender_set_name</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gAppender.html#log4g-appender-requires-layout" title="log4g_appender_requires_layout ()">log4g_appender_requires_layout</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-activate-options" title="log4g_appender_activate_options ()">log4g_appender_activate_options</a>     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-append" title="log4g_appender_append ()">log4g_appender_append</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-first-filter" title="log4g_appender_get_first_filter ()">log4g_appender_get_first_filter</a>     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gAppender.html#log4g-appender-is-as-severe-as" title="log4g_appender_is_as_severe_as ()">log4g_appender_is_as_severe_as</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-threshold" title="log4g_appender_set_threshold ()">log4g_appender_set_threshold</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *threshold</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-threshold" title="log4g_appender_get_threshold ()">log4g_appender_get_threshold</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gAppender.html#log4g-appender-get-closed" title="log4g_appender_get_closed ()">log4g_appender_get_closed</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-closed" title="log4g_appender_set_closed ()">log4g_appender_set_closed</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> closed</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderAddFilter" title="Log4gAppenderAddFilter ()">*Log4gAppenderAddFilter</a>)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *filter</code></em>);
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a>         (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetFilter" title="Log4gAppenderGetFilter ()">*Log4gAppenderGetFilter</a>)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClose" title="Log4gAppenderClose ()">*Log4gAppenderClose</a>)               (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderAppend" title="Log4gAppenderAppend ()">*Log4gAppenderAppend</a>)              (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderDoAppend" title="Log4gAppenderDoAppend ()">*Log4gAppenderDoAppend</a>)            (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetName" title="Log4gAppenderSetName ()">*Log4gAppenderSetName</a>)             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+const <span class="returnvalue">gchar</span>         (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetName" title="Log4gAppenderGetName ()">*Log4gAppenderGetName</a>)             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetErrorHandler" title="Log4gAppenderSetErrorHandler ()">*Log4gAppenderSetErrorHandler</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> handler</code></em>);
+<span class="returnvalue">gpointer</span>            (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetErrorHandler" title="Log4gAppenderGetErrorHandler ()">*Log4gAppenderGetErrorHandler</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetLayout" title="Log4gAppenderSetLayout ()">*Log4gAppenderSetLayout</a>)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *layout</code></em>);
+<a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="returnvalue">Log4gLayout</span></a>         (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetLayout" title="Log4gAppenderGetLayout ()">*Log4gAppenderGetLayout</a>)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderRequiresLayout" title="Log4gAppenderRequiresLayout ()">*Log4gAppenderRequiresLayout</a>)      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderActivateOptions" title="Log4gAppenderActivateOptions ()">*Log4gAppenderActivateOptions</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gAppender.description"></a><h2>Description</h2>
+<p>
+Extend this class to define your own strategy for outputting log
+statements.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gAppender">
+<a name="Log4gAppender"></a><h3>Log4gAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gAppender;
+</pre>
+<p>
+The <span class="structname">Log4gAppender</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderClass">
+<a name="Log4gAppenderClass"></a><h3>Log4gAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gAppenderAddFilter add_filter;
+    Log4gAppenderGetFilter get_filter;
+    Log4gAppenderClose close;
+    Log4gAppenderAppend append;
+    Log4gAppenderDoAppend do_append;
+    Log4gAppenderSetName set_name;
+    Log4gAppenderGetName get_name;
+    Log4gAppenderSetErrorHandler set_error_handler;
+    Log4gAppenderGetErrorHandler get_error_handler;
+    Log4gAppenderSetLayout set_layout;
+    Log4gAppenderGetLayout get_layout;
+    Log4gAppenderRequiresLayout requires_layout;
+    Log4gAppenderActivateOptions activate_options;
+} Log4gAppenderClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderAddFilter" title="Log4gAppenderAddFilter ()"><span class="type">Log4gAppenderAddFilter</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.add-filter"></a>add_filter</code></em>;</span></p></td>
+<td>Add a filter to the end of the filter chain.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetFilter" title="Log4gAppenderGetFilter ()"><span class="type">Log4gAppenderGetFilter</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.get-filter"></a>get_filter</code></em>;</span></p></td>
+<td>Get the first filter in the filter chain.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClose" title="Log4gAppenderClose ()"><span class="type">Log4gAppenderClose</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.close"></a>close</code></em>;</span></p></td>
+<td>Release all resources.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderAppend" title="Log4gAppenderAppend ()"><span class="type">Log4gAppenderAppend</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.append"></a>append</code></em>;</span></p></td>
+<td>Perform actial logging.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderDoAppend" title="Log4gAppenderDoAppend ()"><span class="type">Log4gAppenderDoAppend</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.do-append"></a>do_append</code></em>;</span></p></td>
+<td>Log in an appender-specific way.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetName" title="Log4gAppenderSetName ()"><span class="type">Log4gAppenderSetName</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.set-name"></a>set_name</code></em>;</span></p></td>
+<td>Set the name of this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetName" title="Log4gAppenderGetName ()"><span class="type">Log4gAppenderGetName</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.get-name"></a>get_name</code></em>;</span></p></td>
+<td>Retrieve the name of this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetErrorHandler" title="Log4gAppenderSetErrorHandler ()"><span class="type">Log4gAppenderSetErrorHandler</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.set-error-handler"></a>set_error_handler</code></em>;</span></p></td>
+<td>Set the error handler for this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetErrorHandler" title="Log4gAppenderGetErrorHandler ()"><span class="type">Log4gAppenderGetErrorHandler</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.get-error-handler"></a>get_error_handler</code></em>;</span></p></td>
+<td>Retrieve the error handler for this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetLayout" title="Log4gAppenderSetLayout ()"><span class="type">Log4gAppenderSetLayout</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.set-layout"></a>set_layout</code></em>;</span></p></td>
+<td>Set the layout for this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetLayout" title="Log4gAppenderGetLayout ()"><span class="type">Log4gAppenderGetLayout</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.get-layout"></a>get_layout</code></em>;</span></p></td>
+<td>Get the layout for this appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderRequiresLayout" title="Log4gAppenderRequiresLayout ()"><span class="type">Log4gAppenderRequiresLayout</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.requires-layout"></a>requires_layout</code></em>;</span></p></td>
+<td>Determine if this appender requires a layout.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppender.html#Log4gAppenderActivateOptions" title="Log4gAppenderActivateOptions ()"><span class="type">Log4gAppenderActivateOptions</span></a> <em class="structfield"><code><a name="Log4gAppenderClass.activate-options"></a>activate_options</code></em>;</span></p></td>
+<td>Activate all options set for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_clear_filters ()">
+<a name="log4g-appender-clear-filters"></a><h3>log4g_appender_clear_filters ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_clear_filters        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Remove all filters attached to this appender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_add_filter ()">
+<a name="log4g-appender-add-filter"></a><h3>log4g_appender_add_filter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_add_filter           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *filter</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>add_filter</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>A filter to add to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_filter ()">
+<a name="log4g-appender-get-filter"></a><h3>log4g_appender_get_filter ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       log4g_appender_get_filter           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_filter</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The first filter in the filter chain.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_close ()">
+<a name="log4g-appender-close"></a><h3>log4g_appender_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_close                (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>close</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_do_append ()">
+<a name="log4g-appender-do-append"></a><h3>log4g_appender_do_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_do_append            (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>do_append</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to append.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_name ()">
+<a name="log4g-appender-get-name"></a><h3>log4g_appender_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_appender_get_name             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_name</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of <em class="parameter"><code>self</code></em> (may be <code class="literal">NULL</code>).
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_set_error_handler ()">
+<a name="log4g-appender-set-error-handler"></a><h3>log4g_appender_set_error_handler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_set_error_handler    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> handler</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_error_handler</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handler</code></em> :</span></p></td>
+<td>The new error handler object for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_error_handler ()">
+<a name="log4g-appender-get-error-handler"></a><h3>log4g_appender_get_error_handler ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            log4g_appender_get_error_handler    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_error_handler</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The error handler object used by <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_set_layout ()">
+<a name="log4g-appender-set-layout"></a><h3>log4g_appender_set_layout ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_set_layout           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *layout</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_layout</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>layout</code></em> :</span></p></td>
+<td>The new layout for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_layout ()">
+<a name="log4g-appender-get-layout"></a><h3>log4g_appender_get_layout ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="returnvalue">Log4gLayout</span></a> *       log4g_appender_get_layout           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_layout</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_set_name ()">
+<a name="log4g-appender-set-name"></a><h3>log4g_appender_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_set_name             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_name</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The new name for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_requires_layout ()">
+<a name="log4g-appender-requires-layout"></a><h3>log4g_appender_requires_layout ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_appender_requires_layout      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>requires_layout</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_activate_options ()">
+<a name="log4g-appender-activate-options"></a><h3>log4g_appender_activate_options ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_activate_options     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>activate_options</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_append ()">
+<a name="log4g-appender-append"></a><h3>log4g_appender_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_append               (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>append</code></em> function from the <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A log event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_first_filter ()">
+<a name="log4g-appender-get-first-filter"></a><h3>log4g_appender_get_first_filter ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       log4g_appender_get_first_filter     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the first filter in the filter chain.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The first filter in the filter chain, or <code class="literal">NULL</code> if there is none.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_is_as_severe_as ()">
+<a name="log4g-appender-is-as-severe-as"></a><h3>log4g_appender_is_as_severe_as ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_appender_is_as_severe_as      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Determine if a log level is below the appender's threshold.
+</p>
+<p>
+If there is no threshold set then the return value is always <code class="literal">TRUE</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A log level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>level</code></em> is above the level threshold of this appender,
+         <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_set_threshold ()">
+<a name="log4g-appender-set-threshold"></a><h3>log4g_appender_set_threshold ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_set_threshold        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *threshold</code></em>);</pre>
+<p>
+Set the threshold property for this appender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>threshold</code></em> :</span></p></td>
+<td>A string representation of a log level.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_threshold ()">
+<a name="log4g-appender-get-threshold"></a><h3>log4g_appender_get_threshold ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_appender_get_threshold        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the threshold property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The threshold value for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_get_closed ()">
+<a name="log4g-appender-get-closed"></a><h3>log4g_appender_get_closed ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_appender_get_closed           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Determine if an appender has been closed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if this appender is closed, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_set_closed ()">
+<a name="log4g-appender-set-closed"></a><h3>log4g_appender_set_closed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_set_closed           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> closed</code></em>);</pre>
+<p>
+Set the closed parameter.
+</p>
+<p>
+Appenders should set this value appropriately. The default value is <code class="literal">FALSE</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>closed</code></em> :</span></p></td>
+<td>The new closed value for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if this appender is closed, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAddFilter ()">
+<a name="Log4gAppenderAddFilter"></a><h3>Log4gAppenderAddFilter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAddFilter)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *filter</code></em>);</pre>
+<p>
+Add a filter to the end of the filter chain.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> to add to this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderGetFilter ()">
+<a name="Log4gAppenderGetFilter"></a><h3>Log4gAppenderGetFilter ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a>         (*Log4gAppenderGetFilter)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Filters are organized in a linked list so all filters are available
+through the result of this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The first filter in the filter chain.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderClose ()">
+<a name="Log4gAppenderClose"></a><h3>Log4gAppenderClose ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderClose)               (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Release any resources allocated within the appender such as file
+handles, network connections, etc. A closed appender is no longer
+usable by the Log4g system.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAppend ()">
+<a name="Log4gAppenderAppend"></a><h3>Log4gAppenderAppend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAppend)              (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Sub-classes should implement this abstract virtual function to perform
+actual logging.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A log event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderDoAppend ()">
+<a name="Log4gAppenderDoAppend"></a><h3>Log4gAppenderDoAppend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderDoAppend)            (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Loggers will call this function in order to log events.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The logging event to append.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderSetName ()">
+<a name="Log4gAppenderSetName"></a><h3>Log4gAppenderSetName ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderSetName)             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+The name may be used by other components to uniquely identify the
+appender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The new name for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderGetName ()">
+<a name="Log4gAppenderGetName"></a><h3>Log4gAppenderGetName ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span>         (*Log4gAppenderGetName)             (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+The name uniquely identifies this appender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of <em class="parameter"><code>self</code></em> (may be <code class="literal">NULL</code>).
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderSetErrorHandler ()">
+<a name="Log4gAppenderSetErrorHandler"></a><h3>Log4gAppenderSetErrorHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderSetErrorHandler)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> handler</code></em>);</pre>
+<p>
+Set the error handler for this appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>handler</code></em> :</span></p></td>
+<td>An error handler.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderGetErrorHandler ()">
+<a name="Log4gAppenderGetErrorHandler"></a><h3>Log4gAppenderGetErrorHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            (*Log4gAppenderGetErrorHandler)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the error handler for an appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The error handler set for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderSetLayout ()">
+<a name="Log4gAppenderSetLayout"></a><h3>Log4gAppenderSetLayout ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderSetLayout)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *layout</code></em>);</pre>
+<p>
+Set the layout for this appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>layout</code></em> :</span></p></td>
+<td>The new layout for this appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderGetLayout ()">
+<a name="Log4gAppenderGetLayout"></a><h3>Log4gAppenderGetLayout ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="returnvalue">Log4gLayout</span></a>         (*Log4gAppenderGetLayout)           (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the layout for this appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout for this appender;
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderRequiresLayout ()">
+<a name="Log4gAppenderRequiresLayout"></a><h3>Log4gAppenderRequiresLayout ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*Log4gAppenderRequiresLayout)      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Configurators may call this method to determine if an appender requires
+a layout.
+</p>
+<p>
+In the exceptional case where an appender accepts a layout but can also
+work without it the appender should return <code class="literal">TRUE</code>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderSetLayout" title="Log4gAppenderSetLayout ()"><span class="type">Log4gAppenderSetLayout</span></a>, <a class="link" href="log4g-Log4gAppender.html#Log4gAppenderGetLayout" title="Log4gAppenderGetLayout ()"><span class="type">Log4gAppenderGetLayout</span></a>, <a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if this appender requires a layout, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderActivateOptions ()">
+<a name="Log4gAppenderActivateOptions"></a><h3>Log4gAppenderActivateOptions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderActivateOptions)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *self</code></em>);</pre>
+<p>
+Activate all options set for this appender.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

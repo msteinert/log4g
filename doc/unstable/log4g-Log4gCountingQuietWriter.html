@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gCountingQuietWriter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-Log4gQuietWriter.html" title="Log4gQuietWriter">
+<link rel="next" href="log4g-filters.html" title="Filters">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gQuietWriter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-filters.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gCountingQuietWriter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gCountingQuietWriter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gCountingQuietWriter">
+<a name="log4g-Log4gCountingQuietWriter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gCountingQuietWriter.top_of_page"></a>Log4gCountingQuietWriter</span></h2>
+<p>Log4gCountingQuietWriter — Counts the number of bytes written</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gCountingQuietWriter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gCountingQuietWriter.html#Log4gCountingQuietWriter" title="Log4gCountingQuietWriter">Log4gCountingQuietWriter</a>;
+                    <a class="link" href="log4g-Log4gCountingQuietWriter.html#Log4gCountingQuietWriterClass" title="Log4gCountingQuietWriterClass">Log4gCountingQuietWriterClass</a>;
+<span class="returnvalue">gulong</span>              <a class="link" href="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-get-count" title="log4g_counting_quiet_writer_get_count ()">log4g_counting_quiet_writer_get_count</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *base</code></em>);
+<a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  <a class="link" href="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-new" title="log4g_counting_quiet_writer_new ()">log4g_counting_quiet_writer_new</a>     (<em class="parameter"><code><span class="type">FILE</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">GObject</span> *error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-set-count" title="log4g_counting_quiet_writer_set_count ()">log4g_counting_quiet_writer_set_count</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">gulong</span> count</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gCountingQuietWriter.description"></a><h2>Description</h2>
+<p>
+A quiet writer that counts the number of bytes it has written.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gCountingQuietWriter.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gCountingQuietWriter">
+<a name="Log4gCountingQuietWriter"></a><h3>Log4gCountingQuietWriter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCountingQuietWriter;
+</pre>
+<p>
+The <span class="structname">Log4gCountingQuietWriter</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gCountingQuietWriterClass">
+<a name="Log4gCountingQuietWriterClass"></a><h3>Log4gCountingQuietWriterClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCountingQuietWriterClass;
+</pre>
+<p>
+The <span class="structname">Log4gCountingQuietWriterClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_counting_quiet_writer_get_count ()">
+<a name="log4g-counting-quiet-writer-get-count"></a><h3>log4g_counting_quiet_writer_get_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">gulong</span>              log4g_counting_quiet_writer_get_count
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *base</code></em>);</pre>
+<p>
+Retrieve the number of bytes written.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A counting quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of bytes written by <em class="parameter"><code>base</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_counting_quiet_writer_new ()">
+<a name="log4g-counting-quiet-writer-new"></a><h3>log4g_counting_quiet_writer_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  log4g_counting_quiet_writer_new     (<em class="parameter"><code><span class="type">FILE</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">GObject</span> *error</code></em>);</pre>
+<p>
+Create a new counting quiet writer object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3), <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The an open stdio(3) stream to write to.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>The error handler to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new counting quiet writer object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_counting_quiet_writer_set_count ()">
+<a name="log4g-counting-quiet-writer-set-count"></a><h3>log4g_counting_quiet_writer_set_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_counting_quiet_writer_set_count
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">gulong</span> count</code></em>);</pre>
+<p>
+Set the number of bytes a counting quiet writer thinks it has written.
+</p>
+<p>
+This function is mostly useful for resetting the count to zero.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A counting quiet writer object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>count</code></em> :</span></p></td>
+<td>The number of bytes <em class="parameter"><code>base</code></em> will think it has written.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gCountingQuietWriter.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass" title="Log4gQuietWriterClass"><span class="type">Log4gQuietWriterClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

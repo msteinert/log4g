@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gXMLLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-Log4gTTCCLayout.html" title="Log4gTTCCLayout">
+<link rel="next" href="log4g-Log4gPatternConverter.html" title="Log4gPatternConverter">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gTTCCLayout.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gPatternConverter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gXMLLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gXMLLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gXMLLayout">
+<a name="log4g-Log4gXMLLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gXMLLayout.top_of_page"></a>Log4gXMLLayout</span></h2>
+<p>Log4gXMLLayout — Format events into XML</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gXMLLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gXMLLayout.html#Log4gXMLLayout" title="Log4gXMLLayout">Log4gXMLLayout</a>;
+                    <a class="link" href="log4g-Log4gXMLLayout.html#Log4gXMLLayoutClass" title="Log4gXMLLayoutClass">Log4gXMLLayoutClass</a>;
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gXMLLayout.description"></a><h2>Description</h2>
+<p>
+The output of this layout consists of a series of Log4g log event elements.
+It does not output a complete well-formed XML document. The output is
+designed to be included as an external entity in a separate file to form
+a complete XML document.
+</p>
+<p>
+For example, if "abc" is the name of the file where the XML layout output
+is directed, a well-formed XML document would be:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+&lt;?xml version="1.0" ?&gt;
+&lt;!DOCTYPE log4g:events SYSTEM "log4g.dtd"
+    [&lt;!ENTITY data SYSTEM "abc"&gt;]&gt;
+&lt;log4g:events version="1.0" xmlns:lo4g="http://gnome.org/log4g/1.0/"&gt;
+    &amp;data;
+&lt;/log4g:events&gt;
+</pre></div>
+<p>
+</p>
+<p>
+This approach enforces the independence of the XML layout and the appender
+where it is embedded.
+</p>
+<p>
+XML layouts accept two properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>properties</p></li>
+<li class="listitem"><p>location-info</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+Setting properties to <code class="literal">TRUE</code> causes the XML layout to output all MDC (mapped
+data context) values.
+</p>
+<p>
+Setting the location-info property to <code class="literal">TRUE</code> will cause the XML layout to
+include the log message location, i.e. function(file:line). The default
+value is <code class="literal">FALSE</code>.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gXMLLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gXMLLayout">
+<a name="Log4gXMLLayout"></a><h3>Log4gXMLLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gXMLLayout;
+</pre>
+<p>
+The <span class="structname">Log4gXMLLayout</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gXMLLayoutClass">
+<a name="Log4gXMLLayoutClass"></a><h3>Log4gXMLLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gXMLLayoutClass;
+</pre>
+<p>
+The <span class="structname">Log4gXMLLayoutClass</span> structure does not have any
+public members.
+</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gXMLLayout.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gMDC.html#Log4gMDCClass" title="Log4gMDCClass"><span class="type">Log4gMDCClass</span></a>, <a class="link" href="log4g-Log4gNDC.html#Log4gNDCClass" title="Log4gNDCClass"><span class="type">Log4gNDCClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

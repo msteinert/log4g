@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gHierarchy</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gLoggerRepository.html" title="Log4gLoggerRepository">
+<link rel="next" href="log4g-Log4gProvisionNode.html" title="Log4gProvisionNode">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gLoggerRepository.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gProvisionNode.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gHierarchy.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gHierarchy.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gHierarchy">
+<a name="log4g-Log4gHierarchy"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gHierarchy.top_of_page"></a>Log4gHierarchy</span></h2>
+<p>Log4gHierarchy — Maintain the logger hierarchy</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gHierarchy.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gHierarchy.html#Log4gHierarchy" title="Log4gHierarchy">Log4gHierarchy</a>;
+                    <a class="link" href="log4g-Log4gHierarchy.html#Log4gHierarchyClass" title="Log4gHierarchyClass">Log4gHierarchyClass</a>;
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * <a class="link" href="log4g-Log4gHierarchy.html#log4g-hierarchy-new" title="log4g_hierarchy_new ()">log4g_hierarchy_new</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *root</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gHierarchy.html#log4g-hierarchy-clear" title="log4g_hierarchy_clear ()">log4g_hierarchy_clear</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *base</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gHierarchy.description"></a><h2>Description</h2>
+<p>
+This class specializes in retrieving loggers by name and maintaining the
+logger hierarchy.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+The casual user has no need to deal with this class directly.
+</p>
+</div>
+<p>
+</p>
+<p>
+The structure of the logger hierarchy is maintained by the function
+<a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-logger" title="log4g_logger_repository_get_logger ()"><code class="function">log4g_logger_repository_get_logger()</code></a> function. Children in the hierarchy
+link to their parent but parents do not have a pointer to their children.
+Descendant logger may be instantiated before their ancestors.
+</p>
+<p>
+In the case where a descendant is created before a particular ancestor
+a provision node (<a class="link" href="log4g-Log4gProvisionNode.html#Log4gProvisionNode" title="Log4gProvisionNode"><span class="type">Log4gProvisionNode</span></a>) is created for the ancestor and
+the descendant is added to the provision node. Other descendants of the
+same ancestor are added to the previously created provision node.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gHierarchy.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gHierarchy">
+<a name="Log4gHierarchy"></a><h3>Log4gHierarchy</h3>
+<pre class="programlisting">typedef struct {
+} Log4gHierarchy;
+</pre>
+<p>
+The <span class="structname">Log4gHierarchy</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gHierarchyClass">
+<a name="Log4gHierarchyClass"></a><h3>Log4gHierarchyClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gHierarchyClass;
+</pre>
+<p>
+The <span class="structname">Log4gHierarchyClass</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_hierarchy_new ()">
+<a name="log4g-hierarchy-new"></a><h3>log4g_hierarchy_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * log4g_hierarchy_new             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *root</code></em>);</pre>
+<p>
+Create a new logger hierarchy.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>root</code></em> :</span></p></td>
+<td>The root logger for the new hierarchy.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new logger hierarchy.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_hierarchy_clear ()">
+<a name="log4g-hierarchy-clear"></a><h3>log4g_hierarchy_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_hierarchy_clear               (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *base</code></em>);</pre>
+<p>
+Clear a logger hierarchy.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>The logger hierarchy to clear.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gHierarchy.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

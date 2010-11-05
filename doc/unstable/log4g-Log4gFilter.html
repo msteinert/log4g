@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gFilter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-core.html" title="Core Classes">
+<link rel="prev" href="log4g-Log4gLayout.html" title="Log4gLayout">
+<link rel="next" href="log4g-Log4gLevel.html" title="Log4gLevel">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gLayout.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gLevel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gFilter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gFilter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gFilter">
+<a name="log4g-Log4gFilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gFilter.top_of_page"></a>Log4gFilter</span></h2>
+<p>Log4gFilter — Log event filter base class</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gFilter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter">Log4gFilter</a>;
+                    <a class="link" href="log4g-Log4gFilter.html#Log4gFilterClass" title="Log4gFilterClass">Log4gFilterClass</a>;
+enum                <a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecision" title="enum Log4gFilterDecision">Log4gFilterDecision</a>;
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecision" title="enum Log4gFilterDecision"><span class="returnvalue">Log4gFilterDecision</span></a>  <a class="link" href="log4g-Log4gFilter.html#log4g-filter-decide" title="log4g_filter_decide ()">log4g_filter_decide</a>                (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gFilter.html#log4g-filter-activate-options" title="log4g_filter_activate_options ()">log4g_filter_activate_options</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       <a class="link" href="log4g-Log4gFilter.html#log4g-filter-get-next" title="log4g_filter_get_next ()">log4g_filter_get_next</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gFilter.html#log4g-filter-set-next" title="log4g_filter_set_next ()">log4g_filter_set_next</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *next</code></em>);
+<a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecision" title="enum Log4gFilterDecision"><span class="returnvalue">Log4gFilterDecision</span></a>  (<a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecide" title="Log4gFilterDecide ()">*Log4gFilterDecide</a>)               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gFilter.html#Log4gFilterActivateOptions" title="Log4gFilterActivateOptions ()">*Log4gFilterActivateOptions</a>)       (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gFilter.description"></a><h2>Description</h2>
+<p>
+Users may extend this class to implement custom log event filtering. Note
+that Log4gLogger &amp; Log4gAppenderSkeleton (the parent of all standard
+appenders) have builtin filter rules. You should understand and use the
+builtin rules before writing custom filters.
+</p>
+<p>
+Filters are organized in a linear chain. Log4gAppenderSkeleton calls the
+<code class="function">decide()</code> function of each filter sequentially in order to determine the
+outcome of the filtering process.
+</p>
+<p>
+Sub-classes must override the <code class="function">decide()</code> virtual function. This function
+must return one of the integer constants <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-DENY:CAPS"><code class="literal">LOG4G_FILTER_DENY</code></a>,
+<a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-NEUTRAL:CAPS"><code class="literal">LOG4G_FILTER_NEUTRAL</code></a>, or <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-ACCEPT:CAPS"><code class="literal">LOG4G_FILTER_ACCEPT</code></a>.
+</p>
+<p>
+If the value <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-DENY:CAPS"><code class="literal">LOG4G_FILTER_DENY</code></a> is returned the log event is dropped
+immediately without consulting the remaining filters.
+</p>
+<p>
+If the value <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-NEUTRAL:CAPS"><code class="literal">LOG4G_FILTER_NEUTRAL</code></a> is returned the remaining filters in
+the chain are consulted. If the final filter returns <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-NEUTRAL:CAPS"><code class="literal">LOG4G_FILTER_NEUTRAL</code></a>
+then the log event is logged. If no filters exist then all messages are
+logged.
+</p>
+<p>
+If the value <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-ACCEPT:CAPS"><code class="literal">LOG4G_FILTER_ACCEPT</code></a> is returned the the log event is logged
+immediately without consulting the remaining filters.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gFilter.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gFilter">
+<a name="Log4gFilter"></a><h3>Log4gFilter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gFilter;
+</pre>
+<p>
+The <span class="structname">Log4gFilter</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFilterClass">
+<a name="Log4gFilterClass"></a><h3>Log4gFilterClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gFilterDecide decide;
+    Log4gFilterActivateOptions activate_options;
+} Log4gFilterClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecide" title="Log4gFilterDecide ()"><span class="type">Log4gFilterDecide</span></a> <em class="structfield"><code><a name="Log4gFilterClass.decide"></a>decide</code></em>;</span></p></td>
+<td>Implements the filter decision.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gFilter.html#Log4gFilterActivateOptions" title="Log4gFilterActivateOptions ()"><span class="type">Log4gFilterActivateOptions</span></a> <em class="structfield"><code><a name="Log4gFilterClass.activate-options"></a>activate_options</code></em>;</span></p></td>
+<td>Activate all options set for this filter.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum Log4gFilterDecision">
+<a name="Log4gFilterDecision"></a><h3>enum Log4gFilterDecision</h3>
+<pre class="programlisting">typedef enum {
+    LOG4G_FILTER_ACCEPT = 1,
+    LOG4G_FILTER_NEUTRAL = 0,
+    LOG4G_FILTER_DENY = -1
+} Log4gFilterDecision;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="LOG4G-FILTER-ACCEPT:CAPS"></a><span class="term"><code class="literal">LOG4G_FILTER_ACCEPT</code></span></p></td>
+<td>The log event must be logged immediately. The
+                      remaining filters (if any) should not be consulted.
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-FILTER-NEUTRAL:CAPS"></a><span class="term"><code class="literal">LOG4G_FILTER_NEUTRAL</code></span></p></td>
+<td>This filter is neutral regarding the event. The
+                       remaining filters (if any) should be consulted for a
+                       final decision.
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-FILTER-DENY:CAPS"></a><span class="term"><code class="literal">LOG4G_FILTER_DENY</code></span></p></td>
+<td>The log event must dropped immediately. The remaining
+                    filters (if any) should not be consulted.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_filter_decide ()">
+<a name="log4g-filter-decide"></a><h3>log4g_filter_decide ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecision" title="enum Log4gFilterDecision"><span class="returnvalue">Log4gFilterDecision</span></a>  log4g_filter_decide                (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>decide</code></em> function from the <a class="link" href="log4g-Log4gFilter.html#Log4gFilterClass" title="Log4gFilterClass"><span class="type">Log4gFilterClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A logging event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A filter decision based upon the logging event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_filter_activate_options ()">
+<a name="log4g-filter-activate-options"></a><h3>log4g_filter_activate_options ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_filter_activate_options       (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>activate_options</code></em> function from the <a class="link" href="log4g-Log4gFilter.html#Log4gFilterClass" title="Log4gFilterClass"><span class="type">Log4gFilterClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+Filters generally need to have their options activated before they can
+be used. This class provides a do-nothing implementation for convenience.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_filter_get_next ()">
+<a name="log4g-filter-get-next"></a><h3>log4g_filter_get_next ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="returnvalue">Log4gFilter</span></a> *       log4g_filter_get_next               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the next filter in the chain.
+</p>
+<p>
+Filters are chained together. This function returns the next filter in
+the chain, or <code class="literal">NULL</code> if there are no more.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The next filter in the chain, or \e NULL if there are no more.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_filter_set_next ()">
+<a name="log4g-filter-set-next"></a><h3>log4g_filter_set_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_filter_set_next               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *next</code></em>);</pre>
+<p>
+Set the next filter in the chain.
+</p>
+<p>
+Filters are chained together. This function sets the filter that will
+follow this one in the chain.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A filter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>next</code></em> :</span></p></td>
+<td>The filter to set as the next in the chain.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFilterDecide ()">
+<a name="Log4gFilterDecide"></a><h3>Log4gFilterDecide ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gFilter.html#Log4gFilterDecision" title="enum Log4gFilterDecision"><span class="returnvalue">Log4gFilterDecision</span></a>  (*Log4gFilterDecide)               (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+If the decision is <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-DENY:CAPS"><code class="literal">LOG4G_FILTER_DENY</code></a>, the even will be dropped. If
+the decision is <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-ACCEPT:CAPS"><code class="literal">LOG4G_FILTER_ACCEPT</code></a>, then any remaining filters
+will be invoked. If the decision is <a class="link" href="log4g-Log4gFilter.html#LOG4G-FILTER-ACCEPT:CAPS"><code class="literal">LOG4G_FILTER_ACCEPT</code></a> the
+event will be logged without consulting any other filters in the
+chain.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A logging event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A filter decision based upon the logging event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFilterActivateOptions ()">
+<a name="Log4gFilterActivateOptions"></a><h3>Log4gFilterActivateOptions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gFilterActivateOptions)       (<em class="parameter"><code><a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> *self</code></em>);</pre>
+<p>
+Activate all options set for this filter.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gFilter.html#Log4gFilter" title="Log4gFilter"><span class="type">Log4gFilter</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

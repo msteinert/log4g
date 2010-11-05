@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gTTCCLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-Log4gSimpleLayout.html" title="Log4gSimpleLayout">
+<link rel="next" href="log4g-Log4gXMLLayout.html" title="Log4gXMLLayout">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gSimpleLayout.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gXMLLayout.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gTTCCLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gTTCCLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gTTCCLayout">
+<a name="log4g-Log4gTTCCLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gTTCCLayout.top_of_page"></a>Log4gTTCCLayout</span></h2>
+<p>Log4gTTCCLayout — Output the time, thread, category &amp; context</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gTTCCLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gTTCCLayout.html#Log4gTTCCLayout" title="Log4gTTCCLayout">Log4gTTCCLayout</a>;
+                    <a class="link" href="log4g-Log4gTTCCLayout.html#Log4gTTCCLayoutClass" title="Log4gTTCCLayoutClass">Log4gTTCCLayoutClass</a>;
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gTTCCLayout.description"></a><h2>Description</h2>
+<p>
+The TTCC layout outputs the time, thread, category (logger name), and
+context (nested diagnostic context) of a log event, hence the name.
+</p>
+<p>
+Some fields can be individually enabled or disabled via the corresponding
+properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>thread-printing</p></li>
+<li class="listitem"><p>category-prefixing</p></li>
+<li class="listitem"><p>context-printing</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+Here is an example of the TTCC output:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+176 [main] INFO  org.gnome.log4g.foo - an example message
+225 [main] DEBUG org.gnome.log4g.bar - another example message
+</pre></div>
+<p>
+</p>
+<p>
+The first field is the number of milliseconds elapsed since the Log4g
+system was initialized. The second field is the name of the thread that
+logged the event. The third field is the log level. The fourth field is
+the logger category to which the statement belongs.
+</p>
+<p>
+The fifth field (just before the '-') is the nested diagnostic context.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+The nested diagnostic context may be empty (as in the example).
+</p>
+</div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+Do not use the same TTCC layout instance from within different appenders.
+The TTCC layout is not thread-safe when used in this way.
+</p>
+</div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+The <a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass"><span class="type">Log4gPatternLayoutClass</span></a> provides a more flexible alternative.
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gTTCCLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gTTCCLayout">
+<a name="Log4gTTCCLayout"></a><h3>Log4gTTCCLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gTTCCLayout;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gTTCCLayoutClass">
+<a name="Log4gTTCCLayoutClass"></a><h3>Log4gTTCCLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gTTCCLayoutClass;
+</pre>
+<p>
+The <span class="structname">Log4gTTCCLayoutClass</span> structure does not have
+any public members.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

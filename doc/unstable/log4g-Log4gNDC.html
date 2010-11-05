@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gNDC</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-public.html" title="Public Interface">
+<link rel="prev" href="log4g-Log4gLogger.html" title="Log4gLogger">
+<link rel="next" href="log4g-Log4gMDC.html" title="Log4gMDC">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gLogger.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-public.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gMDC.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gNDC.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gNDC.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gNDC">
+<a name="log4g-Log4gNDC"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gNDC.top_of_page"></a>Log4gNDC</span></h2>
+<p>Log4gNDC — Nested data context</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gNDC.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gNDC.html#Log4gNDC" title="Log4gNDC">Log4gNDC</a>;
+                    <a class="link" href="log4g-Log4gNDC.html#Log4gNDCClass" title="Log4gNDCClass">Log4gNDCClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clear" title="log4g_ndc_clear ()">log4g_ndc_clear</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">GArray</span> *            <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clone" title="log4g_ndc_clone ()">log4g_ndc_clone</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-inherit" title="log4g_ndc_inherit ()">log4g_ndc_inherit</a>                   (<em class="parameter"><code><span class="type">GArray</span> *stack</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-get" title="log4g_ndc_get ()">log4g_ndc_get</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-size" title="log4g_ndc_size ()">log4g_ndc_size</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-pop" title="log4g_ndc_pop ()">log4g_ndc_pop</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-peek" title="log4g_ndc_peek ()">log4g_ndc_peek</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-push" title="log4g_ndc_push ()">log4g_ndc_push</a>                      (<em class="parameter"><code>const <span class="type">char</span> *message</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-remove" title="log4g_ndc_remove ()">log4g_ndc_remove</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-set-max-depth" title="log4g_ndc_set_max_depth ()">log4g_ndc_set_max_depth</a>             (<em class="parameter"><code><span class="type">guint</span> maxdepth</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gNDC.description"></a><h2>Description</h2>
+<p>
+The NDC class implements nested data contexts. A nested data context (NDC
+for short) is an instrument to distinguish interleaved log output from
+different sources. An example of interleaved log output may occur when
+a server handles multiple simultaneous connections.
+</p>
+<p>
+Nested diagnostic contexts are handled on a per-thread basis. Calling
+<a class="link" href="log4g-Log4gNDC.html#log4g-ndc-push" title="log4g_ndc_push ()"><code class="function">log4g_ndc_push()</code></a>, <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-pop" title="log4g_ndc_pop ()"><code class="function">log4g_ndc_pop()</code></a>, and <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clear" title="log4g_ndc_clear ()"><code class="function">log4g_ndc_clear()</code></a> do not affect the
+NDCs of other threads.
+</p>
+<p>
+Contexts are nested. When enting a context, call <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-push" title="log4g_ndc_push ()"><code class="function">log4g_ndc_push()</code></a>. If there
+is currently no NDC for the current thread, one is created as a side-effect.
+</p>
+<p>
+When leaving a context call <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-pop" title="log4g_ndc_pop ()"><code class="function">log4g_ndc_pop()</code></a>.
+</p>
+<p>
+To clear the current context call <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clear" title="log4g_ndc_clear ()"><code class="function">log4g_ndc_clear()</code></a>.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+It is not necessary to call <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clear" title="log4g_ndc_clear ()"><code class="function">log4g_ndc_clear()</code></a> when exiting a thread. NDCs
+are automatically removed when a thread exits.
+</p>
+</div>
+<p>
+</p>
+<p>
+<a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayout" title="Log4gPatternLayout"><span class="type">Log4gPatternLayout</span></a> &amp; <a class="link" href="log4g-Log4gTTCCLayout.html#Log4gTTCCLayout" title="Log4gTTCCLayout"><span class="type">Log4gTTCCLayout</span></a> may be configured to  automatically
+retrieve the the nested data context for the current thread without user
+intervention.
+</p>
+<p>
+Child threads do not automatically inherit the NDC of their parent. To
+force a thread to inherit a nested data context use <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clone" title="log4g_ndc_clone ()"><code class="function">log4g_ndc_clone()</code></a> &amp;
+<a class="link" href="log4g-Log4gNDC.html#log4g-ndc-inherit" title="log4g_ndc_inherit ()"><code class="function">log4g_ndc_inherit()</code></a>.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gNDC.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gNDC">
+<a name="Log4gNDC"></a><h3>Log4gNDC</h3>
+<pre class="programlisting">typedef struct {
+} Log4gNDC;
+</pre>
+<p>
+The <span class="structname">Log4gNDC</span> structure does not have any public
+members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gNDCClass">
+<a name="Log4gNDCClass"></a><h3>Log4gNDCClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gNDCClass;
+</pre>
+<p>
+The <span class="structname">Log4gNDCClass</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_clear ()">
+<a name="log4g-ndc-clear"></a><h3>log4g_ndc_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_ndc_clear                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Clear current nested data context.
+</p>
+<p>
+This function is useful when a thread is used again in a different
+unrelated context (e.g. thread pools).
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_clone ()">
+<a name="log4g-ndc-clone"></a><h3>log4g_ndc_clone ()</h3>
+<pre class="programlisting"><span class="returnvalue">GArray</span> *            log4g_ndc_clone                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Clone the current nested data context.
+</p>
+<p>
+Another thread may inherit the value returned by this function by calling
+<a class="link" href="log4g-Log4gNDC.html#log4g-ndc-inherit" title="log4g_ndc_inherit ()"><code class="function">log4g_ndc_inherit()</code></a>.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+The caller is responsible for calling <code class="function">g_array_free()</code> or <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-inherit" title="log4g_ndc_inherit ()"><code class="function">log4g_ndc_inherit()</code></a>
+for the returned value.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A clone of the current nested data context.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_inherit ()">
+<a name="log4g-ndc-inherit"></a><h3>log4g_ndc_inherit ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_ndc_inherit                   (<em class="parameter"><code><span class="type">GArray</span> *stack</code></em>);</pre>
+<p>
+Inherit a cloned nested data context.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+After calling this function the caller should no longer reference <em class="parameter"><code>stack</code></em>.
+</p>
+</div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-clone" title="log4g_ndc_clone ()"><code class="function">log4g_ndc_clone()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>stack</code></em> :</span></p></td>
+<td>A cloned nested data context.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_get ()">
+<a name="log4g-ndc-get"></a><h3>log4g_ndc_get ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_ndc_get                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the current diagnostic context formatted as a string.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+You should call <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-ndc" title="log4g_logging_event_get_ndc ()"><code class="function">log4g_logging_event_get_ndc()</code></a> instead of this function.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The current diagnostic context.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_size ()">
+<a name="log4g-ndc-size"></a><h3>log4g_ndc_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               log4g_ndc_size                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the size (depth) of the current nested data context.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of elements on the nested data context stack.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_pop ()">
+<a name="log4g-ndc-pop"></a><h3>log4g_ndc_pop ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_ndc_pop                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Call this function before leaving a diagnostic context.
+</p>
+<p>
+The returned value is the the value that most recently added with
+<a class="link" href="log4g-Log4gNDC.html#log4g-ndc-push" title="log4g_ndc_push ()"><code class="function">log4g_ndc_push()</code></a>. If no context is available, this function returns
+<code class="literal">NULL</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The innermost diagnostic context.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_peek ()">
+<a name="log4g-ndc-peek"></a><h3>log4g_ndc_peek ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_ndc_peek                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Look at the innermost diagnostic context without removing it.
+</p>
+<p>
+The returned value is the the value that most recently added with
+<a class="link" href="log4g-Log4gNDC.html#log4g-ndc-push" title="log4g_ndc_push ()"><code class="function">log4g_ndc_push()</code></a>. If no context is available, this function returns
+<code class="literal">NULL</code>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The innermost diagnostic context.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_push ()">
+<a name="log4g-ndc-push"></a><h3>log4g_ndc_push ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_ndc_push                      (<em class="parameter"><code>const <span class="type">char</span> *message</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Push new diagnostic context information for the current thread.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A NDC message (accepts printf formats).
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_remove ()">
+<a name="log4g-ndc-remove"></a><h3>log4g_ndc_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_ndc_remove                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Remove all diagnostic context for the current thread.
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_ndc_set_max_depth ()">
+<a name="log4g-ndc-set-max-depth"></a><h3>log4g_ndc_set_max_depth ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_ndc_set_max_depth             (<em class="parameter"><code><span class="type">guint</span> maxdepth</code></em>);</pre>
+<p>
+Set the maximum depth of the current diagnostic context.
+</p>
+<p>
+If the current depth is smaller or equal to <em class="parameter"><code>maxdepth</code></em> then no action
+is taken.
+</p>
+<p>
+This function is a convenient alternative to calling <a class="link" href="log4g-Log4gNDC.html#log4g-ndc-pop" title="log4g_ndc_pop ()"><code class="function">log4g_ndc_pop()</code></a>
+multiple times. The following code example will preserve the depth of the
+diagnostic context stack after a complex sequence of calls:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+void foo()
+{
+    guint depth = log4g_ndc_get_size();
+    ... complex sequence of calls ...
+    log4g_ndc_set_max_depth(depth);
+}
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>maxdepth</code></em> :</span></p></td>
+<td>The new size to truncate the context stack to.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

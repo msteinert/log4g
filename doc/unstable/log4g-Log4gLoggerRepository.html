@@ -1,0 +1,998 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLoggerRepository</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gLogManager.html" title="Log4gLogManager">
+<link rel="next" href="log4g-Log4gHierarchy.html" title="Log4gHierarchy">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gLogManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gHierarchy.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLoggerRepository.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLoggerRepository.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLoggerRepository">
+<a name="log4g-Log4gLoggerRepository"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLoggerRepository.top_of_page"></a>Log4gLoggerRepository</span></h2>
+<p>Log4gLoggerRepository — Create and retrieve loggers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLoggerRepository.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository">Log4gLoggerRepository</a>;
+                    <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface">Log4gLoggerRepositoryInterface</a>;
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-exists" title="log4g_logger_repository_exists ()">log4g_logger_repository_exists</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-add-appender-signal" title="log4g_logger_repository_emit_add_appender_signal ()">log4g_logger_repository_emit_add_appender_signal</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-remove-appender-signal" title="log4g_logger_repository_emit_remove_appender_signal ()">log4g_logger_repository_emit_remove_appender_signal</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-current-loggers" title="log4g_logger_repository_get_current_loggers ()">log4g_logger_repository_get_current_loggers</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-logger" title="log4g_logger_repository_get_logger ()">log4g_logger_repository_get_logger</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-logger-factory" title="log4g_logger_repository_get_logger_factory ()">log4g_logger_repository_get_logger_factory</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-root-logger" title="log4g_logger_repository_get_root_logger ()">log4g_logger_repository_get_root_logger</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-threshold" title="log4g_logger_repository_get_threshold ()">log4g_logger_repository_get_threshold</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-is-disabled" title="log4g_logger_repository_is_disabled ()">log4g_logger_repository_is_disabled</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> level</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-reset-configuration" title="log4g_logger_repository_reset_configuration ()">log4g_logger_repository_reset_configuration</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-set-threshold" title="log4g_logger_repository_set_threshold ()">log4g_logger_repository_set_threshold</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-set-threshold-string" title="log4g_logger_repository_set_threshold_string ()">log4g_logger_repository_set_threshold_string</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-shutdown" title="log4g_logger_repository_shutdown ()">log4g_logger_repository_shutdown</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-no-appender-warning" title="log4g_logger_repository_emit_no_appender_warning ()">log4g_logger_repository_emit_no_appender_warning</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryExists" title="Log4gLoggerRepositoryExists ()">*Log4gLoggerRepositoryExists</a>)      (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+const <span class="returnvalue">GArray</span>        (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetCurrentLoggers" title="Log4gLoggerRepositoryGetCurrentLoggers ()">*Log4gLoggerRepositoryGetCurrentLoggers</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLogger" title="Log4gLoggerRepositoryGetLogger ()">*Log4gLoggerRepositoryGetLogger</a>)   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLoggerFactory" title="Log4gLoggerRepositoryGetLoggerFactory ()">*Log4gLoggerRepositoryGetLoggerFactory</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetRootLogger" title="Log4gLoggerRepositoryGetRootLogger ()">*Log4gLoggerRepositoryGetRootLogger</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetThreshold" title="Log4gLoggerRepositoryGetThreshold ()">*Log4gLoggerRepositoryGetThreshold</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryIsDisabled" title="Log4gLoggerRepositoryIsDisabled ()">*Log4gLoggerRepositoryIsDisabled</a>)  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> level</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryResetConfiguration" title="Log4gLoggerRepositoryResetConfiguration ()">*Log4gLoggerRepositoryResetConfiguration</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThreshold" title="Log4gLoggerRepositorySetThreshold ()">*Log4gLoggerRepositorySetThreshold</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThresholdString" title="Log4gLoggerRepositorySetThresholdString ()">*Log4gLoggerRepositorySetThresholdString</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryShutdown" title="Log4gLoggerRepositoryShutdown ()">*Log4gLoggerRepositoryShutdown</a>)    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryEmitNoAppenderWarning" title="Log4gLoggerRepositoryEmitNoAppenderWarning ()">*Log4gLoggerRepositoryEmitNoAppenderWarning</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLoggerRepository.description"></a><h2>Description</h2>
+<p>
+A logger repository is used to create and retrieve loggers. The
+relationship between loggers and the repository depends on the repository
+implementation but usually loggers are arranged in a named hierarchy.
+</p>
+<p>
+In addition to the create functions, a logger repository can be queried
+for existing loggers and act as a registry for events related to loggers.
+</p>
+<p>
+Logger repositories have the following signals:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>add-appender</p></li>
+<li class="listitem"><p>remove-appender</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The add-appender signal is invoked whenever an appender is added to a
+logger in the repository.
+</p>
+<p>
+The type signature for the add-appender signal is:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+typedef void
+(*add_appender)(Log4gLogger *logger, Log4gAppender *appender);
+</pre></div>
+<p>
+</p>
+<p>
+The remove-appender signal is invoked whenever an appender is removed from
+a logger in the repository.
+</p>
+<p>
+The type signature for the remove-appender signal is:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+typedef void
+(*remove_appender)(Log4gLogger *logger, Log4gAppender *appender);
+</pre></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLoggerRepository.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLoggerRepository">
+<a name="Log4gLoggerRepository"></a><h3>Log4gLoggerRepository</h3>
+<pre class="programlisting">typedef struct _Log4gLoggerRepository Log4gLoggerRepository;</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryInterface">
+<a name="Log4gLoggerRepositoryInterface"></a><h3>Log4gLoggerRepositoryInterface</h3>
+<pre class="programlisting">typedef struct {
+    Log4gLoggerRepositoryExists exists;
+    Log4gLoggerRepositoryGetCurrentLoggers get_current_loggers;
+    Log4gLoggerRepositoryGetLogger get_logger;
+    Log4gLoggerRepositoryGetLoggerFactory get_logger_factory;
+    Log4gLoggerRepositoryGetRootLogger get_root_logger;
+    Log4gLoggerRepositoryGetThreshold get_threshold;
+    Log4gLoggerRepositoryIsDisabled is_disabled;
+    Log4gLoggerRepositoryResetConfiguration reset_configuration;
+    Log4gLoggerRepositorySetThreshold set_threshold;
+    Log4gLoggerRepositorySetThresholdString set_threshold_string;
+    Log4gLoggerRepositoryShutdown shutdown;
+    Log4gLoggerRepositoryEmitNoAppenderWarning emit_no_appender_warning;
+} Log4gLoggerRepositoryInterface;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryExists" title="Log4gLoggerRepositoryExists ()"><span class="type">Log4gLoggerRepositoryExists</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.exists"></a>exists</code></em>;</span></p></td>
+<td>Determine if a given logger exists in the repository.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetCurrentLoggers" title="Log4gLoggerRepositoryGetCurrentLoggers ()"><span class="type">Log4gLoggerRepositoryGetCurrentLoggers</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.get-current-loggers"></a>get_current_loggers</code></em>;</span></p></td>
+<td>Get all loggers in the repository.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLogger" title="Log4gLoggerRepositoryGetLogger ()"><span class="type">Log4gLoggerRepositoryGetLogger</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.get-logger"></a>get_logger</code></em>;</span></p></td>
+<td>Get an existing logger or create a new one.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLoggerFactory" title="Log4gLoggerRepositoryGetLoggerFactory ()"><span class="type">Log4gLoggerRepositoryGetLoggerFactory</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.get-logger-factory"></a>get_logger_factory</code></em>;</span></p></td>
+<td>Get an existing logger or create it with a factory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetRootLogger" title="Log4gLoggerRepositoryGetRootLogger ()"><span class="type">Log4gLoggerRepositoryGetRootLogger</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.get-root-logger"></a>get_root_logger</code></em>;</span></p></td>
+<td>Get the root logger.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetThreshold" title="Log4gLoggerRepositoryGetThreshold ()"><span class="type">Log4gLoggerRepositoryGetThreshold</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.get-threshold"></a>get_threshold</code></em>;</span></p></td>
+<td>Get the repository threshold.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryIsDisabled" title="Log4gLoggerRepositoryIsDisabled ()"><span class="type">Log4gLoggerRepositoryIsDisabled</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.is-disabled"></a>is_disabled</code></em>;</span></p></td>
+<td>Determine if the repository is disabled at a given level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryResetConfiguration" title="Log4gLoggerRepositoryResetConfiguration ()"><span class="type">Log4gLoggerRepositoryResetConfiguration</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.reset-configuration"></a>reset_configuration</code></em>;</span></p></td>
+<td>Reset the repository configuration.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThreshold" title="Log4gLoggerRepositorySetThreshold ()"><span class="type">Log4gLoggerRepositorySetThreshold</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.set-threshold"></a>set_threshold</code></em>;</span></p></td>
+<td>Set the repository threshold.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThresholdString" title="Log4gLoggerRepositorySetThresholdString ()"><span class="type">Log4gLoggerRepositorySetThresholdString</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.set-threshold-string"></a>set_threshold_string</code></em>;</span></p></td>
+<td>Set the repository threshold by string value.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryShutdown" title="Log4gLoggerRepositoryShutdown ()"><span class="type">Log4gLoggerRepositoryShutdown</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.shutdown"></a>shutdown</code></em>;</span></p></td>
+<td>Shut down the logger repository.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryEmitNoAppenderWarning" title="Log4gLoggerRepositoryEmitNoAppenderWarning ()"><span class="type">Log4gLoggerRepositoryEmitNoAppenderWarning</span></a> <em class="structfield"><code><a name="Log4gLoggerRepositoryInterface.emit-no-appender-warning"></a>emit_no_appender_warning</code></em>;</span></p></td>
+<td>Emit a warning if no appenders are attached.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_exists ()">
+<a name="log4g-logger-repository-exists"></a><h3>log4g_logger_repository_exists ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_repository_exists      (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>exists</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to check.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if it does not exist.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_emit_add_appender_signal ()">
+<a name="log4g-logger-repository-emit-add-appender-signal"></a><h3>log4g_logger_repository_emit_add_appender_signal ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_emit_add_appender_signal
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Emit the the add-appender signal of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The logger from to <em class="parameter"><code>appender</code></em> was added.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender that was added.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_emit_remove_appender_signal ()">
+<a name="log4g-logger-repository-emit-remove-appender-signal"></a><h3>log4g_logger_repository_emit_remove_appender_signal ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_emit_remove_appender_signal
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Emit the remove-appender signal of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The logger from which <em class="parameter"><code>appender</code></em> was removed.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender that was removed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_get_current_loggers ()">
+<a name="log4g-logger-repository-get-current-loggers"></a><h3>log4g_logger_repository_get_current_loggers ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_logger_repository_get_current_loggers
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_current_loggers</code></em> function from the
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array containing all loggers in the repository or <code class="literal">NULL</code>
+         if there are none.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_get_logger ()">
+<a name="log4g-logger-repository-get-logger"></a><h3>log4g_logger_repository_get_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_repository_get_logger  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_logger</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_get_logger_factory ()">
+<a name="log4g-logger-repository-get-logger-factory"></a><h3>log4g_logger_repository_get_logger_factory ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_repository_get_logger_factory
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_logger_factory</code></em> function from the
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>The factory to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_get_root_logger ()">
+<a name="log4g-logger-repository-get-root-logger"></a><h3>log4g_logger_repository_get_root_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_repository_get_root_logger
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_root_logger</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The root logger.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_get_threshold ()">
+<a name="log4g-logger-repository-get-threshold"></a><h3>log4g_logger_repository_get_threshold ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_logger_repository_get_threshold
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_threshold</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The threshold level for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_is_disabled ()">
+<a name="log4g-logger-repository-is-disabled"></a><h3>log4g_logger_repository_is_disabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_repository_is_disabled (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> level</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>is_disabled</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The integer representation of a log level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is disabled for <em class="parameter"><code>level</code></em>, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_reset_configuration ()">
+<a name="log4g-logger-repository-reset-configuration"></a><h3>log4g_logger_repository_reset_configuration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_reset_configuration
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>reset_configuration</code></em> function from the
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_set_threshold ()">
+<a name="log4g-logger-repository-set-threshold"></a><h3>log4g_logger_repository_set_threshold ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_set_threshold
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>set_threshold</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The new threshold for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_set_threshold_string ()">
+<a name="log4g-logger-repository-set-threshold-string"></a><h3>log4g_logger_repository_set_threshold_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_set_threshold_string
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>set_threshold_string</code></em> function from the
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The name of the new threshold to set.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_shutdown ()">
+<a name="log4g-logger-repository-shutdown"></a><h3>log4g_logger_repository_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_shutdown    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>shutdown</code></em> function from the <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_repository_emit_no_appender_warning ()">
+<a name="log4g-logger-repository-emit-no-appender-warning"></a><h3>log4g_logger_repository_emit_no_appender_warning ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_repository_emit_no_appender_warning
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>emit_no_appender_warning</code></em> function from the
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The logger that produced the warning.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryExists ()">
+<a name="Log4gLoggerRepositoryExists"></a><h3>Log4gLoggerRepositoryExists ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (*Log4gLoggerRepositoryExists)      (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Determine if a named logger exists.
+</p>
+<p>
+If the named logger does not exist it is not created.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to check.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if it does not exist.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryGetCurrentLoggers ()">
+<a name="Log4gLoggerRepositoryGetCurrentLoggers"></a><h3>Log4gLoggerRepositoryGetCurrentLoggers ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span>        (*Log4gLoggerRepositoryGetCurrentLoggers)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Retrieve all loggers in the repository.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+It is the responsibility of the caller to call <code class="function">g_array_free()</code> for the
+returned value.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array containing all loggers in the repository or <code class="literal">NULL</code> if
+         there are none.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryGetLogger ()">
+<a name="Log4gLoggerRepositoryGetLogger"></a><h3>Log4gLoggerRepositoryGetLogger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (*Log4gLoggerRepositoryGetLogger)   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve a named logger from the repository.
+</p>
+<p>
+If the logger named <em class="parameter"><code>name</code></em> does not already exist it should be
+created and added to the repository.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryGetLoggerFactory ()">
+<a name="Log4gLoggerRepositoryGetLoggerFactory"></a><h3>Log4gLoggerRepositoryGetLoggerFactory ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (*Log4gLoggerRepositoryGetLoggerFactory)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);</pre>
+<p>
+Retrieve a named logger from the repository.
+</p>
+<p>
+If the logger named <em class="parameter"><code>name</code></em> does not already exist it should be
+created using <em class="parameter"><code>factory</code></em> and added to the repository.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>The factory to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryGetRootLogger ()">
+<a name="Log4gLoggerRepositoryGetRootLogger"></a><h3>Log4gLoggerRepositoryGetRootLogger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a>         (*Log4gLoggerRepositoryGetRootLogger)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the root logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The root logger.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryGetThreshold ()">
+<a name="Log4gLoggerRepositoryGetThreshold"></a><h3>Log4gLoggerRepositoryGetThreshold ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLoggerRepositoryGetThreshold)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the repository threshold.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>, <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface.set-threshold"><span class="type">Log4gLoggerRepositoryInterface.set_threshold</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The threshold level for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryIsDisabled ()">
+<a name="Log4gLoggerRepositoryIsDisabled"></a><h3>Log4gLoggerRepositoryIsDisabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*Log4gLoggerRepositoryIsDisabled)  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> level</code></em>);</pre>
+<p>
+Determine if the repository is disabled for a given log level.
+</p>
+<p>
+\see <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>, <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface.set-threshold"><span class="type">Log4gLoggerRepositoryInterface.set_threshold</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The integer representation of a log level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is disabled for <em class="parameter"><code>level</code></em>, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryResetConfiguration ()">
+<a name="Log4gLoggerRepositoryResetConfiguration"></a><h3>Log4gLoggerRepositoryResetConfiguration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerRepositoryResetConfiguration)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Reset a repository to its initial state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositorySetThreshold ()">
+<a name="Log4gLoggerRepositorySetThreshold"></a><h3>Log4gLoggerRepositorySetThreshold ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerRepositorySetThreshold)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Set the repository threshold.
+</p>
+<p>
+All logging requests below the threshold are immediately dropped.
+By default the threshold is set to <em class="parameter"><code>ALL</code></em>, which has the lowest
+possible rank.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The new threshold for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositorySetThresholdString ()">
+<a name="Log4gLoggerRepositorySetThresholdString"></a><h3>Log4gLoggerRepositorySetThresholdString ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerRepositorySetThresholdString)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>);</pre>
+<p>
+Set the repository threshold from a string.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The new threshold level name to set.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryShutdown ()">
+<a name="Log4gLoggerRepositoryShutdown"></a><h3>Log4gLoggerRepositoryShutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerRepositoryShutdown)    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>);</pre>
+<p>
+Shutdown the repository.
+</p>
+<p>
+Once the repository is shut down it cannot be used by the Log4g system.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logger repository object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerRepositoryEmitNoAppenderWarning ()">
+<a name="Log4gLoggerRepositoryEmitNoAppenderWarning"></a><h3>Log4gLoggerRepositoryEmitNoAppenderWarning ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerRepositoryEmitNoAppenderWarning)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="type">Log4gLoggerRepository</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gLoggerRepository.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass"><span class="type">Log4gLoggerClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

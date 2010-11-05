@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gDOMConfigurator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="ch02.html" title="Configuration">
+<link rel="prev" href="log4g-Log4gConfigurator.html" title="Log4gConfigurator">
+<link rel="next" href="Log4gBasicConfigurator.html" title="Log4gBasicConfigurator">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gConfigurator.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="Log4gBasicConfigurator.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gDOMConfigurator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gDOMConfigurator.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gDOMConfigurator">
+<a name="log4g-Log4gDOMConfigurator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gDOMConfigurator.top_of_page"></a>Log4gDOMConfigurator</span></h2>
+<p>Log4gDOMConfigurator — Initialize the Log4g environment using a DOM tree</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gDOMConfigurator.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gDOMConfigurator.html#Log4gDOMConfigurator" title="Log4gDOMConfigurator">Log4gDOMConfigurator</a>;
+                    <a class="link" href="log4g-Log4gDOMConfigurator.html#Log4gDOMConfiguratorClass" title="Log4gDOMConfiguratorClass">Log4gDOMConfiguratorClass</a>;
+<a class="link" href="log4g-Log4gConfigurator.html#Log4gConfigurator" title="Log4gConfigurator"><span class="returnvalue">Log4gConfigurator</span></a> * <a class="link" href="log4g-Log4gDOMConfigurator.html#log4g-dom-configurator-new" title="log4g_dom_configurator_new ()">log4g_dom_configurator_new</a>          (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gDOMConfigurator.html#log4g-dom-configurator-configure" title="log4g_dom_configurator_configure ()">log4g_dom_configurator_configure</a>    (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gDOMConfigurator.description"></a><h2>Description</h2>
+<p>
+The DTD is specified in log4g.dtd. The Log4g DTD differs in some small
+ways from the official Log4j DTD.
+</p>
+<p>
+Use "appender" everywhere instead of "appender-ref". Appenders may be
+declared inline to a logger. Appender references simply use a named
+"appender" tag and do not define a new appender.
+</p>
+<p>
+Use "property" instead of "param". The keyword "property" was used instead
+of "param" to reflect the underlying GLib/GObject implementation.
+</p>
+<p>
+The following configuration provides a cut-and-paste example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
+    "http://www.gnome.org/log4g/1.0/log4g.dtd"&gt;
+&lt;log4g:configuration&gt;
+    &lt;appender name="A1" type="Log4gConsoleAppender"&gt;
+        &lt;layout type="Log4gPatternLayout"&gt;
+            &lt;property name="conversion-pattern"
+                      value="%-4r [%t] %-5p %c %x - %m%n" /&gt;
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;root&gt;
+        &lt;level value="DEBUG" /&gt;
+        &lt;appender name="A1" /&gt;
+    &lt;/root&gt;
+&lt;/log4g:configuration&gt;
+</pre></div>
+<p>
+</p>
+<p>
+In this example all events will be logged to the console appender (stdout by
+default) using the specified pattern layout.
+</p>
+<p>
+You may enable internal log messages by setting the LOG4G_FLAGS
+environment variable to "debug". For example (Bash):
+</p>
+<div class="informalexample"><pre class="programlisting">
+$ export LOG4G_FLAGS=debug
+</pre></div>
+<p>
+</p>
+<p>
+Alternatively you may set the "debug" attribute in the log4g:configuration
+element:
+</p>
+<div class="informalexample"><pre class="programlisting">
+&lt;log4g:configuration debug="true"&gt;
+&lt;/log4g:configuration&gt;
+</pre></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gDOMConfigurator.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gDOMConfigurator">
+<a name="Log4gDOMConfigurator"></a><h3>Log4gDOMConfigurator</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDOMConfigurator;
+</pre>
+<p>
+The <span class="structname">Log4gDOMConfigurator</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gDOMConfiguratorClass">
+<a name="Log4gDOMConfiguratorClass"></a><h3>Log4gDOMConfiguratorClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDOMConfiguratorClass;
+</pre>
+<p>
+The <span class="structname">Log4gDOMConfiguratorClass</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_dom_configurator_new ()">
+<a name="log4g-dom-configurator-new"></a><h3>log4g_dom_configurator_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gConfigurator.html#Log4gConfigurator" title="Log4gConfigurator"><span class="returnvalue">Log4gConfigurator</span></a> * log4g_dom_configurator_new          (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Create a new DOM configurator.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new DOM configurator object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_dom_configurator_configure ()">
+<a name="log4g-dom-configurator-configure"></a><h3>log4g_dom_configurator_configure ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_dom_configurator_configure    (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>
+Configure Log4g by reading a log4g.dtd compliant XML configuration file.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>A file or URI to load the configuration from.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>Returns any error messages.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the configuration was successful, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gDOMConfigurator.see-also"></a><h2>See Also</h2>
+log4g_init(), <a class="link" href="Log4g.html#log4g-get-option-group" title="log4g_get_option_group ()"><code class="function">log4g_get_option_group()</code></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Log4g Reference Manual" link="index.html" author="" name="log4g">
+  <chapters>
+    <sub name="Log4g Overview" link="pt01.html">
+      <sub name="Introduction" link="log4g-introduction.html"/>
+    </sub>
+    <sub name="API Reference" link="pt02.html">
+      <sub name="Public Interface" link="log4g-public.html">
+        <sub name="Log4g" link="Log4g.html"/>
+        <sub name="Log4gLogger" link="log4g-Log4gLogger.html"/>
+        <sub name="Log4gNDC" link="log4g-Log4gNDC.html"/>
+        <sub name="Log4gMDC" link="log4g-Log4gMDC.html"/>
+        <sub name="Log4gThread" link="log4g-Log4gThread.html"/>
+      </sub>
+      <sub name="Configuration" link="ch02.html">
+        <sub name="Log4gConfigurator" link="log4g-Log4gConfigurator.html"/>
+        <sub name="Log4gDOMConfigurator" link="log4g-Log4gDOMConfigurator.html"/>
+        <sub name="Log4gBasicConfigurator" link="Log4gBasicConfigurator.html"/>
+      </sub>
+      <sub name="Core Classes" link="log4g-core.html">
+        <sub name="Log4gLoggingEvent" link="log4g-Log4gLoggingEvent.html"/>
+        <sub name="Log4gRootLogger" link="log4g-Log4gRootLogger.html"/>
+        <sub name="Log4gAppender" link="log4g-Log4gAppender.html"/>
+        <sub name="Log4gLayout" link="log4g-Log4gLayout.html"/>
+        <sub name="Log4gFilter" link="log4g-Log4gFilter.html"/>
+        <sub name="Log4gLevel" link="log4g-Log4gLevel.html"/>
+        <sub name="Log4gErrorQuark" link="Log4gErrorQuark.html"/>
+      </sub>
+      <sub name="Logger Management" link="log4g-logger-management.html">
+        <sub name="Log4gLogManager" link="log4g-Log4gLogManager.html"/>
+        <sub name="Log4gLoggerRepository" link="log4g-Log4gLoggerRepository.html"/>
+        <sub name="Log4gHierarchy" link="log4g-Log4gHierarchy.html"/>
+        <sub name="Log4gProvisionNode" link="log4g-Log4gProvisionNode.html"/>
+        <sub name="Log4gAppenderAttachable" link="log4g-Log4gAppenderAttachable.html"/>
+        <sub name="Log4gAppenderAttachableImpl" link="log4g-Log4gAppenderAttachableImpl.html"/>
+        <sub name="Log4gLoggerFactory" link="log4g-Log4gLoggerFactory.html"/>
+        <sub name="Log4gDefaultLoggerFactory" link="log4g-Log4gDefaultLoggerFactory.html"/>
+        <sub name="Log4gRepositorySelector" link="log4g-Log4gRepositorySelector.html"/>
+        <sub name="Log4gDefaultRepositorySelector" link="log4g-Log4gDefaultRepositorySelector.html"/>
+        <sub name="Log4gErrorHandler" link="log4g-Log4gErrorHandler.html"/>
+        <sub name="Log4gOnlyOnceErrorHandler" link="log4g-Log4gOnlyOnceErrorHandler.html"/>
+        <sub name="Log4gInternalLogging" link="Log4gInternalLogging.html"/>
+      </sub>
+    </sub>
+    <sub name="Modules" link="pt03.html">
+      <sub name="Extending Log4g" link="log4g-extending.html">
+        <sub name="Log4gModule" link="log4g-Log4gModule.html"/>
+        <sub name="Log4gModuleLoader" link="log4g-Log4gModuleLoader.html"/>
+        <sub name="Log4gDefaultModuleLoader" link="log4g-Log4gDefaultModuleLoader.html"/>
+      </sub>
+      <sub name="Appenders" link="log4g-appenders.html">
+        <sub name="Log4gAsyncAppender" link="log4g-Log4gAsyncAppender.html"/>
+        <sub name="Log4gConsoleAppender" link="log4g-Log4gConsoleAppender.html"/>
+        <sub name="Log4gFileAppender" link="log4g-Log4gFileAppender.html"/>
+        <sub name="Log4gNullAppender" link="log4g-Log4gNullAppender.html"/>
+        <sub name="Log4gRollingFileAppender" link="log4g-Log4gRollingFileAppender.html"/>
+        <sub name="Log4gSyslogAppender" link="log4g-Log4gSyslogAppender.html"/>
+        <sub name="Log4gWriterAppender" link="log4g-Log4gWriterAppender.html"/>
+        <sub name="Log4gQuietWriter" link="log4g-Log4gQuietWriter.html"/>
+        <sub name="Log4gCountingQuietWriter" link="log4g-Log4gCountingQuietWriter.html"/>
+      </sub>
+      <sub name="Filters" link="log4g-filters.html">
+        <sub name="Log4gDenyAllFilter" link="log4g-Log4gDenyAllFilter.html"/>
+        <sub name="Log4gLevelMatchFilter" link="log4g-Log4gLevelMatchFilter.html"/>
+        <sub name="Log4gLevelRangeFilter" link="log4g-Log4gLevelRangeFilter.html"/>
+        <sub name="Log4gStringMatchFilter" link="log4g-Log4gStringMatchFilter.html"/>
+      </sub>
+      <sub name="Layouts" link="log4g-layouts.html">
+        <sub name="Log4gDateLayout" link="log4g-Log4gDateLayout.html"/>
+        <sub name="Log4gHTMLLayout" link="log4g-Log4gHTMLLayout.html"/>
+        <sub name="Log4gPatternLayout" link="log4g-Log4gPatternLayout.html"/>
+        <sub name="Log4gSimpleLayout" link="log4g-Log4gSimpleLayout.html"/>
+        <sub name="Log4gTTCCLayout" link="log4g-Log4gTTCCLayout.html"/>
+        <sub name="Log4gXMLLayout" link="log4g-Log4gXMLLayout.html"/>
+        <sub name="Log4gPatternConverter" link="log4g-Log4gPatternConverter.html"/>
+        <sub name="Log4gPatternParser" link="log4g-Log4gPatternParser.html"/>
+      </sub>
+      <sub name="CouchDB" link="log4g-couchdb.html">
+        <sub name="Log4gCouchdbAppender" link="log4g-Log4gCouchdbAppender.html"/>
+        <sub name="Log4gCouchdbLayout" link="log4g-Log4gCouchdbLayout.html"/>
+      </sub>
+    </sub>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+  </chapters>
+  <functions>
+    <function name="Loggers" link="log4g-introduction.html#loggers"/>
+    <function name="Appenders" link="log4g-introduction.html#appenders"/>
+    <function name="Layouts" link="log4g-introduction.html#layouts"/>
+    <function name="Filters" link="log4g-introduction.html#filters"/>
+    <function name="Configuration" link="log4g-introduction.html#configuration"/>
+    <function name="LOG4G_LOG_DOMAIN" link="Log4g.html#LOG4G-LOG-DOMAIN:CAPS"/>
+    <function name="log4g_init ()" link="Log4g.html#log4g-init"/>
+    <function name="log4g_finalize ()" link="Log4g.html#log4g-finalize"/>
+    <function name="log4g_get_option_group ()" link="Log4g.html#log4g-get-option-group"/>
+    <function name="log4g_get_logger()" link="Log4g.html#log4g-get-logger"/>
+    <function name="log4g_get_root_logger" link="Log4g.html#log4g-get-root-logger"/>
+    <function name="log4g_assert()" link="Log4g.html#log4g-assert"/>
+    <function name="log4g_logger_assert()" link="Log4g.html#log4g-logger-assert"/>
+    <function name="log4g_is_trace_enabled" link="Log4g.html#log4g-is-trace-enabled"/>
+    <function name="log4g_trace()" link="Log4g.html#log4g-trace"/>
+    <function name="log4g_logger_trace()" link="Log4g.html#log4g-logger-trace"/>
+    <function name="log4g_is_debug_enabled" link="Log4g.html#log4g-is-debug-enabled"/>
+    <function name="log4g_debug()" link="Log4g.html#log4g-debug"/>
+    <function name="log4g_logger_debug()" link="Log4g.html#log4g-logger-debug"/>
+    <function name="log4g_is_info_enabled" link="Log4g.html#log4g-is-info-enabled"/>
+    <function name="log4g_info()" link="Log4g.html#log4g-info"/>
+    <function name="log4g_logger_info()" link="Log4g.html#log4g-logger-info"/>
+    <function name="log4g_is_warn_enabled" link="Log4g.html#log4g-is-warn-enabled"/>
+    <function name="log4g_warn()" link="Log4g.html#log4g-warn"/>
+    <function name="log4g_logger_warn()" link="Log4g.html#log4g-logger-warn"/>
+    <function name="log4g_is_error_enabled" link="Log4g.html#log4g-is-error-enabled"/>
+    <function name="log4g_error()" link="Log4g.html#log4g-error"/>
+    <function name="log4g_logger_error()" link="Log4g.html#log4g-logger-error"/>
+    <function name="log4g_is_fatal_enabled" link="Log4g.html#log4g-is-fatal-enabled"/>
+    <function name="log4g_fatal()" link="Log4g.html#log4g-fatal"/>
+    <function name="log4g_logger_fatal()" link="Log4g.html#log4g-logger-fatal"/>
+    <function name="Log4gLogger" link="log4g-Log4gLogger.html#Log4gLogger"/>
+    <function name="Log4gLoggerClass" link="log4g-Log4gLogger.html#Log4gLoggerClass"/>
+    <function name="log4g_logger_new ()" link="log4g-Log4gLogger.html#log4g-logger-new"/>
+    <function name="log4g_logger_get_name ()" link="log4g-Log4gLogger.html#log4g-logger-get-name"/>
+    <function name="log4g_logger_set_name ()" link="log4g-Log4gLogger.html#log4g-logger-set-name"/>
+    <function name="log4g_logger_get_parent ()" link="log4g-Log4gLogger.html#log4g-logger-get-parent"/>
+    <function name="log4g_logger_set_parent ()" link="log4g-Log4gLogger.html#log4g-logger-set-parent"/>
+    <function name="log4g_logger_get_level ()" link="log4g-Log4gLogger.html#log4g-logger-get-level"/>
+    <function name="log4g_logger_set_level ()" link="log4g-Log4gLogger.html#log4g-logger-set-level"/>
+    <function name="log4g_logger_get_additivity ()" link="log4g-Log4gLogger.html#log4g-logger-get-additivity"/>
+    <function name="log4g_logger_set_additivity ()" link="log4g-Log4gLogger.html#log4g-logger-set-additivity"/>
+    <function name="log4g_logger_get_logger_repository ()" link="log4g-Log4gLogger.html#log4g-logger-get-logger-repository"/>
+    <function name="log4g_logger_set_logger_repository ()" link="log4g-Log4gLogger.html#log4g-logger-set-logger-repository"/>
+    <function name="log4g_logger_get_effective_level ()" link="log4g-Log4gLogger.html#log4g-logger-get-effective-level"/>
+    <function name="log4g_logger_add_appender ()" link="log4g-Log4gLogger.html#log4g-logger-add-appender"/>
+    <function name="log4g_logger_get_all_appenders ()" link="log4g-Log4gLogger.html#log4g-logger-get-all-appenders"/>
+    <function name="log4g_logger_get_appender ()" link="log4g-Log4gLogger.html#log4g-logger-get-appender"/>
+    <function name="log4g_logger_is_attached ()" link="log4g-Log4gLogger.html#log4g-logger-is-attached"/>
+    <function name="log4g_logger_remove_all_appenders ()" link="log4g-Log4gLogger.html#log4g-logger-remove-all-appenders"/>
+    <function name="log4g_logger_remove_appender ()" link="log4g-Log4gLogger.html#log4g-logger-remove-appender"/>
+    <function name="log4g_logger_remove_appender_name ()" link="log4g-Log4gLogger.html#log4g-logger-remove-appender-name"/>
+    <function name="log4g_logger_close_nested_appenders ()" link="log4g-Log4gLogger.html#log4g-logger-close-nested-appenders"/>
+    <function name="log4g_logger_call_appenders ()" link="log4g-Log4gLogger.html#log4g-logger-call-appenders"/>
+    <function name="log4g_logger_is_trace_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-trace-enabled"/>
+    <function name="log4g_logger_is_debug_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-debug-enabled"/>
+    <function name="log4g_logger_is_info_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-info-enabled"/>
+    <function name="log4g_logger_is_warn_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-warn-enabled"/>
+    <function name="log4g_logger_is_error_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-error-enabled"/>
+    <function name="log4g_logger_is_fatal_enabled ()" link="log4g-Log4gLogger.html#log4g-logger-is-fatal-enabled"/>
+    <function name="log4g_logger_get_logger ()" link="log4g-Log4gLogger.html#log4g-logger-get-logger"/>
+    <function name="log4g_logger_get_root_logger ()" link="log4g-Log4gLogger.html#log4g-logger-get-root-logger"/>
+    <function name="log4g_logger_get_logger_factory ()" link="log4g-Log4gLogger.html#log4g-logger-get-logger-factory"/>
+    <function name="log4g_logger_forced_log ()" link="log4g-Log4gLogger.html#log4g-logger-forced-log"/>
+    <function name="Log4gLoggerGetEffectiveLevel ()" link="log4g-Log4gLogger.html#Log4gLoggerGetEffectiveLevel"/>
+    <function name="Log4gLoggerSetLevel ()" link="log4g-Log4gLogger.html#Log4gLoggerSetLevel"/>
+    <function name="Log4gNDC" link="log4g-Log4gNDC.html#Log4gNDC"/>
+    <function name="Log4gNDCClass" link="log4g-Log4gNDC.html#Log4gNDCClass"/>
+    <function name="log4g_ndc_clear ()" link="log4g-Log4gNDC.html#log4g-ndc-clear"/>
+    <function name="log4g_ndc_clone ()" link="log4g-Log4gNDC.html#log4g-ndc-clone"/>
+    <function name="log4g_ndc_inherit ()" link="log4g-Log4gNDC.html#log4g-ndc-inherit"/>
+    <function name="log4g_ndc_get ()" link="log4g-Log4gNDC.html#log4g-ndc-get"/>
+    <function name="log4g_ndc_size ()" link="log4g-Log4gNDC.html#log4g-ndc-size"/>
+    <function name="log4g_ndc_pop ()" link="log4g-Log4gNDC.html#log4g-ndc-pop"/>
+    <function name="log4g_ndc_peek ()" link="log4g-Log4gNDC.html#log4g-ndc-peek"/>
+    <function name="log4g_ndc_push ()" link="log4g-Log4gNDC.html#log4g-ndc-push"/>
+    <function name="log4g_ndc_remove ()" link="log4g-Log4gNDC.html#log4g-ndc-remove"/>
+    <function name="log4g_ndc_set_max_depth ()" link="log4g-Log4gNDC.html#log4g-ndc-set-max-depth"/>
+    <function name="Log4gMDC" link="log4g-Log4gMDC.html#Log4gMDC"/>
+    <function name="Log4gMDCClass" link="log4g-Log4gMDC.html#Log4gMDCClass"/>
+    <function name="log4g_mdc_put ()" link="log4g-Log4gMDC.html#log4g-mdc-put"/>
+    <function name="log4g_mdc_get ()" link="log4g-Log4gMDC.html#log4g-mdc-get"/>
+    <function name="log4g_mdc_remove ()" link="log4g-Log4gMDC.html#log4g-mdc-remove"/>
+    <function name="log4g_mdc_get_context ()" link="log4g-Log4gMDC.html#log4g-mdc-get-context"/>
+    <function name="Log4gThread" link="log4g-Log4gThread.html#Log4gThread"/>
+    <function name="Log4gThreadClass" link="log4g-Log4gThread.html#Log4gThreadClass"/>
+    <function name="log4g_thread_get_name ()" link="log4g-Log4gThread.html#log4g-thread-get-name"/>
+    <function name="log4g_thread_set_name ()" link="log4g-Log4gThread.html#log4g-thread-set-name"/>
+    <function name="Log4gConfigurator" link="log4g-Log4gConfigurator.html#Log4gConfigurator"/>
+    <function name="Log4gConfiguratorInterface" link="log4g-Log4gConfigurator.html#Log4gConfiguratorInterface"/>
+    <function name="log4g_configurator_do_configure ()" link="log4g-Log4gConfigurator.html#log4g-configurator-do-configure"/>
+    <function name="Log4gConfiguratorDoConfigure ()" link="log4g-Log4gConfigurator.html#Log4gConfiguratorDoConfigure"/>
+    <function name="Log4gDOMConfigurator" link="log4g-Log4gDOMConfigurator.html#Log4gDOMConfigurator"/>
+    <function name="Log4gDOMConfiguratorClass" link="log4g-Log4gDOMConfigurator.html#Log4gDOMConfiguratorClass"/>
+    <function name="log4g_dom_configurator_new ()" link="log4g-Log4gDOMConfigurator.html#log4g-dom-configurator-new"/>
+    <function name="log4g_dom_configurator_configure ()" link="log4g-Log4gDOMConfigurator.html#log4g-dom-configurator-configure"/>
+    <function name="log4g_basic_configurator_configure ()" link="Log4gBasicConfigurator.html#log4g-basic-configurator-configure"/>
+    <function name="log4g_basic_configurator_configure_appender ()" link="Log4gBasicConfigurator.html#log4g-basic-configurator-configure-appender"/>
+    <function name="log4g_basic_configurator_reset_configuration ()" link="Log4gBasicConfigurator.html#log4g-basic-configurator-reset-configuration"/>
+    <function name="Log4gLoggingEvent" link="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent"/>
+    <function name="Log4gLoggingEventClass" link="log4g-Log4gLoggingEvent.html#Log4gLoggingEventClass"/>
+    <function name="log4g_logging_event_new ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-new"/>
+    <function name="log4g_logging_event_get_level ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-level"/>
+    <function name="log4g_logging_event_get_logger_name ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-logger-name"/>
+    <function name="log4g_logging_event_get_rendered_message ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-rendered-message"/>
+    <function name="log4g_logging_event_get_message ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-message"/>
+    <function name="log4g_logging_event_get_mdc ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-mdc"/>
+    <function name="log4g_logging_event_get_time_stamp ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-time-stamp"/>
+    <function name="log4g_logging_event_get_thread_name ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-thread-name"/>
+    <function name="log4g_logging_event_get_ndc ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-ndc"/>
+    <function name="log4g_logging_event_get_property_key_set ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-property-key-set"/>
+    <function name="log4g_logging_event_get_thread_copy ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-thread-copy"/>
+    <function name="log4g_logging_event_get_mdc_copy ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-mdc-copy"/>
+    <function name="log4g_logging_event_get_ndc_copy ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-ndc-copy"/>
+    <function name="log4g_logging_event_get_function_name ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-function-name"/>
+    <function name="log4g_logging_event_get_file_name ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-file-name"/>
+    <function name="log4g_logging_event_get_line_number ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-line-number"/>
+    <function name="log4g_logging_event_get_full_info ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-full-info"/>
+    <function name="log4g_logging_event_get_start_time ()" link="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-start-time"/>
+    <function name="Log4gLoggingEventGetLevel ()" link="log4g-Log4gLoggingEvent.html#Log4gLoggingEventGetLevel"/>
+    <function name="Log4gRootLogger" link="log4g-Log4gRootLogger.html#Log4gRootLogger"/>
+    <function name="Log4gRootLoggerClass" link="log4g-Log4gRootLogger.html#Log4gRootLoggerClass"/>
+    <function name="log4g_root_logger_new ()" link="log4g-Log4gRootLogger.html#log4g-root-logger-new"/>
+    <function name="Log4gAppender" link="log4g-Log4gAppender.html#Log4gAppender"/>
+    <function name="Log4gAppenderClass" link="log4g-Log4gAppender.html#Log4gAppenderClass"/>
+    <function name="log4g_appender_clear_filters ()" link="log4g-Log4gAppender.html#log4g-appender-clear-filters"/>
+    <function name="log4g_appender_add_filter ()" link="log4g-Log4gAppender.html#log4g-appender-add-filter"/>
+    <function name="log4g_appender_get_filter ()" link="log4g-Log4gAppender.html#log4g-appender-get-filter"/>
+    <function name="log4g_appender_close ()" link="log4g-Log4gAppender.html#log4g-appender-close"/>
+    <function name="log4g_appender_do_append ()" link="log4g-Log4gAppender.html#log4g-appender-do-append"/>
+    <function name="log4g_appender_get_name ()" link="log4g-Log4gAppender.html#log4g-appender-get-name"/>
+    <function name="log4g_appender_set_error_handler ()" link="log4g-Log4gAppender.html#log4g-appender-set-error-handler"/>
+    <function name="log4g_appender_get_error_handler ()" link="log4g-Log4gAppender.html#log4g-appender-get-error-handler"/>
+    <function name="log4g_appender_set_layout ()" link="log4g-Log4gAppender.html#log4g-appender-set-layout"/>
+    <function name="log4g_appender_get_layout ()" link="log4g-Log4gAppender.html#log4g-appender-get-layout"/>
+    <function name="log4g_appender_set_name ()" link="log4g-Log4gAppender.html#log4g-appender-set-name"/>
+    <function name="log4g_appender_requires_layout ()" link="log4g-Log4gAppender.html#log4g-appender-requires-layout"/>
+    <function name="log4g_appender_activate_options ()" link="log4g-Log4gAppender.html#log4g-appender-activate-options"/>
+    <function name="log4g_appender_append ()" link="log4g-Log4gAppender.html#log4g-appender-append"/>
+    <function name="log4g_appender_get_first_filter ()" link="log4g-Log4gAppender.html#log4g-appender-get-first-filter"/>
+    <function name="log4g_appender_is_as_severe_as ()" link="log4g-Log4gAppender.html#log4g-appender-is-as-severe-as"/>
+    <function name="log4g_appender_set_threshold ()" link="log4g-Log4gAppender.html#log4g-appender-set-threshold"/>
+    <function name="log4g_appender_get_threshold ()" link="log4g-Log4gAppender.html#log4g-appender-get-threshold"/>
+    <function name="log4g_appender_get_closed ()" link="log4g-Log4gAppender.html#log4g-appender-get-closed"/>
+    <function name="log4g_appender_set_closed ()" link="log4g-Log4gAppender.html#log4g-appender-set-closed"/>
+    <function name="Log4gAppenderAddFilter ()" link="log4g-Log4gAppender.html#Log4gAppenderAddFilter"/>
+    <function name="Log4gAppenderGetFilter ()" link="log4g-Log4gAppender.html#Log4gAppenderGetFilter"/>
+    <function name="Log4gAppenderClose ()" link="log4g-Log4gAppender.html#Log4gAppenderClose"/>
+    <function name="Log4gAppenderAppend ()" link="log4g-Log4gAppender.html#Log4gAppenderAppend"/>
+    <function name="Log4gAppenderDoAppend ()" link="log4g-Log4gAppender.html#Log4gAppenderDoAppend"/>
+    <function name="Log4gAppenderSetName ()" link="log4g-Log4gAppender.html#Log4gAppenderSetName"/>
+    <function name="Log4gAppenderGetName ()" link="log4g-Log4gAppender.html#Log4gAppenderGetName"/>
+    <function name="Log4gAppenderSetErrorHandler ()" link="log4g-Log4gAppender.html#Log4gAppenderSetErrorHandler"/>
+    <function name="Log4gAppenderGetErrorHandler ()" link="log4g-Log4gAppender.html#Log4gAppenderGetErrorHandler"/>
+    <function name="Log4gAppenderSetLayout ()" link="log4g-Log4gAppender.html#Log4gAppenderSetLayout"/>
+    <function name="Log4gAppenderGetLayout ()" link="log4g-Log4gAppender.html#Log4gAppenderGetLayout"/>
+    <function name="Log4gAppenderRequiresLayout ()" link="log4g-Log4gAppender.html#Log4gAppenderRequiresLayout"/>
+    <function name="Log4gAppenderActivateOptions ()" link="log4g-Log4gAppender.html#Log4gAppenderActivateOptions"/>
+    <function name="LOG4G_LAYOUT_LINE_SEP" link="log4g-Log4gLayout.html#LOG4G-LAYOUT-LINE-SEP:CAPS"/>
+    <function name="Log4gLayout" link="log4g-Log4gLayout.html#Log4gLayout"/>
+    <function name="Log4gLayoutClass" link="log4g-Log4gLayout.html#Log4gLayoutClass"/>
+    <function name="log4g_layout_format ()" link="log4g-Log4gLayout.html#log4g-layout-format"/>
+    <function name="log4g_layout_get_content_type ()" link="log4g-Log4gLayout.html#log4g-layout-get-content-type"/>
+    <function name="log4g_layout_get_header ()" link="log4g-Log4gLayout.html#log4g-layout-get-header"/>
+    <function name="log4g_layout_get_footer ()" link="log4g-Log4gLayout.html#log4g-layout-get-footer"/>
+    <function name="log4g_layout_activate_options ()" link="log4g-Log4gLayout.html#log4g-layout-activate-options"/>
+    <function name="Log4gLayoutFormat ()" link="log4g-Log4gLayout.html#Log4gLayoutFormat"/>
+    <function name="Log4gLayoutGetContentType ()" link="log4g-Log4gLayout.html#Log4gLayoutGetContentType"/>
+    <function name="Log4gLayoutGetHeader ()" link="log4g-Log4gLayout.html#Log4gLayoutGetHeader"/>
+    <function name="Log4gLayoutGetFooter ()" link="log4g-Log4gLayout.html#Log4gLayoutGetFooter"/>
+    <function name="Log4gLayoutActivateOptions ()" link="log4g-Log4gLayout.html#Log4gLayoutActivateOptions"/>
+    <function name="Log4gFilter" link="log4g-Log4gFilter.html#Log4gFilter"/>
+    <function name="Log4gFilterClass" link="log4g-Log4gFilter.html#Log4gFilterClass"/>
+    <function name="enum Log4gFilterDecision" link="log4g-Log4gFilter.html#Log4gFilterDecision"/>
+    <function name="log4g_filter_decide ()" link="log4g-Log4gFilter.html#log4g-filter-decide"/>
+    <function name="log4g_filter_activate_options ()" link="log4g-Log4gFilter.html#log4g-filter-activate-options"/>
+    <function name="log4g_filter_get_next ()" link="log4g-Log4gFilter.html#log4g-filter-get-next"/>
+    <function name="log4g_filter_set_next ()" link="log4g-Log4gFilter.html#log4g-filter-set-next"/>
+    <function name="Log4gFilterDecide ()" link="log4g-Log4gFilter.html#Log4gFilterDecide"/>
+    <function name="Log4gFilterActivateOptions ()" link="log4g-Log4gFilter.html#Log4gFilterActivateOptions"/>
+    <function name="Log4gLevel" link="log4g-Log4gLevel.html#Log4gLevel"/>
+    <function name="Log4gLevelClass" link="log4g-Log4gLevel.html#Log4gLevelClass"/>
+    <function name="enum Log4gLevelInt" link="log4g-Log4gLevel.html#Log4gLevelInt"/>
+    <function name="log4g_level_new ()" link="log4g-Log4gLevel.html#log4g-level-new"/>
+    <function name="log4g_level_equals ()" link="log4g-Log4gLevel.html#log4g-level-equals"/>
+    <function name="log4g_level_get_syslog_equivalent ()" link="log4g-Log4gLevel.html#log4g-level-get-syslog-equivalent"/>
+    <function name="log4g_level_is_greater_or_equal ()" link="log4g-Log4gLevel.html#log4g-level-is-greater-or-equal"/>
+    <function name="log4g_level_to_string ()" link="log4g-Log4gLevel.html#log4g-level-to-string"/>
+    <function name="log4g_level_to_int ()" link="log4g-Log4gLevel.html#log4g-level-to-int"/>
+    <function name="log4g_level_string_to_level ()" link="log4g-Log4gLevel.html#log4g-level-string-to-level"/>
+    <function name="log4g_level_string_to_level_default ()" link="log4g-Log4gLevel.html#log4g-level-string-to-level-default"/>
+    <function name="log4g_level_int_to_level ()" link="log4g-Log4gLevel.html#log4g-level-int-to-level"/>
+    <function name="log4g_level_int_to_level_default ()" link="log4g-Log4gLevel.html#log4g-level-int-to-level-default"/>
+    <function name="log4g_level_ALL ()" link="log4g-Log4gLevel.html#log4g-level-ALL"/>
+    <function name="log4g_level_TRACE ()" link="log4g-Log4gLevel.html#log4g-level-TRACE"/>
+    <function name="log4g_level_DEBUG ()" link="log4g-Log4gLevel.html#log4g-level-DEBUG"/>
+    <function name="log4g_level_INFO ()" link="log4g-Log4gLevel.html#log4g-level-INFO"/>
+    <function name="log4g_level_WARN ()" link="log4g-Log4gLevel.html#log4g-level-WARN"/>
+    <function name="log4g_level_ERROR ()" link="log4g-Log4gLevel.html#log4g-level-ERROR"/>
+    <function name="log4g_level_FATAL ()" link="log4g-Log4gLevel.html#log4g-level-FATAL"/>
+    <function name="log4g_level_OFF ()" link="log4g-Log4gLevel.html#log4g-level-OFF"/>
+    <function name="Log4gLevelStringToLevel ()" link="log4g-Log4gLevel.html#Log4gLevelStringToLevel"/>
+    <function name="Log4gLevelStringToLevelDefault ()" link="log4g-Log4gLevel.html#Log4gLevelStringToLevelDefault"/>
+    <function name="Log4gLevelIntToLevel ()" link="log4g-Log4gLevel.html#Log4gLevelIntToLevel"/>
+    <function name="Log4gLevelIntToLevelDefault ()" link="log4g-Log4gLevel.html#Log4gLevelIntToLevelDefault"/>
+    <function name="LOG4G_ERROR" link="Log4gErrorQuark.html#LOG4G-ERROR:CAPS"/>
+    <function name="enum Log4gError" link="Log4gErrorQuark.html#Log4gError"/>
+    <function name="log4g_error_quark ()" link="Log4gErrorQuark.html#log4g-error-quark"/>
+    <function name="Log4gLogManager" link="log4g-Log4gLogManager.html#Log4gLogManager"/>
+    <function name="Log4gLogManagerClass" link="log4g-Log4gLogManager.html#Log4gLogManagerClass"/>
+    <function name="log4g_log_manager_remove_instance ()" link="log4g-Log4gLogManager.html#log4g-log-manager-remove-instance"/>
+    <function name="log4g_log_manager_get_logger_repository ()" link="log4g-Log4gLogManager.html#log4g-log-manager-get-logger-repository"/>
+    <function name="log4g_log_manager_get_root_logger ()" link="log4g-Log4gLogManager.html#log4g-log-manager-get-root-logger"/>
+    <function name="log4g_log_manager_get_logger ()" link="log4g-Log4gLogManager.html#log4g-log-manager-get-logger"/>
+    <function name="log4g_log_manager_get_logger_factory ()" link="log4g-Log4gLogManager.html#log4g-log-manager-get-logger-factory"/>
+    <function name="log4g_log_manager_exists ()" link="log4g-Log4gLogManager.html#log4g-log-manager-exists"/>
+    <function name="log4g_log_manager_get_current_loggers ()" link="log4g-Log4gLogManager.html#log4g-log-manager-get-current-loggers"/>
+    <function name="log4g_log_manager_shutdown ()" link="log4g-Log4gLogManager.html#log4g-log-manager-shutdown"/>
+    <function name="log4g_log_manager_reset_configuration ()" link="log4g-Log4gLogManager.html#log4g-log-manager-reset-configuration"/>
+    <function name="log4g_log_manager_set_repository_selector ()" link="log4g-Log4gLogManager.html#log4g-log-manager-set-repository-selector"/>
+    <function name="Log4gLoggerRepository" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository"/>
+    <function name="Log4gLoggerRepositoryInterface" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface"/>
+    <function name="log4g_logger_repository_exists ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-exists"/>
+    <function name="log4g_logger_repository_emit_add_appender_signal ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-add-appender-signal"/>
+    <function name="log4g_logger_repository_emit_remove_appender_signal ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-remove-appender-signal"/>
+    <function name="log4g_logger_repository_get_current_loggers ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-current-loggers"/>
+    <function name="log4g_logger_repository_get_logger ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-logger"/>
+    <function name="log4g_logger_repository_get_logger_factory ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-logger-factory"/>
+    <function name="log4g_logger_repository_get_root_logger ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-root-logger"/>
+    <function name="log4g_logger_repository_get_threshold ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-get-threshold"/>
+    <function name="log4g_logger_repository_is_disabled ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-is-disabled"/>
+    <function name="log4g_logger_repository_reset_configuration ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-reset-configuration"/>
+    <function name="log4g_logger_repository_set_threshold ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-set-threshold"/>
+    <function name="log4g_logger_repository_set_threshold_string ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-set-threshold-string"/>
+    <function name="log4g_logger_repository_shutdown ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-shutdown"/>
+    <function name="log4g_logger_repository_emit_no_appender_warning ()" link="log4g-Log4gLoggerRepository.html#log4g-logger-repository-emit-no-appender-warning"/>
+    <function name="Log4gLoggerRepositoryExists ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryExists"/>
+    <function name="Log4gLoggerRepositoryGetCurrentLoggers ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetCurrentLoggers"/>
+    <function name="Log4gLoggerRepositoryGetLogger ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLogger"/>
+    <function name="Log4gLoggerRepositoryGetLoggerFactory ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetLoggerFactory"/>
+    <function name="Log4gLoggerRepositoryGetRootLogger ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetRootLogger"/>
+    <function name="Log4gLoggerRepositoryGetThreshold ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryGetThreshold"/>
+    <function name="Log4gLoggerRepositoryIsDisabled ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryIsDisabled"/>
+    <function name="Log4gLoggerRepositoryResetConfiguration ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryResetConfiguration"/>
+    <function name="Log4gLoggerRepositorySetThreshold ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThreshold"/>
+    <function name="Log4gLoggerRepositorySetThresholdString ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositorySetThresholdString"/>
+    <function name="Log4gLoggerRepositoryShutdown ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryShutdown"/>
+    <function name="Log4gLoggerRepositoryEmitNoAppenderWarning ()" link="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryEmitNoAppenderWarning"/>
+    <function name="Log4gHierarchy" link="log4g-Log4gHierarchy.html#Log4gHierarchy"/>
+    <function name="Log4gHierarchyClass" link="log4g-Log4gHierarchy.html#Log4gHierarchyClass"/>
+    <function name="log4g_hierarchy_new ()" link="log4g-Log4gHierarchy.html#log4g-hierarchy-new"/>
+    <function name="log4g_hierarchy_clear ()" link="log4g-Log4gHierarchy.html#log4g-hierarchy-clear"/>
+    <function name="Log4gProvisionNode" link="log4g-Log4gProvisionNode.html#Log4gProvisionNode"/>
+    <function name="Log4gProvisionNodeClass" link="log4g-Log4gProvisionNode.html#Log4gProvisionNodeClass"/>
+    <function name="log4g_provision_node_new ()" link="log4g-Log4gProvisionNode.html#log4g-provision-node-new"/>
+    <function name="log4g_provision_node_add_element ()" link="log4g-Log4gProvisionNode.html#log4g-provision-node-add-element"/>
+    <function name="log4g_provision_node_size ()" link="log4g-Log4gProvisionNode.html#log4g-provision-node-size"/>
+    <function name="log4g_provision_node_element_at ()" link="log4g-Log4gProvisionNode.html#log4g-provision-node-element-at"/>
+    <function name="Log4gAppenderAttachable" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable"/>
+    <function name="struct Log4gAppenderAttachableInterface" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface"/>
+    <function name="log4g_appender_attachable_add_appender ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-add-appender"/>
+    <function name="log4g_appender_attachable_get_all_appenders ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-get-all-appenders"/>
+    <function name="log4g_appender_attachable_get_appender ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-get-appender"/>
+    <function name="log4g_appender_attachable_is_attached ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-is-attached"/>
+    <function name="log4g_appender_attachable_remove_all_appenders ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-all-appenders"/>
+    <function name="log4g_appender_attachable_remove_appender ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-appender"/>
+    <function name="log4g_appender_attachable_remove_appender_name ()" link="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-appender-name"/>
+    <function name="Log4gAppenderAttachableAddAppender ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableAddAppender"/>
+    <function name="Log4gAppenderAttachableGetAllAppenders ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAllAppenders"/>
+    <function name="Log4gAppenderAttachableGetAppender ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAppender"/>
+    <function name="Log4gAppenderAttachableIsAttached ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableIsAttached"/>
+    <function name="Log4gAppenderAttachableRemoveAllAppenders ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAllAppenders"/>
+    <function name="Log4gAppenderAttachableRemoveAppender ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppender"/>
+    <function name="Log4gAppenderAttachableRemoveAppenderName ()" link="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppenderName"/>
+    <function name="Log4gAppenderAttachableImpl" link="log4g-Log4gAppenderAttachableImpl.html#Log4gAppenderAttachableImpl"/>
+    <function name="struct Log4gAppenderAttachableImplClass" link="log4g-Log4gAppenderAttachableImpl.html#Log4gAppenderAttachableImplClass"/>
+    <function name="log4g_appender_attachable_impl_new ()" link="log4g-Log4gAppenderAttachableImpl.html#log4g-appender-attachable-impl-new"/>
+    <function name="log4g_appender_attachable_impl_append_loop_on_appenders ()" link="log4g-Log4gAppenderAttachableImpl.html#log4g-appender-attachable-impl-append-loop-on-appenders"/>
+    <function name="Log4gLoggerFactory" link="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory"/>
+    <function name="Log4gLoggerFactoryInterface" link="log4g-Log4gLoggerFactory.html#Log4gLoggerFactoryInterface"/>
+    <function name="log4g_logger_factory_make_new_logger_instance ()" link="log4g-Log4gLoggerFactory.html#log4g-logger-factory-make-new-logger-instance"/>
+    <function name="Log4gLoggerFactoryMakeNewLoggerInstance ()" link="log4g-Log4gLoggerFactory.html#Log4gLoggerFactoryMakeNewLoggerInstance"/>
+    <function name="Log4gDefaultLoggerFactory" link="log4g-Log4gDefaultLoggerFactory.html#Log4gDefaultLoggerFactory"/>
+    <function name="Log4gDefaultLoggerFactoryClass" link="log4g-Log4gDefaultLoggerFactory.html#Log4gDefaultLoggerFactoryClass"/>
+    <function name="log4g_default_logger_factory_new ()" link="log4g-Log4gDefaultLoggerFactory.html#log4g-default-logger-factory-new"/>
+    <function name="Log4gRepositorySelector" link="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector"/>
+    <function name="struct Log4gRepositorySelectorInterface" link="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorInterface"/>
+    <function name="log4g_repository_selector_get_logger_repository ()" link="log4g-Log4gRepositorySelector.html#log4g-repository-selector-get-logger-repository"/>
+    <function name="Log4gRepositorySelectorGetLoggerRepository ()" link="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorGetLoggerRepository"/>
+    <function name="Log4gDefaultRepositorySelector" link="log4g-Log4gDefaultRepositorySelector.html#Log4gDefaultRepositorySelector"/>
+    <function name="struct Log4gDefaultRepositorySelectorClass" link="log4g-Log4gDefaultRepositorySelector.html#Log4gDefaultRepositorySelectorClass"/>
+    <function name="log4g_default_repository_selector_new ()" link="log4g-Log4gDefaultRepositorySelector.html#log4g-default-repository-selector-new"/>
+    <function name="Log4gErrorHandler" link="log4g-Log4gErrorHandler.html#Log4gErrorHandler"/>
+    <function name="Log4gErrorHandlerInterface" link="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface"/>
+    <function name="log4g_error_handler_set_logger ()" link="log4g-Log4gErrorHandler.html#log4g-error-handler-set-logger"/>
+    <function name="log4g_error_handler_error ()" link="log4g-Log4gErrorHandler.html#log4g-error-handler-error"/>
+    <function name="log4g_error_handler_set_appender ()" link="log4g-Log4gErrorHandler.html#log4g-error-handler-set-appender"/>
+    <function name="log4g_error_handler_set_backup_appender ()" link="log4g-Log4gErrorHandler.html#log4g-error-handler-set-backup-appender"/>
+    <function name="Log4gErrorHandlerSetLogger ()" link="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetLogger"/>
+    <function name="Log4gErrorHandlerError ()" link="log4g-Log4gErrorHandler.html#Log4gErrorHandlerError"/>
+    <function name="Log4gErrorHandlerSetAppender ()" link="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetAppender"/>
+    <function name="Log4gErrorHandlerSetBackupAppender ()" link="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetBackupAppender"/>
+    <function name="Log4gOnlyOnceErrorHandler" link="log4g-Log4gOnlyOnceErrorHandler.html#Log4gOnlyOnceErrorHandler"/>
+    <function name="Log4gOnlyOnceErrorHandlerClass" link="log4g-Log4gOnlyOnceErrorHandler.html#Log4gOnlyOnceErrorHandlerClass"/>
+    <function name="log4g_only_once_error_handler_new ()" link="log4g-Log4gOnlyOnceErrorHandler.html#log4g-only-once-error-handler-new"/>
+    <function name="log4g_log_debug ()" link="Log4gInternalLogging.html#log4g-log-debug"/>
+    <function name="log4g_log_debugv ()" link="Log4gInternalLogging.html#log4g-log-debugv"/>
+    <function name="log4g_log_warn ()" link="Log4gInternalLogging.html#log4g-log-warn"/>
+    <function name="log4g_log_warnv ()" link="Log4gInternalLogging.html#log4g-log-warnv"/>
+    <function name="log4g_log_error ()" link="Log4gInternalLogging.html#log4g-log-error"/>
+    <function name="log4g_log_errorv ()" link="Log4gInternalLogging.html#log4g-log-errorv"/>
+    <function name="log4g_set_internal_debugging ()" link="Log4gInternalLogging.html#log4g-set-internal-debugging"/>
+    <function name="log4g_set_quiet_mode ()" link="Log4gInternalLogging.html#log4g-set-quiet-mode"/>
+    <function name="Log4gModule" link="log4g-Log4gModule.html#Log4gModule"/>
+    <function name="Log4gModuleClass" link="log4g-Log4gModule.html#Log4gModuleClass"/>
+    <function name="log4g_module_new ()" link="log4g-Log4gModule.html#log4g-module-new"/>
+    <function name="log4g_module_load ()" link="log4g-Log4gModule.html#log4g-module-load"/>
+    <function name="Log4gModuleLoader" link="log4g-Log4gModuleLoader.html#Log4gModuleLoader"/>
+    <function name="Log4gModuleLoaderInterface" link="log4g-Log4gModuleLoader.html#Log4gModuleLoaderInterface"/>
+    <function name="log4g_module_loader_load_modules ()" link="log4g-Log4gModuleLoader.html#log4g-module-loader-load-modules"/>
+    <function name="Log4gDefaultModuleLoader" link="log4g-Log4gDefaultModuleLoader.html#Log4gDefaultModuleLoader"/>
+    <function name="struct Log4gDefaultModuleLoaderClass" link="log4g-Log4gDefaultModuleLoader.html#Log4gDefaultModuleLoaderClass"/>
+    <function name="log4g_default_module_loader_new ()" link="log4g-Log4gDefaultModuleLoader.html#log4g-default-module-loader-new"/>
+    <function name="Log4gModuleLoaderLoadModules ()" link="log4g-Log4gDefaultModuleLoader.html#Log4gModuleLoaderLoadModules"/>
+    <function name="Log4gAsyncAppender" link="log4g-Log4gAsyncAppender.html#Log4gAsyncAppender"/>
+    <function name="Log4gAsyncAppenderClass" link="log4g-Log4gAsyncAppender.html#Log4gAsyncAppenderClass"/>
+    <function name="log4g_async_appender_add_appender ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-add-appender"/>
+    <function name="log4g_async_appender_get_all_appenders ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-get-all-appenders"/>
+    <function name="log4g_async_appender_get_appender ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-get-appender"/>
+    <function name="log4g_async_appender_is_attached ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-is-attached"/>
+    <function name="log4g_async_appender_remove_all_appenders ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-all-appenders"/>
+    <function name="log4g_async_appender_remove_appender ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-appender"/>
+    <function name="log4g_async_appender_remove_appender_name ()" link="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-appender-name"/>
+    <function name="Log4gConsoleAppender" link="log4g-Log4gConsoleAppender.html#Log4gConsoleAppender"/>
+    <function name="Log4gConsoleAppenderClass" link="log4g-Log4gConsoleAppender.html#Log4gConsoleAppenderClass"/>
+    <function name="Log4gFileAppender" link="log4g-Log4gFileAppender.html#Log4gFileAppender"/>
+    <function name="Log4gFileAppenderClass" link="log4g-Log4gFileAppender.html#Log4gFileAppenderClass"/>
+    <function name="log4g_file_appender_close_file ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-close-file"/>
+    <function name="log4g_file_appender_get_buffer_size ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-get-buffer-size"/>
+    <function name="log4g_file_appender_get_buffered_io ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-get-buffered-io"/>
+    <function name="log4g_file_appender_get_file ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-get-file"/>
+    <function name="log4g_file_appender_set_file_full ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-set-file-full"/>
+    <function name="log4g_file_appender_set_qw_for_files ()" link="log4g-Log4gFileAppender.html#log4g-file-appender-set-qw-for-files"/>
+    <function name="Log4gFileAppenderSetFileFull ()" link="log4g-Log4gFileAppender.html#Log4gFileAppenderSetFileFull"/>
+    <function name="Log4gFileAppenderSetQwForFiles ()" link="log4g-Log4gFileAppender.html#Log4gFileAppenderSetQwForFiles"/>
+    <function name="Log4gNullAppender" link="log4g-Log4gNullAppender.html#Log4gNullAppender"/>
+    <function name="Log4gNullAppenderClass" link="log4g-Log4gNullAppender.html#Log4gNullAppenderClass"/>
+    <function name="Log4gRollingFileAppender" link="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppender"/>
+    <function name="Log4gRollingFileAppenderClass" link="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppenderClass"/>
+    <function name="log4g_rolling_file_appender_roll_over ()" link="log4g-Log4gRollingFileAppender.html#log4g-rolling-file-appender-roll-over"/>
+    <function name="Log4gRollingFileAppenderRollOver ()" link="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppenderRollOver"/>
+    <function name="Log4gSyslogAppender" link="log4g-Log4gSyslogAppender.html#Log4gSyslogAppender"/>
+    <function name="Log4gSyslogAppenderClass" link="log4g-Log4gSyslogAppender.html#Log4gSyslogAppenderClass"/>
+    <function name="Log4gWriterAppender" link="log4g-Log4gWriterAppender.html#Log4gWriterAppender"/>
+    <function name="Log4gWriterAppenderClass" link="log4g-Log4gWriterAppender.html#Log4gWriterAppenderClass"/>
+    <function name="log4g_writer_appender_check_entry_conditions ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-check-entry-conditions"/>
+    <function name="log4g_writer_appender_close_writer ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-close-writer"/>
+    <function name="log4g_writer_appender_get_quiet_writer ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-get-quiet-writer"/>
+    <function name="log4g_writer_appender_reset ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-reset"/>
+    <function name="log4g_writer_appender_set_quiet_writer ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-set-quiet-writer"/>
+    <function name="log4g_writer_appender_set_writer ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-set-writer"/>
+    <function name="log4g_writer_appender_sub_append ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-sub-append"/>
+    <function name="log4g_writer_appender_write_footer ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-write-footer"/>
+    <function name="log4g_writer_appender_write_header ()" link="log4g-Log4gWriterAppender.html#log4g-writer-appender-write-header"/>
+    <function name="Log4gWriterAppenderCloseWriter ()" link="log4g-Log4gWriterAppender.html#Log4gWriterAppenderCloseWriter"/>
+    <function name="Log4gWriterAppenderReset ()" link="log4g-Log4gWriterAppender.html#Log4gWriterAppenderReset"/>
+    <function name="Log4gWriterAppenderSubAppend ()" link="log4g-Log4gWriterAppender.html#Log4gWriterAppenderSubAppend"/>
+    <function name="Log4gQuietWriter" link="log4g-Log4gQuietWriter.html#Log4gQuietWriter"/>
+    <function name="Log4gQuietWriterClass" link="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass"/>
+    <function name="log4g_quiet_writer_close ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-close"/>
+    <function name="log4g_quiet_writer_flush ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-flush"/>
+    <function name="log4g_quiet_writer_new ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-new"/>
+    <function name="log4g_quiet_writer_set_error_handler ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-set-error-handler"/>
+    <function name="log4g_quiet_writer_set_file ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-set-file"/>
+    <function name="log4g_quiet_writer_write ()" link="log4g-Log4gQuietWriter.html#log4g-quiet-writer-write"/>
+    <function name="Log4gQuietWriterWrite ()" link="log4g-Log4gQuietWriter.html#Log4gQuietWriterWrite"/>
+    <function name="Log4gCountingQuietWriter" link="log4g-Log4gCountingQuietWriter.html#Log4gCountingQuietWriter"/>
+    <function name="Log4gCountingQuietWriterClass" link="log4g-Log4gCountingQuietWriter.html#Log4gCountingQuietWriterClass"/>
+    <function name="log4g_counting_quiet_writer_get_count ()" link="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-get-count"/>
+    <function name="log4g_counting_quiet_writer_new ()" link="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-new"/>
+    <function name="log4g_counting_quiet_writer_set_count ()" link="log4g-Log4gCountingQuietWriter.html#log4g-counting-quiet-writer-set-count"/>
+    <function name="Log4gDenyAllFilter" link="log4g-Log4gDenyAllFilter.html#Log4gDenyAllFilter"/>
+    <function name="Log4gDenyAllFilterClass" link="log4g-Log4gDenyAllFilter.html#Log4gDenyAllFilterClass"/>
+    <function name="Log4gLevelMatchFilter" link="log4g-Log4gLevelMatchFilter.html#Log4gLevelMatchFilter"/>
+    <function name="Log4gLevelMatchFilterClass" link="log4g-Log4gLevelMatchFilter.html#Log4gLevelMatchFilterClass"/>
+    <function name="Log4gLevelRangeFilter" link="log4g-Log4gLevelRangeFilter.html#Log4gLevelRangeFilter"/>
+    <function name="Log4gLevelRangeFilterClass" link="log4g-Log4gLevelRangeFilter.html#Log4gLevelRangeFilterClass"/>
+    <function name="Log4gStringMatchFilter" link="log4g-Log4gStringMatchFilter.html#Log4gStringMatchFilter"/>
+    <function name="Log4gStringMatchFilterClass" link="log4g-Log4gStringMatchFilter.html#Log4gStringMatchFilterClass"/>
+    <function name="Log4gDateLayout" link="log4g-Log4gDateLayout.html#Log4gDateLayout"/>
+    <function name="Log4gDateLayoutClass" link="log4g-Log4gDateLayout.html#Log4gDateLayoutClass"/>
+    <function name="enum Log4gDateLayoutType" link="log4g-Log4gDateLayout.html#Log4gDateLayoutType"/>
+    <function name="log4g_date_layout_date_format ()" link="log4g-Log4gDateLayout.html#log4g-date-layout-date-format"/>
+    <function name="Log4gHTMLLayout" link="log4g-Log4gHTMLLayout.html#Log4gHTMLLayout"/>
+    <function name="Log4gHTMLLayoutClass" link="log4g-Log4gHTMLLayout.html#Log4gHTMLLayoutClass"/>
+    <function name="Log4gPatternLayout" link="log4g-Log4gPatternLayout.html#Log4gPatternLayout"/>
+    <function name="Log4gPatternLayoutClass" link="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass"/>
+    <function name="log4g_pattern_layout_create_pattern_parser ()" link="log4g-Log4gPatternLayout.html#log4g-pattern-layout-create-pattern-parser"/>
+    <function name="Log4gPatternLayoutCreatePatternParser ()" link="log4g-Log4gPatternLayout.html#Log4gPatternLayoutCreatePatternParser"/>
+    <function name="Log4gSimpleLayout" link="log4g-Log4gSimpleLayout.html#Log4gSimpleLayout"/>
+    <function name="Log4gSimpleLayoutClass" link="log4g-Log4gSimpleLayout.html#Log4gSimpleLayoutClass"/>
+    <function name="Log4gTTCCLayout" link="log4g-Log4gTTCCLayout.html#Log4gTTCCLayout"/>
+    <function name="Log4gTTCCLayoutClass" link="log4g-Log4gTTCCLayout.html#Log4gTTCCLayoutClass"/>
+    <function name="Log4gXMLLayout" link="log4g-Log4gXMLLayout.html#Log4gXMLLayout"/>
+    <function name="Log4gXMLLayoutClass" link="log4g-Log4gXMLLayout.html#Log4gXMLLayoutClass"/>
+    <function name="Log4gPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gPatternConverter"/>
+    <function name="Log4gPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gPatternConverterClass"/>
+    <function name="enum Log4gPatternConverterType" link="log4g-Log4gPatternConverter.html#Log4gPatternConverterType"/>
+    <function name="log4g_pattern_converter_convert ()" link="log4g-Log4gPatternConverter.html#log4g-pattern-converter-convert"/>
+    <function name="log4g_pattern_converter_format ()" link="log4g-Log4gPatternConverter.html#log4g-pattern-converter-format"/>
+    <function name="log4g_pattern_converter_get_next ()" link="log4g-Log4gPatternConverter.html#log4g-pattern-converter-get-next"/>
+    <function name="log4g_pattern_converter_set_next ()" link="log4g-Log4gPatternConverter.html#log4g-pattern-converter-set-next"/>
+    <function name="log4g_pattern_converter_space_pad ()" link="log4g-Log4gPatternConverter.html#log4g-pattern-converter-space-pad"/>
+    <function name="Log4gPatternConverterConvert ()" link="log4g-Log4gPatternConverter.html#Log4gPatternConverterConvert"/>
+    <function name="Log4gPatternConverterFormat ()" link="log4g-Log4gPatternConverter.html#Log4gPatternConverterFormat"/>
+    <function name="Log4gLiteralPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gLiteralPatternConverter"/>
+    <function name="struct Log4gLiteralPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gLiteralPatternConverterClass"/>
+    <function name="log4g_literal_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-literal-pattern-converter-new"/>
+    <function name="Log4gBasicPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gBasicPatternConverter"/>
+    <function name="struct Log4gBasicPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gBasicPatternConverterClass"/>
+    <function name="log4g_basic_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-basic-pattern-converter-new"/>
+    <function name="Log4gDatePatternConverter" link="log4g-Log4gPatternConverter.html#Log4gDatePatternConverter"/>
+    <function name="Log4gDatePatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gDatePatternConverterClass"/>
+    <function name="log4g_date_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-date-pattern-converter-new"/>
+    <function name="Log4gLocationPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gLocationPatternConverter"/>
+    <function name="struct Log4gLocationPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gLocationPatternConverterClass"/>
+    <function name="log4g_location_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-location-pattern-converter-new"/>
+    <function name="Log4gMDCPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gMDCPatternConverter"/>
+    <function name="Log4gMDCPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gMDCPatternConverterClass"/>
+    <function name="log4g_mdc_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-mdc-pattern-converter-new"/>
+    <function name="Log4gCategoryPatternConverter" link="log4g-Log4gPatternConverter.html#Log4gCategoryPatternConverter"/>
+    <function name="struct Log4gCategoryPatternConverterClass" link="log4g-Log4gPatternConverter.html#Log4gCategoryPatternConverterClass"/>
+    <function name="log4g_category_pattern_converter_new ()" link="log4g-Log4gPatternConverter.html#log4g-category-pattern-converter-new"/>
+    <function name="Log4gPatternParser" link="log4g-Log4gPatternParser.html#Log4gPatternParser"/>
+    <function name="Log4gPatternParserClass" link="log4g-Log4gPatternParser.html#Log4gPatternParserClass"/>
+    <function name="log4g_pattern_parser_new ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-new"/>
+    <function name="log4g_pattern_parser_add_converter ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-add-converter"/>
+    <function name="log4g_pattern_parser_add_to_list ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-add-to-list"/>
+    <function name="log4g_pattern_parser_extract_option ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-extract-option"/>
+    <function name="log4g_pattern_parser_extract_precision_option ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-extract-precision-option"/>
+    <function name="log4g_pattern_parser_finalize_converter ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-finalize-converter"/>
+    <function name="log4g_pattern_parser_parse ()" link="log4g-Log4gPatternParser.html#log4g-pattern-parser-parse"/>
+    <function name="Log4gCouchdbAppender" link="log4g-Log4gCouchdbAppender.html#Log4gCouchdbAppender"/>
+    <function name="Log4gCouchdbAppenderClass" link="log4g-Log4gCouchdbAppender.html#Log4gCouchdbAppenderClass"/>
+    <function name="log4g_couchdb_appender_get_type ()" link="log4g-Log4gCouchdbAppender.html#log4g-couchdb-appender-get-type"/>
+    <function name="log4g_couchdb_appender_register ()" link="log4g-Log4gCouchdbAppender.html#log4g-couchdb-appender-register"/>
+    <function name="Log4gCouchdbLayout" link="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayout"/>
+    <function name="Log4gCouchdbLayoutClass" link="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutClass"/>
+    <function name="log4g_couchdb_layout_format_document ()" link="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-format-document"/>
+    <function name="log4g_couchdb_layout_get_type ()" link="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-get-type"/>
+    <function name="log4g_couchdb_layout_register ()" link="log4g-Log4gCouchdbLayout.html#log4g-couchdb-layout-register"/>
+    <function name="Log4gCouchdbLayoutFormatDocument ()" link="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutFormatDocument"/>
+  </functions>
+</book>

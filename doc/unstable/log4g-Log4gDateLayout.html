@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gDateLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-layouts.html" title="Layouts">
+<link rel="next" href="log4g-Log4gHTMLLayout.html" title="Log4gHTMLLayout">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-layouts.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gHTMLLayout.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gDateLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gDateLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gDateLayout">
+<a name="log4g-Log4gDateLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gDateLayout.top_of_page"></a>Log4gDateLayout</span></h2>
+<p>Log4gDateLayout — A layout that formats dates</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gDateLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gDateLayout.html#Log4gDateLayout" title="Log4gDateLayout">Log4gDateLayout</a>;
+                    <a class="link" href="log4g-Log4gDateLayout.html#Log4gDateLayoutClass" title="Log4gDateLayoutClass">Log4gDateLayoutClass</a>;
+enum                <a class="link" href="log4g-Log4gDateLayout.html#Log4gDateLayoutType" title="enum Log4gDateLayoutType">Log4gDateLayoutType</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gDateLayout.html#log4g-date-layout-date-format" title="log4g_date_layout_date_format ()">log4g_date_layout_date_format</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gDateLayout.description"></a><h2>Description</h2>
+<p>
+This is an abstract layout class that takes care of all date related
+options and formatting. This class understands date formats understood
+by strftime(3).
+</p>
+<p>
+Date layouts accept two properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>date-format</p></li>
+<li class="listitem"><p>time-zone</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+The date-format property set the strftime(3) conversion pattern that will
+be used to format the date.
+</p>
+<p>
+The time-zone property can be used to explicitly set the timezone. The
+default is <code class="literal">NULL</code>.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gDateLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gDateLayout">
+<a name="Log4gDateLayout"></a><h3>Log4gDateLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDateLayout;
+</pre>
+<p>
+The <span class="structname">Log4gDateLayout</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gDateLayoutClass">
+<a name="Log4gDateLayoutClass"></a><h3>Log4gDateLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDateLayoutClass;
+</pre>
+<p>
+The <span class="structname">Log4gDateLayoutClass</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="enum Log4gDateLayoutType">
+<a name="Log4gDateLayoutType"></a><h3>enum Log4gDateLayoutType</h3>
+<pre class="programlisting">typedef enum {
+    INVALID_DATE_FORMAT = 0,
+    RELATIVE_TIME_DATE_FORMAT,
+    MAX_DATE_FORMAT
+} Log4gDateLayoutType;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="INVALID-DATE-FORMAT:CAPS"></a><span class="term"><code class="literal">INVALID_DATE_FORMAT</code></span></p></td>
+<td>Senteinel value
+</td>
+</tr>
+<tr>
+<td><p><a name="RELATIVE-TIME-DATE-FORMAT:CAPS"></a><span class="term"><code class="literal">RELATIVE_TIME_DATE_FORMAT</code></span></p></td>
+<td>Milliseconds since Log4g was initialized
+</td>
+</tr>
+<tr>
+<td><p><a name="MAX-DATE-FORMAT:CAPS"></a><span class="term"><code class="literal">MAX_DATE_FORMAT</code></span></p></td>
+<td>Sentinel value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_date_layout_date_format ()">
+<a name="log4g-date-layout-date-format"></a><h3>log4g_date_layout_date_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_date_layout_date_format       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Format a date layout for a log event info a buffer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A date format object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The buffer in which to layout the date.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to get the date from.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

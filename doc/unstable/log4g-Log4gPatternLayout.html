@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gPatternLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-Log4gHTMLLayout.html" title="Log4gHTMLLayout">
+<link rel="next" href="log4g-Log4gSimpleLayout.html" title="Log4gSimpleLayout">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gHTMLLayout.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gSimpleLayout.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gPatternLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gPatternLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gPatternLayout">
+<a name="log4g-Log4gPatternLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gPatternLayout.top_of_page"></a>Log4gPatternLayout</span></h2>
+<p>Log4gPatternLayout — A layout configurable with a pattern string</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gPatternLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayout" title="Log4gPatternLayout">Log4gPatternLayout</a>;
+                    <a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass">Log4gPatternLayoutClass</a>;
+<a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a> * <a class="link" href="log4g-Log4gPatternLayout.html#log4g-pattern-layout-create-pattern-parser" title="log4g_pattern_layout_create_pattern_parser ()">log4g_pattern_layout_create_pattern_parser</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);
+<a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a>  (<a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutCreatePatternParser" title="Log4gPatternLayoutCreatePatternParser ()">*Log4gPatternLayoutCreatePatternParser</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gPatternLayout.description"></a><h2>Description</h2>
+<p>
+This class formats a log event and returns the results as a string. The
+result of the formatting depends on the value of a conversion pattern.
+</p>
+<p>
+Pattern layouts accept a single property:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>conversion-pattern</p></li></ol></div>
+<p>
+</p>
+<p>
+The conversion pattern is similar in concept to the printf conversion
+pattern. A conversion pattern is composed of literal text and format
+control expressions called conversion specifiers.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+Literal text can be inserted within the conversion pattern.
+</p>
+</div>
+<p>
+</p>
+<p>
+Conversion specifiers start with a percent sign (%) and optional format
+modifiers followed by a conversion character. The conversion character
+specifies the type of data that should be formatted, e.g. category, level,
+date, thread name, etc. Format modifiers control field width, padding and
+left/right justification.
+</p>
+<p>
+The following is a simple example:
+</p>
+<p>
+Let the conversion pattern be "%-5p [%t]: %m%n".
+</p>
+<p>
+Assume the following messages have been logged to the root logger from
+the main thread:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_debug("Message 1");
+log4g_warn("Message 2");
+</pre></div>
+<p>
+</p>
+<p>
+The following output would appear in the log file:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+DEBUG [main]: Message 1
+WARN  [main]: Message 2
+</pre></div>
+<p>
+</p>
+<p>
+There is no explicit separator between text and conversion specifiers.
+The pattern parser knows it has reached the end of a conversion specifier
+when it reads a conversion character. In the above example the conversion
+specifier <span class="emphasis"><em>%-5p</em></span> means the priority of the log event
+should be left justified to a width of five characters.
+</p>
+<p>
+</p>
+<div class="table">
+<a name="id646559"></a><p class="title"><b>Table 1. Recognized Conversion Characters</b></p>
+<div class="table-contents"><table summary="Recognized Conversion Characters" border="1">
+<colgroup>
+<col align="center">
+<col align="center">
+</colgroup>
+<thead><tr>
+<th align="center">Conversion Character</th>
+<th align="center">Effect</th>
+</tr></thead>
+<tfoot>
+<tr>
+<th align="center"><span class="emphasis"><em>c</em></span></th>
+<th align="left">
+<p>
+Output the logger category of a log event. The category conversion
+specifier may be optionally followed by a precision specifier (a decimal
+in constant brackets).
+</p>
+<p>
+If the precision specifier is given then only the corresponding number of
+right most components of the category name will be printed. By default the
+category name is printed in full.
+</p>
+<p>
+For example, the logger category name "a.b.c" the pattern
+<span class="emphasis"><em>%c{2}</em></span> will output "b.c".
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>d</em></span></th>
+<th align="left">
+<p>
+Ouput the date of the logging event. The date conversion specifier may
+be followed by a date format specifier enclosed in braces. For example:
+<span class="emphasis"><em>%d{%H:%M:%S}</em></span> or
+<span class="emphasis"><em>%d{%l:%M:%S %P - %B %e, %G}</em></span>.
+</p>
+<p>
+The date format specifier accepts the same syntax as the strftime(3)
+standard library function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: strftime(3)
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>F</em></span></th>
+<th align="left">
+<p>
+Output the filename where the event was logged.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>l</em></span></th>
+<th align="left">
+<p>
+Output the full location information where the event was logged.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>L</em></span></th>
+<th align="left">
+<p>
+Output the line number where the event was logged.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>m</em></span></th>
+<th align="left">
+<p>
+Output the application supplied message associated with a log event.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>M</em></span></th>
+<th align="left">
+<p>
+Output the function (method) name where the event was logged.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>n</em></span></th>
+<th align="left">
+<p>
+Output the platform independent line separater character(s).
+</p>
+<p>
+Use this conversion character in place of non-portable line separator
+strings such as "\n" or "\r\n".
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>p</em></span></th>
+<th align="left">
+<p>
+Output the level (also known as the priority) of a log event.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>r</em></span></th>
+<th align="left">
+<p>
+Output the number of milliseconds elapsed from the initialization of the
+Log4g environment until the create of the log event.
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>t</em></span></th>
+<th align="left">
+<p>
+Output the name of the thread that generated the log event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gThread.html#Log4gThreadClass" title="Log4gThreadClass"><span class="type">Log4gThreadClass</span></a>
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>x</em></span></th>
+<th align="left">
+<p>
+Output the NDC (nested diagnostic context) associated with the thread
+that generated the log event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gNDC.html#Log4gNDCClass" title="Log4gNDCClass"><span class="type">Log4gNDCClass</span></a>
+</p>
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>X</em></span></th>
+<th align="left">
+<p>
+Output the MDC (mapped data context) associated with the thread that
+generated the log event. The <span class="emphasis"><em>X</em></span> conversion character
+<span class="emphasis"><em>must</em></span> be followed by the key for the map, placed between
+braces. For example, <span class="emphasis"><em>%X{count}</em></span> where
+<span class="emphasis"><em>count</em></span> is the key. The value in the MDC of the
+corresponding key will be output.
+</p>
+<em class="parameter"><code>See</code></em>: log4g/mdc.h
+</th>
+</tr>
+<tr>
+<th align="center"><span class="emphasis"><em>%</em></span></th>
+<th align="left">
+<p>
+The sequence <span class="emphasis"><em>%</em></span> outputs a single percent sign.
+</p>
+</th>
+</tr>
+</tfoot>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+<p>
+The default behavior is to output the information as-is. If the aid of
+format modifiers it is possible to change the minimum field width, the
+maximum field with and justification.
+</p>
+<p>
+The optional format modifier is placed between the percent sign and the
+conversion character.
+</p>
+<p>
+The left justification flag is a minus (-) character. Justification may
+be followed by a minimum field width modifier (an integer), indicating
+the minimum number of characters to output. The default is to pad on the
+left, however you may specify right-padding with the left justification
+flag. The space character is used to perform padding. If the data item is
+larger than the minimum field width the field is expanded to accomodate
+the data (the value is never truncated).
+</p>
+<p>
+The truncation behavior can be changed using the maximum field width
+modifier, designated by a period followed with an integer. If the data item
+is larger than the maximum field width the extra characters are removed
+from the <span class="emphasis"><em>beginning</em></span> of the data item.
+</p>
+<p>
+</p>
+<div class="table">
+<a name="id568581"></a><p class="title"><b>Table 2. Format Modifier Examples</b></p>
+<div class="table-contents"><table summary="Format Modifier Examples" border="1">
+<colgroup>
+<col align="center">
+<col align="center">
+<col align="center">
+<col align="center">
+<col align="center">
+</colgroup>
+<thead><tr>
+<th align="center">Format Modifier</th>
+<th align="center">Left Justify</th>
+<th align="center">Minimum Width</th>
+<th align="center">Maximum Width</th>
+<th align="center">Comment</th>
+</tr></thead>
+<tfoot>
+<tr>
+<th align="center">%20c</th>
+<th align="center">No</th>
+<th align="center">20</th>
+<th align="center">None</th>
+<th align="left">
+Left pad with spaces if the logger name is less than 20 characers long.
+</th>
+</tr>
+<tr>
+<th align="center">%-20c</th>
+<th align="center">Yes</th>
+<th align="center">20</th>
+<th align="center">None</th>
+<th align="left">
+Right pad with spaces if the logger name is less than 20 characters long.
+</th>
+</tr>
+<tr>
+<th align="center">%.30c</th>
+<th align="center">N/A</th>
+<th align="center">None</th>
+<th align="center">30</th>
+<th align="left">
+Truncate from the beginning if the logger name is longer than 30 characters.
+</th>
+</tr>
+<tr>
+<th align="center">%20.30c</th>
+<th align="center">No</th>
+<th align="center">20</th>
+<th align="center">30</th>
+<th align="left">
+Left pad with spaces if the category name is shorter than 20 characters.
+If the category name is longer than 30 characters then truncate from the
+beginning.
+</th>
+</tr>
+<tr>
+<th align="center">%-20.30c</th>
+<th align="center">Yes</th>
+<th align="center">20</th>
+<th align="center">30</th>
+<th align="left">
+Right pad with spaces if the category name is shorter than 20 characters.
+If the category name is longer than 30 characters then truncate from the
+beginning.
+</th>
+</tr>
+</tfoot>
+</table></div>
+</div>
+<p><br class="table-break">
+</p>
+<p>
+Below are some examples of conversion patterns.
+</p>
+<p>
+<span class="emphasis"><em>%r [%t] %-5p %c %x - %m%n</em></span>
+</p>
+<p>
+This is essentially the <a class="link" href="log4g-Log4gTTCCLayout.html#Log4gTTCCLayout" title="Log4gTTCCLayout"><span class="type">Log4gTTCCLayout</span></a>.
+</p>
+<p>
+<span class="emphasis"><em>%-6r [%15.15t] %-5p %30.30c %x - %m%n</em></span>
+</p>
+<p>
+Similar to the TTCC layout except:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>The relative time is right-padded if less than six digits</p></li>
+<li class="listitem"><p>The thread name is right padded if less than fifteen characters</p></li>
+<li class="listitem"><p>The thread name is truncated if longer than fifteen characters</p></li>
+<li class="listitem"><p>The log level is right-padded if less than 5 characters</p></li>
+<li class="listitem"><p>The logger name is left padded if shorter than thirty characters</p></li>
+<li class="listitem"><p>The logger name is truncated if longer than thirty characters</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gPatternLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gPatternLayout">
+<a name="Log4gPatternLayout"></a><h3>Log4gPatternLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gPatternLayout;
+</pre>
+<p>
+The <span class="structname">Log4gPatternLayout</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternLayoutClass">
+<a name="Log4gPatternLayoutClass"></a><h3>Log4gPatternLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gPatternLayoutCreatePatternParser create_pattern_parser;
+} Log4gPatternLayoutClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutCreatePatternParser" title="Log4gPatternLayoutCreatePatternParser ()"><span class="type">Log4gPatternLayoutCreatePatternParser</span></a> <em class="structfield"><code><a name="Log4gPatternLayoutClass.create-pattern-parser"></a>create_pattern_parser</code></em>;</span></p></td>
+<td>Create a new pattern parser object.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_layout_create_pattern_parser ()">
+<a name="log4g-pattern-layout-create-pattern-parser"></a><h3>log4g_pattern_layout_create_pattern_parser ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a> * log4g_pattern_layout_create_pattern_parser
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>create_pattern_parser</code></em> function from the <a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass"><span class="type">Log4gPatternLayoutClass</span></a>
+of <em class="parameter"><code>base</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A conversion pattern object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern</code></em> :</span></p></td>
+<td>The conversion pattern to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new pattern parser object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternLayoutCreatePatternParser ()">
+<a name="Log4gPatternLayoutCreatePatternParser"></a><h3>Log4gPatternLayoutCreatePatternParser ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a>  (*Log4gPatternLayoutCreatePatternParser)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);</pre>
+<p>
+Sub-classes may override this function to return a subclass of
+<a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> which recognize custom conversion characters.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: pattern-parser.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A conversion pattern object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern</code></em> :</span></p></td>
+<td>The conversion pattern to use.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new pattern parser object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

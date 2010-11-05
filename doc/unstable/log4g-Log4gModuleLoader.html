@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gModuleLoader</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-extending.html" title="Extending Log4g">
+<link rel="prev" href="log4g-Log4gModule.html" title="Log4gModule">
+<link rel="next" href="log4g-Log4gDefaultModuleLoader.html" title="Log4gDefaultModuleLoader">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gModule.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-extending.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gDefaultModuleLoader.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gModuleLoader.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gModuleLoader.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gModuleLoader">
+<a name="log4g-Log4gModuleLoader"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gModuleLoader.top_of_page"></a>Log4gModuleLoader</span></h2>
+<p>Log4gModuleLoader — Load external modules</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gModuleLoader.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gModuleLoader.html#Log4gModuleLoader" title="Log4gModuleLoader">Log4gModuleLoader</a>;
+                    <a class="link" href="log4g-Log4gModuleLoader.html#Log4gModuleLoaderInterface" title="Log4gModuleLoaderInterface">Log4gModuleLoaderInterface</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gModuleLoader.html#log4g-module-loader-load-modules" title="log4g_module_loader_load_modules ()">log4g_module_loader_load_modules</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gModuleLoader.html#Log4gModuleLoader" title="Log4gModuleLoader"><span class="type">Log4gModuleLoader</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gModuleLoader.description"></a><h2>Description</h2>
+<p>
+The log manager uses a module loader implementation to load external
+modules for a particular application context.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gModuleLoader.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gModuleLoader">
+<a name="Log4gModuleLoader"></a><h3>Log4gModuleLoader</h3>
+<pre class="programlisting">typedef struct _Log4gModuleLoader Log4gModuleLoader;</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gModuleLoaderInterface">
+<a name="Log4gModuleLoaderInterface"></a><h3>Log4gModuleLoaderInterface</h3>
+<pre class="programlisting">typedef struct {
+    Log4gModuleLoaderLoadModules load_modules;
+} Log4gModuleLoaderInterface;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gDefaultModuleLoader.html#Log4gModuleLoaderLoadModules" title="Log4gModuleLoaderLoadModules ()"><span class="type">Log4gModuleLoaderLoadModules</span></a> <em class="structfield"><code><a name="Log4gModuleLoaderInterface.load-modules"></a>load_modules</code></em>;</span></p></td>
+<td>Load external modules.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_module_loader_load_modules ()">
+<a name="log4g-module-loader-load-modules"></a><h3>log4g_module_loader_load_modules ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_module_loader_load_modules    (<em class="parameter"><code><a class="link" href="log4g-Log4gModuleLoader.html#Log4gModuleLoader" title="Log4gModuleLoader"><span class="type">Log4gModuleLoader</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>load_modules</code></em> function from the <a class="link" href="log4g-Log4gModuleLoader.html#Log4gModuleLoaderInterface" title="Log4gModuleLoaderInterface"><span class="type">Log4gModuleLoaderInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A module loader object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gModuleLoader.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gModule.html#Log4gModuleClass" title="Log4gModuleClass"><span class="type">Log4gModuleClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

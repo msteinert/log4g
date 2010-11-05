@@ -1,0 +1,1119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4g</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-public.html" title="Public Interface">
+<link rel="prev" href="log4g-public.html" title="Public Interface">
+<link rel="next" href="log4g-Log4gLogger.html" title="Log4gLogger">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-public.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-public.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gLogger.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#Log4g.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#Log4g.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4g">
+<a name="Log4g"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="Log4g.top_of_page"></a>Log4g</span></h2>
+<p>Log4g — The main Log4g interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="Log4g.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="Log4g.html#LOG4G-LOG-DOMAIN:CAPS" title="LOG4G_LOG_DOMAIN">LOG4G_LOG_DOMAIN</a>
+<span class="returnvalue">void</span>                <a class="link" href="Log4g.html#log4g-init" title="log4g_init ()">log4g_init</a>                          (<em class="parameter"><code><span class="type">int</span> *argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> ***argv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4g.html#log4g-finalize" title="log4g_finalize ()">log4g_finalize</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">GOptionGroup</span> *      <a class="link" href="Log4g.html#log4g-get-option-group" title="log4g_get_option_group ()">log4g_get_option_group</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="Log4g.html#log4g-get-logger" title="log4g_get_logger()">log4g_get_logger</a>                    (name)
+#define             <a class="link" href="Log4g.html#log4g-get-root-logger" title="log4g_get_root_logger">log4g_get_root_logger</a>
+#define             <a class="link" href="Log4g.html#log4g-assert" title="log4g_assert()">log4g_assert</a>                        (assertion,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-assert" title="log4g_logger_assert()">log4g_logger_assert</a>                 (logger,
+                                                         assertion,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled">log4g_is_trace_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-trace" title="log4g_trace()">log4g_trace</a>                         (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-trace" title="log4g_logger_trace()">log4g_logger_trace</a>                  (logger,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-debug-enabled" title="log4g_is_debug_enabled">log4g_is_debug_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-debug" title="log4g_debug()">log4g_debug</a>                         (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-debug" title="log4g_logger_debug()">log4g_logger_debug</a>                  (logger,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-info-enabled" title="log4g_is_info_enabled">log4g_is_info_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-info" title="log4g_info()">log4g_info</a>                          (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-info" title="log4g_logger_info()">log4g_logger_info</a>                   (logger,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-warn-enabled" title="log4g_is_warn_enabled">log4g_is_warn_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-warn" title="log4g_warn()">log4g_warn</a>                          (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-warn" title="log4g_logger_warn()">log4g_logger_warn</a>                   (logger,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-error-enabled" title="log4g_is_error_enabled">log4g_is_error_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-error" title="log4g_error()">log4g_error</a>                         (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-error" title="log4g_logger_error()">log4g_logger_error</a>                  (logger,
+                                                         format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-is-fatal-enabled" title="log4g_is_fatal_enabled">log4g_is_fatal_enabled</a>
+#define             <a class="link" href="Log4g.html#log4g-fatal" title="log4g_fatal()">log4g_fatal</a>                         (format,
+                                                         args...)
+#define             <a class="link" href="Log4g.html#log4g-logger-fatal" title="log4g_logger_fatal()">log4g_logger_fatal</a>                  (logger,
+                                                         format,
+                                                         args...)
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="Log4g.description"></a><h2>Description</h2>
+<p>
+The file defines the API that most users of Log4g will want to use.
+Sticking to this API will allow you to easily compile Log4g out of your
+application by defining LOG4G_DISABLE before including this file (i.e. in
+config.h, etc).
+</p>
+<p>
+You may also wish to refer to the documentation for NDC (nested data
+contexts) &amp; MDC (mapped data contexts). The NDC &amp; MDC APIs can also be
+compiled out of your code.
+</p>
+<p>
+Defining LOG4G_LOG_DOMAIN before you include log4g/log4g.h will set the
+log domain for the current file. Log statements that do not specify a
+logger will use the LOG4G_LOG_DOMAIN logger by default.
+</p>
+<p>
+Example (log a message to the "org.gnome.test" logger):
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+#define LOG4G_LOG_DOMAIN "org.gnome.test"
+#include &lt;log4g/log4g.h&gt;
+
+void
+foo(void)
+{
+    log4g_warn("you had better watch out");
+}
+</pre></div>
+<p>
+</p>
+<p>
+If LOG4G_LOG_DOMAIN is not defined then log statements will use the root
+logger by default. You may also explicitly specify a logger when you log
+a message.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="Log4g.details"></a><h2>Details</h2>
+<div class="refsect2" title="LOG4G_LOG_DOMAIN">
+<a name="LOG4G-LOG-DOMAIN:CAPS"></a><h3>LOG4G_LOG_DOMAIN</h3>
+<pre class="programlisting">#define LOG4G_LOG_DOMAIN ("")
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="log4g_init ()">
+<a name="log4g-init"></a><h3>log4g_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_init                          (<em class="parameter"><code><span class="type">int</span> *argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> ***argv</code></em>);</pre>
+<p>
+Initialize the Log4g package.
+</p>
+<p>
+Log4g accepts some standard command line arguments (all prepended with
+"log4g"). Calling this function will parse out the arguments Log4g
+understands and removes them from the argument list. If you call
+<a class="link" href="Log4g.html#log4g-init" title="log4g_init ()"><code class="function">log4g_init()</code></a> before parsing application options your application will
+not see the Log4g arguments.
+</p>
+<p>
+Example (initialize Log4g):
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+#include &lt;log4g/log4g.h&gt;
+#include &lt;stdlib.h&gt;
+
+int
+main(int argc, char **argv)
+{
+    g_thread_init(NULL);
+    log4g_init(&amp;argc, &amp;argv);
+    log4g_info("Log4g is initialized &amp; ready to go!");
+    return EXIT_SUCCESS;
+}
+</pre></div>
+<p>
+</p>
+<p>
+Log4g accepts the following command line arguments:
+</p>
+<p>
+<span class="emphasis"><em>--log4g-configuration=&lt;FILE.xml&gt;</em></span>
+</p>
+<p>
+Specify an XML configuration file to load. If the XML configuration file
+could not be loaded (or if none was specified) then Log4g will be
+configured using the basic configurator.
+</p>
+<p>
+<span class="emphasis"><em>--log4g-flags=&lt;FLAGS&gt;</em></span>
+</p>
+<p>
+Specify flags that modify the behavior of Log4g. Currently Log4g
+understands two flags.
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>debug: enable debug output on stdout</p></li>
+<li class="listitem"><p>quiet: disable all error and debug output</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+<span class="emphasis"><em>--log4g-main-thread=&lt;NAME&gt;</em></span>
+</p>
+<p>
+Set the name of the main thread (the default is "main").
+</p>
+<p>
+After calling this function the Log4g API is ready for use within your
+application.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argc</code></em> :</span></p></td>
+<td>A pointer to main's <em class="parameter"><code>argc</code></em> variable.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>A pointer to main's <em class="parameter"><code>argv</code></em> variable.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_finalize ()">
+<a name="log4g-finalize"></a><h3>log4g_finalize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_finalize                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Finalize the Log4g package.
+</p>
+<p>
+It is not strictly necessary to call this function to use Log4g.
+</p>
+<p>
+Calling this function will destroy the logger hierarchy and any cleanup
+any instance data used by Log4g. One advantage of calling <a class="link" href="Log4g.html#log4g-finalize" title="log4g_finalize ()"><code class="function">log4g_finalize()</code></a>
+is to allow asynchronous appenders a chance to flush any pending log
+messages before your application exits.
+</p>
+<p>
+Example (initialize &amp; cleanup Log4g):
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+#include &lt;log4g/log4g.h&gt;
+#include &lt;stdlib.h&gt;
+
+int
+main(int argc, char **argv)
+{
+    g_thread_init(NULL);
+    log4g_init(&amp;argc, &amp;argv);
+    log4g_info("Log4g is initialized &amp; ready to go!");
+    log4g_finalize();
+    return EXIT_SUCCESS;
+}
+</pre></div>
+<p>
+</p>
+<p>
+If you call this function you must call <a class="link" href="Log4g.html#log4g-init" title="log4g_init ()"><code class="function">log4g_init()</code></a> again before using
+the Log4g API.
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_get_option_group ()">
+<a name="log4g-get-option-group"></a><h3>log4g_get_option_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">GOptionGroup</span> *      log4g_get_option_group              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the option group used by the Log4g package.
+</p>
+<p>
+If your application is using the GLib option parser then you may call
+this function to retrieve the option group parsed by Log4g.
+</p>
+<p>
+Example (initialize Log4g via a GOptionGroup):
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+#include &lt;log4g/log4g.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define GETTEXT_PACKAGE "test-app"
+#include &lt;glib/gi18n-lib.h&gt;
+
+int
+main(int argc, char **argv)
+{
+    GError *error = NULL;
+    GOptionContext *context;
+    GOptionEntry entries[] = {
+        { NULL }
+    };
+    g_thread_init(NULL);
+    context = g_option_context_new("- demonstrate Log4g initialization");
+    if (!context) {
+        return EXIT_FAILURE;
+    }
+    g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
+    g_option_context_add_group(context, log4g_get_option_group())
+    if (!g_option_context_parse(context, &amp;argc, &amp;argv, &amp;error)) {
+        log4g_error("failed to parse options: %s", error-&gt;mesasge);
+        g_error_free(error);
+        return EXIT_FAILURE;
+    }
+    g_option_context_free();
+    log4g_info("Log4g is initialized &amp; ready to go!");
+    log4g_finalize();
+    return EXIT_SUCCESS;
+}
+</pre></div>
+<p>
+</p>
+<p>
+If you use the returned option group in a GLib option parser you do not
+need to call <a class="link" href="Log4g.html#log4g-init" title="log4g_init ()"><code class="function">log4g_init()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A GLib option group.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_get_logger()">
+<a name="log4g-get-logger"></a><h3>log4g_get_logger()</h3>
+<pre class="programlisting">#define             log4g_get_logger(name)</pre>
+<p>
+Retrieve a named logger from the repository.
+</p>
+<p>
+If the named logger exists in the repository that instance is returned. If
+the named logger does not exist it will be created.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass"><span class="type">Log4gLoggerClass</span></a>, <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-logger" title="log4g_logger_get_logger ()"><code class="function">log4g_logger_get_logger()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_get_root_logger">
+<a name="log4g-get-root-logger"></a><h3>log4g_get_root_logger</h3>
+<pre class="programlisting">#define             log4g_get_root_logger()</pre>
+<p>
+Retrieve the root logger.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gRootLogger.html#Log4gRootLoggerClass" title="Log4gRootLoggerClass"><span class="type">Log4gRootLoggerClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The root logger.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_assert()">
+<a name="log4g-assert"></a><h3>log4g_assert()</h3>
+<pre class="programlisting">#define             log4g_assert(assertion, format, args...)</pre>
+<p>
+Log an error if an <em class="parameter"><code>assertion</code></em> is <code class="literal">FALSE</code>.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_assert((pointer != NULL), "%s: pointer is NULL!", "ERROR");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-assert" title="log4g_logger_assert()"><code class="function">log4g_logger_assert()</code></a>, <a class="link" href="Log4g.html#log4g-logger-assert" title="log4g_logger_assert()"><code class="function">_log4g_logger_assert()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>assertion</code></em> :</span></p></td>
+<td>The assertion to evaluate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_assert()">
+<a name="log4g-logger-assert"></a><h3>log4g_logger_assert()</h3>
+<pre class="programlisting">#define             log4g_logger_assert(logger, assertion, format, args...)</pre>
+<p>
+Log an error if an <em class="parameter"><code>assertion</code></em> is <code class="literal">FALSE</code>.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_assert(log4g_get_logger("org.gnome.debug"),
+    (NULL != pointer), "%s: pointer is NULL!", "ERROR");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-assert" title="log4g_assert()"><code class="function">log4g_assert()</code></a>, <a class="link" href="Log4g.html#log4g-logger-assert" title="log4g_logger_assert()"><code class="function">_log4g_logger_assert()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>assertion</code></em> :</span></p></td>
+<td>The assertion to evaluate.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_trace_enabled">
+<a name="log4g-is-trace-enabled"></a><h3>log4g_is_trace_enabled</h3>
+<pre class="programlisting">#define             log4g_is_trace_enabled()</pre>
+<p>
+Check if the trace level is enabled.
+</p>
+<p>
+Use this macro if you need to perform a resource-intensive operation
+before logging a message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+if (log4g_is_trace_enabled()) {
+    char *string = perform_IO_intensive_operation();
+    log4g_trace("here I am: %s", string);
+}
+</pre></div>
+<p>
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+A similar macro exists for all of the default log levels.
+</p>
+</div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-trace-enabled" title="log4g_logger_is_trace_enabled ()"><code class="function">log4g_logger_is_trace_enabled()</code></a>, log4g/level.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if trace is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_trace()">
+<a name="log4g-trace"></a><h3>log4g_trace()</h3>
+<pre class="programlisting">#define             log4g_trace(format, args...)</pre>
+<p>
+Log a trace message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_trace("example %s message", "TRACE");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-trace" title="log4g_logger_trace()"><code class="function">log4g_logger_trace()</code></a>, <a class="link" href="Log4g.html#log4g-logger-trace" title="log4g_logger_trace()"><code class="function">_log4g_logger_trace()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_trace()">
+<a name="log4g-logger-trace"></a><h3>log4g_logger_trace()</h3>
+<pre class="programlisting">#define             log4g_logger_trace(logger, format, args...)</pre>
+<p>
+Log a trace message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_trace(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "TRACE");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-trace" title="log4g_trace()"><code class="function">log4g_trace()</code></a>, <a class="link" href="Log4g.html#log4g-logger-trace" title="log4g_logger_trace()"><code class="function">_log4g_logger_trace()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_debug_enabled">
+<a name="log4g-is-debug-enabled"></a><h3>log4g_is_debug_enabled</h3>
+<pre class="programlisting">#define             log4g_is_debug_enabled()</pre>
+<p>
+Check if the debug level is enabled.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-debug-enabled" title="log4g_logger_is_debug_enabled ()"><code class="function">log4g_logger_is_debug_enabled()</code></a>, <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>,
+      <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled"><code class="function">log4g_is_trace_enabled()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if debug is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_debug()">
+<a name="log4g-debug"></a><h3>log4g_debug()</h3>
+<pre class="programlisting">#define             log4g_debug(format, args...)</pre>
+<p>
+Log a debug message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_debug("example %s message", "DEBUG");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-debug" title="log4g_logger_debug()"><code class="function">log4g_logger_debug()</code></a>, <a class="link" href="Log4g.html#log4g-logger-debug" title="log4g_logger_debug()"><code class="function">_log4g_logger_debug()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_debug()">
+<a name="log4g-logger-debug"></a><h3>log4g_logger_debug()</h3>
+<pre class="programlisting">#define             log4g_logger_debug(logger, format, args...)</pre>
+<p>
+Log a debug message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_debug(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "DEBUG");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-debug" title="log4g_debug()"><code class="function">log4g_debug()</code></a>, <a class="link" href="Log4g.html#log4g-logger-debug" title="log4g_logger_debug()"><code class="function">_log4g_logger_debug()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_info_enabled">
+<a name="log4g-is-info-enabled"></a><h3>log4g_is_info_enabled</h3>
+<pre class="programlisting">#define             log4g_is_info_enabled()</pre>
+<p>
+Check if the info level is enabled.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-info-enabled" title="log4g_logger_is_info_enabled ()"><code class="function">log4g_logger_is_info_enabled()</code></a>, <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>,
+       <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled"><code class="function">log4g_is_trace_enabled()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if info is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_info()">
+<a name="log4g-info"></a><h3>log4g_info()</h3>
+<pre class="programlisting">#define             log4g_info(format, args...)</pre>
+<p>
+Log an info message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_info("example %s message", "INFO");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-info" title="log4g_logger_info()"><code class="function">log4g_logger_info()</code></a>, <a class="link" href="Log4g.html#log4g-logger-info" title="log4g_logger_info()"><code class="function">_log4g_logger_info()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_info()">
+<a name="log4g-logger-info"></a><h3>log4g_logger_info()</h3>
+<pre class="programlisting">#define             log4g_logger_info(logger, format, args...)</pre>
+<p>
+Log an info message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_info(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "INFO");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-info" title="log4g_info()"><code class="function">log4g_info()</code></a>, <a class="link" href="Log4g.html#log4g-logger-info" title="log4g_logger_info()"><code class="function">_log4g_logger_info()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_warn_enabled">
+<a name="log4g-is-warn-enabled"></a><h3>log4g_is_warn_enabled</h3>
+<pre class="programlisting">#define             log4g_is_warn_enabled()</pre>
+<p>
+Check if the warn level is enabled.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-warn-enabled" title="log4g_logger_is_warn_enabled ()"><code class="function">log4g_logger_is_warn_enabled()</code></a>, <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>,
+      <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled"><code class="function">log4g_is_trace_enabled()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if warn is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_warn()">
+<a name="log4g-warn"></a><h3>log4g_warn()</h3>
+<pre class="programlisting">#define             log4g_warn(format, args...)</pre>
+<p>
+Log a warn message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_warn("example %s message", "WARN");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-warn" title="log4g_logger_warn()"><code class="function">log4g_logger_warn()</code></a>, <a class="link" href="Log4g.html#log4g-logger-warn" title="log4g_logger_warn()"><code class="function">_log4g_logger_warn()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_warn()">
+<a name="log4g-logger-warn"></a><h3>log4g_logger_warn()</h3>
+<pre class="programlisting">#define             log4g_logger_warn(logger, format, args...)</pre>
+<p>
+Log a warn message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_warn(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "WARN");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-warn" title="log4g_warn()"><code class="function">log4g_warn()</code></a>, <a class="link" href="Log4g.html#log4g-logger-warn" title="log4g_logger_warn()"><code class="function">_log4g_logger_warn()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_error_enabled">
+<a name="log4g-is-error-enabled"></a><h3>log4g_is_error_enabled</h3>
+<pre class="programlisting">#define             log4g_is_error_enabled()</pre>
+<p>
+Check if the error level is enabled.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-error-enabled" title="log4g_logger_is_error_enabled ()"><code class="function">log4g_logger_is_error_enabled()</code></a>, <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>,
+      <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled"><code class="function">log4g_is_trace_enabled()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if error is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_error()">
+<a name="log4g-error"></a><h3>log4g_error()</h3>
+<pre class="programlisting">#define             log4g_error(format, args...)</pre>
+<p>
+Log an error message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_error("example %s message", "ERROR");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-error" title="log4g_logger_error()"><code class="function">log4g_logger_error()</code></a>, <a class="link" href="Log4g.html#log4g-logger-error" title="log4g_logger_error()"><code class="function">_log4g_logger_error()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_error()">
+<a name="log4g-logger-error"></a><h3>log4g_logger_error()</h3>
+<pre class="programlisting">#define             log4g_logger_error(logger, format, args...)</pre>
+<p>
+Log an error message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_error(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "ERROR");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-error" title="log4g_error()"><code class="function">log4g_error()</code></a>, <a class="link" href="Log4g.html#log4g-logger-error" title="log4g_logger_error()"><code class="function">_log4g_logger_error()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_is_fatal_enabled">
+<a name="log4g-is-fatal-enabled"></a><h3>log4g_is_fatal_enabled</h3>
+<pre class="programlisting">#define             log4g_is_fatal_enabled()</pre>
+<p>
+Check if the fatal level is enabled.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-fatal-enabled" title="log4g_logger_is_fatal_enabled ()"><code class="function">log4g_logger_is_fatal_enabled()</code></a>, <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>,
+     <a class="link" href="Log4g.html#log4g-is-trace-enabled" title="log4g_is_trace_enabled"><code class="function">log4g_is_trace_enabled()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if fatal is enabled, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_fatal()">
+<a name="log4g-fatal"></a><h3>log4g_fatal()</h3>
+<pre class="programlisting">#define             log4g_fatal(format, args...)</pre>
+<p>
+Log a fatal message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_fatal("example %s message", "FATAL");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-logger-fatal" title="log4g_logger_fatal()"><code class="function">log4g_logger_fatal()</code></a>, <a class="link" href="Log4g.html#log4g-logger-fatal" title="log4g_logger_fatal()"><code class="function">_log4g_logger_fatal()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_fatal()">
+<a name="log4g-logger-fatal"></a><h3>log4g_logger_fatal()</h3>
+<pre class="programlisting">#define             log4g_logger_fatal(logger, format, args...)</pre>
+<p>
+Log a fatal message.
+</p>
+<p>
+Example:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+log4g_logger_fatal(log4g_get_logger("org.gnome.debug"),
+    "example %s message", "FATAL");
+</pre></div>
+<p>
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="Log4g.html#log4g-fatal" title="log4g_fatal()"><code class="function">log4g_fatal()</code></a>, <a class="link" href="Log4g.html#log4g-logger-fatal" title="log4g_logger_fatal()"><code class="function">_log4g_logger_fatal()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>A logger object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf formatted message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="Log4g.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gNDC.html#Log4gNDC" title="Log4gNDC"><span class="type">Log4gNDC</span></a>, <a class="link" href="log4g-Log4gMDC.html#Log4gMDC" title="Log4gMDC"><span class="type">Log4gMDC</span></a>, <a class="link" href="log4g-Log4gDOMConfigurator.html#Log4gDOMConfigurator" title="Log4gDOMConfigurator"><span class="type">Log4gDOMConfigurator</span></a>,
+           <a class="link" href="Log4gBasicConfigurator.html" title="Log4gBasicConfigurator"><span class="type">Log4gBasicConfigurator</span></a>, <a class="link" href="log4g-Log4gThread.html#Log4gThread" title="Log4gThread"><span class="type">Log4gThread</span></a>, <a class="link" href="log4g-Log4gAsyncAppender.html#Log4gAsyncAppender" title="Log4gAsyncAppender"><span class="type">Log4gAsyncAppender</span></a>,
+           <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a>, <a class="link" href="log4g-Log4gRootLogger.html#Log4gRootLogger" title="Log4gRootLogger"><span class="type">Log4gRootLogger</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

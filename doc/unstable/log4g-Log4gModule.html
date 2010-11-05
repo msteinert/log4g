@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gModule</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-extending.html" title="Extending Log4g">
+<link rel="prev" href="log4g-extending.html" title="Extending Log4g">
+<link rel="next" href="log4g-Log4gModuleLoader.html" title="Log4gModuleLoader">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-extending.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-extending.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gModuleLoader.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gModule.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gModule.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gModule">
+<a name="log4g-Log4gModule"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gModule.top_of_page"></a>Log4gModule</span></h2>
+<p>Log4gModule — Loadable appender, filter &amp; layout modules</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gModule.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gModule.html#Log4gModule" title="Log4gModule">Log4gModule</a>;
+                    <a class="link" href="log4g-Log4gModule.html#Log4gModuleClass" title="Log4gModuleClass">Log4gModuleClass</a>;
+<span class="returnvalue">GTypeModule</span> *       <a class="link" href="log4g-Log4gModule.html#log4g-module-new" title="log4g_module_new ()">log4g_module_new</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gModule.html#log4g-module-load" title="log4g_module_load ()">log4g_module_load</a>                   (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gModule.description"></a><h2>Description</h2>
+<p>
+This class implements a dynamic module system in order to make appenders,
+layouts &amp; filters available to the Log4g system.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gModule.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gModule">
+<a name="Log4gModule"></a><h3>Log4gModule</h3>
+<pre class="programlisting">typedef struct {
+} Log4gModule;
+</pre>
+<p>
+The <span class="structname">Log4gModule</span> structure does not have any public
+members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gModuleClass">
+<a name="Log4gModuleClass"></a><h3>Log4gModuleClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gModuleClass;
+</pre>
+<p>
+The <span class="structname">Log4gModuleClass</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_module_new ()">
+<a name="log4g-module-new"></a><h3>log4g_module_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GTypeModule</span> *       log4g_module_new                    (<em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>);</pre>
+<p>
+Create a new module.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The path of the file to load as a module.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new module object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_module_load ()">
+<a name="log4g-module-load"></a><h3>log4g_module_load ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_module_load                   (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);</pre>
+<p>
+Extension modules must implement this function.
+</p>
+<p>
+This function is run after the module has been loaded in order to load
+dynamic types for use by the Log4g system.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>module</code></em> :</span></p></td>
+<td>A Log4gModule object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

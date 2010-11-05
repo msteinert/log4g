@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gRepositorySelector</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gDefaultLoggerFactory.html" title="Log4gDefaultLoggerFactory">
+<link rel="next" href="log4g-Log4gDefaultRepositorySelector.html" title="Log4gDefaultRepositorySelector">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gDefaultLoggerFactory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gDefaultRepositorySelector.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gRepositorySelector.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gRepositorySelector.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gRepositorySelector">
+<a name="log4g-Log4gRepositorySelector"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gRepositorySelector.top_of_page"></a>Log4gRepositorySelector</span></h2>
+<p>Log4gRepositorySelector — Select the correct logger repository</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gRepositorySelector.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector">Log4gRepositorySelector</a>;
+struct              <a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorInterface" title="struct Log4gRepositorySelectorInterface">Log4gRepositorySelectorInterface</a>;
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * <a class="link" href="log4g-Log4gRepositorySelector.html#log4g-repository-selector-get-logger-repository" title="log4g_repository_selector_get_logger_repository ()">log4g_repository_selector_get_logger_repository</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a>  (<a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorGetLoggerRepository" title="Log4gRepositorySelectorGetLoggerRepository ()">*Log4gRepositorySelectorGetLoggerRepository</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gRepositorySelector.description"></a><h2>Description</h2>
+<p>
+The log manager uses a repository selector implementation to select the
+logger repository for a particular application context.
+</p>
+<p>
+It is the responsibility of the repository selector implementation to
+track the application context. Log4g makes no assumptions about the
+application context.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gRepositorySelector.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gRepositorySelector">
+<a name="Log4gRepositorySelector"></a><h3>Log4gRepositorySelector</h3>
+<pre class="programlisting">typedef struct _Log4gRepositorySelector Log4gRepositorySelector;</pre>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gRepositorySelectorInterface">
+<a name="Log4gRepositorySelectorInterface"></a><h3>struct Log4gRepositorySelectorInterface</h3>
+<pre class="programlisting">struct Log4gRepositorySelectorInterface {
+    Log4gRepositorySelectorGetLoggerRepository get_logger_repository;
+};
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorGetLoggerRepository" title="Log4gRepositorySelectorGetLoggerRepository ()"><span class="type">Log4gRepositorySelectorGetLoggerRepository</span></a> <em class="structfield"><code><a name="Log4gRepositorySelectorInterface.get-logger-repository"></a>get_logger_repository</code></em>;</span></p></td>
+<td>Select the current logger repository.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_repository_selector_get_logger_repository ()">
+<a name="log4g-repository-selector-get-logger-repository"></a><h3>log4g_repository_selector_get_logger_repository ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * log4g_repository_selector_get_logger_repository
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_logger_repository</code></em> function from the
+<a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelectorInterface" title="struct Log4gRepositorySelectorInterface"><span class="type">Log4gRepositorySelectorInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A repository selector object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger repository for the current application context.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gRepositorySelectorGetLoggerRepository ()">
+<a name="Log4gRepositorySelectorGetLoggerRepository"></a><h3>Log4gRepositorySelectorGetLoggerRepository ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a>  (*Log4gRepositorySelectorGetLoggerRepository)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *self</code></em>);</pre>
+<p>
+Select the logger repository for the current application context.
+</p>
+<p>
+Implementors must assure that a valid (non-<code class="literal">NULL</code>) logger repository
+is returned.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A repository selector object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger repository for the current application context.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gRepositorySelector.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

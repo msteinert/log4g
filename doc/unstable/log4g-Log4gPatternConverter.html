@@ -1,0 +1,793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gPatternConverter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-Log4gXMLLayout.html" title="Log4gXMLLayout">
+<link rel="next" href="log4g-Log4gPatternParser.html" title="Log4gPatternParser">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gXMLLayout.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gPatternParser.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gPatternConverter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gPatternConverter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gPatternConverter">
+<a name="log4g-Log4gPatternConverter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gPatternConverter.top_of_page"></a>Log4gPatternConverter</span></h2>
+<p>Log4gPatternConverter — Provide formatting functionality for pattern converters</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gPatternConverter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter">Log4gPatternConverter</a>;
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterClass" title="Log4gPatternConverterClass">Log4gPatternConverterClass</a>;
+enum                <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterType" title="enum Log4gPatternConverterType">Log4gPatternConverterType</a>;
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gPatternConverter.html#log4g-pattern-converter-convert" title="log4g_pattern_converter_convert ()">log4g_pattern_converter_convert</a>     (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternConverter.html#log4g-pattern-converter-format" title="log4g_pattern_converter_format ()">log4g_pattern_converter_format</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-pattern-converter-get-next" title="log4g_pattern_converter_get_next ()">log4g_pattern_converter_get_next</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternConverter.html#log4g-pattern-converter-set-next" title="log4g_pattern_converter_set_next ()">log4g_pattern_converter_set_next</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *next</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternConverter.html#log4g-pattern-converter-space-pad" title="log4g_pattern_converter_space_pad ()">log4g_pattern_converter_space_pad</a>   (<em class="parameter"><code>const <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> length</code></em>);
+const <span class="returnvalue">gchar</span>         (<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterConvert" title="Log4gPatternConverterConvert ()">*Log4gPatternConverterConvert</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterFormat" title="Log4gPatternConverterFormat ()">*Log4gPatternConverterFormat</a>)      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gLiteralPatternConverter" title="Log4gLiteralPatternConverter">Log4gLiteralPatternConverter</a>;
+struct              <a class="link" href="log4g-Log4gPatternConverter.html#Log4gLiteralPatternConverterClass" title="struct Log4gLiteralPatternConverterClass">Log4gLiteralPatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-literal-pattern-converter-new" title="log4g_literal_pattern_converter_new ()">log4g_literal_pattern_converter_new</a>
+                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gBasicPatternConverter" title="Log4gBasicPatternConverter">Log4gBasicPatternConverter</a>;
+struct              <a class="link" href="log4g-Log4gPatternConverter.html#Log4gBasicPatternConverterClass" title="struct Log4gBasicPatternConverterClass">Log4gBasicPatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-basic-pattern-converter-new" title="log4g_basic_pattern_converter_new ()">log4g_basic_pattern_converter_new</a>
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterType" title="enum Log4gPatternConverterType"><span class="type">Log4gPatternConverterType</span></a> type</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gDatePatternConverter" title="Log4gDatePatternConverter">Log4gDatePatternConverter</a>;
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gDatePatternConverterClass" title="Log4gDatePatternConverterClass">Log4gDatePatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-date-pattern-converter-new" title="log4g_date_pattern_converter_new ()">log4g_date_pattern_converter_new</a>
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *format</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gLocationPatternConverter" title="Log4gLocationPatternConverter">Log4gLocationPatternConverter</a>;
+struct              <a class="link" href="log4g-Log4gPatternConverter.html#Log4gLocationPatternConverterClass" title="struct Log4gLocationPatternConverterClass">Log4gLocationPatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-location-pattern-converter-new" title="log4g_location_pattern_converter_new ()">log4g_location_pattern_converter_new</a>
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterType" title="enum Log4gPatternConverterType"><span class="type">Log4gPatternConverterType</span></a> type</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gMDCPatternConverter" title="Log4gMDCPatternConverter">Log4gMDCPatternConverter</a>;
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gMDCPatternConverterClass" title="Log4gMDCPatternConverterClass">Log4gMDCPatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-mdc-pattern-converter-new" title="log4g_mdc_pattern_converter_new ()">log4g_mdc_pattern_converter_new</a> (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *key</code></em>);
+                    <a class="link" href="log4g-Log4gPatternConverter.html#Log4gCategoryPatternConverter" title="Log4gCategoryPatternConverter">Log4gCategoryPatternConverter</a>;
+struct              <a class="link" href="log4g-Log4gPatternConverter.html#Log4gCategoryPatternConverterClass" title="struct Log4gCategoryPatternConverterClass">Log4gCategoryPatternConverterClass</a>;
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternConverter.html#log4g-category-pattern-converter-new" title="log4g_category_pattern_converter_new ()">log4g_category_pattern_converter_new</a>
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> precision</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gPatternConverter.description"></a><h2>Description</h2>
+<p>
+The pattern converter is an abstract class that provides the formatting
+functionality needed by pattern converters.
+</p>
+<p>
+Conversion specifiers in a conversion pattern are parsed into individual
+pattern converters. Each pattern converter is responsible for converting
+a logging event in a converter-specific way.
+</p>
+<p>
+Log4g includes the following pattern converters:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Basic pattern converter</p></li>
+<li class="listitem"><p>Literal pattern converter</p></li>
+<li class="listitem"><p>Date pattern converter</p></li>
+<li class="listitem"><p>MDC (mapped data context) pattern converter</p></li>
+<li class="listitem"><p>Location pattern converter</p></li>
+<li class="listitem"><p>Logger category pattern converter</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The basic pattern converter handles relative time, thread names,
+NDC (nested data context) values and log messages.
+</p>
+<p>
+The literal pattern converter is used to print non-pattern text from the
+conversion pattern.
+</p>
+<p>
+The date pattern converter converts a date into a string.
+</p>
+<p>
+The MDC pattern converter handles converting MDC values.
+</p>
+<p>
+The location pattern converter handles location information.
+</p>
+<p>
+The logger category pattern converter handles logger names.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gPatternConverter.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gPatternConverter">
+<a name="Log4gPatternConverter"></a><h3>Log4gPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gPatternConverter</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternConverterClass">
+<a name="Log4gPatternConverterClass"></a><h3>Log4gPatternConverterClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gPatternConverterConvert convert;
+    Log4gPatternConverterFormat format;
+} Log4gPatternConverterClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterConvert" title="Log4gPatternConverterConvert ()"><span class="type">Log4gPatternConverterConvert</span></a> <em class="structfield"><code><a name="Log4gPatternConverterClass.convert"></a>convert</code></em>;</span></p></td>
+<td>Convert a pattern.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterFormat" title="Log4gPatternConverterFormat ()"><span class="type">Log4gPatternConverterFormat</span></a> <em class="structfield"><code><a name="Log4gPatternConverterClass.format"></a>format</code></em>;</span></p></td>
+<td>Format in a converter specific way.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum Log4gPatternConverterType">
+<a name="Log4gPatternConverterType"></a><h3>enum Log4gPatternConverterType</h3>
+<pre class="programlisting">typedef enum {
+    INVALID_CONVERTER = 0,
+    RELATIVE_TIME_CONVERTER,
+    THREAD_CONVERTER,
+    LEVEL_CONVERTER,
+    NDC_CONVERTER,
+    MESSAGE_CONVERTER,
+    FULL_LOCATION_CONVERTER,
+    METHOD_LOCATION_CONVERTER,
+    LINE_LOCATION_CONVERTER,
+    FILE_LOCATION_CONVERTER,
+    MAX_CONVERTER
+} Log4gPatternConverterType;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="INVALID-CONVERTER:CAPS"></a><span class="term"><code class="literal">INVALID_CONVERTER</code></span></p></td>
+<td>Sentinel value
+</td>
+</tr>
+<tr>
+<td><p><a name="RELATIVE-TIME-CONVERTER:CAPS"></a><span class="term"><code class="literal">RELATIVE_TIME_CONVERTER</code></span></p></td>
+<td>Time converter
+</td>
+</tr>
+<tr>
+<td><p><a name="THREAD-CONVERTER:CAPS"></a><span class="term"><code class="literal">THREAD_CONVERTER</code></span></p></td>
+<td>Thread converter
+</td>
+</tr>
+<tr>
+<td><p><a name="LEVEL-CONVERTER:CAPS"></a><span class="term"><code class="literal">LEVEL_CONVERTER</code></span></p></td>
+<td>Log level converter
+</td>
+</tr>
+<tr>
+<td><p><a name="NDC-CONVERTER:CAPS"></a><span class="term"><code class="literal">NDC_CONVERTER</code></span></p></td>
+<td>Nested data context converter
+</td>
+</tr>
+<tr>
+<td><p><a name="MESSAGE-CONVERTER:CAPS"></a><span class="term"><code class="literal">MESSAGE_CONVERTER</code></span></p></td>
+<td>Log message converter
+</td>
+</tr>
+<tr>
+<td><p><a name="FULL-LOCATION-CONVERTER:CAPS"></a><span class="term"><code class="literal">FULL_LOCATION_CONVERTER</code></span></p></td>
+<td>Log location converter
+</td>
+</tr>
+<tr>
+<td><p><a name="METHOD-LOCATION-CONVERTER:CAPS"></a><span class="term"><code class="literal">METHOD_LOCATION_CONVERTER</code></span></p></td>
+<td>Function name converter
+</td>
+</tr>
+<tr>
+<td><p><a name="LINE-LOCATION-CONVERTER:CAPS"></a><span class="term"><code class="literal">LINE_LOCATION_CONVERTER</code></span></p></td>
+<td>Line number converter
+</td>
+</tr>
+<tr>
+<td><p><a name="FILE-LOCATION-CONVERTER:CAPS"></a><span class="term"><code class="literal">FILE_LOCATION_CONVERTER</code></span></p></td>
+<td>File name converter
+</td>
+</tr>
+<tr>
+<td><p><a name="MAX-CONVERTER:CAPS"></a><span class="term"><code class="literal">MAX_CONVERTER</code></span></p></td>
+<td>Sentinel value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_converter_convert ()">
+<a name="log4g-pattern-converter-convert"></a><h3>log4g_pattern_converter_convert ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_pattern_converter_convert     (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>convert</code></em> function from the <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterClass" title="Log4gPatternConverterClass"><span class="type">Log4gPatternConverterClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to convert.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The converted pattern.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_converter_format ()">
+<a name="log4g-pattern-converter-format"></a><h3>log4g_pattern_converter_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_converter_format      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>format</code></em> function from the <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterClass" title="Log4gPatternConverterClass"><span class="type">Log4gPatternConverterClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The formatted output is placed here.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to format.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_converter_get_next ()">
+<a name="log4g-pattern-converter-get-next"></a><h3>log4g_pattern_converter_get_next ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_pattern_converter_get_next
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the next pattern converter in the chain.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The next pattern converter in the chain.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_converter_set_next ()">
+<a name="log4g-pattern-converter-set-next"></a><h3>log4g_pattern_converter_set_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_converter_set_next    (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *next</code></em>);</pre>
+<p>
+Set the next pattern converter in the chain.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>next</code></em> :</span></p></td>
+<td>The next pattern converter in the chain.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_converter_space_pad ()">
+<a name="log4g-pattern-converter-space-pad"></a><h3>log4g_pattern_converter_space_pad ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_converter_space_pad   (<em class="parameter"><code>const <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> length</code></em>);</pre>
+<p>
+A fast space padding function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>The string to pad.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>The number of spaces to pad.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternConverterConvert ()">
+<a name="Log4gPatternConverterConvert"></a><h3>Log4gPatternConverterConvert ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span>         (*Log4gPatternConverterConvert)     (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Convert a pattern.
+</p>
+<p>
+Derived converters must override this function in order to convert
+conversion specifiers in the correct way.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: log4g/logging-event.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to convert.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The converted pattern.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternConverterFormat ()">
+<a name="Log4gPatternConverterFormat"></a><h3>Log4gPatternConverterFormat ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gPatternConverterFormat)      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">GString</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+A template function for formatting in a converter specific way.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: log4g/logging-event.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The formatted output is placed here.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to format.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLiteralPatternConverter">
+<a name="Log4gLiteralPatternConverter"></a><h3>Log4gLiteralPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLiteralPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gLiteralPatternConverter</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gLiteralPatternConverterClass">
+<a name="Log4gLiteralPatternConverterClass"></a><h3>struct Log4gLiteralPatternConverterClass</h3>
+<pre class="programlisting">struct Log4gLiteralPatternConverterClass {
+};
+</pre>
+<p>
+The <span class="structname">Log4gLiteralPatternConverterClass</span> structure
+does not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_literal_pattern_converter_new ()">
+<a name="log4g-literal-pattern-converter-new"></a><h3>log4g_literal_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_literal_pattern_converter_new
+                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);</pre>
+<p>
+Create a new literal pattern converter object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern</code></em> :</span></p></td>
+<td>The literal text to "convert".
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new literal pattern converter object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gBasicPatternConverter">
+<a name="Log4gBasicPatternConverter"></a><h3>Log4gBasicPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gBasicPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gBasicPatternConverter</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gBasicPatternConverterClass">
+<a name="Log4gBasicPatternConverterClass"></a><h3>struct Log4gBasicPatternConverterClass</h3>
+<pre class="programlisting">struct Log4gBasicPatternConverterClass {
+};
+</pre>
+<p>
+The <span class="structname">Log4gBasicPatternConverterClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_basic_pattern_converter_new ()">
+<a name="log4g-basic-pattern-converter-new"></a><h3>log4g_basic_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_basic_pattern_converter_new
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterType" title="enum Log4gPatternConverterType"><span class="type">Log4gPatternConverterType</span></a> type</code></em>);</pre>
+<p>
+Create a new basic pattern converter object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatting</code></em> :</span></p></td>
+<td>Formatting parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>The type of converter to create.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new basic pattern converter object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gDatePatternConverter">
+<a name="Log4gDatePatternConverter"></a><h3>Log4gDatePatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDatePatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gDatePatternConverter</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gDatePatternConverterClass">
+<a name="Log4gDatePatternConverterClass"></a><h3>Log4gDatePatternConverterClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gDatePatternConverterClass;
+</pre>
+<p>
+The <span class="structname">Log4gDatePatternConverterClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_date_pattern_converter_new ()">
+<a name="log4g-date-pattern-converter-new"></a><h3>log4g_date_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_date_pattern_converter_new
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *format</code></em>);</pre>
+<p>
+Create a new date pattern converter.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: strftime(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatting</code></em> :</span></p></td>
+<td>Formatting parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A strfime(3) date conversion pattern.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> Create a new date pattern converter.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLocationPatternConverter">
+<a name="Log4gLocationPatternConverter"></a><h3>Log4gLocationPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLocationPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gLocationPatternConverter</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gLocationPatternConverterClass">
+<a name="Log4gLocationPatternConverterClass"></a><h3>struct Log4gLocationPatternConverterClass</h3>
+<pre class="programlisting">struct Log4gLocationPatternConverterClass {
+};
+</pre>
+<p>
+The <span class="structname">Log4gLocationPatternConverterClass</span> structure
+does not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_location_pattern_converter_new ()">
+<a name="log4g-location-pattern-converter-new"></a><h3>log4g_location_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_location_pattern_converter_new
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterType" title="enum Log4gPatternConverterType"><span class="type">Log4gPatternConverterType</span></a> type</code></em>);</pre>
+<p>
+Create a new location pattern converter object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatting</code></em> :</span></p></td>
+<td>Formatting parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>The type of converter to create.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new location pattern converter object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gMDCPatternConverter">
+<a name="Log4gMDCPatternConverter"></a><h3>Log4gMDCPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gMDCPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gMDCPatternConverter</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gMDCPatternConverterClass">
+<a name="Log4gMDCPatternConverterClass"></a><h3>Log4gMDCPatternConverterClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gMDCPatternConverterClass;
+</pre>
+<p>
+The <span class="structname">Log4gMDCPatternConverterClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_mdc_pattern_converter_new ()">
+<a name="log4g-mdc-pattern-converter-new"></a><h3>log4g_mdc_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_mdc_pattern_converter_new (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *key</code></em>);</pre>
+<p>
+Create a new MDC (mapped data context) pattern converter object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gMDC.html#Log4gMDCClass" title="Log4gMDCClass"><span class="type">Log4gMDCClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatting</code></em> :</span></p></td>
+<td>Formatting parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The MDC key to look up.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new MDC pattern converter object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gCategoryPatternConverter">
+<a name="Log4gCategoryPatternConverter"></a><h3>Log4gCategoryPatternConverter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCategoryPatternConverter;
+</pre>
+<p>
+The <span class="structname">Log4gCategoryPatternConverter</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gCategoryPatternConverterClass">
+<a name="Log4gCategoryPatternConverterClass"></a><h3>struct Log4gCategoryPatternConverterClass</h3>
+<pre class="programlisting">struct Log4gCategoryPatternConverterClass {
+};
+</pre>
+<p>
+The <span class="structname">Log4gCategoryPatternConverterClass</span> structure
+does not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_category_pattern_converter_new ()">
+<a name="log4g-category-pattern-converter-new"></a><h3>log4g_category_pattern_converter_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_category_pattern_converter_new
+                                                        (<em class="parameter"><code><span class="type">struct Log4gFormattingInfo</span> *formatting</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> precision</code></em>);</pre>
+<p>
+Create a new logger category pattern converter object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass"><span class="type">Log4gLoggerClass</span></a>, <a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass"><span class="type">Log4gPatternLayoutClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>formatting</code></em> :</span></p></td>
+<td>Formatting parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>precision</code></em> :</span></p></td>
+<td>The logger category precision value.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new logger category pattern converter object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gPatternConverter.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass"><span class="type">Log4gPatternLayoutClass</span></a>, <a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParserClass" title="Log4gPatternParserClass"><span class="type">Log4gPatternParserClass</span></a>,
+           <a class="link" href="log4g-Log4gMDC.html#Log4gMDCClass" title="Log4gMDCClass"><span class="type">Log4gMDCClass</span></a>, <a class="link" href="log4g-Log4gNDC.html#Log4gNDCClass" title="Log4gNDCClass"><span class="type">Log4gNDCClass</span></a>, <a class="link" href="log4g-Log4gDateLayout.html#Log4gDateLayoutClass" title="Log4gDateLayoutClass"><span class="type">Log4gDateLayoutClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

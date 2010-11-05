@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gCouchdbAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-couchdb.html" title="CouchDB">
+<link rel="prev" href="log4g-couchdb.html" title="CouchDB">
+<link rel="next" href="log4g-Log4gCouchdbLayout.html" title="Log4gCouchdbLayout">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-couchdb.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-couchdb.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gCouchdbLayout.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gCouchdbAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gCouchdbAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gCouchdbAppender">
+<a name="log4g-Log4gCouchdbAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gCouchdbAppender.top_of_page"></a>Log4gCouchdbAppender</span></h2>
+<p>Log4gCouchdbAppender — Log events to an Apache CouchDB</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gCouchdbAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gCouchdbAppender.html#Log4gCouchdbAppender" title="Log4gCouchdbAppender">Log4gCouchdbAppender</a>;
+                    <a class="link" href="log4g-Log4gCouchdbAppender.html#Log4gCouchdbAppenderClass" title="Log4gCouchdbAppenderClass">Log4gCouchdbAppenderClass</a>;
+<span class="returnvalue">GType</span>               <a class="link" href="log4g-Log4gCouchdbAppender.html#log4g-couchdb-appender-get-type" title="log4g_couchdb_appender_get_type ()">log4g_couchdb_appender_get_type</a>     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gCouchdbAppender.html#log4g-couchdb-appender-register" title="log4g_couchdb_appender_register ()">log4g_couchdb_appender_register</a>     (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gCouchdbAppender.description"></a><h2>Description</h2>
+<p>
+The CouchDB appender logs events to a specified database using a
+<a class="link" href="log4g-Log4gCouchdbLayout.html#Log4gCouchdbLayoutClass" title="Log4gCouchdbLayoutClass"><span class="type">Log4gCouchdbLayoutClass</span></a>.
+</p>
+<p>
+CouchDB appenders accept the following properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>uri</p></li>
+<li class="listitem"><p>database-name</p></li>
+<li class="listitem"><p>credentials</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+The value of uri determines the network location of the CouchDB where
+output will be logged. If the value of uri is <code class="literal">NULL</code> then this appender
+will attempt to log messages to the CouchDB at &lt;http://127.0.0.1:5984&gt;.
+</p>
+<p>
+The value of database-name determines the name of the database that will
+store the log output. The default value is "log4g_messages".
+</p>
+<p>
+The credentials property enables authentication with the CouchDB server.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gCouchdbAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gCouchdbAppender">
+<a name="Log4gCouchdbAppender"></a><h3>Log4gCouchdbAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCouchdbAppender;
+</pre>
+<p>
+The <span class="structname">Log4gCouchdbAppender</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gCouchdbAppenderClass">
+<a name="Log4gCouchdbAppenderClass"></a><h3>Log4gCouchdbAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gCouchdbAppenderClass;
+</pre>
+<p>
+The <span class="structname">Log4gCouchdbAppenderClass</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_couchdb_appender_get_type ()">
+<a name="log4g-couchdb-appender-get-type"></a><h3>log4g_couchdb_appender_get_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>               log4g_couchdb_appender_get_type     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="log4g_couchdb_appender_register ()">
+<a name="log4g-couchdb-appender-register"></a><h3>log4g_couchdb_appender_register ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_couchdb_appender_register     (<em class="parameter"><code><span class="type">GTypeModule</span> *module</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gCouchdbAppender.see-also"></a><h2>See Also</h2>
+<a class="ulink" href="http://www.couchdb.apache.org/" target="_top">Apache CouchDB</a>,
+           <a class="ulink" href="http://git.gnome.org/browse/couchdb-glib/" target="_top">couchdb-glib</a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

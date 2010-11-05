@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gAppenderAttachable</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gProvisionNode.html" title="Log4gProvisionNode">
+<link rel="next" href="log4g-Log4gAppenderAttachableImpl.html" title="Log4gAppenderAttachableImpl">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gProvisionNode.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gAppenderAttachableImpl.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gAppenderAttachable.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gAppenderAttachable.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gAppenderAttachable">
+<a name="log4g-Log4gAppenderAttachable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gAppenderAttachable.top_of_page"></a>Log4gAppenderAttachable</span></h2>
+<p>Log4gAppenderAttachable — Attach appenders to objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gAppenderAttachable.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable">Log4gAppenderAttachable</a>;
+struct              <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface">Log4gAppenderAttachableInterface</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-add-appender" title="log4g_appender_attachable_add_appender ()">log4g_appender_attachable_add_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-get-all-appenders" title="log4g_appender_attachable_get_all_appenders ()">log4g_appender_attachable_get_all_appenders</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-get-appender" title="log4g_appender_attachable_get_appender ()">log4g_appender_attachable_get_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-is-attached" title="log4g_appender_attachable_is_attached ()">log4g_appender_attachable_is_attached</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-all-appenders" title="log4g_appender_attachable_remove_all_appenders ()">log4g_appender_attachable_remove_all_appenders</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-appender" title="log4g_appender_attachable_remove_appender ()">log4g_appender_attachable_remove_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAppenderAttachable.html#log4g-appender-attachable-remove-appender-name" title="log4g_appender_attachable_remove_appender_name ()">log4g_appender_attachable_remove_appender_name</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableAddAppender" title="Log4gAppenderAttachableAddAppender ()">*Log4gAppenderAttachableAddAppender</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+const <span class="returnvalue">GArray</span>        (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAllAppenders" title="Log4gAppenderAttachableGetAllAppenders ()">*Log4gAppenderAttachableGetAllAppenders</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a>       (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAppender" title="Log4gAppenderAttachableGetAppender ()">*Log4gAppenderAttachableGetAppender</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableIsAttached" title="Log4gAppenderAttachableIsAttached ()">*Log4gAppenderAttachableIsAttached</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAllAppenders" title="Log4gAppenderAttachableRemoveAllAppenders ()">*Log4gAppenderAttachableRemoveAllAppenders</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppender" title="Log4gAppenderAttachableRemoveAppender ()">*Log4gAppenderAttachableRemoveAppender</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppenderName" title="Log4gAppenderAttachableRemoveAppenderName ()">*Log4gAppenderAttachableRemoveAppenderName</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gAppenderAttachable.description"></a><h2>Description</h2>
+<p>
+This interface defines a standard API for attaching appenders to other
+objects (e.g. loggers, other appenders).
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gAppenderAttachable.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gAppenderAttachable">
+<a name="Log4gAppenderAttachable"></a><h3>Log4gAppenderAttachable</h3>
+<pre class="programlisting">typedef struct _Log4gAppenderAttachable Log4gAppenderAttachable;</pre>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gAppenderAttachableInterface">
+<a name="Log4gAppenderAttachableInterface"></a><h3>struct Log4gAppenderAttachableInterface</h3>
+<pre class="programlisting">struct Log4gAppenderAttachableInterface {
+    Log4gAppenderAttachableAddAppender add_appender;
+    Log4gAppenderAttachableGetAllAppenders get_all_appenders;
+    Log4gAppenderAttachableGetAppender get_appender;
+    Log4gAppenderAttachableIsAttached is_attached;
+    Log4gAppenderAttachableRemoveAllAppenders remove_all_appenders;
+    Log4gAppenderAttachableRemoveAppender remove_appender;
+    Log4gAppenderAttachableRemoveAppenderName remove_appender_name;
+};
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableAddAppender" title="Log4gAppenderAttachableAddAppender ()"><span class="type">Log4gAppenderAttachableAddAppender</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.add-appender"></a>add_appender</code></em>;</span></p></td>
+<td>Attach an appender to an object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAllAppenders" title="Log4gAppenderAttachableGetAllAppenders ()"><span class="type">Log4gAppenderAttachableGetAllAppenders</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.get-all-appenders"></a>get_all_appenders</code></em>;</span></p></td>
+<td>Get all appenders attached to an object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableGetAppender" title="Log4gAppenderAttachableGetAppender ()"><span class="type">Log4gAppenderAttachableGetAppender</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.get-appender"></a>get_appender</code></em>;</span></p></td>
+<td>Get an appender attached to an object by name.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableIsAttached" title="Log4gAppenderAttachableIsAttached ()"><span class="type">Log4gAppenderAttachableIsAttached</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.is-attached"></a>is_attached</code></em>;</span></p></td>
+<td>Determine if an appender is attached to an object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAllAppenders" title="Log4gAppenderAttachableRemoveAllAppenders ()"><span class="type">Log4gAppenderAttachableRemoveAllAppenders</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.remove-all-appenders"></a>remove_all_appenders</code></em>;</span></p></td>
+<td>Remove all appenders attached to an object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppender" title="Log4gAppenderAttachableRemoveAppender ()"><span class="type">Log4gAppenderAttachableRemoveAppender</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.remove-appender"></a>remove_appender</code></em>;</span></p></td>
+<td>Remove an appender attached to an object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableRemoveAppenderName" title="Log4gAppenderAttachableRemoveAppenderName ()"><span class="type">Log4gAppenderAttachableRemoveAppenderName</span></a> <em class="structfield"><code><a name="Log4gAppenderAttachableInterface.remove-appender-name"></a>remove_appender_name</code></em>;</span></p></td>
+<td>Remove an appender attached to an object by name.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_add_appender ()">
+<a name="log4g-appender-attachable-add-appender"></a><h3>log4g_appender_attachable_add_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_attachable_add_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>add_appender</code></em> function from the <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>An appender.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_get_all_appenders ()">
+<a name="log4g-appender-attachable-get-all-appenders"></a><h3>log4g_appender_attachable_get_all_appenders ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_appender_attachable_get_all_appenders
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_all_appenders</code></em> function from the
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array of appenders attached to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_get_appender ()">
+<a name="log4g-appender-attachable-get-appender"></a><h3>log4g_appender_attachable_get_appender ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     log4g_appender_attachable_get_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>get_appender</code></em> function from the <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The appender named <em class="parameter"><code>name</code></em>, or <code class="literal">NULL</code> if not found.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_is_attached ()">
+<a name="log4g-appender-attachable-is-attached"></a><h3>log4g_appender_attachable_is_attached ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_appender_attachable_is_attached
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>is_attached</code></em> function from the <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to check.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_remove_all_appenders ()">
+<a name="log4g-appender-attachable-remove-all-appenders"></a><h3>log4g_appender_attachable_remove_all_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_attachable_remove_all_appenders
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>remove_all_appenders</code></em> function from the
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_remove_appender ()">
+<a name="log4g-appender-attachable-remove-appender"></a><h3>log4g_appender_attachable_remove_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_attachable_remove_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>remove_appender</code></em> function from the
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_remove_appender_name ()">
+<a name="log4g-appender-attachable-remove-appender-name"></a><h3>log4g_appender_attachable_remove_appender_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_appender_attachable_remove_appender_name
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>remove_appender_name</code></em> function from the
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableAddAppender ()">
+<a name="Log4gAppenderAttachableAddAppender"></a><h3>Log4gAppenderAttachableAddAppender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAttachableAddAppender)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Attach an appender to an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to attach.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableGetAllAppenders ()">
+<a name="Log4gAppenderAttachableGetAllAppenders"></a><h3>Log4gAppenderAttachableGetAllAppenders ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span>        (*Log4gAppenderAttachableGetAllAppenders)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);</pre>
+<p>
+Retrieve all previously attached appenders in an array.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+It is the responsibility of the caller to call <code class="function">g_array_free()</code> on the
+returned value.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new array of appenders attached to <em class="parameter"><code>self</code></em>. If no appenders
+         are attached, this function shall return <code class="literal">NULL</code>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableGetAppender ()">
+<a name="Log4gAppenderAttachableGetAppender"></a><h3>Log4gAppenderAttachableGetAppender ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a>       (*Log4gAppenderAttachableGetAppender)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve an attached appender by name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appneder to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The appender identified by <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if the named
+         appender was not found.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableIsAttached ()">
+<a name="Log4gAppenderAttachableIsAttached"></a><h3>Log4gAppenderAttachableIsAttached ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*Log4gAppenderAttachableIsAttached)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Determine if an appender is attached to an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to check.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the named appender is attached to <em class="parameter"><code>self</code></em>, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableRemoveAllAppenders ()">
+<a name="Log4gAppenderAttachableRemoveAllAppenders"></a><h3>Log4gAppenderAttachableRemoveAllAppenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAttachableRemoveAllAppenders)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>);</pre>
+<p>
+Remove all attached appenders from an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableRemoveAppender ()">
+<a name="Log4gAppenderAttachableRemoveAppender"></a><h3>Log4gAppenderAttachableRemoveAppender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAttachableRemoveAppender)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Remove an attached appender from an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAppenderAttachableRemoveAppenderName ()">
+<a name="Log4gAppenderAttachableRemoveAppenderName"></a><h3>Log4gAppenderAttachableRemoveAppenderName ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gAppenderAttachableRemoveAppenderName)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Remove a named appender from an object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An appender attachable object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appedner to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gAppenderAttachable.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

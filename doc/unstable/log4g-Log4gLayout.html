@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLayout</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-core.html" title="Core Classes">
+<link rel="prev" href="log4g-Log4gAppender.html" title="Log4gAppender">
+<link rel="next" href="log4g-Log4gFilter.html" title="Log4gFilter">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gFilter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLayout.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLayout.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLayout">
+<a name="log4g-Log4gLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLayout.top_of_page"></a>Log4gLayout</span></h2>
+<p>Log4gLayout — Log event layout base class</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLayout.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="log4g-Log4gLayout.html#LOG4G-LAYOUT-LINE-SEP:CAPS" title="LOG4G_LAYOUT_LINE_SEP">LOG4G_LAYOUT_LINE_SEP</a>
+                    <a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout">Log4gLayout</a>;
+                    <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass">Log4gLayoutClass</a>;
+<span class="returnvalue">gchar</span> *             <a class="link" href="log4g-Log4gLayout.html#log4g-layout-format" title="log4g_layout_format ()">log4g_layout_format</a>                 (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLayout.html#log4g-layout-get-content-type" title="log4g_layout_get_content_type ()">log4g_layout_get_content_type</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLayout.html#log4g-layout-get-header" title="log4g_layout_get_header ()">log4g_layout_get_header</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLayout.html#log4g-layout-get-footer" title="log4g_layout_get_footer ()">log4g_layout_get_footer</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLayout.html#log4g-layout-activate-options" title="log4g_layout_activate_options ()">log4g_layout_activate_options</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+<span class="returnvalue">gchar</span>               (<a class="link" href="log4g-Log4gLayout.html#Log4gLayoutFormat" title="Log4gLayoutFormat ()">*Log4gLayoutFormat</a>)                (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+const <span class="returnvalue">gchar</span>         (<a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetContentType" title="Log4gLayoutGetContentType ()">*Log4gLayoutGetContentType</a>)        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span>         (<a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetHeader" title="Log4gLayoutGetHeader ()">*Log4gLayoutGetHeader</a>)             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span>         (<a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetFooter" title="Log4gLayoutGetFooter ()">*Log4gLayoutGetFooter</a>)             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLayout.html#Log4gLayoutActivateOptions" title="Log4gLayoutActivateOptions ()">*Log4gLayoutActivateOptions</a>)       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLayout.description"></a><h2>Description</h2>
+<p>
+Users may extend this class to implement custom log event layouts.
+</p>
+<p>
+Many appenders require a layout in order to log an event. Sub-classes
+must override the _Log4gLayoutClass::<code class="function">format()</code> virtual function to implement
+custom formatting.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLayout.details"></a><h2>Details</h2>
+<div class="refsect2" title="LOG4G_LAYOUT_LINE_SEP">
+<a name="LOG4G-LAYOUT-LINE-SEP:CAPS"></a><h3>LOG4G_LAYOUT_LINE_SEP</h3>
+<pre class="programlisting">#define LOG4G_LAYOUT_LINE_SEP "\n"
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayout">
+<a name="Log4gLayout"></a><h3>Log4gLayout</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLayout;
+</pre>
+<p>
+The <span class="structname">Log4gLayout</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutClass">
+<a name="Log4gLayoutClass"></a><h3>Log4gLayoutClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gLayoutFormat format;
+    Log4gLayoutGetContentType get_content_type;
+    Log4gLayoutGetHeader get_header;
+    Log4gLayoutGetFooter get_footer;
+    Log4gLayoutActivateOptions activate_options;
+} Log4gLayoutClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLayout.html#Log4gLayoutFormat" title="Log4gLayoutFormat ()"><span class="type">Log4gLayoutFormat</span></a> <em class="structfield"><code><a name="Log4gLayoutClass.format"></a>format</code></em>;</span></p></td>
+<td>Implement this function to create your own layout format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetContentType" title="Log4gLayoutGetContentType ()"><span class="type">Log4gLayoutGetContentType</span></a> <em class="structfield"><code><a name="Log4gLayoutClass.get-content-type"></a>get_content_type</code></em>;</span></p></td>
+<td>Retrieve the content type output by this layout.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetHeader" title="Log4gLayoutGetHeader ()"><span class="type">Log4gLayoutGetHeader</span></a> <em class="structfield"><code><a name="Log4gLayoutClass.get-header"></a>get_header</code></em>;</span></p></td>
+<td>Retrieve the header for this layout.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLayout.html#Log4gLayoutGetFooter" title="Log4gLayoutGetFooter ()"><span class="type">Log4gLayoutGetFooter</span></a> <em class="structfield"><code><a name="Log4gLayoutClass.get-footer"></a>get_footer</code></em>;</span></p></td>
+<td>Retrieve the footer for this layout.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLayout.html#Log4gLayoutActivateOptions" title="Log4gLayoutActivateOptions ()"><span class="type">Log4gLayoutActivateOptions</span></a> <em class="structfield"><code><a name="Log4gLayoutClass.activate-options"></a>activate_options</code></em>;</span></p></td>
+<td>Activate all options set for this layout.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_layout_format ()">
+<a name="log4g-layout-format"></a><h3>log4g_layout_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             log4g_layout_format                 (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>format</code></em> function from the <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass"><span class="type">Log4gLayoutClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A logging event object to be laid out.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The formatted logging event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_layout_get_content_type ()">
+<a name="log4g-layout-get-content-type"></a><h3>log4g_layout_get_content_type ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_layout_get_content_type       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_content_type</code></em> function from the <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass"><span class="type">Log4gLayoutClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout content type.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_layout_get_header ()">
+<a name="log4g-layout-get-header"></a><h3>log4g_layout_get_header ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_layout_get_header             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_header</code></em> function from the <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass"><span class="type">Log4gLayoutClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout header.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_layout_get_footer ()">
+<a name="log4g-layout-get-footer"></a><h3>log4g_layout_get_footer ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_layout_get_footer             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_footer</code></em> function from the <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass"><span class="type">Log4gLayoutClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout footer.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_layout_activate_options ()">
+<a name="log4g-layout-activate-options"></a><h3>log4g_layout_activate_options ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_layout_activate_options       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>activate_options</code></em> function from the <a class="link" href="log4g-Log4gLayout.html#Log4gLayoutClass" title="Log4gLayoutClass"><span class="type">Log4gLayoutClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+Layouts generally need to have their options activated before they can be
+used. This class provides a do-nothing implementation for convenience.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutFormat ()">
+<a name="Log4gLayoutFormat"></a><h3>Log4gLayoutFormat ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span>               (*Log4gLayoutFormat)                (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Implement this function to create your own layout format.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A logging event object to be laid out.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The formatted logging event.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutGetContentType ()">
+<a name="Log4gLayoutGetContentType"></a><h3>Log4gLayoutGetContentType ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span>         (*Log4gLayoutGetContentType)        (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the content type output by this layout.
+</p>
+<p>
+The base class returns "text/plain".
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout content type.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutGetHeader ()">
+<a name="Log4gLayoutGetHeader"></a><h3>Log4gLayoutGetHeader ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span>         (*Log4gLayoutGetHeader)             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the header for the layout format.
+</p>
+<p>
+The base class returns \e NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout header.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutGetFooter ()">
+<a name="Log4gLayoutGetFooter"></a><h3>Log4gLayoutGetFooter ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span>         (*Log4gLayoutGetFooter)             (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the footer for the layout format.
+</p>
+<p>
+The base class returns \e NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A layout object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The layout footer.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLayoutActivateOptions ()">
+<a name="Log4gLayoutActivateOptions"></a><h3>Log4gLayoutActivateOptions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLayoutActivateOptions)       (<em class="parameter"><code><a class="link" href="log4g-Log4gLayout.html#Log4gLayout" title="Log4gLayout"><span class="type">Log4gLayout</span></a> *self</code></em>);</pre>
+<p>
+Activate all options set for this layout.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An layout object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

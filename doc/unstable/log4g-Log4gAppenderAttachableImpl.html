@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gAppenderAttachableImpl</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gAppenderAttachable.html" title="Log4gAppenderAttachable">
+<link rel="next" href="log4g-Log4gLoggerFactory.html" title="Log4gLoggerFactory">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gAppenderAttachable.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gLoggerFactory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gAppenderAttachableImpl.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gAppenderAttachableImpl.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gAppenderAttachableImpl">
+<a name="log4g-Log4gAppenderAttachableImpl"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gAppenderAttachableImpl.top_of_page"></a>Log4gAppenderAttachableImpl</span></h2>
+<p>Log4gAppenderAttachableImpl — An implementation of the appender attachable interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gAppenderAttachableImpl.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gAppenderAttachableImpl.html#Log4gAppenderAttachableImpl" title="Log4gAppenderAttachableImpl">Log4gAppenderAttachableImpl</a>;
+struct              <a class="link" href="log4g-Log4gAppenderAttachableImpl.html#Log4gAppenderAttachableImplClass" title="struct Log4gAppenderAttachableImplClass">Log4gAppenderAttachableImplClass</a>;
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="returnvalue">Log4gAppenderAttachable</span></a> * <a class="link" href="log4g-Log4gAppenderAttachableImpl.html#log4g-appender-attachable-impl-new" title="log4g_appender_attachable_impl_new ()">log4g_appender_attachable_impl_new</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="log4g-Log4gAppenderAttachableImpl.html#log4g-appender-attachable-impl-append-loop-on-appenders" title="log4g_appender_attachable_impl_append_loop_on_appenders ()">log4g_appender_attachable_impl_append_loop_on_appenders</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gAppenderAttachableImpl.description"></a><h2>Description</h2>
+<p>
+This is a straightforward implementation of the appender attachable
+interface.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gAppenderAttachableImpl.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gAppenderAttachableImpl">
+<a name="Log4gAppenderAttachableImpl"></a><h3>Log4gAppenderAttachableImpl</h3>
+<pre class="programlisting">typedef struct {
+} Log4gAppenderAttachableImpl;
+</pre>
+<p>
+The <span class="structname">Log4gAppenderAttachableImpl</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="struct Log4gAppenderAttachableImplClass">
+<a name="Log4gAppenderAttachableImplClass"></a><h3>struct Log4gAppenderAttachableImplClass</h3>
+<pre class="programlisting">struct Log4gAppenderAttachableImplClass {
+};
+</pre>
+<p>
+The <span class="structname">Log4gAppenderAttachableImplClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_impl_new ()">
+<a name="log4g-appender-attachable-impl-new"></a><h3>log4g_appender_attachable_impl_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="returnvalue">Log4gAppenderAttachable</span></a> * log4g_appender_attachable_impl_new
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Create a new appender attachable implementation object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new appender attachable implementation object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_appender_attachable_impl_append_loop_on_appenders ()">
+<a name="log4g-appender-attachable-impl-append-loop-on-appenders"></a><h3>log4g_appender_attachable_impl_append_loop_on_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               log4g_appender_attachable_impl_append_loop_on_appenders
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Call the Log4gAppenderInterface.do_append virtual function for all
+attached appenders.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An appender attachable implementation object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>A log event to append.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gAppenderAttachableImpl.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLevelRangeFilter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-filters.html" title="Filters">
+<link rel="prev" href="log4g-Log4gLevelMatchFilter.html" title="Log4gLevelMatchFilter">
+<link rel="next" href="log4g-Log4gStringMatchFilter.html" title="Log4gStringMatchFilter">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gLevelMatchFilter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-filters.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gStringMatchFilter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLevelRangeFilter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLevelRangeFilter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLevelRangeFilter">
+<a name="log4g-Log4gLevelRangeFilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLevelRangeFilter.top_of_page"></a>Log4gLevelRangeFilter</span></h2>
+<p>Log4gLevelRangeFilter — A filter based on level ranges</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLevelRangeFilter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLevelRangeFilter.html#Log4gLevelRangeFilter" title="Log4gLevelRangeFilter">Log4gLevelRangeFilter</a>;
+                    <a class="link" href="log4g-Log4gLevelRangeFilter.html#Log4gLevelRangeFilterClass" title="Log4gLevelRangeFilterClass">Log4gLevelRangeFilterClass</a>;
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLevelRangeFilter.description"></a><h2>Description</h2>
+<p>
+This is a simple filter which can reject message with levels outside a
+specified range.
+</p>
+<p>
+This filter accept three properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>level-min</p></li>
+<li class="listitem"><p>level-max</p></li>
+<li class="listitem"><p>accept-on-range</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+If the level of the logging event is not between level-min and level-max
+(inclusive) then the decide function returns deny.
+</p>
+<p>
+If the logging logging event is within the specified range and
+accept-on-range is <code class="literal">TRUE</code> then the decide function returns accept. If
+accept-on-range is set to <code class="literal">FALSE</code> then decide will return neutral in this
+case.
+</p>
+<p>
+The default value for accept-on-range is <code class="literal">TRUE</code>.
+</p>
+<p>
+If level-min is not defined then there is no minimum level (a level is
+never rejected for being too low). If level-max is not defined then
+there is no maximum level (a level is never rejected for being too high).
+</p>
+<p>
+Refer to <a class="link" href="log4g-Log4gAppender.html#log4g-appender-set-threshold" title="log4g_appender_set_threshold ()"><code class="function">log4g_appender_set_threshold()</code></a> for a more convenient way to filter
+out log events by level.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLevelRangeFilter.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLevelRangeFilter">
+<a name="Log4gLevelRangeFilter"></a><h3>Log4gLevelRangeFilter</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLevelRangeFilter;
+</pre>
+<p>
+The <span class="structname">Log4gLevelRangeFilter</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelRangeFilterClass">
+<a name="Log4gLevelRangeFilterClass"></a><h3>Log4gLevelRangeFilterClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLevelRangeFilterClass;
+</pre>
+<p>
+The <span class="structname">Log4gLevelRangeFilterClass</span> structure does not
+have any public members.
+</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gLevelRangeFilter.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

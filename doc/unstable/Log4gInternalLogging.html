@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gInternalLogging</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gOnlyOnceErrorHandler.html" title="Log4gOnlyOnceErrorHandler">
+<link rel="next" href="pt03.html" title="Part III. Modules">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gOnlyOnceErrorHandler.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="pt03.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#Log4gInternalLogging.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#Log4gInternalLogging.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gInternalLogging">
+<a name="Log4gInternalLogging"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="Log4gInternalLogging.top_of_page"></a>Log4gInternalLogging</span></h2>
+<p>Log4gInternalLogging — Internal logging API</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="Log4gInternalLogging.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-debug" title="log4g_log_debug ()">log4g_log_debug</a>                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-debugv" title="log4g_log_debugv ()">log4g_log_debugv</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-warn" title="log4g_log_warn ()">log4g_log_warn</a>                      (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-warnv" title="log4g_log_warnv ()">log4g_log_warnv</a>                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-error" title="log4g_log_error ()">log4g_log_error</a>                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-log-errorv" title="log4g_log_errorv ()">log4g_log_errorv</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-set-internal-debugging" title="log4g_set_internal_debugging ()">log4g_set_internal_debugging</a>        (<em class="parameter"><code><span class="type">gboolean</span> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gInternalLogging.html#log4g-set-quiet-mode" title="log4g_set_quiet_mode ()">log4g_set_quiet_mode</a>                (<em class="parameter"><code><span class="type">gboolean</span> value</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="Log4gInternalLogging.description"></a><h2>Description</h2>
+<p>
+This class is used to output log statements from within the Log4g package.
+</p>
+<p>
+Log4g components cannot use the Log4g API. This API allows Log4g to output
+debugging statements to stdout. To enable debugging define the <em class="parameter"><code>debug</code></em>
+flag (Bash):
+</p>
+<div class="informalexample"><pre class="programlisting">
+export LOG4G_FLAGS=debug
+</pre></div>
+<p>
+</p>
+<p>
+All internal <em class="parameter"><code>debug</code></em> statements go to stdout, <em class="parameter"><code>error</code></em> and <em class="parameter"><code>warn</code></em> messages are
+sent to stderr. All internal messages are prepended with the string
+"log4g: ".
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="Log4gInternalLogging.details"></a><h2>Details</h2>
+<div class="refsect2" title="log4g_log_debug ()">
+<a name="log4g-log-debug"></a><h3>log4g_log_debug ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_debug                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Log an debugging message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_debugv ()">
+<a name="log4g-log-debugv"></a><h3>log4g_log_debugv ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_debugv                    (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Log an debugging message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_warn ()">
+<a name="log4g-log-warn"></a><h3>log4g_log_warn ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_warn                      (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Log a warning message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_warnv ()">
+<a name="log4g-log-warnv"></a><h3>log4g_log_warnv ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_warnv                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Log an warning message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_error ()">
+<a name="log4g-log-error"></a><h3>log4g_log_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_error                     (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Log an error message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_errorv ()">
+<a name="log4g-log-errorv"></a><h3>log4g_log_errorv ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_errorv                    (<em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Log an error message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_set_internal_debugging ()">
+<a name="log4g-set-internal-debugging"></a><h3>log4g_set_internal_debugging ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_set_internal_debugging        (<em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>
+Set the internal debugging flag.
+</p>
+<p>
+If the debugging flag is <code class="literal">TRUE</code> then Log4g will print debugging messages
+to stdout.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The new debugging flag.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_set_quiet_mode ()">
+<a name="log4g-set-quiet-mode"></a><h3>log4g_set_quiet_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_set_quiet_mode                (<em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>
+Set the quiet mode flag.
+</p>
+<p>
+If the quiet mode flag is <code class="literal">TRUE</code> then Log4g will not print any messages.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The new quiet mode flag.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gRollingFileAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-Log4gNullAppender.html" title="Log4gNullAppender">
+<link rel="next" href="log4g-Log4gSyslogAppender.html" title="Log4gSyslogAppender">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gNullAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gSyslogAppender.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gRollingFileAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gRollingFileAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gRollingFileAppender">
+<a name="log4g-Log4gRollingFileAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gRollingFileAppender.top_of_page"></a>Log4gRollingFileAppender</span></h2>
+<p>Log4gRollingFileAppender — Backup log files when they reach a specified size</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gRollingFileAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppender" title="Log4gRollingFileAppender">Log4gRollingFileAppender</a>;
+                    <a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppenderClass" title="Log4gRollingFileAppenderClass">Log4gRollingFileAppenderClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gRollingFileAppender.html#log4g-rolling-file-appender-roll-over" title="log4g_rolling_file_appender_roll_over ()">log4g_rolling_file_appender_roll_over</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppenderRollOver" title="Log4gRollingFileAppenderRollOver ()">*Log4gRollingFileAppenderRollOver</a>) (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gRollingFileAppender.description"></a><h2>Description</h2>
+<p>
+This class extends <a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderClass" title="Log4gFileAppenderClass"><span class="type">Log4gFileAppenderClass</span></a> to backup log files when they
+reach a specified size.
+</p>
+<p>
+Rolling file appenders accept two properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>max-backup-index</p></li>
+<li class="listitem"><p>maximum-file-size</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+The value of max-backup-index sets the number of backup files that will
+be kept. For example if the value is ten, then eleven files will be kept
+(indexes zero through ten). The default value is one.
+</p>
+<p>
+The log files will be rotated when the current log file reaches a size of
+maximum-file-size or larger. The default value is ten megabytes.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gRollingFileAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gRollingFileAppender">
+<a name="Log4gRollingFileAppender"></a><h3>Log4gRollingFileAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gRollingFileAppender;
+</pre>
+<p>
+The <span class="structname">Log4gRollingFileAppender</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gRollingFileAppenderClass">
+<a name="Log4gRollingFileAppenderClass"></a><h3>Log4gRollingFileAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gRollingFileAppenderRollOver roll_over;
+} Log4gRollingFileAppenderClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppenderRollOver" title="Log4gRollingFileAppenderRollOver ()"><span class="type">Log4gRollingFileAppenderRollOver</span></a> <em class="structfield"><code><a name="Log4gRollingFileAppenderClass.roll-over"></a>roll_over</code></em>;</span></p></td>
+<td>Roll the current log file over.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_rolling_file_appender_roll_over ()">
+<a name="log4g-rolling-file-appender-roll-over"></a><h3>log4g_rolling_file_appender_roll_over ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_rolling_file_appender_roll_over
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>roll_over</code></em> function from the <a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppender" title="Log4gRollingFileAppender"><span class="type">Log4gRollingFileAppender</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A rolling file appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gRollingFileAppenderRollOver ()">
+<a name="Log4gRollingFileAppenderRollOver"></a><h3>Log4gRollingFileAppenderRollOver ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gRollingFileAppenderRollOver) (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Subclasses may overload this function to implement custom rollover schemes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A rolling file appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

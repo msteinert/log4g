@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gMDC</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-public.html" title="Public Interface">
+<link rel="prev" href="log4g-Log4gNDC.html" title="Log4gNDC">
+<link rel="next" href="log4g-Log4gThread.html" title="Log4gThread">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gNDC.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-public.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gThread.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gMDC.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gMDC.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gMDC">
+<a name="log4g-Log4gMDC"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gMDC.top_of_page"></a>Log4gMDC</span></h2>
+<p>Log4gMDC — Mapped data context</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gMDC.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gMDC.html#Log4gMDC" title="Log4gMDC">Log4gMDC</a>;
+                    <a class="link" href="log4g-Log4gMDC.html#Log4gMDCClass" title="Log4gMDCClass">Log4gMDCClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gMDC.html#log4g-mdc-put" title="log4g_mdc_put ()">log4g_mdc_put</a>                       (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gMDC.html#log4g-mdc-get" title="log4g_mdc_get ()">log4g_mdc_get</a>                       (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gMDC.html#log4g-mdc-remove" title="log4g_mdc_remove ()">log4g_mdc_remove</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);
+const <span class="returnvalue">GHashTable</span> *  <a class="link" href="log4g-Log4gMDC.html#log4g-mdc-get-context" title="log4g_mdc_get_context ()">log4g_mdc_get_context</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gMDC.description"></a><h2>Description</h2>
+<p>
+The MDC class provides mapped data contexts. A mapped data context (MDC for
+short) is an instrument for distinguishing interleaved log output from
+different sources. An example of interleaved log output may occur when a
+server handles multiple clients simultaneously.
+</p>
+<p>
+Mapped data context is managed on a per-thread basis. The main difference
+between Log4g MDCs and Log4j MDCs is that Log4g contexts are
+<span class="emphasis"><em>not</em></span> inherited by child threads.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gMDC.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gMDC">
+<a name="Log4gMDC"></a><h3>Log4gMDC</h3>
+<pre class="programlisting">typedef struct {
+} Log4gMDC;
+</pre>
+<p>
+The <span class="structname">Log4gMDC</span> structure does not have any public
+members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gMDCClass">
+<a name="Log4gMDCClass"></a><h3>Log4gMDCClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gMDCClass;
+</pre>
+<p>
+The <span class="structname">Log4gMDCClass</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_mdc_put ()">
+<a name="log4g-mdc-put"></a><h3>log4g_mdc_put ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_mdc_put                       (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Put a context <em class="parameter"><code>value</code></em> as identified by a <em class="parameter"><code>key</code></em> into the current thread's
+context map.
+</p>
+<p>
+If a context map has not been created for the current thread it will be
+created as a side-effect.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to associate with <em class="parameter"><code>value</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>The value to associate with <em class="parameter"><code>key</code></em> (accepts printf formats).
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_mdc_get ()">
+<a name="log4g-mdc-get"></a><h3>log4g_mdc_get ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_mdc_get                       (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);</pre>
+<p>
+Retrieve a the context value associated with a <em class="parameter"><code>key</code></em> from the current
+thread's context map.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The context value associated with <em class="parameter"><code>key</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_mdc_remove ()">
+<a name="log4g-mdc-remove"></a><h3>log4g_mdc_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_mdc_remove                    (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);</pre>
+<p>
+Remove a context value associated with a <em class="parameter"><code>key</code></em> from the current thread's
+context map.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>The key to remove.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_mdc_get_context ()">
+<a name="log4g-mdc-get-context"></a><h3>log4g_mdc_get_context ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GHashTable</span> *  log4g_mdc_get_context               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the current thread's MDC as a hash table.
+</p>
+<p>
+This function is used internally by appenders that log asynchronously.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The current MDC context as a hash table.
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gPatternParser</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-layouts.html" title="Layouts">
+<link rel="prev" href="log4g-Log4gPatternConverter.html" title="Log4gPatternConverter">
+<link rel="next" href="log4g-couchdb.html" title="CouchDB">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gPatternConverter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-layouts.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-couchdb.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gPatternParser.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gPatternParser.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gPatternParser">
+<a name="log4g-Log4gPatternParser"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gPatternParser.top_of_page"></a>Log4gPatternParser</span></h2>
+<p>Log4gPatternParser — Parse pattern layout conversion patterns</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gPatternParser.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser">Log4gPatternParser</a>;
+                    <a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParserClass" title="Log4gPatternParserClass">Log4gPatternParserClass</a>;
+<a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a> * <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-new" title="log4g_pattern_parser_new ()">log4g_pattern_parser_new</a>           (<em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-add-converter" title="log4g_pattern_parser_add_converter ()">log4g_pattern_parser_add_converter</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *pc</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-add-to-list" title="log4g_pattern_parser_add_to_list ()">log4g_pattern_parser_add_to_list</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *pc</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-extract-option" title="log4g_pattern_parser_extract_option ()">log4g_pattern_parser_extract_option</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-extract-precision-option" title="log4g_pattern_parser_extract_precision_option ()">log4g_pattern_parser_extract_precision_option</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-finalize-converter" title="log4g_pattern_parser_finalize_converter ()">log4g_pattern_parser_finalize_converter</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> c</code></em>);
+<a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * <a class="link" href="log4g-Log4gPatternParser.html#log4g-pattern-parser-parse" title="log4g_pattern_parser_parse ()">log4g_pattern_parser_parse</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gPatternParser.description"></a><h2>Description</h2>
+<p>
+This class performs most of the work done by the pattern layout class.
+The conversion pattern is parsed and a chained list of pattern converters
+is created.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gPatternParser.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gPatternParser">
+<a name="Log4gPatternParser"></a><h3>Log4gPatternParser</h3>
+<pre class="programlisting">typedef struct {
+} Log4gPatternParser;
+</pre>
+<p>
+The <span class="structname">Log4gPatternParser</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gPatternParserClass">
+<a name="Log4gPatternParserClass"></a><h3>Log4gPatternParserClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gPatternParserClass;
+</pre>
+<p>
+The <span class="structname">Log4gPatternParserClass</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_new ()">
+<a name="log4g-pattern-parser-new"></a><h3>log4g_pattern_parser_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="returnvalue">Log4gPatternParser</span></a> * log4g_pattern_parser_new           (<em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);</pre>
+<p>
+Create a new pattern parser object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern</code></em> :</span></p></td>
+<td>The conversion pattern to parse.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new pattern parser object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_add_converter ()">
+<a name="log4g-pattern-parser-add-converter"></a><h3>log4g_pattern_parser_add_converter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_parser_add_converter  (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *pc</code></em>);</pre>
+<p>
+Add a pattern converter to a pattern parser object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pc</code></em> :</span></p></td>
+<td>The pattern converter to add to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_add_to_list ()">
+<a name="log4g-pattern-parser-add-to-list"></a><h3>log4g_pattern_parser_add_to_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_parser_add_to_list    (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="type">Log4gPatternConverter</span></a> *pc</code></em>);</pre>
+<p>
+Add a pattern converter to the current list.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pc</code></em> :</span></p></td>
+<td>The pattern converter to add to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_extract_option ()">
+<a name="log4g-pattern-parser-extract-option"></a><h3>log4g_pattern_parser_extract_option ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             log4g_pattern_parser_extract_option (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);</pre>
+<p>
+Extract a braced conversion pattern option.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A conversion pattern option or <code class="literal">NULL</code> if none was found. The
+         caller must free the returned string with <code class="function">g_free()</code>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_extract_precision_option ()">
+<a name="log4g-pattern-parser-extract-precision-option"></a><h3>log4g_pattern_parser_extract_precision_option ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                log4g_pattern_parser_extract_precision_option
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);</pre>
+<p>
+Extract a precision option from a conversion pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The precision value or zero if none was found.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_finalize_converter ()">
+<a name="log4g-pattern-parser-finalize-converter"></a><h3>log4g_pattern_parser_finalize_converter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_pattern_parser_finalize_converter
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> c</code></em>);</pre>
+<p>
+Finalize the conversion pattern being parsed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>c</code></em> :</span></p></td>
+<td>The current conversion character.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_pattern_parser_parse ()">
+<a name="log4g-pattern-parser-parse"></a><h3>log4g_pattern_parser_parse ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverter" title="Log4gPatternConverter"><span class="returnvalue">Log4gPatternConverter</span></a> * log4g_pattern_parser_parse      (<em class="parameter"><code><a class="link" href="log4g-Log4gPatternParser.html#Log4gPatternParser" title="Log4gPatternParser"><span class="type">Log4gPatternParser</span></a> *self</code></em>);</pre>
+<p>
+Parse the conversion pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A pattern converter object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A chained list of pattern converters or <code class="literal">NULL</code> if none were created.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gPatternParser.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gPatternLayout.html#Log4gPatternLayoutClass" title="Log4gPatternLayoutClass"><span class="type">Log4gPatternLayoutClass</span></a>, <a class="link" href="log4g-Log4gPatternConverter.html#Log4gPatternConverterClass" title="Log4gPatternConverterClass"><span class="type">Log4gPatternConverterClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

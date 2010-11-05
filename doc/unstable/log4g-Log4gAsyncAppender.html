@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gAsyncAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-appenders.html" title="Appenders">
+<link rel="next" href="log4g-Log4gConsoleAppender.html" title="Log4gConsoleAppender">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-appenders.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gConsoleAppender.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gAsyncAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gAsyncAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gAsyncAppender">
+<a name="log4g-Log4gAsyncAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gAsyncAppender.top_of_page"></a>Log4gAsyncAppender</span></h2>
+<p>Log4gAsyncAppender — Log events asynchronously</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gAsyncAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gAsyncAppender.html#Log4gAsyncAppender" title="Log4gAsyncAppender">Log4gAsyncAppender</a>;
+                    <a class="link" href="log4g-Log4gAsyncAppender.html#Log4gAsyncAppenderClass" title="Log4gAsyncAppenderClass">Log4gAsyncAppenderClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-add-appender" title="log4g_async_appender_add_appender ()">log4g_async_appender_add_appender</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-get-all-appenders" title="log4g_async_appender_get_all_appenders ()">log4g_async_appender_get_all_appenders</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-get-appender" title="log4g_async_appender_get_appender ()">log4g_async_appender_get_appender</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-is-attached" title="log4g_async_appender_is_attached ()">log4g_async_appender_is_attached</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-all-appenders" title="log4g_async_appender_remove_all_appenders ()">log4g_async_appender_remove_all_appenders</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-appender" title="log4g_async_appender_remove_appender ()">log4g_async_appender_remove_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gAsyncAppender.html#log4g-async-appender-remove-appender-name" title="log4g_async_appender_remove_appender_name ()">log4g_async_appender_remove_appender_name</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gAsyncAppender.description"></a><h2>Description</h2>
+<p>
+The async appender will collect events sent to it and then dispatch them
+to all appenders that are attached to it. Multiple appenders may be
+attached to an async appender.
+</p>
+<p>
+The async appender uses a separate thread to serve the events in its
+buffer. You must call <code class="function">g_thread_init()</code> before attempting to configure an
+async appender.
+</p>
+<p>
+Async appenders accept the following properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>blocking</p></li>
+<li class="listitem"><p>buffer-size</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+The blocking property determines the behavior of the async appender when
+its log event buffer is full. If blocking is <code class="literal">TRUE</code> then the client will
+block until there is room in the buffer. Otherwise the client will not
+block and the log event will be dropped. In non-blocking mode the async
+appender will keep a summary of all dropped logging events. The default
+value is <code class="literal">TRUE</code>.
+</p>
+<p>
+The buffer-size property determines how many messages are allowed in the
+buffer before the client will block. The default value is 128.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+If blocking is <code class="literal">FALSE</code> then the value of buffer-size has no effect.
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gAsyncAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gAsyncAppender">
+<a name="Log4gAsyncAppender"></a><h3>Log4gAsyncAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gAsyncAppender;
+</pre>
+<p>
+The <span class="structname">Log4gAsyncAppender</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gAsyncAppenderClass">
+<a name="Log4gAsyncAppenderClass"></a><h3>Log4gAsyncAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gAsyncAppenderClass;
+</pre>
+<p>
+The <span class="structname">Log4gAsyncAppenderClass</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_add_appender ()">
+<a name="log4g-async-appender-add-appender"></a><h3>log4g_async_appender_add_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_async_appender_add_appender   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Add an appender to an async appender.
+</p>
+<p>
+If <em class="parameter"><code>appender</code></em> is already attached to <em class="parameter"><code>base</code></em> then this function does not do
+anything.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to add.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_get_all_appenders ()">
+<a name="log4g-async-appender-get-all-appenders"></a><h3>log4g_async_appender_get_all_appenders ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_async_appender_get_all_appenders
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Retrieve an array of appenders attached to an async appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array of appenders attached to <em class="parameter"><code>base</code></em>, or <code class="literal">NULL</code> if there are
+         none. The caller is responsible for calling <code class="function">g_array_free()</code> for the
+         returned value.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_get_appender ()">
+<a name="log4g-async-appender-get-appender"></a><h3>log4g_async_appender_get_appender ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     log4g_async_appender_get_appender   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve an attached named appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to look up.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The appender named <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if <em class="parameter"><code>name</code></em> is not found.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_is_attached ()">
+<a name="log4g-async-appender-is-attached"></a><h3>log4g_async_appender_is_attached ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_async_appender_is_attached    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Determine if an appender is attached.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>An appender.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> is <em class="parameter"><code>appender</code></em> is attached to <em class="parameter"><code>base</code></em>, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_remove_all_appenders ()">
+<a name="log4g-async-appender-remove-all-appenders"></a><h3>log4g_async_appender_remove_all_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_async_appender_remove_all_appenders
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Remove all attached appenders.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_remove_appender ()">
+<a name="log4g-async-appender-remove-appender"></a><h3>log4g_async_appender_remove_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_async_appender_remove_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Remove an attached appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_async_appender_remove_appender_name ()">
+<a name="log4g-async-appender-remove-appender-name"></a><h3>log4g_async_appender_remove_appender_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_async_appender_remove_appender_name
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Remove a named appender.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>An async appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

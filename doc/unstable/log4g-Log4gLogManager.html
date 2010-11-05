@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLogManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-logger-management.html" title="Logger Management">
+<link rel="next" href="log4g-Log4gLoggerRepository.html" title="Log4gLoggerRepository">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-logger-management.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gLoggerRepository.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLogManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLogManager.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLogManager">
+<a name="log4g-Log4gLogManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLogManager.top_of_page"></a>Log4gLogManager</span></h2>
+<p>Log4gLogManager — Operate on the current logger repository</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLogManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLogManager.html#Log4gLogManager" title="Log4gLogManager">Log4gLogManager</a>;
+                    <a class="link" href="log4g-Log4gLogManager.html#Log4gLogManagerClass" title="Log4gLogManagerClass">Log4gLogManagerClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-remove-instance" title="log4g_log_manager_remove_instance ()">log4g_log_manager_remove_instance</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-get-logger-repository" title="log4g_log_manager_get_logger_repository ()">log4g_log_manager_get_logger_repository</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-get-root-logger" title="log4g_log_manager_get_root_logger ()">log4g_log_manager_get_root_logger</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-get-logger" title="log4g_log_manager_get_logger ()">log4g_log_manager_get_logger</a>        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-get-logger-factory" title="log4g_log_manager_get_logger_factory ()">log4g_log_manager_get_logger_factory</a>
+                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-exists" title="log4g_log_manager_exists ()">log4g_log_manager_exists</a>            (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-get-current-loggers" title="log4g_log_manager_get_current_loggers ()">log4g_log_manager_get_current_loggers</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-shutdown" title="log4g_log_manager_shutdown ()">log4g_log_manager_shutdown</a>          (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-reset-configuration" title="log4g_log_manager_reset_configuration ()">log4g_log_manager_reset_configuration</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogManager.html#log4g-log-manager-set-repository-selector" title="log4g_log_manager_set_repository_selector ()">log4g_log_manager_set_repository_selector</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">GObject</span> *guard</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLogManager.description"></a><h2>Description</h2>
+<p>
+Use the log manager class to retrieve logger instances or operate on the
+current logger repository.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLogManager.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLogManager">
+<a name="Log4gLogManager"></a><h3>Log4gLogManager</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLogManager;
+</pre>
+<p>
+The <span class="structname">Log4gLogManager</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLogManagerClass">
+<a name="Log4gLogManagerClass"></a><h3>Log4gLogManagerClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLogManagerClass;
+</pre>
+<p>
+The <span class="structname">Log4gLogManagerClass</span> structure does not have
+any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_remove_instance ()">
+<a name="log4g-log-manager-remove-instance"></a><h3>log4g_log_manager_remove_instance ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_manager_remove_instance   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Remove the current log manager instance.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+Do not call this function unless you really know what you are doing.
+</p>
+</div>
+<p>
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_get_logger_repository ()">
+<a name="log4g-log-manager-get-logger-repository"></a><h3>log4g_log_manager_get_logger_repository ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepository" title="Log4gLoggerRepository"><span class="returnvalue">Log4gLoggerRepository</span></a> * log4g_log_manager_get_logger_repository
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the current logger repository.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: log4g/interface/logger-repository.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The current logger repository.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_get_root_logger ()">
+<a name="log4g-log-manager-get-root-logger"></a><h3>log4g_log_manager_get_root_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_log_manager_get_root_logger   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the root logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The root logger.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_get_logger ()">
+<a name="log4g-log-manager-get-logger"></a><h3>log4g_log_manager_get_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_log_manager_get_logger        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve a named logger.
+</p>
+<p>
+If the named logger does not exist it will be created.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A logger instance.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_get_logger_factory ()">
+<a name="log4g-log-manager-get-logger-factory"></a><h3>log4g_log_manager_get_logger_factory ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_log_manager_get_logger_factory
+                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggerFactory.html#Log4gLoggerFactory" title="Log4gLoggerFactory"><span class="type">Log4gLoggerFactory</span></a> *factory</code></em>);</pre>
+<p>
+Retrieve a named logger.
+</p>
+<p>
+If the named logger does not exist it will be created using the provided
+logger factory.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: log4g/interface/logger-factory.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>The factory to use if <em class="parameter"><code>name</code></em> does not already exist.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_exists ()">
+<a name="log4g-log-manager-exists"></a><h3>log4g_log_manager_exists ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_log_manager_exists            (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve a named logger if it already exists.
+</p>
+<p>
+If <em class="parameter"><code>name</code></em> does not exist it will not be created.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A logger named <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if <em class="parameter"><code>name</code></em> does not exist.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_get_current_loggers ()">
+<a name="log4g-log-manager-get-current-loggers"></a><h3>log4g_log_manager_get_current_loggers ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_log_manager_get_current_loggers
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve an array containing all current existing loggers.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+It is the callers responsibility to call <code class="function">g_array_free()</code> for the returned
+value.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array containing all current loggers.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_shutdown ()">
+<a name="log4g-log-manager-shutdown"></a><h3>log4g_log_manager_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_manager_shutdown          (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Shut down the current logger repository.
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_reset_configuration ()">
+<a name="log4g-log-manager-reset-configuration"></a><h3>log4g_log_manager_reset_configuration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_manager_reset_configuration
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Reset the configuration for the current logger repository.
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_log_manager_set_repository_selector ()">
+<a name="log4g-log-manager-set-repository-selector"></a><h3>log4g_log_manager_set_repository_selector ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_log_manager_set_repository_selector
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gRepositorySelector.html#Log4gRepositorySelector" title="Log4gRepositorySelector"><span class="type">Log4gRepositorySelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">GObject</span> *guard</code></em>);</pre>
+<p>
+Sets a new repository selector. If a guard object has been set then it
+must be supplied.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>The new repository selector.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>guard</code></em> :</span></p></td>
+<td>The previous guard object (if one was set).
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gLogManager.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a>, <span class="type">log4gLoggerRepository</span>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gOnlyOnceErrorHandler</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gErrorHandler.html" title="Log4gErrorHandler">
+<link rel="next" href="Log4gInternalLogging.html" title="Log4gInternalLogging">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gErrorHandler.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="Log4gInternalLogging.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gOnlyOnceErrorHandler.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gOnlyOnceErrorHandler.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gOnlyOnceErrorHandler">
+<a name="log4g-Log4gOnlyOnceErrorHandler"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gOnlyOnceErrorHandler.top_of_page"></a>Log4gOnlyOnceErrorHandler</span></h2>
+<p>Log4gOnlyOnceErrorHandler — Emit an error only once</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gOnlyOnceErrorHandler.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gOnlyOnceErrorHandler.html#Log4gOnlyOnceErrorHandler" title="Log4gOnlyOnceErrorHandler">Log4gOnlyOnceErrorHandler</a>;
+                    <a class="link" href="log4g-Log4gOnlyOnceErrorHandler.html#Log4gOnlyOnceErrorHandlerClass" title="Log4gOnlyOnceErrorHandlerClass">Log4gOnlyOnceErrorHandlerClass</a>;
+<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="returnvalue">Log4gErrorHandler</span></a> * <a class="link" href="log4g-Log4gOnlyOnceErrorHandler.html#log4g-only-once-error-handler-new" title="log4g_only_once_error_handler_new ()">log4g_only_once_error_handler_new</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gOnlyOnceErrorHandler.description"></a><h2>Description</h2>
+<p>
+This class implements Log4g's default error handling policy. Only the first
+error will be logged, following errors will be ignored.
+</p>
+<p>
+The error message is printed on stderr.
+</p>
+<p>
+This policy is intended to prevent a working application from being
+flooded with errors if there is a failure within Log4g.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gOnlyOnceErrorHandler.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gOnlyOnceErrorHandler">
+<a name="Log4gOnlyOnceErrorHandler"></a><h3>Log4gOnlyOnceErrorHandler</h3>
+<pre class="programlisting">typedef struct {
+} Log4gOnlyOnceErrorHandler;
+</pre>
+<p>
+The <span class="structname">Log4gOnlyOnceErrorHandler</span> structure does not
+have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gOnlyOnceErrorHandlerClass">
+<a name="Log4gOnlyOnceErrorHandlerClass"></a><h3>Log4gOnlyOnceErrorHandlerClass</h3>
+<pre class="programlisting">typedef struct {
+} Log4gOnlyOnceErrorHandlerClass;
+</pre>
+<p>
+The <span class="structname">Log4gOnlyOnceErrorHandlerClass</span> structure does
+not have any public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_only_once_error_handler_new ()">
+<a name="log4g-only-once-error-handler-new"></a><h3>log4g_only_once_error_handler_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="returnvalue">Log4gErrorHandler</span></a> * log4g_only_once_error_handler_new   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Create a new only once error handler object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new only once error handler object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gOnlyOnceErrorHandler.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

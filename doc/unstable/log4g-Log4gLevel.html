@@ -1,0 +1,780 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLevel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-core.html" title="Core Classes">
+<link rel="prev" href="log4g-Log4gFilter.html" title="Log4gFilter">
+<link rel="next" href="Log4gErrorQuark.html" title="Log4gErrorQuark">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gFilter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="Log4gErrorQuark.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLevel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLevel.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLevel">
+<a name="log4g-Log4gLevel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLevel.top_of_page"></a>Log4gLevel</span></h2>
+<p>Log4gLevel — Minimum set of logging levels recognized by the system</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLevel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel">Log4gLevel</a>;
+                    <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass">Log4gLevelClass</a>;
+enum                <a class="link" href="log4g-Log4gLevel.html#Log4gLevelInt" title="enum Log4gLevelInt">Log4gLevelInt</a>;
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-new" title="log4g_level_new ()">log4g_level_new</a>                     (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> syslog</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLevel.html#log4g-level-equals" title="log4g_level_equals ()">log4g_level_equals</a>                  (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="log4g-Log4gLevel.html#log4g-level-get-syslog-equivalent" title="log4g_level_get_syslog_equivalent ()">log4g_level_get_syslog_equivalent</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLevel.html#log4g-level-is-greater-or-equal" title="log4g_level_is_greater_or_equal ()">log4g_level_is_greater_or_equal</a>     (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLevel.html#log4g-level-to-string" title="log4g_level_to_string ()">log4g_level_to_string</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="log4g-Log4gLevel.html#log4g-level-to-int" title="log4g_level_to_int ()">log4g_level_to_int</a>                  (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-string-to-level" title="log4g_level_string_to_level ()">log4g_level_string_to_level</a>         (<em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-string-to-level-default" title="log4g_level_string_to_level_default ()">log4g_level_string_to_level_default</a> (<em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-int-to-level" title="log4g_level_int_to_level ()">log4g_level_int_to_level</a>            (<em class="parameter"><code><span class="type">gint</span> level</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-int-to-level-default" title="log4g_level_int_to_level_default ()">log4g_level_int_to_level_default</a>    (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-ALL" title="log4g_level_ALL ()">log4g_level_ALL</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-TRACE" title="log4g_level_TRACE ()">log4g_level_TRACE</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-DEBUG" title="log4g_level_DEBUG ()">log4g_level_DEBUG</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-INFO" title="log4g_level_INFO ()">log4g_level_INFO</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-WARN" title="log4g_level_WARN ()">log4g_level_WARN</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-ERROR" title="log4g_level_ERROR ()">log4g_level_ERROR</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-FATAL" title="log4g_level_FATAL ()">log4g_level_FATAL</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLevel.html#log4g-level-OFF" title="log4g_level_OFF ()">log4g_level_OFF</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLevel.html#Log4gLevelStringToLevel" title="Log4gLevelStringToLevel ()">*Log4gLevelStringToLevel</a>)          (<em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLevel.html#Log4gLevelStringToLevelDefault" title="Log4gLevelStringToLevelDefault ()">*Log4gLevelStringToLevelDefault</a>)   (<em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLevel.html#Log4gLevelIntToLevel" title="Log4gLevelIntToLevel ()">*Log4gLevelIntToLevel</a>)             (<em class="parameter"><code><span class="type">gint</span> level</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLevel.html#Log4gLevelIntToLevelDefault" title="Log4gLevelIntToLevelDefault ()">*Log4gLevelIntToLevelDefault</a>)      (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLevel.description"></a><h2>Description</h2>
+<p>
+The following base log levels are defined:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>OFF</p></li>
+<li class="listitem"><p>FATAL</p></li>
+<li class="listitem"><p>ERROR</p></li>
+<li class="listitem"><p>WARN</p></li>
+<li class="listitem"><p>INFO</p></li>
+<li class="listitem"><p>DEBUG</p></li>
+<li class="listitem"><p>ALL</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+The <a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> class may be sub-classed to define a larger level set.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLevel.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLevel">
+<a name="Log4gLevel"></a><h3>Log4gLevel</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLevel;
+</pre>
+<p>
+The <span class="structname">Log4gLevel</span> structure does not have any public
+members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelClass">
+<a name="Log4gLevelClass"></a><h3>Log4gLevelClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gLevelStringToLevel string_to_level;
+    Log4gLevelStringToLevelDefault string_to_level_default;
+    Log4gLevelIntToLevel int_to_level;
+    Log4gLevelIntToLevelDefault int_to_level_default;
+    Log4gLevel *ALL;
+    Log4gLevel *TRACE;
+    Log4gLevel *DEBUG;
+    Log4gLevel *INFO;
+    Log4gLevel *WARN;
+    Log4gLevel *ERROR;
+    Log4gLevel *FATAL;
+    Log4gLevel *OFF;
+} Log4gLevelClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevelStringToLevel" title="Log4gLevelStringToLevel ()"><span class="type">Log4gLevelStringToLevel</span></a> <em class="structfield"><code><a name="Log4gLevelClass.string-to-level"></a>string_to_level</code></em>;</span></p></td>
+<td>Convert a string passed as an argument to a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevelStringToLevelDefault" title="Log4gLevelStringToLevelDefault ()"><span class="type">Log4gLevelStringToLevelDefault</span></a> <em class="structfield"><code><a name="Log4gLevelClass.string-to-level-default"></a>string_to_level_default</code></em>;</span></p></td>
+<td>Convert a string passed as an argument to a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevelIntToLevel" title="Log4gLevelIntToLevel ()"><span class="type">Log4gLevelIntToLevel</span></a> <em class="structfield"><code><a name="Log4gLevelClass.int-to-level"></a>int_to_level</code></em>;</span></p></td>
+<td>Convert an integer passed as an argument to a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevelIntToLevelDefault" title="Log4gLevelIntToLevelDefault ()"><span class="type">Log4gLevelIntToLevelDefault</span></a> <em class="structfield"><code><a name="Log4gLevelClass.int-to-level-default"></a>int_to_level_default</code></em>;</span></p></td>
+<td>Convert an integer passed as an argument to a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.ALL"></a>ALL</code></em>;</span></p></td>
+<td>Has the lowest possible rank and is intended to turn on all logging.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.TRACE"></a>TRACE</code></em>;</span></p></td>
+<td>Indicates finer-grained information than <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.DEBUG"><span class="type">Log4gLevelClass.DEBUG</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.DEBUG"></a>DEBUG</code></em>;</span></p></td>
+<td>Indicates fine-grained events that are useful for debugging.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.INFO"></a>INFO</code></em>;</span></p></td>
+<td>Indicates messages that highlight the progress of the application at
+       a coarse-grained level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.WARN"></a>WARN</code></em>;</span></p></td>
+<td>Indicates potentially harmful situations.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.ERROR"></a>ERROR</code></em>;</span></p></td>
+<td>Indicates an error event that may allow the application to continue.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.FATAL"></a>FATAL</code></em>;</span></p></td>
+<td>Indicates a very severe error that will presumably lead the
+        application to abort.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *<em class="structfield"><code><a name="Log4gLevelClass.OFF"></a>OFF</code></em>;</span></p></td>
+<td>Has the highest possible rank and is intended to turn off logging.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="enum Log4gLevelInt">
+<a name="Log4gLevelInt"></a><h3>enum Log4gLevelInt</h3>
+<pre class="programlisting">typedef enum {
+    LOG4G_LEVEL_ALL_INT = G_MININT,
+    LOG4G_LEVEL_TRACE_INT = 5000,
+    LOG4G_LEVEL_DEBUG_INT = 10000,
+    LOG4G_LEVEL_INFO_INT = 20000,
+    LOG4G_LEVEL_WARN_INT = 30000,
+    LOG4G_LEVEL_ERROR_INT = 40000,
+    LOG4G_LEVEL_FATAL_INT = 50000,
+    LOG4G_LEVEL_OFF_INT = G_MAXINT
+} Log4gLevelInt;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="LOG4G-LEVEL-ALL-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_ALL_INT</code></span></p></td>
+<td>ALL level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-TRACE-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_TRACE_INT</code></span></p></td>
+<td>TRACE level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-DEBUG-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_DEBUG_INT</code></span></p></td>
+<td>DEBUG level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-INFO-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_INFO_INT</code></span></p></td>
+<td>INFO level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-WARN-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_WARN_INT</code></span></p></td>
+<td>WARN level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-ERROR-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_ERROR_INT</code></span></p></td>
+<td>ERROR level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-FATAL-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_FATAL_INT</code></span></p></td>
+<td>FATAL level integer value
+</td>
+</tr>
+<tr>
+<td><p><a name="LOG4G-LEVEL-OFF-INT:CAPS"></a><span class="term"><code class="literal">LOG4G_LEVEL_OFF_INT</code></span></p></td>
+<td>OFF level integer value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_new ()">
+<a name="log4g-level-new"></a><h3>log4g_level_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_new                     (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> syslog</code></em>);</pre>
+<p>
+Create a Log4gLevel object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The log priority.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>The string representation of this level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>syslog</code></em> :</span></p></td>
+<td>The syslog equivalent of this level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new Log4gLevel object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_equals ()">
+<a name="log4g-level-equals"></a><h3>log4g_level_equals ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_level_equals                  (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Determine if two log levels are equal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A level object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A level to compare with <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> &amp; <em class="parameter"><code>level</code></em> are equal, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_get_syslog_equivalent ()">
+<a name="log4g-level-get-syslog-equivalent"></a><h3>log4g_level_get_syslog_equivalent ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                log4g_level_get_syslog_equivalent   (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the syslog(3) equivalent integer of level object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A level object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The syslog equivalent integer of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_is_greater_or_equal ()">
+<a name="log4g-level-is-greater-or-equal"></a><h3>log4g_level_is_greater_or_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_level_is_greater_or_equal     (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Determine if a level is greater or equal than another level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A level object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A level object to compare with <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>level</code></em> is greater than or equal to <em class="parameter"><code>self</code></em>, or <code class="literal">FALSE</code> if
+         <em class="parameter"><code>self</code></em> is greater than <em class="parameter"><code>level</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_to_string ()">
+<a name="log4g-level-to-string"></a><h3>log4g_level_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_level_to_string               (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the string representation of a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A level object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The string representation of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_to_int ()">
+<a name="log4g-level-to-int"></a><h3>log4g_level_to_int ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                log4g_level_to_int                  (<em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the integer representation of a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A level object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The integer representation of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_string_to_level ()">
+<a name="log4g-level-string-to-level"></a><h3>log4g_level_string_to_level ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_string_to_level         (<em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>string_to_level</code></em> function from the <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>A string representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>string</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_string_to_level_default ()">
+<a name="log4g-level-string-to-level-default"></a><h3>log4g_level_string_to_level_default ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_string_to_level_default (<em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>string_to_level_default</code></em> function of the <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a> of
+<em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>A string representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>def</code></em> :</span></p></td>
+<td>The level to return if the conversion failed.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>string</code></em> or <em class="parameter"><code>def</code></em> if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_int_to_level ()">
+<a name="log4g-level-int-to-level"></a><h3>log4g_level_int_to_level ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_int_to_level            (<em class="parameter"><code><span class="type">gint</span> level</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>int_to_level</code></em> function from the <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>An integer representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>level</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_int_to_level_default ()">
+<a name="log4g-level-int-to-level-default"></a><h3>log4g_level_int_to_level_default ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_int_to_level_default    (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>int_to_level_default</code></em> from the <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass" title="Log4gLevelClass"><span class="type">Log4gLevelClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>An integer representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>def</code></em> :</span></p></td>
+<td>The level to return if the conversion failed.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>level</code></em> or <em class="parameter"><code>def</code></em> if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_ALL ()">
+<a name="log4g-level-ALL"></a><h3>log4g_level_ALL ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_ALL                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.ALL"><span class="type">Log4gLevelClass.ALL</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.ALL"><span class="type">Log4gLevelClass.ALL</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_TRACE ()">
+<a name="log4g-level-TRACE"></a><h3>log4g_level_TRACE ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_TRACE                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.TRACE"><span class="type">Log4gLevelClass.TRACE</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.TRACE"><span class="type">Log4gLevelClass.TRACE</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_DEBUG ()">
+<a name="log4g-level-DEBUG"></a><h3>log4g_level_DEBUG ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_DEBUG                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.DEBUG"><span class="type">Log4gLevelClass.DEBUG</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.DEBUG"><span class="type">Log4gLevelClass.DEBUG</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_INFO ()">
+<a name="log4g-level-INFO"></a><h3>log4g_level_INFO ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_INFO                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.INFO"><span class="type">Log4gLevelClass.INFO</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.INFO"><span class="type">Log4gLevelClass.INFO</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_WARN ()">
+<a name="log4g-level-WARN"></a><h3>log4g_level_WARN ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_WARN                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.WARN"><span class="type">Log4gLevelClass.WARN</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.WARN"><span class="type">Log4gLevelClass.WARN</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_ERROR ()">
+<a name="log4g-level-ERROR"></a><h3>log4g_level_ERROR ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_ERROR                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.ERROR"><span class="type">Log4gLevelClass.ERROR</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.ERROR"><span class="type">Log4gLevelClass.ERROR</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_FATAL ()">
+<a name="log4g-level-FATAL"></a><h3>log4g_level_FATAL ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_FATAL                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.FATAL"><span class="type">Log4gLevelClass.FATAL</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.FATAL"><span class="type">Log4gLevelClass.FATAL</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_level_OFF ()">
+<a name="log4g-level-OFF"></a><h3>log4g_level_OFF ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_level_OFF                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.OFF"><span class="type">Log4gLevelClass.OFF</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level <a class="link" href="log4g-Log4gLevel.html#Log4gLevelClass.OFF"><span class="type">Log4gLevelClass.OFF</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelStringToLevel ()">
+<a name="Log4gLevelStringToLevel"></a><h3>Log4gLevelStringToLevel ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLevelStringToLevel)          (<em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>);</pre>
+<p>
+Convert a string passed as an argument to a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A string representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>string</code></em> or DEBUG if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelStringToLevelDefault ()">
+<a name="Log4gLevelStringToLevelDefault"></a><h3>Log4gLevelStringToLevelDefault ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLevelStringToLevelDefault)   (<em class="parameter"><code>const <span class="type">gchar</span> *level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);</pre>
+<p>
+Convert a string passed as an argument to a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>A string representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>def</code></em> :</span></p></td>
+<td>The level to return if the conversion fails.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>string</code></em> or <em class="parameter"><code>def</code></em> if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelIntToLevel ()">
+<a name="Log4gLevelIntToLevel"></a><h3>Log4gLevelIntToLevel ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLevelIntToLevel)             (<em class="parameter"><code><span class="type">gint</span> level</code></em>);</pre>
+<p>
+Convert an integer passed as an argument to a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>An integer representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>level</code></em> or DEBUG if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLevelIntToLevelDefault ()">
+<a name="Log4gLevelIntToLevelDefault"></a><h3>Log4gLevelIntToLevelDefault ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLevelIntToLevelDefault)      (<em class="parameter"><code><span class="type">gint</span> level</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *def</code></em>);</pre>
+<p>
+Convert an integer passed as an argument to a level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>An integer representation of a level.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>def</code></em> :</span></p></td>
+<td>The level to return if the conversion fails.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The level represented by <em class="parameter"><code>level</code></em> or <em class="parameter"><code>def</code></em> if the conversion failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

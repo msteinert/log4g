@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gBasicConfigurator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="ch02.html" title="Configuration">
+<link rel="prev" href="log4g-Log4gDOMConfigurator.html" title="Log4gDOMConfigurator">
+<link rel="next" href="log4g-core.html" title="Core Classes">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gDOMConfigurator.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-core.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#Log4gBasicConfigurator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#Log4gBasicConfigurator.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gBasicConfigurator">
+<a name="Log4gBasicConfigurator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="Log4gBasicConfigurator.top_of_page"></a>Log4gBasicConfigurator</span></h2>
+<p>Log4gBasicConfigurator — Quickly configure Log4g</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="Log4gBasicConfigurator.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="Log4gBasicConfigurator.html#log4g-basic-configurator-configure" title="log4g_basic_configurator_configure ()">log4g_basic_configurator_configure</a>  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gBasicConfigurator.html#log4g-basic-configurator-configure-appender" title="log4g_basic_configurator_configure_appender ()">log4g_basic_configurator_configure_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="Log4gBasicConfigurator.html#log4g-basic-configurator-reset-configuration" title="log4g_basic_configurator_reset_configuration ()">log4g_basic_configurator_reset_configuration</a>
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="Log4gBasicConfigurator.description"></a><h2>Description</h2>
+<p>
+For file based configuration, see <a class="link" href="log4g-Log4gDOMConfigurator.html#Log4gDOMConfigurator" title="Log4gDOMConfigurator"><span class="type">Log4gDOMConfigurator</span></a>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="Log4gBasicConfigurator.details"></a><h2>Details</h2>
+<div class="refsect2" title="log4g_basic_configurator_configure ()">
+<a name="log4g-basic-configurator-configure"></a><h3>log4g_basic_configurator_configure ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_basic_configurator_configure  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Quickly configure Log4g.
+</p>
+<p>
+This function adds a console appender to the root logger that uses the
+TTCC layout and prints to stdout.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gRootLogger.html#Log4gRootLogger" title="Log4gRootLogger"><span class="type">Log4gRootLogger</span></a>, <a class="link" href="log4g-Log4gTTCCLayout.html#Log4gTTCCLayout" title="Log4gTTCCLayout"><span class="type">Log4gTTCCLayout</span></a>
+</p>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_basic_configurator_configure_appender ()">
+<a name="log4g-basic-configurator-configure-appender"></a><h3>log4g_basic_configurator_configure_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_basic_configurator_configure_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Add an appender to the root category.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to add to the root category.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_basic_configurator_reset_configuration ()">
+<a name="log4g-basic-configurator-reset-configuration"></a><h3>log4g_basic_configurator_reset_configuration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_basic_configurator_reset_configuration
+                                                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Reset the default hierarchy to its default state.
+</p>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

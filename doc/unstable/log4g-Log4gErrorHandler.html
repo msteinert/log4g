@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gErrorHandler</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-logger-management.html" title="Logger Management">
+<link rel="prev" href="log4g-Log4gDefaultRepositorySelector.html" title="Log4gDefaultRepositorySelector">
+<link rel="next" href="log4g-Log4gOnlyOnceErrorHandler.html" title="Log4gOnlyOnceErrorHandler">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gDefaultRepositorySelector.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-logger-management.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gOnlyOnceErrorHandler.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gErrorHandler.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gErrorHandler.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gErrorHandler">
+<a name="log4g-Log4gErrorHandler"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gErrorHandler.top_of_page"></a>Log4gErrorHandler</span></h2>
+<p>Log4gErrorHandler — Delegate error handling</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gErrorHandler.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler">Log4gErrorHandler</a>;
+                    <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface">Log4gErrorHandlerInterface</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gErrorHandler.html#log4g-error-handler-set-logger" title="log4g_error_handler_set_logger ()">log4g_error_handler_set_logger</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gErrorHandler.html#log4g-error-handler-error" title="log4g_error_handler_error ()">log4g_error_handler_error</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gErrorHandler.html#log4g-error-handler-set-appender" title="log4g_error_handler_set_appender ()">log4g_error_handler_set_appender</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gErrorHandler.html#log4g-error-handler-set-backup-appender" title="log4g_error_handler_set_backup_appender ()">log4g_error_handler_set_backup_appender</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetLogger" title="Log4gErrorHandlerSetLogger ()">*Log4gErrorHandlerSetLogger</a>)       (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerError" title="Log4gErrorHandlerError ()">*Log4gErrorHandlerError</a>)           (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetAppender" title="Log4gErrorHandlerSetAppender ()">*Log4gErrorHandlerSetAppender</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetBackupAppender" title="Log4gErrorHandlerSetBackupAppender ()">*Log4gErrorHandlerSetBackupAppender</a>)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gErrorHandler.description"></a><h2>Description</h2>
+<p>
+Appenders may delegate their error handling via this interface.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gErrorHandler.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gErrorHandler">
+<a name="Log4gErrorHandler"></a><h3>Log4gErrorHandler</h3>
+<pre class="programlisting">typedef struct _Log4gErrorHandler Log4gErrorHandler;</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gErrorHandlerInterface">
+<a name="Log4gErrorHandlerInterface"></a><h3>Log4gErrorHandlerInterface</h3>
+<pre class="programlisting">typedef struct {
+    Log4gErrorHandlerSetLogger set_logger;
+    /* note: this definition is here because g-ir-scanner doesn't seem
+             to like the Log4gErrorHandlerError definition */
+    void
+    (*error)(Log4gErrorHandler *self,
+            Log4gLoggingEvent *event, const gchar *message, va_list ap);
+    Log4gErrorHandlerSetAppender set_appender;
+    Log4gErrorHandlerSetBackupAppender set_backup_appender;
+} Log4gErrorHandlerInterface;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetLogger" title="Log4gErrorHandlerSetLogger ()"><span class="type">Log4gErrorHandlerSetLogger</span></a> <em class="structfield"><code><a name="Log4gErrorHandlerInterface.set-logger"></a>set_logger</code></em>;</span></p></td>
+<td>Add a reference to a logger with an attached that failed.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="Log4gErrorHandlerInterface.error"></a>error</code></em> ()</span></p></td>
+<td>Handle the error (<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerError" title="Log4gErrorHandlerError ()"><span class="type">Log4gErrorHandlerError</span></a>).
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetAppender" title="Log4gErrorHandlerSetAppender ()"><span class="type">Log4gErrorHandlerSetAppender</span></a> <em class="structfield"><code><a name="Log4gErrorHandlerInterface.set-appender"></a>set_appender</code></em>;</span></p></td>
+<td>Set an appender to handle error messages.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerSetBackupAppender" title="Log4gErrorHandlerSetBackupAppender ()"><span class="type">Log4gErrorHandlerSetBackupAppender</span></a> <em class="structfield"><code><a name="Log4gErrorHandlerInterface.set-backup-appender"></a>set_backup_appender</code></em>;</span></p></td>
+<td>Set a backup appender in case of failure.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_error_handler_set_logger ()">
+<a name="log4g-error-handler-set-logger"></a><h3>log4g_error_handler_set_logger ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_error_handler_set_logger      (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>set_logger</code></em> function for the <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The logger to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_error_handler_error ()">
+<a name="log4g-error-handler-error"></a><h3>log4g_error_handler_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_error_handler_error           (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>error</code></em> function from the <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The event for which the error occurred.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A printf formatted error message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_error_handler_set_appender ()">
+<a name="log4g-error-handler-set-appender"></a><h3>log4g_error_handler_set_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_error_handler_set_appender    (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>set_appender</code></em> function from the <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_error_handler_set_backup_appender ()">
+<a name="log4g-error-handler-set-backup-appender"></a><h3>log4g_error_handler_set_backup_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_error_handler_set_backup_appender
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Call the <em class="parameter"><code>set_backup_appender</code></em> function from the <a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandlerInterface" title="Log4gErrorHandlerInterface"><span class="type">Log4gErrorHandlerInterface</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The backup appender to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gErrorHandlerSetLogger ()">
+<a name="Log4gErrorHandlerSetLogger"></a><h3>Log4gErrorHandlerSetLogger ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gErrorHandlerSetLogger)       (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *logger</code></em>);</pre>
+<p>
+Add a reference to a logger to which the failing appender might be attached.
+</p>
+<p>
+The failing appender will be searched an replaced only in the loggers
+you add through this method.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The logger to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gErrorHandlerError ()">
+<a name="Log4gErrorHandlerError"></a><h3>Log4gErrorHandlerError ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gErrorHandlerError)           (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Invoke this function to handler the error.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The event for which the error occurred.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A printf formatted error message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gErrorHandlerSetAppender ()">
+<a name="Log4gErrorHandlerSetAppender"></a><h3>Log4gErrorHandlerSetAppender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gErrorHandlerSetAppender)     (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Set the appender for which errors are handled.
+</p>
+<p>
+This function is usually called when the error handler is configured.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gErrorHandlerSetBackupAppender ()">
+<a name="Log4gErrorHandlerSetBackupAppender"></a><h3>Log4gErrorHandlerSetBackupAppender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gErrorHandlerSetBackupAppender)
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gErrorHandler.html#Log4gErrorHandler" title="Log4gErrorHandler"><span class="type">Log4gErrorHandler</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Set the appender to fall back on in case of failure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>An error handler object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The backup appender to set for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gErrorHandler.see-also"></a><h2>See Also</h2>
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppenderClass" title="Log4gAppenderClass"><span class="type">Log4gAppenderClass</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

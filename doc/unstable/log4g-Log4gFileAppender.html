@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gFileAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-Log4gConsoleAppender.html" title="Log4gConsoleAppender">
+<link rel="next" href="log4g-Log4gNullAppender.html" title="Log4gNullAppender">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gConsoleAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gNullAppender.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gFileAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gFileAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gFileAppender">
+<a name="log4g-Log4gFileAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gFileAppender.top_of_page"></a>Log4gFileAppender</span></h2>
+<p>Log4gFileAppender — Log events to a file</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gFileAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppender" title="Log4gFileAppender">Log4gFileAppender</a>;
+                    <a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderClass" title="Log4gFileAppenderClass">Log4gFileAppenderClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-close-file" title="log4g_file_appender_close_file ()">log4g_file_appender_close_file</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-get-buffer-size" title="log4g_file_appender_get_buffer_size ()">log4g_file_appender_get_buffer_size</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-get-buffered-io" title="log4g_file_appender_get_buffered_io ()">log4g_file_appender_get_buffered_io</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-get-file" title="log4g_file_appender_get_file ()">log4g_file_appender_get_file</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-set-file-full" title="log4g_file_appender_set_file_full ()">log4g_file_appender_set_file_full</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> append</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> buffered</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gFileAppender.html#log4g-file-appender-set-qw-for-files" title="log4g_file_appender_set_qw_for_files ()">log4g_file_appender_set_qw_for_files</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderSetFileFull" title="Log4gFileAppenderSetFileFull ()">*Log4gFileAppenderSetFileFull</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> append</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> buffered</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> size</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderSetQwForFiles" title="Log4gFileAppenderSetQwForFiles ()">*Log4gFileAppenderSetQwForFiles</a>)   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gFileAppender.description"></a><h2>Description</h2>
+<p>
+The file appender logs events to a regular text file.
+</p>
+<p>
+File appenders accept the following properties:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>file</p></li>
+<li class="listitem"><p>append</p></li>
+<li class="listitem"><p>buffered-io</p></li>
+<li class="listitem"><p>buffer-size</p></li>
+</ol></div>
+<p>
+</p>
+<p>
+The value of file specifies the location of the output. This may be an
+absolute or relative path.
+</p>
+<p>
+The value of append determines if the file will be truncated when it is
+opened for writing. The default value is <code class="literal">TRUE</code> (i.e. do not truncate).
+</p>
+<p>
+The value of buffered-io determines if file I/O will be buffered. Buffered
+I/O may exhibit improved performance, however messages in the buffer will
+be lost if your application crashes. Buffering is turned off by default.
+</p>
+<p>
+The buffer-size property controls the size of the I/O buffer. The default
+value is eight kilobytes (8192 bytes).
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gFileAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gFileAppender">
+<a name="Log4gFileAppender"></a><h3>Log4gFileAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gFileAppender;
+</pre>
+<p>
+The <span class="structname">Log4gFileAppender</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFileAppenderClass">
+<a name="Log4gFileAppenderClass"></a><h3>Log4gFileAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gFileAppenderSetFileFull set_file_full;
+    Log4gFileAppenderSetQwForFiles set_qw_for_files;
+} Log4gFileAppenderClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderSetFileFull" title="Log4gFileAppenderSetFileFull ()"><span class="type">Log4gFileAppenderSetFileFull</span></a> <em class="structfield"><code><a name="Log4gFileAppenderClass.set-file-full"></a>set_file_full</code></em>;</span></p></td>
+<td>Set the file and other options.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderSetQwForFiles" title="Log4gFileAppenderSetQwForFiles ()"><span class="type">Log4gFileAppenderSetQwForFiles</span></a> <em class="structfield"><code><a name="Log4gFileAppenderClass.set-qw-for-files"></a>set_qw_for_files</code></em>;</span></p></td>
+<td>Set the quiet writer used for output.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_close_file ()">
+<a name="log4g-file-appender-close-file"></a><h3>log4g_file_appender_close_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_file_appender_close_file      (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Close the log file.
+</p>
+<p>
+Once a file appender is closed it is no longer usable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_get_buffer_size ()">
+<a name="log4g-file-appender-get-buffer-size"></a><h3>log4g_file_appender_get_buffer_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               log4g_file_appender_get_buffer_size (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Retrieve the buffer-size property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The buffer-size value for \e base.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_get_buffered_io ()">
+<a name="log4g-file-appender-get-buffered-io"></a><h3>log4g_file_appender_get_buffered_io ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_file_appender_get_buffered_io (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Retrieve the buffered-io property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The buffered-io value for \e base.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_get_file ()">
+<a name="log4g-file-appender-get-file"></a><h3>log4g_file_appender_get_file ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_file_appender_get_file        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Retrieve the file property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of the file being appended to.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_set_file_full ()">
+<a name="log4g-file-appender-set-file-full"></a><h3>log4g_file_appender_set_file_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_file_appender_set_file_full   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> append</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> buffered</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> size</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_file_full</code></em> function from the <a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppender" title="Log4gFileAppender"><span class="type">Log4gFileAppender</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The new value for the file property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>append</code></em> :</span></p></td>
+<td>The new value for the append property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffered</code></em> :</span></p></td>
+<td>The new value for the buffered-io property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>The new value for the size property.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_file_appender_set_qw_for_files ()">
+<a name="log4g-file-appender-set-qw-for-files"></a><h3>log4g_file_appender_set_qw_for_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_file_appender_set_qw_for_files
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_qw_for_files</code></em> function from the <a class="link" href="log4g-Log4gFileAppender.html#Log4gFileAppenderClass" title="Log4gFileAppenderClass"><span class="type">Log4gFileAppenderClass</span></a>
+of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>An open file descriptor.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFileAppenderSetFileFull ()">
+<a name="Log4gFileAppenderSetFileFull"></a><h3>Log4gFileAppenderSetFileFull ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gFileAppenderSetFileFull)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> append</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> buffered</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> size</code></em>);</pre>
+<p>
+The rolling file appender overloads this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppender" title="Log4gRollingFileAppender"><span class="type">Log4gRollingFileAppender</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The new value for the file property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>append</code></em> :</span></p></td>
+<td>The new value for the append property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffered</code></em> :</span></p></td>
+<td>The new value for the buffered-io property.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>The new value for the size property.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gFileAppenderSetQwForFiles ()">
+<a name="Log4gFileAppenderSetQwForFiles"></a><h3>Log4gFileAppenderSetQwForFiles ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gFileAppenderSetQwForFiles)   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);</pre>
+<p>
+The rolling file appender overloads this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gRollingFileAppender.html#Log4gRollingFileAppender" title="Log4gRollingFileAppender"><span class="type">Log4gRollingFileAppender</span></a>, <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a>, stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A file appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The open file handle to write to.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

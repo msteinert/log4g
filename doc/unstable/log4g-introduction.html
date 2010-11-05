@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Introduction</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="pt01.html" title="Part I. Log4g Overview">
+<link rel="prev" href="pt01.html" title="Part I. Log4g Overview">
+<link rel="next" href="pt02.html" title="Part II. API Reference">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="pt01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="pt01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="pt02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry" title="Introduction">
+<a name="log4g-introduction"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle">Introduction</span></h2>
+<p>Introduction — 
+Getting started with Log4g
+</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1" title="Overview">
+<a name="overview"></a><h2>Overview</h2>
+<p>
+Log4g is a GObject-based logging utility. The design of Log4g is based on a
+port of the popular <a class="ulink" href="http://logging.apache.org/log4j/1.2/" target="_top">Log4j 1.2</a>
+logging package. Log4j has been ported to many programming languages, including
+(but not limited to) <a class="ulink" href="http://logging.apache.org/log4cxx/" target="_top">C</a>
+<a class="ulink" href="http://log4cplus.ssourceforge.net/" target="_top">++</a>,
+<a class="ulink" href="http://mschilli.github.com/log4perl/" target="_top">Perl</a> and
+<a class="ulink" href="http://docs.python.org/library/logging.html" target="_top">Python</a>. Log4g
+brings this functionality to the
+C/<a class="ulink" href="http://library.gnome.org/devel/glib/stable/" target="_top">GLib</a>/<a class="ulink" href="htthttp://library.gnome.org/devel/gobject/stable/" target="_top">GObject</a>
+programming stack.
+</p>
+<p>
+For more information on what the Log4g API can do for you, refer to the
+articles in the references section of this document.
+</p>
+</div>
+<div class="refsect1" title="Description">
+<a name="description"></a><h2>Description</h2>
+<p>
+The core components of Log4g are loggers, appenders and layouts.
+</p>
+<p>
+Log4g elements (i.e. appenders, layouts and filters) are configured via
+<a class="ulink" href="http://library.gnome.org/devel/gobject/stable/gobject-properties.html" target="_top">GObject properties</a>.
+For a summary of the properties available to each element refer to the
+API documentation.
+</p>
+<div class="refsect2" title="Loggers">
+<a name="loggers"></a><h3>Loggers</h3>
+<p>
+Loggers are the central object in the Log4g package.
+</p>
+<p>
+Loggers are arranged in a named hierarchy. The naming convention used by
+Log4g is to separate logger "classes" with a dot (.). For example, the
+logger named "org.gnome" is an ancestor of the logger named "org.gnome.foo".
+Loggers can inherit the appenders of their ancestors. This means that any
+events logged to the logger named "org.gnome.foo" will also be logged to the
+appenders of "org.gnome". This property is known as logger
+<span class="emphasis"><em>additivity</em></span>. By default all loggers are additive. This
+property can be disabled via a configuration file (the
+<span class="emphasis"><em>additivity</em></span> property of loggers) or with
+log4g_logger_set_additivity().
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Appenders">
+<a name="appenders"></a><h3>Appenders</h3>
+<p>
+Appenders determine how events are logged.
+</p>
+<p>
+Log4g ships with the following appenders:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Asynchronous appender</p></li>
+<li class="listitem"><p>Console appender</p></li>
+<li class="listitem"><p>File appender</p></li>
+<li class="listitem"><p>Rolling file appender</p></li>
+<li class="listitem"><p>Syslog appender</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Layouts">
+<a name="layouts"></a><h3>Layouts</h3>
+<p>
+Layouts determine the format of an event before it is logged by an appender.
+</p>
+<p>
+Log4g ships with the following layouts:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>HTML layout</p></li>
+<li class="listitem"><p>Pattern layout</p></li>
+<li class="listitem"><p>Simple layout</p></li>
+<li class="listitem"><p>TTCC layout</p></li>
+<li class="listitem"><p>XML layout</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Filters">
+<a name="filters"></a><h3>Filters</h3>
+<p>
+Log4g has builtin filtering rules, however custom filtering is also possible
+through the use of filters.
+</p>
+<p>
+Log4g ships with the following filters:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Deny all filter</p></li>
+<li class="listitem"><p>Level match filter</p></li>
+<li class="listitem"><p>Level range filter</p></li>
+<li class="listitem"><p>String match filter</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Configuration">
+<a name="configuration"></a><h3>Configuration</h3>
+<p>
+One powerful feature of Log4g is the ability to easily configure the package
+in different ways (via configurators) without recompiling your application.
+</p>
+<p>
+Log4g ships with the following configurators:
+</p>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Basic configurator</p></li>
+<li class="listitem"><p>DOM configurator</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1" title="Examples">
+<a name="examples"></a><h2>Examples</h2>
+<p>
+Log4g must be initialized before it can be used in an application. The
+documentation for log4g_init() &amp; log4g_get_option_group() provides some
+initialization and usage examples.
+</p>
+<p>
+See: The Log4g core API (log4g/log4g.h)
+</p>
+</div>
+<div class="refsect1" title="References">
+<a name="references"></a><h2>References</h2>
+<p>
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><a class="ulink" href="http://logging.apache.org/log4j/1.2/manual.html" target="_top">
+Gulcu, Ceki. "Short introduction to log4j." Apache Software Foundation.
+N.p., Mar. 2002. Web. 17 Mar. 2010.
+</a></li>
+<li class="listitem"><a class="ulink" href="http://www.vipan.com/htdocs/log4jhelp.html" target="_top">
+Singla, Vipan. "Don't Use System.out.println! Use Log4j." Vipan.com.
+N.p., 2001. Web. 17 Mar. 2010.
+</a></li>
+</ol></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Other Implementations">
+<a name="other"></a><h2>Other Implementations</h2>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+<a class="ulink" href="http://log4c.sourceforge.net/" target="_top">Log4c: Logging for C Library</a>
+</p></li></ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Thanks">
+<a name="thanks"></a><h2>Thanks</h2>
+<p>
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+<a class="ulink" href="http://ceki.blogspot.com/" target="_top">Ceki Gulcu</a> and the developers
+of Log4j. This work is entirely based upon their effort.
+</p></li>
+<li class="listitem"><p>
+The <a class="ulink" href="http://www.gtk.org/development.html#Team" target="_top">GLib/GObject
+development team</a> for their fantastic work.
+</p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Copyright &amp; License">
+<a name="copyright"></a><h2>Copyright &amp; License</h2>
+<p>
+Copyright 2010 Michael Steinert
+</p>
+<p>
+Log4g is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 2.1 of the License, or (at your option)
+any later version.
+</p>
+<p>
+Log4g is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+more details.
+</p>
+<p>
+You should have received a copy of the GNU Lesser General Public License
+along with Log4g. If not, see <a class="ulink" href="http://www.gnu.org/licenses/" target="_top">http://www.gnu.org/licenses/</a>.
+</p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

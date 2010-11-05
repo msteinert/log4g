@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLoggingEvent</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-core.html" title="Core Classes">
+<link rel="prev" href="log4g-core.html" title="Core Classes">
+<link rel="next" href="log4g-Log4gRootLogger.html" title="Log4gRootLogger">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-core.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gRootLogger.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLoggingEvent.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLoggingEvent.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLoggingEvent">
+<a name="log4g-Log4gLoggingEvent"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLoggingEvent.top_of_page"></a>Log4gLoggingEvent</span></h2>
+<p>Log4gLoggingEvent — The internal representation of logging events</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLoggingEvent.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent">Log4gLoggingEvent</a>;
+                    <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEventClass" title="Log4gLoggingEventClass">Log4gLoggingEventClass</a>;
+<a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="returnvalue">Log4gLoggingEvent</span></a> * <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-new" title="log4g_logging_event_new ()">log4g_logging_event_new</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *function</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *line</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-level" title="log4g_logging_event_get_level ()">log4g_logging_event_get_level</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-logger-name" title="log4g_logging_event_get_logger_name ()">log4g_logging_event_get_logger_name</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-rendered-message" title="log4g_logging_event_get_rendered_message ()">log4g_logging_event_get_rendered_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-message" title="log4g_logging_event_get_message ()">log4g_logging_event_get_message</a>     (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-mdc" title="log4g_logging_event_get_mdc ()">log4g_logging_event_get_mdc</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);
+<span class="returnvalue">GTimeVal</span> *          <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-time-stamp" title="log4g_logging_event_get_time_stamp ()">log4g_logging_event_get_time_stamp</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-thread-name" title="log4g_logging_event_get_thread_name ()">log4g_logging_event_get_thread_name</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-ndc" title="log4g_logging_event_get_ndc ()">log4g_logging_event_get_ndc</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-property-key-set" title="log4g_logging_event_get_property_key_set ()">log4g_logging_event_get_property_key_set</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-thread-copy" title="log4g_logging_event_get_thread_copy ()">log4g_logging_event_get_thread_copy</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-mdc-copy" title="log4g_logging_event_get_mdc_copy ()">log4g_logging_event_get_mdc_copy</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-ndc-copy" title="log4g_logging_event_get_ndc_copy ()">log4g_logging_event_get_ndc_copy</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-function-name" title="log4g_logging_event_get_function_name ()">log4g_logging_event_get_function_name</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-file-name" title="log4g_logging_event_get_file_name ()">log4g_logging_event_get_file_name</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-line-number" title="log4g_logging_event_get_line_number ()">log4g_logging_event_get_line_number</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-full-info" title="log4g_logging_event_get_full_info ()">log4g_logging_event_get_full_info</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+<span class="returnvalue">glong</span>               <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-start-time" title="log4g_logging_event_get_start_time ()">log4g_logging_event_get_start_time</a>  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEventGetLevel" title="Log4gLoggingEventGetLevel ()">*Log4gLoggingEventGetLevel</a>)        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLoggingEvent.description"></a><h2>Description</h2>
+<p>
+Once an affirmative decision is made to log an event a logging event
+instance is created. This instance is passed to appenders and filters to
+perform actual logging.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+This class is only useful to those wishing to extend Log4g.
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLoggingEvent.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLoggingEvent">
+<a name="Log4gLoggingEvent"></a><h3>Log4gLoggingEvent</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLoggingEvent;
+</pre>
+<p>
+The <span class="structname">Log4gLoggingEvent</span> structure does not have any
+public members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggingEventClass">
+<a name="Log4gLoggingEventClass"></a><h3>Log4gLoggingEventClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gLoggingEventGetLevel get_level;
+} Log4gLoggingEventClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEventGetLevel" title="Log4gLoggingEventGetLevel ()"><span class="type">Log4gLoggingEventGetLevel</span></a> <em class="structfield"><code><a name="Log4gLoggingEventClass.get-level"></a>get_level</code></em>;</span></p></td>
+<td>Retrieve the log level of a logging event.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_new ()">
+<a name="log4g-logging-event-new"></a><h3>log4g_logging_event_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="returnvalue">Log4gLoggingEvent</span></a> * log4g_logging_event_new             (<em class="parameter"><code>const <span class="type">gchar</span> *logger</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *function</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *line</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Create a new logging event.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>logger</code></em> :</span></p></td>
+<td>The name of the logger that is creating this event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The log level of this event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>function</code></em> :</span></p></td>
+<td>The function where this event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The file where this event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line</code></em> :</span></p></td>
+<td>The line in <em class="parameter"><code>file</code></em> where this event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>A printf formatted log message.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new logging event object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_level ()">
+<a name="log4g-logging-event-get-level"></a><h3>log4g_logging_event_get_level ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_logging_event_get_level       (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_level</code></em> function from the <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEventClass" title="Log4gLoggingEventClass"><span class="type">Log4gLoggingEventClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_logger_name ()">
+<a name="log4g-logging-event-get-logger-name"></a><h3>log4g_logging_event_get_logger_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_logger_name (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the name of the logger that created a logging event.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of the logger that created <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_rendered_message ()">
+<a name="log4g-logging-event-get-rendered-message"></a><h3>log4g_logging_event_get_rendered_message ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_rendered_message
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the rendered logging message.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-message" title="log4g_logging_event_get_message ()"><code class="function">log4g_logging_event_get_message()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The rendered logging message.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_message ()">
+<a name="log4g-logging-event-get-message"></a><h3>log4g_logging_event_get_message ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_message     (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the log message.
+</p>
+<p>
+This function is equivalent to <a class="link" href="log4g-Log4gLoggingEvent.html#log4g-logging-event-get-rendered-message" title="log4g_logging_event_get_rendered_message ()"><code class="function">log4g_logging_event_get_rendered_message()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log message.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_mdc ()">
+<a name="log4g-logging-event-get-mdc"></a><h3>log4g_logging_event_get_mdc ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_mdc         (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);</pre>
+<p>
+Retrieve a mapped data context value for a logging event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gMDC.html#Log4gMDC" title="Log4gMDC"><span class="type">Log4gMDC</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>A mapped data context key.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The MDC value for <em class="parameter"><code>key</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_time_stamp ()">
+<a name="log4g-logging-event-get-time-stamp"></a><h3>log4g_logging_event_get_time_stamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">GTimeVal</span> *          log4g_logging_event_get_time_stamp  (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the timestamp of a logging event.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The timestamp of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_thread_name ()">
+<a name="log4g-logging-event-get-thread-name"></a><h3>log4g_logging_event_get_thread_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_thread_name (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the name of the thread where a logging event was logged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of the thread where <em class="parameter"><code>self</code></em> was logged.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_ndc ()">
+<a name="log4g-logging-event-get-ndc"></a><h3>log4g_logging_event_get_ndc ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_ndc         (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the nested data context for a logging event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gNDC.html#Log4gNDC" title="Log4gNDC"><span class="type">Log4gNDC</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The rendered NDC string for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_property_key_set ()">
+<a name="log4g-logging-event-get-property-key-set"></a><h3>log4g_logging_event_get_property_key_set ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_logging_event_get_property_key_set
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Get the MDC keys (if any) for this event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gMDC.html#Log4gMDC" title="Log4gMDC"><span class="type">Log4gMDC</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> An array of keys, or <code class="literal">NULL</code> if no keys exist.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_thread_copy ()">
+<a name="log4g-logging-event-get-thread-copy"></a><h3>log4g_logging_event_get_thread_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logging_event_get_thread_copy (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Copy the current thread name into a logging object.
+</p>
+<p>
+Asynchronous appenders should call this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gThread.html#Log4gThreadClass" title="Log4gThreadClass"><span class="type">Log4gThreadClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_mdc_copy ()">
+<a name="log4g-logging-event-get-mdc-copy"></a><h3>log4g_logging_event_get_mdc_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logging_event_get_mdc_copy    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Copy the current mapped data context into a logging event.
+</p>
+<p>
+Asynchronous appenders should call this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em> <a class="link" href="log4g-Log4gMDC.html#Log4gMDC" title="Log4gMDC"><span class="type">Log4gMDC</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_ndc_copy ()">
+<a name="log4g-logging-event-get-ndc-copy"></a><h3>log4g_logging_event_get_ndc_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logging_event_get_ndc_copy    (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Copy the current nested data context into a logging event.
+</p>
+<p>
+Asynchronous appenders should call this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em> <a class="link" href="log4g-Log4gNDC.html#Log4gNDC" title="Log4gNDC"><span class="type">Log4gNDC</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_function_name ()">
+<a name="log4g-logging-event-get-function-name"></a><h3>log4g_logging_event_get_function_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_function_name
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the function where a logging event was logged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The function where <em class="parameter"><code>self</code></em> was logged.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_file_name ()">
+<a name="log4g-logging-event-get-file-name"></a><h3>log4g_logging_event_get_file_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_file_name   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the file where a logging event was logged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The file where <em class="parameter"><code>self</code></em> was logged.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_line_number ()">
+<a name="log4g-logging-event-get-line-number"></a><h3>log4g_logging_event_get_line_number ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_line_number (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the line number where a logging event was logged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The line number where <em class="parameter"><code>self</code></em> was logged.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_full_info ()">
+<a name="log4g-logging-event-get-full-info"></a><h3>log4g_logging_event_get_full_info ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logging_event_get_full_info   (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the full location information where a logging event was logged.
+</p>
+<p>
+The full location information is in the format:
+</p>
+<p>
+</p>
+<div class="informalexample"><pre class="programlisting">
+function(file:line)
+</pre></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The full log location information for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logging_event_get_start_time ()">
+<a name="log4g-logging-event-get-start-time"></a><h3>log4g_logging_event_get_start_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">glong</span>               log4g_logging_event_get_start_time  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the time when the log system was initialized.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of seconds elapsed since the Unix epoch when the log
+        system was initialized
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggingEventGetLevel ()">
+<a name="Log4gLoggingEventGetLevel"></a><h3>Log4gLoggingEventGetLevel ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLoggingEventGetLevel)        (<em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the log level of a logging event.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: log4g/level.h
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A logging event object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

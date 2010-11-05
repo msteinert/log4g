@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gWriterAppender</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-appenders.html" title="Appenders">
+<link rel="prev" href="log4g-Log4gSyslogAppender.html" title="Log4gSyslogAppender">
+<link rel="next" href="log4g-Log4gQuietWriter.html" title="Log4gQuietWriter">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="log4g-Log4gSyslogAppender.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-appenders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gQuietWriter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gWriterAppender.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gWriterAppender.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gWriterAppender">
+<a name="log4g-Log4gWriterAppender"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gWriterAppender.top_of_page"></a>Log4gWriterAppender</span></h2>
+<p>Log4gWriterAppender — Append to a stdio(3) stream.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gWriterAppender.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppender" title="Log4gWriterAppender">Log4gWriterAppender</a>;
+                    <a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderClass" title="Log4gWriterAppenderClass">Log4gWriterAppenderClass</a>;
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-check-entry-conditions" title="log4g_writer_appender_check_entry_conditions ()">log4g_writer_appender_check_entry_conditions</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-close-writer" title="log4g_writer_appender_close_writer ()">log4g_writer_appender_close_writer</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-get-quiet-writer" title="log4g_writer_appender_get_quiet_writer ()">log4g_writer_appender_get_quiet_writer</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-reset" title="log4g_writer_appender_reset ()">log4g_writer_appender_reset</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-set-quiet-writer" title="log4g_writer_appender_set_quiet_writer ()">log4g_writer_appender_set_quiet_writer</a>
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *writer</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-set-writer" title="log4g_writer_appender_set_writer ()">log4g_writer_appender_set_writer</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-sub-append" title="log4g_writer_appender_sub_append ()">log4g_writer_appender_sub_append</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-write-footer" title="log4g_writer_appender_write_footer ()">log4g_writer_appender_write_footer</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gWriterAppender.html#log4g-writer-appender-write-header" title="log4g_writer_appender_write_header ()">log4g_writer_appender_write_header</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderCloseWriter" title="Log4gWriterAppenderCloseWriter ()">*Log4gWriterAppenderCloseWriter</a>)   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderReset" title="Log4gWriterAppenderReset ()">*Log4gWriterAppenderReset</a>)         (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderSubAppend" title="Log4gWriterAppenderSubAppend ()">*Log4gWriterAppenderSubAppend</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gWriterAppender.description"></a><h2>Description</h2>
+<p>
+This class is a base class for appenders that write to stdio(3) streams.
+</p>
+<p>
+Writer appenders accept one property:
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>immediate-flush</p></li></ol></div>
+<p>
+</p>
+<p>
+The value of immediate-flush determines if the I/O stream will be flushed
+after each write. The default value is <code class="literal">TRUE</code>.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gWriterAppender.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gWriterAppender">
+<a name="Log4gWriterAppender"></a><h3>Log4gWriterAppender</h3>
+<pre class="programlisting">typedef struct {
+} Log4gWriterAppender;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="Log4gWriterAppenderClass">
+<a name="Log4gWriterAppenderClass"></a><h3>Log4gWriterAppenderClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gWriterAppenderSubAppend sub_append;
+    Log4gWriterAppenderCloseWriter close_writer;
+    Log4gWriterAppenderReset reset;
+} Log4gWriterAppenderClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderSubAppend" title="Log4gWriterAppenderSubAppend ()"><span class="type">Log4gWriterAppenderSubAppend</span></a> <em class="structfield"><code><a name="Log4gWriterAppenderClass.sub-append"></a>sub_append</code></em>;</span></p></td>
+<td>Actual writing occurs here.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderCloseWriter" title="Log4gWriterAppenderCloseWriter ()"><span class="type">Log4gWriterAppenderCloseWriter</span></a> <em class="structfield"><code><a name="Log4gWriterAppenderClass.close-writer"></a>close_writer</code></em>;</span></p></td>
+<td>Close the underlying stream.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppenderReset" title="Log4gWriterAppenderReset ()"><span class="type">Log4gWriterAppenderReset</span></a> <em class="structfield"><code><a name="Log4gWriterAppenderClass.reset"></a>reset</code></em>;</span></p></td>
+<td>Clear internal references and variables.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_check_entry_conditions ()">
+<a name="log4g-writer-appender-check-entry-conditions"></a><h3>log4g_writer_appender_check_entry_conditions ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_writer_appender_check_entry_conditions
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Determine if it is OK to append.
+</p>
+<p>
+Checks the following conditions:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>The output target is set</p></li>
+<li class="listitem"><p>The layout is set</p></li>
+</ul></div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if all entry conditions pass, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_close_writer ()">
+<a name="log4g-writer-appender-close-writer"></a><h3>log4g_writer_appender_close_writer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_close_writer  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>close_writer</code></em> function from the <a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppender" title="Log4gWriterAppender"><span class="type">Log4gWriterAppender</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_get_quiet_writer ()">
+<a name="log4g-writer-appender-get-quiet-writer"></a><h3>log4g_writer_appender_get_quiet_writer ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="returnvalue">Log4gQuietWriter</span></a> *  log4g_writer_appender_get_quiet_writer
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Retrieve the current quiet writer object.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass" title="Log4gQuietWriterClass"><span class="type">Log4gQuietWriterClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The current quiet writer object used by <em class="parameter"><code>base</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_reset ()">
+<a name="log4g-writer-appender-reset"></a><h3>log4g_writer_appender_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_reset         (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>reset</code></em> function from the <a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppender" title="Log4gWriterAppender"><span class="type">Log4gWriterAppender</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_set_quiet_writer ()">
+<a name="log4g-writer-appender-set-quiet-writer"></a><h3>log4g_writer_appender_set_quiet_writer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_set_quiet_writer
+                                                        (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriter" title="Log4gQuietWriter"><span class="type">Log4gQuietWriter</span></a> *writer</code></em>);</pre>
+<p>
+Set the quiet writer to use.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gQuietWriter.html#Log4gQuietWriterClass" title="Log4gQuietWriterClass"><span class="type">Log4gQuietWriterClass</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>writer</code></em> :</span></p></td>
+<td>A quiet writer.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_set_writer ()">
+<a name="log4g-writer-appender-set-writer"></a><h3>log4g_writer_appender_set_writer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_set_writer    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><span class="type">FILE</span> *file</code></em>);</pre>
+<p>
+Set the stdio(3) stream to use.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: stdio(3)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>An open stdio(3) stream.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_sub_append ()">
+<a name="log4g-writer-appender-sub-append"></a><h3>log4g_writer_appender_sub_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_sub_append    (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>sub_append</code></em> function from the <a class="link" href="log4g-Log4gWriterAppender.html#Log4gWriterAppender" title="Log4gWriterAppender"><span class="type">Log4gWriterAppender</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to append.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_write_footer ()">
+<a name="log4g-writer-appender-write-footer"></a><h3>log4g_writer_appender_write_footer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_write_footer  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Write the layout footer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_writer_appender_write_header ()">
+<a name="log4g-writer-appender-write-header"></a><h3>log4g_writer_appender_write_header ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_writer_appender_write_header  (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Write the layout header.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gWriterAppenderCloseWriter ()">
+<a name="Log4gWriterAppenderCloseWriter"></a><h3>Log4gWriterAppenderCloseWriter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gWriterAppenderCloseWriter)   (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Close the underlying stdio(3) stream.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gWriterAppenderReset ()">
+<a name="Log4gWriterAppenderReset"></a><h3>Log4gWriterAppenderReset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gWriterAppenderReset)         (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>);</pre>
+<p>
+Clear internal references to the writer and other variables.
+</p>
+<p>
+Subclasses can override this method for alternate closing behavior.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gWriterAppenderSubAppend ()">
+<a name="Log4gWriterAppenderSubAppend"></a><h3>Log4gWriterAppenderSubAppend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gWriterAppenderSubAppend)     (<em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *base</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Actual writing occurs here.
+</p>
+<p>
+Most subclasses of writer appender will need to override this method.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>base</code></em> :</span></p></td>
+<td>A writer appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>The log event to append.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+<div class="refsect1" title="See Also">
+<a name="log4g-Log4gWriterAppender.see-also"></a><h2>See Also</h2>
+stdio(3)
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>

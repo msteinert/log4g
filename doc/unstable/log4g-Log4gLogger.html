@@ -1,0 +1,1084 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Log4gLogger</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Log4g Reference Manual">
+<link rel="up" href="log4g-public.html" title="Public Interface">
+<link rel="prev" href="Log4g.html" title="Log4g">
+<link rel="next" href="log4g-Log4gNDC.html" title="Log4gNDC">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="Log4g.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="log4g-public.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Log4g Reference Manual</th>
+<td><a accesskey="n" href="log4g-Log4gNDC.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#log4g-Log4gLogger.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#log4g-Log4gLogger.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="Log4gLogger">
+<a name="log4g-Log4gLogger"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="log4g-Log4gLogger.top_of_page"></a>Log4gLogger</span></h2>
+<p>Log4gLogger — The central class in the Log4g package</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="log4g-Log4gLogger.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger">Log4gLogger</a>;
+                    <a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass">Log4gLoggerClass</a>;
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-new" title="log4g_logger_new ()">log4g_logger_new</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-name" title="log4g_logger_get_name ()">log4g_logger_get_name</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-name" title="log4g_logger_set_name ()">log4g_logger_set_name</a>               (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-parent" title="log4g_logger_get_parent ()">log4g_logger_get_parent</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-parent" title="log4g_logger_set_parent ()">log4g_logger_set_parent</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *parent</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-level" title="log4g_logger_get_level ()">log4g_logger_get_level</a>              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-level" title="log4g_logger_set_level ()">log4g_logger_set_level</a>              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-additivity" title="log4g_logger_get_additivity ()">log4g_logger_get_additivity</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-additivity" title="log4g_logger_set_additivity ()">log4g_logger_set_additivity</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> additive</code></em>);
+<span class="returnvalue">gpointer</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-logger-repository" title="log4g_logger_get_logger_repository ()">log4g_logger_get_logger_repository</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-logger-repository" title="log4g_logger_set_logger_repository ()">log4g_logger_set_logger_repository</a>  (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> repository</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-effective-level" title="log4g_logger_get_effective_level ()">log4g_logger_get_effective_level</a>    (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-add-appender" title="log4g_logger_add_appender ()">log4g_logger_add_appender</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+const <span class="returnvalue">GArray</span> *      <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-all-appenders" title="log4g_logger_get_all_appenders ()">log4g_logger_get_all_appenders</a>      (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-appender" title="log4g_logger_get_appender ()">log4g_logger_get_appender</a>           (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-attached" title="log4g_logger_is_attached ()">log4g_logger_is_attached</a>            (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-remove-all-appenders" title="log4g_logger_remove_all_appenders ()">log4g_logger_remove_all_appenders</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-remove-appender" title="log4g_logger_remove_appender ()">log4g_logger_remove_appender</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-remove-appender-name" title="log4g_logger_remove_appender_name ()">log4g_logger_remove_appender_name</a>   (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-close-nested-appenders" title="log4g_logger_close_nested_appenders ()">log4g_logger_close_nested_appenders</a> (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-call-appenders" title="log4g_logger_call_appenders ()">log4g_logger_call_appenders</a>         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-trace-enabled" title="log4g_logger_is_trace_enabled ()">log4g_logger_is_trace_enabled</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-debug-enabled" title="log4g_logger_is_debug_enabled ()">log4g_logger_is_debug_enabled</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-info-enabled" title="log4g_logger_is_info_enabled ()">log4g_logger_is_info_enabled</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-warn-enabled" title="log4g_logger_is_warn_enabled ()">log4g_logger_is_warn_enabled</a>        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-error-enabled" title="log4g_logger_is_error_enabled ()">log4g_logger_is_error_enabled</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="log4g-Log4gLogger.html#log4g-logger-is-fatal-enabled" title="log4g_logger_is_fatal_enabled ()">log4g_logger_is_fatal_enabled</a>       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-logger" title="log4g_logger_get_logger ()">log4g_logger_get_logger</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-root-logger" title="log4g_logger_get_root_logger ()">log4g_logger_get_root_logger</a>        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-logger-factory" title="log4g_logger_get_logger_factory ()">log4g_logger_get_logger_factory</a>     (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> factory</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="log4g-Log4gLogger.html#log4g-logger-forced-log" title="log4g_logger_forced_log ()">log4g_logger_forced_log</a>             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *function</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *line</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (<a class="link" href="log4g-Log4gLogger.html#Log4gLoggerGetEffectiveLevel" title="Log4gLoggerGetEffectiveLevel ()">*Log4gLoggerGetEffectiveLevel</a>)     (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="log4g-Log4gLogger.html#Log4gLoggerSetLevel" title="Log4gLoggerSetLevel ()">*Log4gLoggerSetLevel</a>)              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="log4g-Log4gLogger.description"></a><h2>Description</h2>
+<p>
+Most logging operations (except configuration) are performed through this
+class.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="log4g-Log4gLogger.details"></a><h2>Details</h2>
+<div class="refsect2" title="Log4gLogger">
+<a name="Log4gLogger"></a><h3>Log4gLogger</h3>
+<pre class="programlisting">typedef struct {
+} Log4gLogger;
+</pre>
+<p>
+The <span class="structname">Log4gLogger</span> structure does not have any public
+members.
+</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerClass">
+<a name="Log4gLoggerClass"></a><h3>Log4gLoggerClass</h3>
+<pre class="programlisting">typedef struct {
+    Log4gLoggerGetEffectiveLevel get_effective_level;
+    Log4gLoggerSetLevel set_level;
+} Log4gLoggerClass;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLogger.html#Log4gLoggerGetEffectiveLevel" title="Log4gLoggerGetEffectiveLevel ()"><span class="type">Log4gLoggerGetEffectiveLevel</span></a> <em class="structfield"><code><a name="Log4gLoggerClass.get-effective-level"></a>get_effective_level</code></em>;</span></p></td>
+<td>Retrieve the effective level threshold of the logger.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="log4g-Log4gLogger.html#Log4gLoggerSetLevel" title="Log4gLoggerSetLevel ()"><span class="type">Log4gLoggerSetLevel</span></a> <em class="structfield"><code><a name="Log4gLoggerClass.set-level"></a>set_level</code></em>;</span></p></td>
+<td>Set the level threshold of the logger.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_new ()">
+<a name="log4g-logger-new"></a><h3>log4g_logger_new ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_new                    (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Create a new logger object and set its name.
+</p>
+<p>
+This fuction is intended for internal use. You should not create Loggers
+directly.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-logger" title="log4g_logger_get_logger ()"><code class="function">log4g_logger_get_logger()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The fully qualified name for the new logger.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_name ()">
+<a name="log4g-logger-get-name"></a><h3>log4g_logger_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       log4g_logger_get_name               (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the fully-qualified name of a logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The name of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_set_name ()">
+<a name="log4g-logger-set-name"></a><h3>log4g_logger_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_set_name               (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Set the name of a logger.
+</p>
+<p>
+This method should only be called by sub-classes. Calling this method on
+a logger in the logger repository will have disastrous effects on the
+logger hierarchy.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The new name of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_parent ()">
+<a name="log4g-logger-get-parent"></a><h3>log4g_logger_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_get_parent             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the parent of this logger.
+</p>
+<p>
+</p>
+<div class="note" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>
+The parent of a logger may change during its lifetime. The root logger
+will return <code class="literal">NULL</code>.
+</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The parent of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_set_parent ()">
+<a name="log4g-logger-set-parent"></a><h3>log4g_logger_set_parent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_set_parent             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *parent</code></em>);</pre>
+<p>
+Set the parent of a logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>The new parent of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_level ()">
+<a name="log4g-logger-get-level"></a><h3>log4g_logger_get_level ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_logger_get_level              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the level threshold of a logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The log level threshold of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_set_level ()">
+<a name="log4g-logger-set-level"></a><h3>log4g_logger_set_level ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_set_level              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>set_level</code></em> function from the <a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass"><span class="type">Log4gLoggerClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The new log level threshold for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_additivity ()">
+<a name="log4g-logger-get-additivity"></a><h3>log4g_logger_get_additivity ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_get_additivity         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the additivity flag for a logger.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLogger.html#log4g-logger-set-additivity" title="log4g_logger_set_additivity ()"><code class="function">log4g_logger_set_additivity()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is additive, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_set_additivity ()">
+<a name="log4g-logger-set-additivity"></a><h3>log4g_logger_set_additivity ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_set_additivity         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> additive</code></em>);</pre>
+<p>
+Set the additivity flag for a logger.
+</p>
+<p>
+Logger additivity determines if a logger inherits the appenders of its
+ancestors. If this flag is set to <code class="literal">TRUE</code> (the default value is <code class="literal">TRUE</code>)
+then events logged to this logger will be propagated to the appenders of
+its ancestors. If this flags is set to <code class="literal">FALSE</code> then the appenders of this
+logger will not be inherited.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>additive</code></em> :</span></p></td>
+<td>The new additivity flag for <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_logger_repository ()">
+<a name="log4g-logger-get-logger-repository"></a><h3>log4g_logger_get_logger_repository ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            log4g_logger_get_logger_repository  (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve the repository where a logger is attached. See
+<a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger repository <em class="parameter"><code>self</code></em> is attached to.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_set_logger_repository ()">
+<a name="log4g-logger-set-logger-repository"></a><h3>log4g_logger_set_logger_repository ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_set_logger_repository  (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> repository</code></em>);</pre>
+<p>
+Set the repository a logger is attached to.
+</p>
+<p>
+You probably do not want to call this function.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggerRepository.html#Log4gLoggerRepositoryInterface" title="Log4gLoggerRepositoryInterface"><span class="type">Log4gLoggerRepositoryInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>repository</code></em> :</span></p></td>
+<td>The new repository to attach to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_effective_level ()">
+<a name="log4g-logger-get-effective-level"></a><h3>log4g_logger_get_effective_level ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a> *        log4g_logger_get_effective_level    (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Calls the <em class="parameter"><code>get_effective_level</code></em> function from the <a class="link" href="log4g-Log4gLogger.html#Log4gLoggerClass" title="Log4gLoggerClass"><span class="type">Log4gLoggerClass</span></a> of <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The effective level threshold of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_add_appender ()">
+<a name="log4g-logger-add-appender"></a><h3>log4g_logger_add_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_add_appender           (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Add an appender to the list of appenders for <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+If <em class="parameter"><code>appender</code></em> is already in the list of appenders for <em class="parameter"><code>self</code></em> then
+it will not be added again.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>The appender to add to <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_all_appenders ()">
+<a name="log4g-logger-get-all-appenders"></a><h3>log4g_logger_get_all_appenders ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GArray</span> *      log4g_logger_get_all_appenders      (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Retrieve all appenders attached to a <em class="parameter"><code>self</code></em>.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A <span class="type">GArray</span> of appenders attached to <em class="parameter"><code>self</code></em> or <code class="literal">NULL</code> if there are
+         none.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_appender ()">
+<a name="log4g-logger-get-appender"></a><h3>log4g_logger_get_appender ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="returnvalue">Log4gAppender</span></a> *     log4g_logger_get_appender           (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve an appender attached to a logger by name.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The appender named <em class="parameter"><code>name</code></em> or <code class="literal">NULL</code> if no such appender is attached.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_attached ()">
+<a name="log4g-logger-is-attached"></a><h3>log4g_logger_is_attached ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_attached            (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Determine if an appender is attached to a logger.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>An appender object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>appender</code></em> is attached to <em class="parameter"><code>self</code></em>, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_remove_all_appenders ()">
+<a name="log4g-logger-remove-all-appenders"></a><h3>log4g_logger_remove_all_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_remove_all_appenders   (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Remove all appenders from a logger.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_remove_appender ()">
+<a name="log4g-logger-remove-appender"></a><h3>log4g_logger_remove_appender ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_remove_appender        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gAppender.html#Log4gAppender" title="Log4gAppender"><span class="type">Log4gAppender</span></a> *appender</code></em>);</pre>
+<p>
+Remove an appender from a logger.
+</p>
+<p>
+If <em class="parameter"><code>appender</code></em> is not attached to <em class="parameter"><code>self</code></em> then this function does nothing.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appender</code></em> :</span></p></td>
+<td>An appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_remove_appender_name ()">
+<a name="log4g-logger-remove-appender-name"></a><h3>log4g_logger_remove_appender_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_remove_appender_name   (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Remove an appender from a logger by name.
+</p>
+<p>
+If <em class="parameter"><code>name</code></em> is not found then this function does nothing.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the appender to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_close_nested_appenders ()">
+<a name="log4g-logger-close-nested-appenders"></a><h3>log4g_logger_close_nested_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_close_nested_appenders (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Close all attached appenders implementing the <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachable" title="Log4gAppenderAttachable"><span class="type">Log4gAppenderAttachable</span></a>
+interface.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gAppenderAttachable.html#Log4gAppenderAttachableInterface" title="struct Log4gAppenderAttachableInterface"><span class="type">Log4gAppenderAttachableInterface</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_call_appenders ()">
+<a name="log4g-logger-call-appenders"></a><h3>log4g_logger_call_appenders ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_call_appenders         (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a> *event</code></em>);</pre>
+<p>
+Append a logging event to all appenders attached to this logger.
+</p>
+<p>
+<em class="parameter"><code>See</code></em>: <a class="link" href="log4g-Log4gLoggingEvent.html#Log4gLoggingEvent" title="Log4gLoggingEvent"><span class="type">Log4gLoggingEvent</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>An event to log.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_trace_enabled ()">
+<a name="log4g-logger-is-trace-enabled"></a><h3>log4g_logger_is_trace_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_trace_enabled       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_TRACE</code></em> level.
+</p>
+<p>
+This function is useful if you have a to perform a costly operation to
+construct a log message.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_TRACE</code></em> level, <code class="literal">FALSE</code>
+        otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_debug_enabled ()">
+<a name="log4g-logger-is-debug-enabled"></a><h3>log4g_logger_is_debug_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_debug_enabled       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_DEBUG</code></em> level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_DEBUG</code></em> level, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_info_enabled ()">
+<a name="log4g-logger-is-info-enabled"></a><h3>log4g_logger_is_info_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_info_enabled        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_INFO</code></em> level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_INFO</code></em> level, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_warn_enabled ()">
+<a name="log4g-logger-is-warn-enabled"></a><h3>log4g_logger_is_warn_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_warn_enabled        (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_WARN</code></em> level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_WARN</code></em> level, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_error_enabled ()">
+<a name="log4g-logger-is-error-enabled"></a><h3>log4g_logger_is_error_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_error_enabled       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_ERROR</code></em> level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_ERROR</code></em> level, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_is_fatal_enabled ()">
+<a name="log4g-logger-is-fatal-enabled"></a><h3>log4g_logger_is_fatal_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            log4g_logger_is_fatal_enabled       (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Check if a logger is enabled for the <em class="parameter"><code>LOG4G_LEVEL_FATAL</code></em> level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em> is enabled for the <em class="parameter"><code>LOG4G_LEVEL_FATAL</code></em> level, <code class="literal">FALSE</code>
+         otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_logger ()">
+<a name="log4g-logger-get-logger"></a><h3>log4g_logger_get_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_get_logger             (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Retrieve a named logger.
+</p>
+<p>
+If the named logger already exists, then the existing instance will be
+returned. Otherwise a new instance is created.
+</p>
+<p>
+Loggers inherit their default level from their nearest ancestor with a
+set level.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_root_logger ()">
+<a name="log4g-logger-get-root-logger"></a><h3>log4g_logger_get_root_logger ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_get_root_logger        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieve the root logger for the current logger repository.
+</p>
+<p>
+Calling <a class="link" href="log4g-Log4gLogger.html#log4g-logger-get-name" title="log4g_logger_get_name ()"><code class="function">log4g_logger_get_name()</code></a> on the root logger always returns the
+string "root". Calling log4g_logger_get_logger("root") however does not
+retrieve the root logger but a logger just under root named "root".
+</p>
+<p>
+Calling this function is the only way to retrieve the root logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The root logger.
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_get_logger_factory ()">
+<a name="log4g-logger-get-logger-factory"></a><h3>log4g_logger_get_logger_factory ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="returnvalue">Log4gLogger</span></a> *       log4g_logger_get_logger_factory     (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> factory</code></em>);</pre>
+<p>
+Retrieve a named logger.
+</p>
+<p>
+If the named logger already exists, then the existing instance will be
+returned. Otherwise <em class="parameter"><code>factory</code></em> is used to create a new instance.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the logger to retrieve.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>The logger factory to use if a logger named <em class="parameter"><code>name</code></em> does not already
+          exist.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The logger named <em class="parameter"><code>name</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="log4g_logger_forced_log ()">
+<a name="log4g-logger-forced-log"></a><h3>log4g_logger_forced_log ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                log4g_logger_forced_log             (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *function</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *file</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *line</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+Create and log a new event without further checks.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The level of the log event.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>function</code></em> :</span></p></td>
+<td>The function where the event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>The file where the event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line</code></em> :</span></p></td>
+<td>The line in <em class="parameter"><code>file</code></em> where the event was logged.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>A printf message format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>Format parameters.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerGetEffectiveLevel ()">
+<a name="Log4gLoggerGetEffectiveLevel"></a><h3>Log4gLoggerGetEffectiveLevel ()</h3>
+<pre class="programlisting"><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="returnvalue">Log4gLevel</span></a>          (*Log4gLoggerGetEffectiveLevel)     (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>);</pre>
+<p>
+Starting from this category, search the category hierarchy for a
+non-<code class="literal">NULL</code> and return it. If a non-<code class="literal">NULL</code> level is not found, this
+function returns the level of the root logger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The effective level threshold of <em class="parameter"><code>self</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+<hr>
+<div class="refsect2" title="Log4gLoggerSetLevel ()">
+<a name="Log4gLoggerSetLevel"></a><h3>Log4gLoggerSetLevel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*Log4gLoggerSetLevel)              (<em class="parameter"><code><a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="log4g-Log4gLevel.html#Log4gLevel" title="Log4gLevel"><span class="type">Log4gLevel</span></a> *level</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>A <a class="link" href="log4g-Log4gLogger.html#Log4gLogger" title="Log4gLogger"><span class="type">Log4gLogger</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>The new level threshold for <em class="parameter"><code>self</code></em>. <code class="literal">NULL</code> values are permitted.
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.15</div>
+</body>
+</html>
