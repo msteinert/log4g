@@ -15,7 +15,7 @@
     <part>
         <title>Log4g Overview</title>
         <para>
-TODO
+<!-- TODO -->
         </para>
         <xi:include href="introduction.sgml" />
     </part>
@@ -24,7 +24,7 @@ TODO
         <chapter id="log4g-public">
         <title>Public Interface</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/log4g.xml" />
             <xi:include href="xml/logger.xml" />
@@ -35,7 +35,7 @@ TODO
         <chapter>
             <title>Configuration</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/configurator.xml" />
             <xi:include href="xml/dom-configurator.xml" />
@@ -44,7 +44,7 @@ TODO
         <chapter id="log4g-core">
             <title>Core Classes</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/logging-event.xml" />
             <xi:include href="xml/root-logger.xml" />
@@ -57,7 +57,7 @@ TODO
         <chapter id="log4g-logger-management">
             <title>Logger Management</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/log-manager.xml" />
             <xi:include href="xml/logger-repository.xml" />
@@ -77,24 +77,24 @@ TODO
     <part>
         <title>Modules</title>
         <para>
-TODO
+<!-- TODO -->
         </para>
         <chapter id="log4g-extending">
             <title>Extending Log4g</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/module.xml" />
             <xi:include href="xml/module-loader.xml" />
             <xi:include href="xml/default-module-loader.xml" />
         </chapter>
         <para>
-TODO
+<!-- TODO -->
         </para>
         <chapter id="log4g-appenders">
             <title>Appenders</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/async-appender.xml" />
             <xi:include href="xml/console-appender.xml" />
@@ -109,7 +109,7 @@ TODO
         <chapter id="log4g-filters">
             <title>Filters</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/deny-all-filter.xml" />
             <xi:include href="xml/level-match-filter.xml" />
@@ -119,7 +119,7 @@ TODO
         <chapter id="log4g-layouts">
             <title>Layouts</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/date-layout.xml" />
             <xi:include href="xml/html-layout.xml" />
@@ -133,7 +133,7 @@ TODO
         <chapter id="log4g-couchdb">
             <title>CouchDB</title>
             <para>
-TODO
+<!-- TODO -->
             </para>
             <xi:include href="xml/couchdb-appender.xml" />
             <xi:include href="xml/couchdb-layout.xml" />
