@@ -93,7 +93,7 @@ log4g_diagnostic_context_destroy(Log4gDiagnosticContext *self)
     if (self) {
         g_free(self->message);
         g_free(self->full);
-        g_free(self);
+        g_slice_free(Log4gDiagnosticContext, self);
     }
 }
 
@@ -111,7 +111,7 @@ static Log4gDiagnosticContext *
 log4g_diagnostic_context_new(Log4gDiagnosticContext *parent,
         const gchar *message, va_list ap)
 {
-    Log4gDiagnosticContext *self = g_try_malloc(sizeof(*self));
+    Log4gDiagnosticContext *self = g_slice_new0(Log4gDiagnosticContext);
     if (!self) {
         return NULL;
     }
@@ -147,7 +147,7 @@ error:
 static Log4gDiagnosticContext *
 log4g_diagnostic_context_clone(const Log4gDiagnosticContext *self)
 {
-    Log4gDiagnosticContext *clone = g_try_malloc(sizeof(*clone));
+    Log4gDiagnosticContext *clone = g_slice_new0(Log4gDiagnosticContext);
     if (!clone) {
         return NULL;
     }
