@@ -228,17 +228,36 @@ activate_options(Log4gAppender *base)
     if (!info) {
         log4g_log_debug("%s: %s", priv->name, error->message);
         g_error_free(error);
-        priv->database = couchdb_database_new(priv->session, priv->name);
-        if (!priv->database) {
+        error = NULL;
+        if (!couchdb_session_create_database(priv->session, priv->name,
+                    &error)) {
             log4g_log_error("failed to create database %s: %s", priv->name,
                     error->message);
+            g_error_free(error);
+        } else {
+            log4g_log_debug("%s: created new database", priv->name);
+            info = couchdb_session_get_database_info(priv->session, priv->name,
+                    &error);
+            if (!info) {
+                log4g_log_error("%s: %s", priv->name, error->message);
+                g_error_free(error);
+                return;
+            }
         }
-        log4g_log_debug("%s: created new database", priv->name);
-        return;
     }
-    log4g_log_debug("%s: %d documents", couchdb_database_info_get_dbname(info),
-            couchdb_database_info_get_documents_count(info));
-    couchdb_database_info_unref(info);
+    if (info) {
+        if (priv->database) {
+            g_object_unref(priv->database);
+        }
+        priv->database = couchdb_database_new(priv->session, priv->name);
+        if (!priv->database) {
+            log4g_log_error("failed to create CouchDB database object");
+        }
+        log4g_log_debug("%s: %d documents",
+                couchdb_database_info_get_dbname(info),
+                couchdb_database_info_get_documents_count(info));
+        couchdb_database_info_unref(info);
+    }
 }
 
 static void
