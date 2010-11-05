@@ -16,7 +16,7 @@
  */
 
 /*
- * Tests for Log4gPatternLayout
+ * Tests for Log4gCouchdbLayout
  */
 
 #ifdef HAVE_CONFIG_H

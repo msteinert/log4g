@@ -16,7 +16,7 @@
  */
 
 /*
- * Tests for Log4gFileAppender
+ * Tests for Log4gCouchdbAppender
  */
 
 #ifdef HAVE_CONFIG_H
@@ -40,6 +40,7 @@ test_001(gpointer *fixture, gconstpointer data)
     va_list ap;
     memset(&ap, 0, sizeof ap);
     for (gint i = 0; i < 5; ++i) {
+        log4g_mdc_put("couchdb-appender-test", "test in loop %d", i);
         log4g_ndc_push("LOOP %d", i);
         Log4gLoggingEvent *event =
             log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),

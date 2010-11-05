@@ -32,7 +32,7 @@
  * </orderedlist>
  *
  * The value of uri determines the network location of the CouchDB where
- * output will be logged. If the value of uri is %NULL then this appender
+ * output will be logged. If the value of URI is %NULL then this appender
  * will attempt to log messages to the CouchDB at &lt;http://127.0.0.1:5984&gt;.
  *
  * The value of database-name determines the name of the database that will
