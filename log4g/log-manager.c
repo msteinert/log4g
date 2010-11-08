@@ -54,13 +54,10 @@ static void
 log4g_log_manager_init(Log4gLogManager *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->guard = NULL;
-    priv->repository = NULL;
     priv->modules = log4g_default_module_loader_new();
     if (priv->modules) {
         log4g_module_loader_load_modules(priv->modules);
     }
-    priv->selector = NULL;
     /* set defaults */
     Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
     if (root) {

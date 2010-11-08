@@ -104,14 +104,11 @@ log4g_discard_summary_new(Log4gLoggingEvent *event)
 {
     g_return_val_if_fail(event, NULL);
     g_return_val_if_fail(LOG4G_IS_LOGGING_EVENT(event), NULL);
-    Log4gDiscardSummary *self = g_slice_new(Log4gDiscardSummary);
+    Log4gDiscardSummary *self = g_slice_new0(Log4gDiscardSummary);
     if (!self) {
-        log4g_discard_summary_destroy(self);
         return NULL;
     }
-    memset(self, 0, sizeof *self);
-    g_object_ref(event);
-    self->event = event;
+    self->event = g_object_ref(event);
     self->count = 1;
     return self;
 }
@@ -248,10 +245,6 @@ log4g_async_appender_init(Log4gAsyncAppender *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->appenders = log4g_appender_attachable_impl_new();
-    priv->summary = NULL;
-    priv->pool = NULL;
-    priv->lock = NULL;
-    priv->discard = NULL;
     priv->blocking = TRUE;
     priv->size = 128;
     if (g_thread_supported()) {
@@ -325,7 +318,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
         g_mutex_unlock(priv->discard);
         break;
     case PROP_BUFFER_SIZE:
-        priv->blocking = g_value_get_boolean(value);
+        priv->size = g_value_get_int(value);
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
@@ -338,7 +331,6 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(base);
     gboolean blocking = g_atomic_int_get(&priv->blocking);
-    gint size = g_atomic_int_get(&priv->size);
     gboolean discard = FALSE;
     if (!g_thread_supported()) {
         log4g_log_warn("Log4gAsyncAppender: threading is not enabled "
@@ -349,11 +341,11 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
     log4g_logging_event_get_ndc_copy(event);
     log4g_logging_event_get_mdc_copy(event);
     if (blocking) {
-        while (g_thread_pool_unprocessed(priv->pool) >= size) {
+        while (g_thread_pool_unprocessed(priv->pool) >= priv->size) {
             g_usleep(5000); /* sleep 5 milliseconds */
         }
     } else {
-        if (G_UNLIKELY(g_thread_pool_unprocessed(priv->pool) > size)) {
+        if (G_UNLIKELY(g_thread_pool_unprocessed(priv->pool) > priv->size)) {
             discard = TRUE;
         }
     }

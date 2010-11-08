@@ -145,7 +145,6 @@ log4g_default_module_loader_init(Log4gDefaultModuleLoader *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->loaded = FALSE;
-    priv->modules = NULL;
 }
 
 static void
@@ -157,7 +156,7 @@ finalize(GObject *base)
         g_slist_free(priv->modules);
         priv->modules = NULL;
     }
-    G_OBJECT_CLASS(log4g_default_module_loader_parent_class)->dispose(base);
+    G_OBJECT_CLASS(log4g_default_module_loader_parent_class)->finalize(base);
 }
 
 static void
@@ -173,9 +172,9 @@ log4g_default_module_loader_class_init(Log4gDefaultModuleLoaderClass *klass)
 /**
  * log4g_default_module_loader_new:
  *
- * Create a new default repository selector object.
+ * Create a new default module loader object.
  *
- * Returns: A new default repository selector object.
+ * Returns: A new default module loader object.
  * Since: 0.1
  */
 Log4gModuleLoader *

@@ -93,7 +93,7 @@ typedef struct _Options {
 static Options *
 options_new(void)
 {
-    Options *self = g_slice_new(Options);
+    Options *self = g_slice_new0(Options);
     if (!self) {
         return NULL;
     }
