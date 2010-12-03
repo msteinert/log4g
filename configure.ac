@@ -21,13 +21,13 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wno-portability])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR([log4g/log4g.h])
+# Initialize Libtool
+LT_PREREQ([2.2])
+LT_INIT
 AC_ENABLE_SHARED
 AC_DISABLE_STATIC
 # Checks for programs
 m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99], [AC_PROG_CC])
-# Initialize Libtool
-LT_PREREQ([2.2])
-LT_INIT
 # Glib/Gtk stuff
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
