@@ -3,6 +3,3 @@
 
 SUBDIRS = $(LOG4G_CONFIGURED_MODULES)
 DIST_SUBDIRS = appenders couchdb filters layouts
-# cleanup
-MAINTAINERCLEANFILES = \
-    $(srcdir)/Makefile.in

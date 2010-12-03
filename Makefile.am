@@ -16,9 +16,3 @@ dtd_DATA = resources/log4g.dtd
 # cleanup
 DISTCLEANFILES = \
     resources/log4g-$(log4g_series).pc
-MAINTAINERCLEANFILES = \
-    $(srcdir)/aclocal.m4 $(srcdir)/config.guess $(srcdir)/config.h.in \
-    $(srcdir)/config.h.in~ $(srcdir)/config.sub $(srcdir)/configure \
-    $(srcdir)/depcomp $(srcdir)/INSTALL $(srcdir)/install-sh \
-    $(srcdir)/ltmain.sh $(srcdir)/m4/lt*.m4 $(srcdir)/m4/libtool.m4 \
-    $(srcdir)/Makefile.in $(srcdir)/missing $(srcdir)/gtk-doc.make

@@ -102,8 +102,6 @@ interfaceinclude_HEADERS = \
     interface/repository-selector.h
 EXTRA_DIST = \
     support/marshal.list
-MAINTAINERCLEANFILES = \
-    $(srcdir)/Makefile.in
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = \

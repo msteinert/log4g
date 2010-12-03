@@ -32,5 +32,3 @@ liblog4g_appenders_la_LDFLAGS = \
     $(top_builddir)/log4g/liblog4g-$(log4g_series).la \
     $(GLIB_LIBS) \
     $(GOBJECT_LIBS)
-MAINTAINERCLEANFILES = \
-    $(srcdir)/Makefile.in

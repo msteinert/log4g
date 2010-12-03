@@ -24,8 +24,11 @@ AC_CONFIG_SRCDIR([log4g/log4g.h])
 AC_ENABLE_SHARED
 AC_DISABLE_STATIC
 # Checks for programs
-AC_PROG_CC_C99
-AC_PROG_LIBTOOL
+m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99], [AC_PROG_CC])
+# Initialize Libtool
+LT_PREREQ([2.2])
+LT_INIT
+# Glib/Gtk stuff
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 # Enable -Wall for gcc
@@ -155,6 +158,7 @@ AC_CONFIG_FILES([
 AC_OUTPUT
 AC_MSG_RESULT([
 Log4g build options:
+	Host: $host
 	Version: $VERSION
 	Modules:$LOG4G_CONFIGURED_MODULES
 	Introspection: $found_introspection

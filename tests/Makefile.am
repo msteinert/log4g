@@ -89,5 +89,3 @@ CLEANFILES = \
     log4g.xml dom-configurator-*.txt *-test.txt *-test.txt.* *-test.html
 DISTCLEANFILES = \
     log4g.html core core.*
-MAINTAINERCLEANFILES = \
-    $(srcdir)/Makefile.in
