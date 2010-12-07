@@ -49,8 +49,7 @@
 #endif
 #include "log4g/filter.h"
 
-G_DEFINE_TYPE_EXTENDED(Log4gFilter, log4g_filter, G_TYPE_OBJECT,
-        G_TYPE_FLAG_ABSTRACT, {})
+G_DEFINE_ABSTRACT_TYPE(Log4gFilter, log4g_filter, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_FILTER, \

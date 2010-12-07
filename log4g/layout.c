@@ -31,8 +31,7 @@
 #endif
 #include "log4g/layout.h"
 
-G_DEFINE_TYPE_EXTENDED(Log4gLayout, log4g_layout, G_TYPE_OBJECT,
-        G_TYPE_FLAG_ABSTRACT, {})
+G_DEFINE_ABSTRACT_TYPE(Log4gLayout, log4g_layout, G_TYPE_OBJECT)
 
 static void
 log4g_layout_init(Log4gLayout *self)

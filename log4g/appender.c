@@ -35,8 +35,7 @@ enum _properties_t {
     PROP_MAX
 };
 
-G_DEFINE_TYPE_EXTENDED(Log4gAppender, log4g_appender, G_TYPE_OBJECT,
-        G_TYPE_FLAG_ABSTRACT, {})
+G_DEFINE_ABSTRACT_TYPE(Log4gAppender, log4g_appender, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(instance) \
     (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_APPENDER, \
