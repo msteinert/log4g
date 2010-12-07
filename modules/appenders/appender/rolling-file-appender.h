@@ -80,13 +80,13 @@ struct _Log4gRollingFileAppenderClass {
     Log4gRollingFileAppenderRollOver roll_over;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_rolling_file_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_rolling_file_appender_register(GTypeModule *module);
 
-void
+G_GNUC_INTERNAL void
 log4g_rolling_file_appender_roll_over(Log4gAppender *base);
 
 G_END_DECLS

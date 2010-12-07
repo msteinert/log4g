@@ -87,13 +87,13 @@ struct _Log4gPatternLayoutClass {
     Log4gPatternLayoutCreatePatternParser create_pattern_parser;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_pattern_layout_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_layout_register(GTypeModule *module);
 
-Log4gPatternParser *
+G_GNUC_INTERNAL Log4gPatternParser *
 log4g_pattern_layout_create_pattern_parser(Log4gLayout *base,
         const gchar *pattern);
 

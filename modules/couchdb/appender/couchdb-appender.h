@@ -70,10 +70,10 @@ struct _Log4gCouchdbAppenderClass {
     Log4gAppenderClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_couchdb_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_couchdb_appender_register(GTypeModule *module);
 
 G_END_DECLS

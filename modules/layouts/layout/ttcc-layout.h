@@ -69,10 +69,10 @@ struct _Log4gTTCCLayoutClass {
     Log4gDateLayoutClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_ttcc_layout_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_ttcc_layout_register(GTypeModule *module);
 
 G_END_DECLS

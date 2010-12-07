@@ -103,29 +103,29 @@ struct _Log4gFileAppenderClass {
     Log4gFileAppenderSetQwForFiles set_qw_for_files;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_file_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_file_appender_register(GTypeModule *module);
 
-void
+G_GNUC_INTERNAL void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
         gboolean append, gboolean buffered, guint size);
 
-void
+G_GNUC_INTERNAL void
 log4g_file_appender_close_file(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_file_appender_set_qw_for_files(Log4gAppender *base, FILE *file);
 
-const gchar *
+G_GNUC_INTERNAL const gchar *
 log4g_file_appender_get_file(Log4gAppender *base);
 
-gboolean
+G_GNUC_INTERNAL gboolean
 log4g_file_appender_get_buffered_io(Log4gAppender *base);
 
-guint
+G_GNUC_INTERNAL guint
 log4g_file_appender_get_buffer_size(Log4gAppender *base);
 
 G_END_DECLS

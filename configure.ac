@@ -32,12 +32,7 @@ m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99], [AC_PROG_CC])
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 # Enable -Wall for gcc
-if test "x$GCC" = "xyes"; then
-    case " $CFLAGS " in
-    *[[\ \	]]-Wall[[\ \	]]*) ;;
-    *) CFLAGS="$CFLAGS -Wall" ;;
-    esac
-fi
+LOG4G_GCC_OPTIONS([-Wall -Wstrict-prototypes -fno-common])
 # Pkg-config versioning
 log4g_series_major=1
 log4g_series_minor=0

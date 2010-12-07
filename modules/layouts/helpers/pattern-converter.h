@@ -121,28 +121,28 @@ struct Log4gFormattingInfo {
     gboolean align;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_pattern_converter_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_converter_register(GTypeModule *module);
 
-const gchar *
+G_GNUC_INTERNAL const gchar *
 log4g_pattern_converter_convert(Log4gPatternConverter *self,
         Log4gLoggingEvent *event);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_converter_format(Log4gPatternConverter *self,
         GString *string, Log4gLoggingEvent *event);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_pattern_converter_get_next(Log4gPatternConverter *self);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_converter_set_next(Log4gPatternConverter *self,
         Log4gPatternConverter *next);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
         GString *buffer, gint length);
 
@@ -224,10 +224,10 @@ struct _Log4gBasicPatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_basic_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_basic_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type);
 
@@ -282,10 +282,10 @@ struct _Log4gLiteralPatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_literal_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_literal_pattern_converter_new(const gchar *pattern);
 
 #define LOG4G_TYPE_DATE_PATTERN_CONVERTER \
@@ -336,10 +336,10 @@ struct _Log4gDatePatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_date_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_date_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *format);
 
@@ -391,10 +391,10 @@ struct _Log4gMDCPatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_mdc_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_mdc_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gchar *key);
 
@@ -449,10 +449,10 @@ struct _Log4gLocationPatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_location_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_location_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         Log4gPatternConverterType type);
 
@@ -507,10 +507,10 @@ struct _Log4gCategoryPatternConverterClass {
     Log4gPatternConverterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_category_pattern_converter_get_type(void);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_category_pattern_converter_new(struct Log4gFormattingInfo *formatting,
         gint precision);
 

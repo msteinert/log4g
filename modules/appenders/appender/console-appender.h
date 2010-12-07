@@ -69,10 +69,10 @@ struct _Log4gConsoleAppenderClass {
     Log4gWriterAppenderClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_console_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_console_appender_register(GTypeModule *module);
 
 G_END_DECLS

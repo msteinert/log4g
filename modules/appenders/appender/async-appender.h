@@ -69,33 +69,33 @@ struct _Log4gAsyncAppenderClass {
     Log4gAppenderClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_async_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_async_appender_register(GTypeModule *module);
 
-void
+G_GNUC_INTERNAL void
 log4g_async_appender_add_appender(Log4gAppender *base,
         Log4gAppender *appender);
 
-const GArray *
+G_GNUC_INTERNAL const GArray *
 log4g_async_appender_get_all_appenders(Log4gAppender *base);
 
-Log4gAppender *
+G_GNUC_INTERNAL Log4gAppender *
 log4g_async_appender_get_appender(Log4gAppender *base, const gchar *name);
 
-gboolean
+G_GNUC_INTERNAL gboolean
 log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender);
 
-void
+G_GNUC_INTERNAL void
 log4g_async_appender_remove_all_appenders(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_async_appender_remove_appender(Log4gAppender *base,
         Log4gAppender *appender);
 
-void
+G_GNUC_INTERNAL void
 log4g_async_appender_remove_appender_name(Log4gAppender *base,
         const gchar *name);
 

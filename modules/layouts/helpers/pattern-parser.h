@@ -69,32 +69,32 @@ struct _Log4gPatternParserClass {
     GObjectClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_pattern_parser_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_parser_register(GTypeModule *module);
 
-Log4gPatternParser *
+G_GNUC_INTERNAL Log4gPatternParser *
 log4g_pattern_parser_new(const gchar *pattern);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_parser_add_to_list(Log4gPatternParser *self,
         Log4gPatternConverter *pc);
 
-gchar *
+G_GNUC_INTERNAL gchar *
 log4g_pattern_parser_extract_option(Log4gPatternParser *self);
 
-gint
+G_GNUC_INTERNAL gint
 log4g_pattern_parser_extract_precision_option(Log4gPatternParser *self);
 
-Log4gPatternConverter *
+G_GNUC_INTERNAL Log4gPatternConverter *
 log4g_pattern_parser_parse(Log4gPatternParser *self);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_parser_finalize_converter(Log4gPatternParser *self, gchar c);
 
-void
+G_GNUC_INTERNAL void
 log4g_pattern_parser_add_converter(Log4gPatternParser *self,
         Log4gPatternConverter *pc);
 

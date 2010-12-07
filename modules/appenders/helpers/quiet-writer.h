@@ -82,28 +82,28 @@ struct _Log4gQuietWriterClass {
     Log4gQuietWriterWrite write;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_quiet_writer_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_register(GTypeModule *module);
 
-Log4gQuietWriter *
+G_GNUC_INTERNAL Log4gQuietWriter *
 log4g_quiet_writer_new(FILE *file, gpointer error);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_close(Log4gQuietWriter *self);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_write(Log4gQuietWriter *self, const char *string);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_flush(Log4gQuietWriter *self);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_set_error_handler(Log4gQuietWriter *self, gpointer error);
 
-void
+G_GNUC_INTERNAL void
 log4g_quiet_writer_set_file(Log4gQuietWriter *self, FILE *file);
 
 G_END_DECLS

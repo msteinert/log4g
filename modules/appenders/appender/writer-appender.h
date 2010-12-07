@@ -106,38 +106,38 @@ struct _Log4gWriterAppenderClass {
     Log4gWriterAppenderReset reset;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_writer_appender_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_register(GTypeModule *module);
 
-gboolean
+G_GNUC_INTERNAL gboolean
 log4g_writer_appender_check_entry_conditions(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_set_writer(Log4gAppender *base, FILE *file);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_close_writer(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_sub_append(Log4gAppender *base,
         Log4gLoggingEvent *event);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_reset(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_write_footer(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_write_header(Log4gAppender *base);
 
-Log4gQuietWriter *
+G_GNUC_INTERNAL Log4gQuietWriter *
 log4g_writer_appender_get_quiet_writer(Log4gAppender *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_writer_appender_set_quiet_writer(Log4gAppender *base,
         Log4gQuietWriter *writer);
 

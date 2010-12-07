@@ -69,10 +69,10 @@ struct _Log4gDenyAllFilterClass {
     Log4gFilterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_deny_all_filter_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_deny_all_filter_register(GTypeModule *module);
 
 G_END_DECLS

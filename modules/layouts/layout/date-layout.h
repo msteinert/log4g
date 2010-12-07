@@ -81,13 +81,13 @@ struct _Log4gDateLayoutClass {
     Log4gLayoutClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_date_layout_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_date_layout_register(GTypeModule *module);
 
-void
+G_GNUC_INTERNAL void
 log4g_date_layout_date_format(Log4gLayout *base, GString *string,
         Log4gLoggingEvent *event);
 

@@ -69,19 +69,19 @@ struct _Log4gCountingQuietWriterClass {
     Log4gQuietWriterClass parent_class;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_counting_quiet_writer_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_counting_quiet_writer_register(GTypeModule *module);
 
-Log4gQuietWriter *
+G_GNUC_INTERNAL Log4gQuietWriter *
 log4g_counting_quiet_writer_new(FILE *file, GObject *error);
 
-gulong
+G_GNUC_INTERNAL gulong
 log4g_counting_quiet_writer_get_count(Log4gQuietWriter *base);
 
-void
+G_GNUC_INTERNAL void
 log4g_counting_quiet_writer_set_count(Log4gQuietWriter *base, gulong count);
 
 G_END_DECLS

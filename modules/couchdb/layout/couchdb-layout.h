@@ -87,13 +87,13 @@ struct _Log4gCouchdbLayoutClass {
     Log4gCouchdbLayoutFormatDocument format_document;
 };
 
-GType
+G_GNUC_INTERNAL GType
 log4g_couchdb_layout_get_type(void);
 
-void
+G_GNUC_INTERNAL void
 log4g_couchdb_layout_register(GTypeModule *module);
 
-CouchdbDocument *
+G_GNUC_INTERNAL CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
         Log4gLoggingEvent *event);
 
