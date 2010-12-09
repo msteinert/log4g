@@ -31,8 +31,10 @@ m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99], [AC_PROG_CC])
 # Glib/Gtk stuff
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
-# Enable -Wall for gcc
-LOG4G_GCC_OPTIONS([-Wall -Wstrict-prototypes -fno-common])
+# Enable compiler flags
+LOG4G_TRY_CC_FLAGS([-Wall], [LOG4G_CFLAGS([-Wall])])
+LOG4G_TRY_CC_FLAGS([-Wstrict-prototypes], [LOG4G_CFLAGS([-Wstrict-prototypes])])
+LOG4G_TRY_CC_FLAGS([-fno-common], [LOG4G_CFLAGS([-fno-common])])
 # Pkg-config versioning
 log4g_series_major=1
 log4g_series_minor=0
