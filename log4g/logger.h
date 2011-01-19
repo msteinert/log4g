@@ -94,7 +94,7 @@ struct _Log4gLoggerClass {
 };
 
 GType
-log4g_logger_get_type(void);
+log4g_logger_get_type(void) G_GNUC_CONST;
 
 Log4gLogger *
 log4g_logger_new(const gchar *name);

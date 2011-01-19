@@ -63,7 +63,7 @@ struct _Log4gModuleLoaderInterface {
 };
 
 GType
-log4g_module_loader_get_type(void);
+log4g_module_loader_get_type(void) G_GNUC_CONST;
 
 void
 log4g_module_loader_load_modules(Log4gModuleLoader *self);

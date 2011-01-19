@@ -74,7 +74,7 @@ struct _Log4gDefaultRepositorySelectorClass {
 };
 
 GType
-log4g_default_repository_selector_get_type(void);
+log4g_default_repository_selector_get_type(void) G_GNUC_CONST;
 
 Log4gRepositorySelector *
 log4g_default_repository_selector_new(Log4gLoggerRepository *repository);

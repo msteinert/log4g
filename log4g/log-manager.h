@@ -71,7 +71,7 @@ struct _Log4gLogManagerClass {
 };
 
 GType
-log4g_log_manager_get_type(void);
+log4g_log_manager_get_type(void) G_GNUC_CONST;
 
 void
 log4g_log_manager_remove_instance(void);

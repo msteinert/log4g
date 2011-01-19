@@ -67,7 +67,7 @@ struct _Log4gNDCClass {
 };
 
 GType
-log4g_ndc_get_type(void);
+log4g_ndc_get_type(void) G_GNUC_CONST;
 
 void
 log4g_ndc_clear(void);

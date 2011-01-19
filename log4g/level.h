@@ -162,7 +162,7 @@ struct _Log4gLevelClass {
     Log4gLevel *OFF;
 };
 
-GType log4g_level_get_type(void);
+GType log4g_level_get_type(void) G_GNUC_CONST;
 
 Log4gLevel *
 log4g_level_new(gint level, const gchar *string, gint syslog);

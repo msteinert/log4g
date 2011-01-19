@@ -85,7 +85,7 @@ struct _Log4gLoggingEventClass {
 };
 
 GType
-log4g_logging_event_get_type(void);
+log4g_logging_event_get_type(void) G_GNUC_CONST;
 
 Log4gLoggingEvent *
 log4g_logging_event_new(const gchar *logger, Log4gLevel *level,

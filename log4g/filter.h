@@ -114,7 +114,7 @@ struct _Log4gFilterClass {
 };
 
 GType
-log4g_filter_get_type(void);
+log4g_filter_get_type(void) G_GNUC_CONST;
 
 Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event);

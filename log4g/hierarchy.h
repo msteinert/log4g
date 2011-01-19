@@ -70,7 +70,7 @@ struct _Log4gHierarchyClass {
 };
 
 GType
-log4g_hierarchy_get_type(void);
+log4g_hierarchy_get_type(void) G_GNUC_CONST;
 
 Log4gLoggerRepository *
 log4g_hierarchy_new(Log4gLogger *root);

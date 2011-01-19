@@ -68,7 +68,7 @@ struct _Log4gThreadClass {
 };
 
 GType
-log4g_thread_get_type(void);
+log4g_thread_get_type(void) G_GNUC_CONST;
 
 const gchar *
 log4g_thread_get_name(void);

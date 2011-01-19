@@ -70,7 +70,7 @@ struct _Log4gProvisionNodeClass {
 };
 
 GType
-log4g_provision_node_get_type(void);
+log4g_provision_node_get_type(void) G_GNUC_CONST;
 
 Log4gProvisionNode *
 log4g_provision_node_new(gpointer object);

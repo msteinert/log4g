@@ -68,7 +68,7 @@ struct _Log4gModuleClass {
 };
 
 GType
-log4g_module_get_type(void);
+log4g_module_get_type(void) G_GNUC_CONST;
 
 GTypeModule *
 log4g_module_new(const gchar *file);

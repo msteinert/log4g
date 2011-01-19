@@ -73,7 +73,7 @@ struct _Log4gAppenderAttachableImplClass {
 };
 
 GType
-log4g_appender_attachable_impl_get_type(void);
+log4g_appender_attachable_impl_get_type(void) G_GNUC_CONST;
 
 Log4gAppenderAttachable *
 log4g_appender_attachable_impl_new(void);

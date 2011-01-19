@@ -275,7 +275,7 @@ struct _Log4gAppenderClass {
 };
 
 GType
-log4g_appender_get_type(void);
+log4g_appender_get_type(void) G_GNUC_CONST;
 
 void
 log4g_appender_clear_filters(Log4gAppender *self);

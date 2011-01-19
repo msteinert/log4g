@@ -70,7 +70,7 @@ struct _Log4gRepositorySelectorInterface {
 };
 
 GType
-log4g_repository_selector_get_type(void);
+log4g_repository_selector_get_type(void) G_GNUC_CONST;
 
 Log4gLoggerRepository *
 log4g_repository_selector_get_logger_repository(Log4gRepositorySelector *self);

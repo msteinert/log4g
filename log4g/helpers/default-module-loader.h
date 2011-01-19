@@ -71,7 +71,7 @@ struct _Log4gDefaultModuleLoaderClass {
 };
 
 GType
-log4g_default_module_loader_get_type(void);
+log4g_default_module_loader_get_type(void) G_GNUC_CONST;
 
 Log4gModuleLoader *
 log4g_default_module_loader_new(void);

@@ -144,7 +144,7 @@ struct _Log4gLayoutClass {
 };
 
 GType
-log4g_layout_get_type(void);
+log4g_layout_get_type(void) G_GNUC_CONST;
 
 gchar *
 log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event);

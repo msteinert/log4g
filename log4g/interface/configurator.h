@@ -67,7 +67,8 @@ struct _Log4gConfiguratorInterface {
     Log4gConfiguratorDoConfigure do_configure;
 };
 
-GType log4g_configurator_get_type(void);
+GType
+log4g_configurator_get_type(void) G_GNUC_CONST;
 
 gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *uri,

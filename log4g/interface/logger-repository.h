@@ -254,7 +254,8 @@ struct _Log4gLoggerRepositoryInterface {
     Log4gLoggerRepositoryEmitNoAppenderWarning emit_no_appender_warning;
 };
 
-GType log4g_logger_repository_get_type(void);
+GType
+log4g_logger_repository_get_type(void) G_GNUC_CONST;
 
 Log4gLogger *
 log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name);

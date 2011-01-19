@@ -71,7 +71,8 @@ struct _Log4gDefaultLoggerFactoryClass {
     GObjectClass parent_class;
 };
 
-GType log4g_default_logger_factory_get_type(void);
+GType
+log4g_default_logger_factory_get_type(void) G_GNUC_CONST;
 
 Log4gLoggerFactory *
 log4g_default_logger_factory_new(void);

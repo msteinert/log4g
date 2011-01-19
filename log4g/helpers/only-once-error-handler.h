@@ -72,7 +72,7 @@ struct _Log4gOnlyOnceErrorHandlerClass {
 };
 
 GType
-log4g_only_once_error_handler_get_type(void);
+log4g_only_once_error_handler_get_type(void) G_GNUC_CONST;
 
 Log4gErrorHandler *
 log4g_only_once_error_handler_new(void);

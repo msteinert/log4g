@@ -66,7 +66,7 @@ struct _Log4gLoggerFactoryInterface {
 };
 
 GType
-log4g_logger_factory_get_type(void);
+log4g_logger_factory_get_type(void) G_GNUC_CONST;
 
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,

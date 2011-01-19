@@ -70,7 +70,7 @@ struct _Log4gDOMConfiguratorClass {
 };
 
 GType
-log4g_dom_configurator_get_type(void);
+log4g_dom_configurator_get_type(void) G_GNUC_CONST;
 
 Log4gConfigurator *
 log4g_dom_configurator_new(void);

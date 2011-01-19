@@ -67,7 +67,7 @@ struct _Log4gMDCClass {
 };
 
 GType
-log4g_mdc_get_type(void);
+log4g_mdc_get_type(void) G_GNUC_CONST;
 
 void
 log4g_mdc_put(const gchar *key, const gchar *value, ...) G_GNUC_PRINTF(2, 3);

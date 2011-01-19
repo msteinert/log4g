@@ -120,7 +120,7 @@ struct _Log4gErrorHandlerInterface {
 };
 
 GType
-log4g_error_handler_get_type(void);
+log4g_error_handler_get_type(void) G_GNUC_CONST;
 
 void
 log4g_error_handler_set_logger(Log4gErrorHandler *self, Log4gLogger *logger);
