@@ -18,6 +18,8 @@
 #ifndef LOG4G_ERROR_H
 #define LOG4G_ERROR_H
 
+#include <glib.h>
+
 G_BEGIN_DECLS
 
 #define LOG4G_ERROR log4g_error_quark()

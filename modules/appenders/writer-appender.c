@@ -62,11 +62,8 @@ log4g_writer_appender_init(Log4gWriterAppender *self)
 {
     struct Log4gPrivate *priv = GET_PRIVATE(self);
     priv->flush = TRUE;
-    priv->writer = NULL;
     if (g_thread_supported()) {
         priv->lock = g_mutex_new();
-    } else {
-        priv->lock = NULL;
     }
 }
 
@@ -183,10 +180,10 @@ static void
 log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
 {
     /* initialize GObjectClass */
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    gobject_class->dispose = dispose;
-    gobject_class->finalize = finalize;
-    gobject_class->set_property = set_property;
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    object_class->dispose = dispose;
+    object_class->finalize = finalize;
+    object_class->set_property = set_property;
     /* initialize private data */
     g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
     /* initialize Log4gAppenderClass */
@@ -199,11 +196,11 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
     klass->close_writer = close_writer;
     klass->reset = reset;
     /* install properties */
-    g_object_class_install_property(gobject_class, PROP_IMMEDIATE_FLUSH,
+    g_object_class_install_property(object_class, PROP_IMMEDIATE_FLUSH,
             g_param_spec_boolean("immediate-flush", Q_("Immediate Flush"),
                     Q_("Flush immediately after writing"),
                     TRUE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_WRITER,
+    g_object_class_install_property(object_class, PROP_WRITER,
             g_param_spec_pointer("writer", Q_("Writer"),
                     Q_("Set the stdio(3) stream to use"), G_PARAM_WRITABLE));
 }
