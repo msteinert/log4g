@@ -7,11 +7,8 @@ olddir=`pwd`
 cd $srcdir
 
 GTKDOCIZE=`which gtkdocize`
-if test -z $GTKDOCIZE; then
-	echo "*** No GTK-Doc found, please install it ***"
-	exit 1
-else
-	gtkdocize || exit $?
+if test -n $GTKDOCIZE; then
+	gtkdocize --copy --docdir docs --flavour no-tmpl || exit $?
 fi
 
 AUTORECONF=`which autoreconf`
@@ -19,7 +16,7 @@ if test -z $AUTORECONF; then
 	echo "*** No autoreconf found, please install it ***"
 	exit 1
 else
-	autoreconf --force --install || exit $?
+	autoreconf --force --install --verbose || exit $?
 fi
 
 cd "$olddir"

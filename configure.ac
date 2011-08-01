@@ -31,7 +31,11 @@ m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99],
 PKG_PROG_PKG_CONFIG([0.17])
 # Glib/Gtk stuff
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
+m4_ifdef([GTK_DOC_CHECK], [
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
+], [
+AM_CONDITIONAL([ENABLE_GTK_DOC], false)
+])
 # Enable compiler flags
 AX_TRY_CFLAGS([-Wall], [AX_CFLAGS([-Wall])])
 AX_TRY_CFLAGS([-Wstrict-prototypes], [AX_CFLAGS([-Wstrict-prototypes])])
