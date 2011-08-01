@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -30,5 +30,5 @@
 
 GQuark log4g_error_quark(void)
 {
-    return g_quark_from_static_string("log4g-error-quark");
+	return g_quark_from_static_string("log4g-error-quark");
 }

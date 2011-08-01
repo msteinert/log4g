@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -29,21 +29,21 @@
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    Log4gLogger *logger = log4g_logger_new("org.gnome.test");
-    g_assert(logger);
-    g_object_unref(logger);
+	Log4gLogger *logger = log4g_logger_new("org.gnome.test");
+	g_assert(logger);
+	g_object_unref(logger);
 }
 
 int
 main(int argc, char *argv[])
 {
-    g_test_init(&argc, &argv, NULL);
-    g_type_init();
+	g_test_init(&argc, &argv, NULL);
+	g_type_init();
 #ifndef G_THREADS_IMPL_NONE
-    if (!g_thread_supported()) {
-        g_thread_init(NULL);
-    }
+	if (!g_thread_supported()) {
+		g_thread_init(NULL);
+	}
 #endif
-    g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
-    return g_test_run();
+	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
+	return g_test_run();
 }

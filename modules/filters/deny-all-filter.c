@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -32,36 +32,36 @@
 #include "filter/deny-all-filter.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter,
-        LOG4G_TYPE_FILTER)
+		LOG4G_TYPE_FILTER)
 
 static void
 log4g_deny_all_filter_init(Log4gDenyAllFilter *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static Log4gFilterDecision
 decide(Log4gFilter *self, Log4gLoggingEvent *event)
 {
-    return LOG4G_FILTER_DENY;
+	return LOG4G_FILTER_DENY;
 }
 
 static void
 log4g_deny_all_filter_class_init(Log4gDenyAllFilterClass *klass)
 {
-    /* initialize Log4gFilter class */
-    Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
-    filter_class->decide = decide;
+	/* initialize Log4gFilter class */
+	Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
+	filter_class->decide = decide;
 }
 
 static void
 log4g_deny_all_filter_class_finalize(Log4gDenyAllFilterClass *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 void
 log4g_deny_all_filter_register(GTypeModule *module)
 {
-    log4g_deny_all_filter_register_type(module);
+	log4g_deny_all_filter_register_type(module);
 }

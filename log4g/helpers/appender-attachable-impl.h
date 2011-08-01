@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,32 +23,34 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL \
-    (log4g_appender_attachable_impl_get_type())
+	(log4g_appender_attachable_impl_get_type())
 
 #define LOG4G_APPENDER_ATTACHABLE_IMPL(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), \
-            LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, Log4gAppenderAttachableImpl))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
+		Log4gAppenderAttachableImpl))
 
 #define LOG4G_IS_APPENDER_ATTACHABLE_IMPL(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), \
-            LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL))
 
 #define LOG4G_APPENDER_ATTACHABLE_IMPL_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
-            Log4gAppenderAttachableImplClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
+		Log4gAppenderAttachableImplClass))
 
 #define LOG4G_IS_APPENDER_ATTACHABLE_IMPL_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL))
 
 #define LOG4G_APPENDER_ATTACHABLE_IMPL_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), \
-            LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
-            Log4gAppenderAttachableImplClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE_IMPL, \
+		Log4gAppenderAttachableImplClass))
 
-typedef struct _Log4gAppenderAttachableImpl Log4gAppenderAttachableImpl;
+typedef struct Log4gAppenderAttachableImpl_ Log4gAppenderAttachableImpl;
 
-typedef struct _Log4gAppenderAttachableImplClass
-        Log4gAppenderAttachableImplClass;
+typedef struct Log4gAppenderAttachableImplClass_
+	Log4gAppenderAttachableImplClass;
 
 /**
  * Log4gAppenderAttachableImpl:
@@ -56,9 +58,10 @@ typedef struct _Log4gAppenderAttachableImplClass
  * The <structname>Log4gAppenderAttachableImpl</structname> structure does not
  * have any public members.
  */
-struct _Log4gAppenderAttachableImpl {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gAppenderAttachableImpl_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -67,9 +70,9 @@ struct _Log4gAppenderAttachableImpl {
  * The <structname>Log4gAppenderAttachableImplClass</structname> structure does
  * not have any public members.
  */
-struct _Log4gAppenderAttachableImplClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gAppenderAttachableImplClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType
@@ -80,7 +83,7 @@ log4g_appender_attachable_impl_new(void);
 
 guint
 log4g_appender_attachable_impl_append_loop_on_appenders(
-        Log4gAppenderAttachable *base, Log4gLoggingEvent *event);
+		Log4gAppenderAttachable *base, Log4gLoggingEvent *event);
 
 G_END_DECLS
 

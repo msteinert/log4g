@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,31 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_COUNTING_QUIET_WRITER \
-    (log4g_counting_quiet_writer_get_type())
+	(log4g_counting_quiet_writer_get_type())
 
 #define LOG4G_COUNTING_QUIET_WRITER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_COUNTING_QUIET_WRITER, \
-            Log4gCountingQuietWriter))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_COUNTING_QUIET_WRITER, Log4gCountingQuietWriter))
 
 #define LOG4G_IS_COUNTING_QUIET_WRITER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_COUNTING_QUIET_WRITER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_COUNTING_QUIET_WRITER))
 
 #define LOG4G_COUNTING_QUIET_WRITER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_COUNTING_QUIET_WRITER, \
-            Log4gCountingQuietWriterClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_COUNTING_QUIET_WRITER, \
+		Log4gCountingQuietWriterClass))
 
 #define LOG4G_IS_COUNTING_QUIET_WRITER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_COUNTING_QUIET_WRITER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_COUNTING_QUIET_WRITER))
 
 #define LOG4G_COUNTING_QUIET_WRITER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_COUNTING_QUIET_WRITER, \
-            Log4gCountingQuietWriterClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_COUNTING_QUIET_WRITER, \
+		Log4gCountingQuietWriterClass))
 
-typedef struct _Log4gCountingQuietWriter Log4gCountingQuietWriter;
+typedef struct Log4gCountingQuietWriter_ Log4gCountingQuietWriter;
 
-typedef struct _Log4gCountingQuietWriterClass Log4gCountingQuietWriterClass;
+typedef struct Log4gCountingQuietWriterClass_ Log4gCountingQuietWriterClass;
 
 /**
  * Log4gCountingQuietWriter:
@@ -53,9 +55,10 @@ typedef struct _Log4gCountingQuietWriterClass Log4gCountingQuietWriterClass;
  * The <structname>Log4gCountingQuietWriter</structname> structure does not
  * have any public members.
  */
-struct _Log4gCountingQuietWriter {
-    /*< private >*/
-    Log4gQuietWriter parent_instance;
+struct Log4gCountingQuietWriter_ {
+	/*< private >*/
+	Log4gQuietWriter parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -64,9 +67,9 @@ struct _Log4gCountingQuietWriter {
  * The <structname>Log4gCountingQuietWriterClass</structname> structure does
  * not have any public members.
  */
-struct _Log4gCountingQuietWriterClass {
-    /*< private >*/
-    Log4gQuietWriterClass parent_class;
+struct Log4gCountingQuietWriterClass_ {
+	/*< private >*/
+	Log4gQuietWriterClass parent_class;
 };
 
 G_GNUC_INTERNAL GType

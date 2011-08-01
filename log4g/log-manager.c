@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -36,15 +36,18 @@
 
 G_DEFINE_TYPE(Log4gLogManager, log4g_log_manager, G_TYPE_OBJECT)
 
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_LOG_MANAGER, \
-            struct Log4gPrivate))
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_LOG_MANAGER, \
+		struct Private))
 
-struct Log4gPrivate {
-    Log4gLoggerRepository *repository;
-    Log4gRepositorySelector *selector;
-    Log4gModuleLoader *modules;
-    GObject *guard;
+#define GET_PRIVATE(instance) \
+	((struct Private *)((Log4gLogManager *)instance)->priv)
+
+struct Private {
+	Log4gLoggerRepository *repository;
+	Log4gRepositorySelector *selector;
+	Log4gModuleLoader *modules;
+	GObject *guard;
 };
 
 /** \brief The single instance of this class */
@@ -53,74 +56,76 @@ static GObject *singleton = NULL;
 static void
 log4g_log_manager_init(Log4gLogManager *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->modules = log4g_default_module_loader_new();
-    if (priv->modules) {
-        log4g_module_loader_load_modules(priv->modules);
-    }
-    /* set defaults */
-    Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
-    if (root) {
-        priv->repository = log4g_hierarchy_new(root);
-        g_object_unref(root);
-    }
-    priv->selector = log4g_default_repository_selector_new(priv->repository);
+	self->priv = ASSIGN_PRIVATE(self);
+	struct Private *priv = GET_PRIVATE(self);
+	priv->modules = log4g_default_module_loader_new();
+	if (priv->modules) {
+		log4g_module_loader_load_modules(priv->modules);
+	}
+	/* set defaults */
+	Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
+	if (root) {
+		priv->repository = log4g_hierarchy_new(root);
+		g_object_unref(root);
+	}
+	priv->selector =
+		log4g_default_repository_selector_new(priv->repository);
 }
 
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-    GObject *self = g_atomic_pointer_get(&singleton);
-    if (!self) {
-        self = G_OBJECT_CLASS(log4g_log_manager_parent_class)->
-            constructor(type, n, params);
-        g_atomic_pointer_set(&singleton, self);
-    } else {
-        g_object_ref(self);
-    }
-    return self;
+	GObject *self = g_atomic_pointer_get(&singleton);
+	if (!self) {
+		self = G_OBJECT_CLASS(log4g_log_manager_parent_class)->
+			constructor(type, n, params);
+		g_atomic_pointer_set(&singleton, self);
+	} else {
+		g_object_ref(self);
+	}
+	return self;
 }
 
 static void
 dispose(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->repository) {
-        g_object_unref(priv->repository);
-        priv->repository = NULL;
-    }
-    if (priv->selector) {
-        g_object_unref(priv->selector);
-        priv->selector = NULL;
-    }
-    if (priv->modules) {
-        g_object_unref(priv->modules);
-        priv->modules = NULL;
-    }
-    if (priv->guard) {
-        g_object_unref(priv->guard);
-        priv->guard = NULL;
-    }
-    G_OBJECT_CLASS(log4g_log_manager_parent_class)->dispose(base);
+	struct Private *priv = GET_PRIVATE(base);
+	if (priv->repository) {
+		g_object_unref(priv->repository);
+		priv->repository = NULL;
+	}
+	if (priv->selector) {
+		g_object_unref(priv->selector);
+		priv->selector = NULL;
+	}
+	if (priv->modules) {
+		g_object_unref(priv->modules);
+		priv->modules = NULL;
+	}
+	if (priv->guard) {
+		g_object_unref(priv->guard);
+		priv->guard = NULL;
+	}
+	G_OBJECT_CLASS(log4g_log_manager_parent_class)->dispose(base);
 }
 
 static void
 finalize(GObject *base)
 {
-    g_atomic_pointer_set(&singleton, NULL);
-    G_OBJECT_CLASS(log4g_log_manager_parent_class)->finalize(base);
+	g_atomic_pointer_set(&singleton, NULL);
+	G_OBJECT_CLASS(log4g_log_manager_parent_class)->finalize(base);
 }
 
 static void
 log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 {
-    /* initialize GObjectClass */
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    gobject_class->constructor = constructor;
-    gobject_class->dispose = dispose;
-    gobject_class->finalize = finalize;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+	/* initialize GObjectClass */
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	object_class->constructor = constructor;
+	object_class->dispose = dispose;
+	object_class->finalize = finalize;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**
@@ -135,11 +140,11 @@ log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 static Log4gLogManager *
 log4g_log_manager_get_instance(void)
 {
-    Log4gLogManager *self = g_atomic_pointer_get(&singleton);
-    if (!self) {
-        return g_object_new(LOG4G_TYPE_LOG_MANAGER, NULL);
-    }
-    return self;
+	Log4gLogManager *self = g_atomic_pointer_get(&singleton);
+	if (!self) {
+		return g_object_new(LOG4G_TYPE_LOG_MANAGER, NULL);
+	}
+	return self;
 }
 
 /**
@@ -156,10 +161,10 @@ log4g_log_manager_get_instance(void)
 void
 log4g_log_manager_remove_instance(void)
 {
-    Log4gLogManager *self = g_atomic_pointer_get(&singleton);
-    if (self) {
-        g_object_unref(self);
-    }
+	Log4gLogManager *self = g_atomic_pointer_get(&singleton);
+	if (self) {
+		g_object_unref(self);
+	}
 }
 
 /**
@@ -174,31 +179,32 @@ log4g_log_manager_remove_instance(void)
  */
 void
 log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
-        GObject *guard)
+		GObject *guard)
 {
-    g_return_if_fail(selector);
-    Log4gLogManager *self = log4g_log_manager_get_instance();
-    if (!self) {
-        return;
-    }
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (priv->guard && (guard != priv->guard)) {
-        log4g_log_error(Q_("attempted to reset the Log4gRepositorySelector "
-                "without possessing the guard"));
-        return;
-    }
-    if (priv->guard) {
-        g_object_unref(priv->guard);
-    }
-    if (guard) {
-        g_object_ref(guard);
-    }
-    priv->guard = guard;
-    if (priv->selector) {
-        g_object_unref(priv->selector);
-    }
-    g_object_ref(selector);
-    priv->selector = selector;
+	g_return_if_fail(selector);
+	Log4gLogManager *self = log4g_log_manager_get_instance();
+	if (!self) {
+		return;
+	}
+	struct Private *priv = GET_PRIVATE(self);
+	if (priv->guard && (guard != priv->guard)) {
+		log4g_log_error(Q_("attempted to reset the "
+					"Log4gRepositorySelector without "
+					"possessing the guard"));
+		return;
+	}
+	if (priv->guard) {
+		g_object_unref(priv->guard);
+	}
+	if (guard) {
+		g_object_ref(guard);
+	}
+	priv->guard = guard;
+	if (priv->selector) {
+		g_object_unref(priv->selector);
+	}
+	g_object_ref(selector);
+	priv->selector = selector;
 }
 
 /**
@@ -214,12 +220,12 @@ log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
 Log4gLoggerRepository *
 log4g_log_manager_get_logger_repository(void)
 {
-    Log4gLogManager *self = log4g_log_manager_get_instance();
-    if (!self) {
-        return NULL;
-    }
-    return log4g_repository_selector_get_logger_repository(
-                GET_PRIVATE(self)->selector);
+	Log4gLogManager *self = log4g_log_manager_get_instance();
+	if (!self) {
+		return NULL;
+	}
+	return log4g_repository_selector_get_logger_repository(
+			GET_PRIVATE(self)->selector);
 }
 
 /**
@@ -233,12 +239,12 @@ log4g_log_manager_get_logger_repository(void)
 Log4gLogger *
 log4g_log_manager_get_root_logger(void)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return NULL;
-    }
-    return log4g_logger_repository_get_root_logger(repository);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return NULL;
+	}
+	return log4g_logger_repository_get_root_logger(repository);
 }
 
 /**
@@ -255,12 +261,12 @@ log4g_log_manager_get_root_logger(void)
 Log4gLogger *
 log4g_log_manager_get_logger(const gchar *name)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return NULL;
-    }
-    return log4g_logger_repository_get_logger(repository, name);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return NULL;
+	}
+	return log4g_logger_repository_get_logger(repository, name);
 }
 
 /**
@@ -279,15 +285,15 @@ log4g_log_manager_get_logger(const gchar *name)
  */
 Log4gLogger *
 log4g_log_manager_get_logger_factory(const gchar *name,
-        Log4gLoggerFactory *factory)
+		Log4gLoggerFactory *factory)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return NULL;
-    }
-    return
-        log4g_logger_repository_get_logger_factory(repository, name, factory);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return NULL;
+	}
+	return log4g_logger_repository_get_logger_factory(repository,
+			name, factory);
 }
 
 /**
@@ -304,12 +310,12 @@ log4g_log_manager_get_logger_factory(const gchar *name,
 Log4gLogger *
 log4g_log_manager_exists(const gchar *name)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return NULL;
-    }
-    return log4g_logger_repository_exists(repository, name);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return NULL;
+	}
+	return log4g_logger_repository_exists(repository, name);
 }
 
 /**
@@ -328,12 +334,12 @@ log4g_log_manager_exists(const gchar *name)
 const GArray *
 log4g_log_manager_get_current_loggers(void)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return NULL;
-    }
-    return log4g_logger_repository_get_current_loggers(repository);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return NULL;
+	}
+	return log4g_logger_repository_get_current_loggers(repository);
 }
 
 /**
@@ -346,12 +352,12 @@ log4g_log_manager_get_current_loggers(void)
 void
 log4g_log_manager_shutdown(void)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return;
-    }
-    log4g_logger_repository_shutdown(repository);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return;
+	}
+	log4g_logger_repository_shutdown(repository);
 }
 
 /**
@@ -364,10 +370,10 @@ log4g_log_manager_shutdown(void)
 void
 log4g_log_manager_reset_configuration(void)
 {
-    Log4gLoggerRepository *repository =
-        log4g_log_manager_get_logger_repository();
-    if (!repository) {
-        return;
-    }
-    log4g_logger_repository_reset_configuration(repository);
+	Log4gLoggerRepository *repository =
+		log4g_log_manager_get_logger_repository();
+	if (!repository) {
+		return;
+	}
+	log4g_logger_repository_reset_configuration(repository);
 }

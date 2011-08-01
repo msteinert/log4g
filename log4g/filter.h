@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,27 +23,28 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_FILTER \
-    (log4g_filter_get_type())
+	(log4g_filter_get_type())
 
 #define LOG4G_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_FILTER, Log4gFilter))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_FILTER, \
+		Log4gFilter))
 
 #define LOG4G_IS_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_FILTER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_FILTER))
 
 #define LOG4G_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_FILTER, Log4gFilterClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_FILTER, Log4gFilterClass))
 
 #define LOG4G_IS_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_FILTER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_FILTER))
 
 #define LOG4G_FILTER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_FILTER, \
-            Log4gFilterClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_FILTER, \
+		Log4gFilterClass))
 
-typedef struct _Log4gFilter Log4gFilter;
+typedef struct Log4gFilter_ Log4gFilter;
 
-typedef struct _Log4gFilterClass Log4gFilterClass;
+typedef struct Log4gFilterClass_ Log4gFilterClass;
 
 /**
  * Log4gFilterDecision:
@@ -56,9 +57,9 @@ typedef struct _Log4gFilterClass Log4gFilterClass;
  *                     filters (if any) should not be consulted.
  */
 typedef enum {
-    LOG4G_FILTER_ACCEPT = 1,
-    LOG4G_FILTER_NEUTRAL = 0,
-    LOG4G_FILTER_DENY = -1
+	LOG4G_FILTER_ACCEPT = 1,
+	LOG4G_FILTER_NEUTRAL = 0,
+	LOG4G_FILTER_DENY = -1
 } Log4gFilterDecision;
 
 /**
@@ -67,9 +68,10 @@ typedef enum {
  * The <structname>Log4gFilter</structname> structure does not have any
  * public members.
  */
-struct _Log4gFilter {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gFilter_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -105,12 +107,12 @@ typedef void
  * @decide: Implements the filter decision.
  * @activate_options: Activate all options set for this filter.
  */
-struct _Log4gFilterClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    /*< public >*/
-    Log4gFilterDecide decide;
-    Log4gFilterActivateOptions activate_options;
+struct Log4gFilterClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	/*< public >*/
+	Log4gFilterDecide decide;
+	Log4gFilterActivateOptions activate_options;
 };
 
 GType

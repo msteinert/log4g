@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 
 #ifdef LOG4G_LOG_DOMAIN
 /**
- * _log4g_get_logger:
+ * log4g_get_logger_:
  * @name: The name of the logger to retrieve.
  *
  * Retrieve the logger for the defined domain.
@@ -44,12 +44,12 @@ G_BEGIN_DECLS
  * Returns: A logger instance.
  * Since: 0.1
  */
-#define _log4g_get_logger(name) \
-    log4g_logger_get_logger(name)
+#define log4g_get_logger_(name) \
+	log4g_logger_get_logger(name)
 #else /* LOG4G_LOG_DOMAIN */
 #define LOG4G_LOG_DOMAIN ("")
 /**
- * _log4g_get_logger:
+ * log4g_get_logger_:
  * @name: Unused.
  *
  * Retrieve a named logger or the root logger.
@@ -61,8 +61,8 @@ G_BEGIN_DECLS
  * Returns: The root logger.
  * Since: 0.1
  */
-#define _log4g_get_logger(name) \
-    log4g_logger_get_root_logger()
+#define log4g_get_logger_(name) \
+	log4g_logger_get_root_logger()
 #endif /* LOG4G_LOG_DOMAIN */
 
 void
@@ -89,7 +89,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_get_logger(name) \
-    log4g_logger_get_logger(name)
+	log4g_logger_get_logger(name)
 
 /**
  * log4g_get_root_logger:
@@ -102,7 +102,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_get_root_logger() \
-    log4g_logger_get_root_logger()
+	log4g_logger_get_root_logger()
 
 /**
  * log4g_assert:
@@ -118,13 +118,14 @@ log4g_get_option_group(void);
  * log4g_assert((pointer != NULL), "%s: pointer is NULL!", "ERROR");
  * ]|
  *
- * @See: log4g_logger_assert(), _log4g_logger_assert()
+ * @See: log4g_logger_assert(), log4g_logger_assert_()
  *
  * Since: 0.1
  */
 #define log4g_assert(assertion, format, args...) \
-    _log4g_logger_assert(_log4g_get_logger(LOG4G_LOG_DOMAIN), (assertion), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_assert_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			(assertion), G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_logger_assert:
@@ -142,13 +143,13 @@ log4g_get_option_group(void);
  *     (NULL != pointer), "%s: pointer is NULL!", "ERROR");
  * ]|
  *
- * @See: log4g_assert(), _log4g_logger_assert()
+ * @See: log4g_assert(), log4g_logger_assert_()
  *
  * Since: 0.1
  */
 #define log4g_logger_assert(logger, assertion, format, args...) \
-    _log4g_logger_trace(logger, (assertion), G_STRFUNC, __FILE__, \
-            G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_trace_(logger, (assertion), G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_trace_enabled:
@@ -177,7 +178,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_trace_enabled() \
-    log4g_logger_is_trace_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_trace_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_trace:
@@ -192,13 +193,14 @@ log4g_get_option_group(void);
  * log4g_trace("example %s message", "TRACE");
  * ]|
  *
- * @See: log4g_logger_trace(), _log4g_logger_trace()
+ * @See: log4g_logger_trace(), log4g_logger_trace_()
  *
  * Since: 0.1
  */
 #define log4g_trace(format, args...) \
-    _log4g_logger_trace(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_trace_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_trace:
@@ -215,13 +217,13 @@ log4g_get_option_group(void);
  *     "example %s message", "TRACE");
  * ]|
  *
- * @See: log4g_trace(), _log4g_logger_trace()
+ * @See: log4g_trace(), log4g_logger_trace_()
  *
  * Since: 0.1
  */
 #define log4g_logger_trace(logger, format, args...) \
-    _log4g_logger_trace(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_trace_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_debug_enabled:
@@ -235,7 +237,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_debug_enabled() \
-    log4g_logger_is_debug_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_debug_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_debug:
@@ -250,13 +252,14 @@ log4g_get_option_group(void);
  * log4g_debug("example %s message", "DEBUG");
  * ]|
  *
- * @See: log4g_logger_debug(), _log4g_logger_debug()
+ * @See: log4g_logger_debug(), log4g_logger_debug_()
  *
  * Since: 0.1
  */
 #define log4g_debug(format, args...) \
-    _log4g_logger_debug(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_debug_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_debug:
@@ -273,13 +276,13 @@ log4g_get_option_group(void);
  *     "example %s message", "DEBUG");
  * ]|
  *
- * @See: log4g_debug(), _log4g_logger_debug()
+ * @See: log4g_debug(), log4g_logger_debug_()
  *
  * Since: 0.1
  */
 #define log4g_logger_debug(logger, format, args...) \
-    _log4g_logger_debug(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_debug_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_info_enabled:
@@ -293,7 +296,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_info_enabled() \
-    log4g_logger_is_info_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_info_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_info:
@@ -308,13 +311,14 @@ log4g_get_option_group(void);
  * log4g_info("example %s message", "INFO");
  * ]|
  *
- * @See: log4g_logger_info(), _log4g_logger_info()
+ * @See: log4g_logger_info(), log4g_logger_info_()
  *
  * Since: 0.1
  */
 #define log4g_info(format, args...) \
-    _log4g_logger_info(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_info_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_info:
@@ -331,13 +335,13 @@ log4g_get_option_group(void);
  *     "example %s message", "INFO");
  * ]|
  *
- * @See: log4g_info(), _log4g_logger_info()
+ * @See: log4g_info(), log4g_logger_info_()
  *
  * Since: 0.1
  */
 #define log4g_logger_info(logger, format, args...) \
-    _log4g_logger_info(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_info_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_warn_enabled:
@@ -351,7 +355,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_warn_enabled() \
-    log4g_logger_is_warn_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_warn_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_warn:
@@ -366,13 +370,14 @@ log4g_get_option_group(void);
  * log4g_warn("example %s message", "WARN");
  * ]|
  *
- * @See: log4g_logger_warn(), _log4g_logger_warn()
+ * @See: log4g_logger_warn(), log4g_logger_warn_()
  *
  * Since: 0.1
  */
 #define log4g_warn(format, args...) \
-    _log4g_logger_warn(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_warn_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_warn:
@@ -389,13 +394,13 @@ log4g_get_option_group(void);
  *     "example %s message", "WARN");
  * ]|
  *
- * @See: log4g_warn(), _log4g_logger_warn()
+ * @See: log4g_warn(), log4g_logger_warn_()
  *
  * Since: 0.1
  */
 #define log4g_logger_warn(logger, format, args...) \
-    _log4g_logger_warn(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_warn_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_error_enabled:
@@ -409,7 +414,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_error_enabled() \
-    log4g_logger_is_error_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_error_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_error:
@@ -424,13 +429,14 @@ log4g_get_option_group(void);
  * log4g_error("example %s message", "ERROR");
  * ]|
  *
- * @See: log4g_logger_error(), _log4g_logger_error()
+ * @See: log4g_logger_error(), log4g_logger_error_()
  *
  * Since: 0.1
  */
 #define log4g_error(format, args...) \
-    _log4g_logger_error(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_error_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_error:
@@ -447,13 +453,13 @@ log4g_get_option_group(void);
  *     "example %s message", "ERROR");
  * ]|
  *
- * @See: log4g_error(), _log4g_logger_error()
+ * @See: log4g_error(), log4g_logger_error_()
  *
  * Since: 0.1
  */
 #define log4g_logger_error(logger, format, args...) \
-    _log4g_logger_error(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_error_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 /**
  * log4g_is_fatal_enabled:
@@ -467,7 +473,7 @@ log4g_get_option_group(void);
  * Since: 0.1
  */
 #define log4g_is_fatal_enabled() \
-    log4g_logger_is_fatal_enabled(_log4g_get_logger(LOG4G_LOG_DOMAIN))
+	log4g_logger_is_fatal_enabled(log4g_get_logger_(LOG4G_LOG_DOMAIN))
 
 /**
  * log4g_fatal:
@@ -482,13 +488,14 @@ log4g_get_option_group(void);
  * log4g_fatal("example %s message", "FATAL");
  * ]|
  *
- * @See: log4g_logger_fatal(), _log4g_logger_fatal()
+ * @See: log4g_logger_fatal(), log4g_logger_fatal_()
  *
  * Since: 0.1
  */
 #define log4g_fatal(format, args...) \
-    _log4g_logger_fatal(_log4g_get_logger(LOG4G_LOG_DOMAIN), \
-            G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), format, ##args)
+	log4g_logger_fatal_(log4g_get_logger_(LOG4G_LOG_DOMAIN), \
+			G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
+			format, ##args)
 
 /**
  * log4g_logger_fatal:
@@ -505,13 +512,13 @@ log4g_get_option_group(void);
  *     "example %s message", "FATAL");
  * ]|
  *
- * @See: log4g_fatal(), _log4g_logger_fatal()
+ * @See: log4g_fatal(), log4g_logger_fatal_()
  *
  * Since: 0.1
  */
 #define log4g_logger_fatal(logger, format, args...) \
-    _log4g_logger_fatal(logger, G_STRFUNC, __FILE__, G_STRINGIFY(__LINE__), \
-            format, ##args)
+	log4g_logger_fatal_(logger, G_STRFUNC, __FILE__, \
+			G_STRINGIFY(__LINE__), format, ##args)
 
 G_END_DECLS
 

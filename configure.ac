@@ -15,26 +15,29 @@ m4_define([log4g_micro_version], [2])
 m4_define([log4g_interface_age], [0])
 # Initialize autoconf & automake
 AC_INIT([Log4g], [log4g_major_version.log4g_minor_version.log4g_micro_version],
-    [http://github.com/msteinert/log4g/issues/], [log4g],
-    [http://msteinert.github.com/log4g/])
+	[http://github.com/msteinert/log4g/issues/], [log4g],
+	[http://msteinert.github.com/log4g/])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wno-portability])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR([log4g/log4g.h])
 # Initialize Libtool
 LT_PREREQ([2.2])
-LT_INIT
-AC_ENABLE_SHARED
-AC_DISABLE_STATIC
+LT_INIT([disable-static])
 # Checks for programs
-m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99], [AC_PROG_CC])
+m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99],
+	[AC_PROG_CC
+	AX_TRY_CFLAGS([-std=c99], [AX_FLAGS([-std=c99])])])
+PKG_PROG_PKG_CONFIG([0.17])
 # Glib/Gtk stuff
 GOBJECT_INTROSPECTION_CHECK([0.6.8])
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 # Enable compiler flags
-LOG4G_TRY_CC_FLAGS([-Wall], [LOG4G_CFLAGS([-Wall])])
-LOG4G_TRY_CC_FLAGS([-Wstrict-prototypes], [LOG4G_CFLAGS([-Wstrict-prototypes])])
-LOG4G_TRY_CC_FLAGS([-fno-common], [LOG4G_CFLAGS([-fno-common])])
+AX_TRY_CFLAGS([-Wall], [AX_CFLAGS([-Wall])])
+AX_TRY_CFLAGS([-Wstrict-prototypes], [AX_CFLAGS([-Wstrict-prototypes])])
+AX_TRY_CFLAGS([-Wcast-align], [AX_CFLAGS([-Wcast-align])])
+AX_TRY_CFLAGS([-fno-common], [AX_CFLAGS([-fno-common])])
+AX_TRY_CFLAGS([-g], [AX_CFLAGS([-g])])
 # Pkg-config versioning
 log4g_series_major=1
 log4g_series_minor=0
@@ -51,8 +54,6 @@ AC_SUBST([LT_REVISION])
 AC_SUBST([LT_AGE])
 # Checks for dependencies
 log4g_glib_minimum_version=2.24
-log4g_libxml_minimum_version=2.6
-PKG_PROG_PKG_CONFIG([0.17])
 log4g_glib_version="glib-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_glib_version])
 PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
@@ -65,57 +66,62 @@ PKG_CHECK_MODULES([GOBJECT], [$log4g_gobject_version])
 log4g_gthread_version="gthread-2.0 >= $log4g_glib_minimum_version"
 AC_SUBST([log4g_gthread_version])
 PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
+log4g_libxml_minimum_version=2.6
 log4g_libxml_version="libxml-2.0 >= $log4g_libxml_minimum_version"
 AC_SUBST([log4g_libxml_version])
 PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
+# Check for glib-genmarshal
+AC_ARG_VAR([GLIB_GENMARSHAL], [path to the glib-genmarshal(1) utility])
+AS_IF([test "x$GLIB_GENMARSHAL" = "x"],
+	[PKG_CHECK_EXISTS([$log4g_glib_version],
+		[GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal $log4g_glib_version`])])
 # Appenders option
 AC_ARG_WITH(appenders,
-    [AC_HELP_STRING([--with-appenders],
-        [enable core appenders @<:@default=yes@:>@])],,
-    [withval=yes])
-AC_CACHE_CHECK([for core appender support], [log4g_cv_with_appenders],
-        [log4g_cv_with_appenders="$withval"])
-if test "x$log4g_cv_with_appenders" != "xno"; then
-    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES appenders"
-fi
+	[AC_HELP_STRING([--with-appenders],
+		[enable core appenders @<:@default=yes@:>@])],,
+	[with_appenders=yes])
+AS_IF([test "x$with_appenders" != "xno"],
+	[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES appenders"
+	AC_DEFINE([LOG4G_WITH_APPENDERS], [1],
+		[Define to 1 if appenders are enabled])])
 AM_CONDITIONAL([LOG4G_WITH_APPENDERS],
-    [test "x$log4g_cv_with_appenders" = "xyes"])
+	[test "x$with_appenders" != "xno"])
 # Filters option
 AC_ARG_WITH(filters,
-    [AC_HELP_STRING([--with-filters],
-        [enable core filters @<:@default=yes@:>@])],,
-    [withval=yes])
-AC_CACHE_CHECK([for core filter support], [log4g_cv_with_filters],
-        [log4g_cv_with_filters="$withval"])
-if test "x$log4g_cv_with_filters" != "xno"; then
-    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES filters"
-fi
-AM_CONDITIONAL([LOG4G_WITH_FILTERS], [test "x$log4g_cv_with_filters" = "xyes"])
+	[AC_HELP_STRING([--with-filters],
+		[enable core filters @<:@default=yes@:>@])],,
+	[with_filters=yes])
+AS_IF([test "x$with_filters" != "xno"],
+	[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES filters"
+	AC_DEFINE([LOG4G_WITH_FILTERS], [1],
+		[Define to 1 if filters are enabled])])
+AM_CONDITIONAL([LOG4G_WITH_FILTERS],
+	[test "x$with_filters" != "xno"])
 # Layouts option
 AC_ARG_WITH(layouts,
-    [AC_HELP_STRING([--with-layouts],
-        [enable core layouts @<:@default=yes@:>@])],,
-    [withval=yes])
-AC_CACHE_CHECK([for core layout support], [log4g_cv_with_layouts],
-        [log4g_cv_with_layouts="$withval"])
-if test "x$log4g_cv_with_layouts" != "xno"; then
-    LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES layouts"
-fi
-AM_CONDITIONAL([LOG4G_WITH_LAYOUTS], [test "x$log4g_cv_with_layouts" = "xyes"])
+	[AC_HELP_STRING([--with-layouts],
+		[enable core layouts @<:@default=yes@:>@])],,
+	[with_layouts=yes])
+AS_IF([test "x$with_layouts" != "xno"],
+	[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES layouts"
+	AC_DEFINE([LOG4G_WITH_LAYOUTS], [1],
+		[Define to 1 if Layouts are enabled])])
+AM_CONDITIONAL([LOG4G_WITH_LAYOUTS],
+	[test "x$with_layouts" != "xno"])
 # CouchDB option
 AC_ARG_WITH(couchdb,
-    [AC_HELP_STRING([--with-couchdb],
-        [enable CouchDB appender & layout @<:@default=auto@:>@])],,
-    [withval=auto])
-AC_CACHE_CHECK([for CouchDB support], [log4g_cv_with_couchdb],
-        [log4g_cv_with_couchdb="$withval"])
-if test "x$log4g_cv_with_couchdb" != "xno"; then
-    PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"],
-        [LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES couchdb"
-        log4g_with_couchdb=yes],
-        [log4g_with_couchdb=no])
-fi
-AM_CONDITIONAL([LOG4G_WITH_COUCHDB], [test "x$log4g_with_couchdb" = "xyes"])
+	[AC_HELP_STRING([--with-couchdb],
+		[enable CouchDB appender & layout @<:@default=auto@:>@])],,
+	[with_couchdb=auto])
+AS_IF([test "x$with_couchdb" != "xno"],
+	[PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"],
+		[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES couchdb"
+		AC_DEFINE([LOG4G_WITH_COUCHDB], [1],
+			[Define to 1 if Couchdb is enabled])
+		with_couchdb=yes],
+		[with_couchdb=no])])
+AM_CONDITIONAL([LOG4G_WITH_COUCHDB],
+	[test "x$with_couchdb" != "xno"])
 # Configure module options
 AC_SUBST([LOG4G_CONFIGURED_MODULES])
 # Configure module directory
@@ -123,11 +129,11 @@ moduledir="\$(libdir)/log4g-$log4g_series"
 AC_SUBST(moduledir)
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
-    [Always defined to indicate that i18n is enabled])
+	[Always defined to indicate that i18n is enabled])
 AC_DEFINE_UNQUOTED([G_LOG_DOMAIN], ["$PACKAGE_TARNAME"],
-    [The log domain for this project])
+	[The log domain for this project])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$PACKAGE_TARNAME"],
-    [The i18n domain for this project])
+	[The i18n domain for this project])
 AC_CHECK_FUNCS([bind_textdomain_codeset])
 AH_BOTTOM(
 [/* Include GLib i18n header file */
@@ -139,18 +145,18 @@ AH_BOTTOM(
 # Output files
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
-    docs/Makefile
-    docs/reference/Makefile
-    docs/reference/log4g/Makefile
-    log4g/Makefile
-    Makefile
-    modules/Makefile
-    modules/appenders/Makefile
-    modules/couchdb/Makefile
-    modules/filters/Makefile
-    modules/layouts/Makefile
-    resources/log4g.pc
-    tests/Makefile
+	docs/Makefile
+	docs/reference/Makefile
+	docs/reference/log4g/Makefile
+	log4g/Makefile
+	Makefile
+	modules/Makefile
+	modules/appenders/Makefile
+	modules/couchdb/Makefile
+	modules/filters/Makefile
+	modules/layouts/Makefile
+	resources/log4g.pc
+	tests/Makefile
 ])
 AC_OUTPUT
 AC_MSG_RESULT([

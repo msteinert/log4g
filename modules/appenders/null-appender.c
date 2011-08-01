@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -28,7 +28,7 @@
 #include "appender/null-appender.h"
 
 G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
-        LOG4G_TYPE_APPENDER)
+		LOG4G_TYPE_APPENDER)
 
 /* The single instance of this class */
 static GObject *singleton = NULL;
@@ -36,69 +36,69 @@ static GObject *singleton = NULL;
 static void
 log4g_null_appender_init(Log4gNullAppender *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-    GObject *self = g_atomic_pointer_get(&singleton);
-    if (!self) {
-        self = G_OBJECT_CLASS(log4g_null_appender_parent_class)->
-            constructor(type, n, params);
-        g_atomic_pointer_set(&singleton, self);
-    } else {
-        g_object_ref(self);
-    }
-    return self;
+	GObject *self = g_atomic_pointer_get(&singleton);
+	if (!self) {
+		self = G_OBJECT_CLASS(log4g_null_appender_parent_class)->
+			constructor(type, n, params);
+		g_atomic_pointer_set(&singleton, self);
+	} else {
+		g_object_ref(self);
+	}
+	return self;
 }
 
 static void
 append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static void
 do_append(Log4gAppender *base, Log4gLoggingEvent *event)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static void
-_close(Log4gAppender *base)
+close_(Log4gAppender *base)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static gboolean
 requires_layout(Log4gAppender *self)
 {
-    return FALSE;
+	return FALSE;
 }
 
 static void
 log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 {
-    /* initialize GObjectClass */
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    gobject_class->constructor = constructor;
-    /* initialize Log4gAppenderClass */
-    Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
-    appender_class->append = append;
-    appender_class->do_append = do_append;
-    appender_class->requires_layout = requires_layout;
-    appender_class->close = _close;
+	/* initialize GObjectClass */
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	object_class->constructor = constructor;
+	/* initialize Log4gAppenderClass */
+	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
+	appender_class->append = append;
+	appender_class->do_append = do_append;
+	appender_class->requires_layout = requires_layout;
+	appender_class->close = close_;
 }
 
 static void
 log4g_null_appender_class_finalize(Log4gNullAppenderClass *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 void
 log4g_null_appender_register(GTypeModule *module)
 {
-    log4g_null_appender_register_type(module);
+	log4g_null_appender_register_type(module);
 }

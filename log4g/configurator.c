@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -33,7 +33,7 @@ G_DEFINE_INTERFACE(Log4gConfigurator, log4g_configurator, G_TYPE_INVALID)
 static void
 log4g_configurator_default_init(Log4gConfiguratorInterface *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -51,10 +51,10 @@ log4g_configurator_default_init(Log4gConfiguratorInterface *klass)
  */
 gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *url,
-        Log4gLoggerRepository *repository, GError **error)
+		Log4gLoggerRepository *repository, GError **error)
 {
-    g_return_val_if_fail(LOG4G_IS_CONFIGURATOR(self), FALSE);
-    Log4gConfiguratorInterface *interface =
-        LOG4G_CONFIGURATOR_GET_INTERFACE(self);
-    return interface->do_configure(self, url, repository, error);
+	g_return_val_if_fail(LOG4G_IS_CONFIGURATOR(self), FALSE);
+	Log4gConfiguratorInterface *interface =
+		LOG4G_CONFIGURATOR_GET_INTERFACE(self);
+	return interface->do_configure(self, url, repository, error);
 }

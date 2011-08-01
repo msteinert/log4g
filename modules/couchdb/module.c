@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -25,7 +25,7 @@
 void
 log4g_module_load(GTypeModule *base)
 {
-    g_type_module_set_name(base, "couchdb");
-    log4g_couchdb_appender_register(base);
-    log4g_couchdb_layout_register(base);
+	g_type_module_set_name(base, "couchdb");
+	log4g_couchdb_appender_register(base);
+	log4g_couchdb_layout_register(base);
 }

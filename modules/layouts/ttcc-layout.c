@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -63,136 +63,139 @@
 #endif
 #include "layout/ttcc-layout.h"
 
-enum _properties_t {
-    PROP_O = 0,
-    PROP_THREAD_PRINTING,
-    PROP_CATEGORY_PREFIXING,
-    PROP_CONTEXT_PRINTING,
-    PROP_MAX
-};
-
 G_DEFINE_DYNAMIC_TYPE(Log4gTTCCLayout, log4g_ttcc_layout,
-        LOG4G_TYPE_DATE_LAYOUT)
+		LOG4G_TYPE_DATE_LAYOUT)
+
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_TTCC_LAYOUT, \
+		struct Private))
 
 #define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_TTCC_LAYOUT, \
-            struct Log4gPrivate))
+	((struct Private *)((Log4gTTCCLayout *)instance)->priv)
 
-struct Log4gPrivate {
-    gboolean thread;
-    gboolean category;
-    gboolean context;
-    GString *string;
+struct Private {
+	gboolean thread;
+	gboolean category;
+	gboolean context;
+	GString *string;
 };
 
 static void
 log4g_ttcc_layout_init(Log4gTTCCLayout *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->thread = TRUE;
-    priv->category = TRUE;
-    priv->context = TRUE;
-    priv->string = g_string_sized_new(256);
+	self->priv = ASSIGN_PRIVATE(self);
+	struct Private *priv = GET_PRIVATE(self);
+	priv->string = g_string_sized_new(256);
 }
 
 static void
 finalize(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_string_free(priv->string, TRUE);
-        priv->string = NULL;
-    }
-    G_OBJECT_CLASS(log4g_ttcc_layout_parent_class)->finalize(base);
+	struct Private *priv = GET_PRIVATE(base);
+	if (priv->string) {
+		g_string_free(priv->string, TRUE);
+	}
+	G_OBJECT_CLASS(log4g_ttcc_layout_parent_class)->finalize(base);
 }
+
+enum Properties {
+	PROP_O = 0,
+	PROP_THREAD_PRINTING,
+	PROP_CATEGORY_PREFIXING,
+	PROP_CONTEXT_PRINTING,
+	PROP_MAX
+};
 
 static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    switch (id) {
-    case PROP_THREAD_PRINTING:
-        priv->thread = g_value_get_boolean(value);
-        break;
-    case PROP_CATEGORY_PREFIXING:
-        priv->category = g_value_get_boolean(value);
-        break;
-    case PROP_CONTEXT_PRINTING:
-        priv->context = g_value_get_boolean(value);
-        break;
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
-        break;
-    }
+	struct Private *priv = GET_PRIVATE(base);
+	switch (id) {
+	case PROP_THREAD_PRINTING:
+		priv->thread = g_value_get_boolean(value);
+		break;
+	case PROP_CATEGORY_PREFIXING:
+		priv->category = g_value_get_boolean(value);
+		break;
+	case PROP_CONTEXT_PRINTING:
+		priv->context = g_value_get_boolean(value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
+		break;
+	}
 }
 
 static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_string_set_size(priv->string, 0);
-    log4g_date_layout_date_format(base, priv->string, event);
-    g_string_append_c(priv->string, ' ');
-    if (priv->thread) {
-        g_string_append_printf(priv->string, "[%s] ",
-                log4g_logging_event_get_thread_name(event));
-    }
-    g_string_append(priv->string,
-            log4g_level_to_string(log4g_logging_event_get_level(event)));
-    g_string_append_c(priv->string, ' ');
-    if (priv->category) {
-        g_string_append(priv->string,
-                log4g_logging_event_get_logger_name(event));
-        g_string_append_c(priv->string, ' ');
-    }
-    if (priv->context) {
-        const gchar *ndc = log4g_logging_event_get_ndc(event);
-        if (ndc) {
-            g_string_append(priv->string, ndc);
-            g_string_append_c(priv->string, ' ');
-        }
-    }
-    g_string_append(priv->string, "- ");
-    g_string_append(priv->string,
-            log4g_logging_event_get_rendered_message(event));
-    g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-    return priv->string->str;
+	struct Private *priv = GET_PRIVATE(base);
+	g_string_set_size(priv->string, 0);
+	log4g_date_layout_date_format(base, priv->string, event);
+	g_string_append_c(priv->string, ' ');
+	if (priv->thread) {
+		g_string_append_printf(priv->string, "[%s] ",
+				log4g_logging_event_get_thread_name(event));
+	}
+	g_string_append(priv->string,
+			log4g_level_to_string(log4g_logging_event_get_level(
+					event)));
+	g_string_append_c(priv->string, ' ');
+	if (priv->category) {
+		g_string_append(priv->string,
+				log4g_logging_event_get_logger_name(event));
+		g_string_append_c(priv->string, ' ');
+	}
+	if (priv->context) {
+		const gchar *ndc = log4g_logging_event_get_ndc(event);
+		if (ndc) {
+			g_string_append(priv->string, ndc);
+			g_string_append_c(priv->string, ' ');
+		}
+	}
+	g_string_append(priv->string, "- ");
+	g_string_append(priv->string,
+			log4g_logging_event_get_rendered_message(event));
+	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	return priv->string->str;
 }
 
 static void
 log4g_ttcc_layout_class_init(Log4gTTCCLayoutClass *klass)
 {
-    /* initialize GObject class */
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    gobject_class->finalize = finalize;
-    gobject_class->set_property = set_property;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gLayout class */
-    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
-    layout_class->format = format;
-    /* install properties */
-    g_object_class_install_property(gobject_class, PROP_THREAD_PRINTING,
-            g_param_spec_boolean("thread-printing", Q_("Thread Printing"),
-                    Q_("Toggle thread printing"), TRUE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_CATEGORY_PREFIXING,
-            g_param_spec_boolean("category-prefixing",
-                    Q_("Category Prefixing"), Q_("Toggle category prefixing"),
-                    TRUE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_CONTEXT_PRINTING,
-            g_param_spec_boolean("context-printing", Q_("Context Printing"),
-                    Q_("Toggle context printing"), TRUE, G_PARAM_WRITABLE));
+	/* initialize GObject class */
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	object_class->finalize = finalize;
+	object_class->set_property = set_property;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
+	/* initialize Log4gLayout class */
+	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
+	layout_class->format = format;
+	/* install properties */
+	g_object_class_install_property(object_class, PROP_THREAD_PRINTING,
+		g_param_spec_boolean("thread-printing", Q_("Thread Printing"),
+			Q_("Toggle thread printing"), TRUE, G_PARAM_WRITABLE));
+	g_object_class_install_property(object_class, PROP_CATEGORY_PREFIXING,
+		g_param_spec_boolean("category-prefixing",
+			Q_("Category Prefixing"),
+			Q_("Toggle category prefixing"),
+			TRUE, G_PARAM_WRITABLE));
+	g_object_class_install_property(object_class, PROP_CONTEXT_PRINTING,
+		g_param_spec_boolean("context-printing",
+			Q_("Context Printing"), Q_("Toggle context printing"),
+			TRUE, G_PARAM_WRITABLE));
 }
 
 static void
 log4g_ttcc_layout_class_finalize(Log4gTTCCLayoutClass *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 void
 log4g_ttcc_layout_register(GTypeModule *module)
 {
-    log4g_date_layout_register(module);
-    log4g_ttcc_layout_register_type(module);
+	log4g_date_layout_register(module);
+	log4g_ttcc_layout_register_type(module);
 }

@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -28,60 +28,62 @@
 #endif
 #include "log4g/helpers/default-repository-selector.h"
 
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, \
-            LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, struct Log4gPrivate))
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, \
+		LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, struct Private))
 
-struct Log4gPrivate {
-    Log4gLoggerRepository *repository;
+#define GET_PRIVATE(instance) \
+	((struct Private *)((Log4gDefaultRepositorySelector *)instance)->priv)
+
+struct Private {
+	Log4gLoggerRepository *repository;
 };
 
 static Log4gLoggerRepository *
 get_logger_repository(Log4gRepositorySelector *base)
 {
-    return GET_PRIVATE(base)->repository;
+	return GET_PRIVATE(base)->repository;
 }
 
 static void
 repository_selector_init(Log4gRepositorySelectorInterface *interface,
-        gpointer data)
+		gpointer data)
 {
-    interface->get_logger_repository = get_logger_repository;
+	interface->get_logger_repository = get_logger_repository;
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gDefaultRepositorySelector,
-        log4g_default_repository_selector, G_TYPE_OBJECT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_REPOSITORY_SELECTOR,
-                repository_selector_init))
+		log4g_default_repository_selector, G_TYPE_OBJECT,
+		G_IMPLEMENT_INTERFACE(LOG4G_TYPE_REPOSITORY_SELECTOR,
+			repository_selector_init))
 
 static void
 log4g_default_repository_selector_init(Log4gDefaultRepositorySelector *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->repository = NULL;
+	self->priv = ASSIGN_PRIVATE(self);
 }
 
 static void
 dispose(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->repository) {
-        g_object_unref(priv->repository);
-        priv->repository = NULL;
-    }
-    G_OBJECT_CLASS(log4g_default_repository_selector_parent_class)->
-        dispose(base);
+	struct Private *priv = GET_PRIVATE(base);
+	if (priv->repository) {
+		g_object_unref(priv->repository);
+		priv->repository = NULL;
+	}
+	G_OBJECT_CLASS(log4g_default_repository_selector_parent_class)->
+		dispose(base);
 }
 
 static void
 log4g_default_repository_selector_class_init(
-        Log4gDefaultRepositorySelectorClass *klass)
+		Log4gDefaultRepositorySelectorClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    /* initialize GObjectClass */
-    gobject_class->dispose = dispose;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	/* initialize GObjectClass */
+	object_class->dispose = dispose;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**
@@ -96,12 +98,12 @@ log4g_default_repository_selector_class_init(
 Log4gRepositorySelector *
 log4g_default_repository_selector_new(Log4gLoggerRepository *repository)
 {
-    Log4gDefaultRepositorySelector *self =
-        g_object_new(LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, NULL);
-    if (!self) {
-        return NULL;
-    }
-    g_object_ref(repository);
-    GET_PRIVATE(self)->repository = repository;
-    return LOG4G_REPOSITORY_SELECTOR(self);
+	Log4gDefaultRepositorySelector *self =
+		g_object_new(LOG4G_TYPE_DEFAULT_REPOSITORY_SELECTOR, NULL);
+	if (!self) {
+		return NULL;
+	}
+	g_object_ref(repository);
+	GET_PRIVATE(self)->repository = repository;
+	return LOG4G_REPOSITORY_SELECTOR(self);
 }

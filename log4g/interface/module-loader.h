@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,22 +23,22 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_MODULE_LOADER \
-    (log4g_module_loader_get_type())
+	(log4g_module_loader_get_type())
 
 #define LOG4G_MODULE_LOADER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MODULE_LOADER, \
-            Log4gModuleLoader))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MODULE_LOADER, \
+		Log4gModuleLoader))
 
 #define LOG4G_IS_MODULE_LOADER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MODULE_LOADER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MODULE_LOADER))
 
 #define LOG4G_MODULE_LOADER_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), \
-            LOG4G_TYPE_MODULE_LOADER, Log4gModuleLoaderInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), \
+		LOG4G_TYPE_MODULE_LOADER, Log4gModuleLoaderInterface));
 
-typedef struct _Log4gModuleLoader Log4gModuleLoader;
+typedef struct Log4gModuleLoader_ Log4gModuleLoader;
 
-typedef struct _Log4gModuleLoaderInterface Log4gModuleLoaderInterface;
+typedef struct Log4gModuleLoaderInterface_ Log4gModuleLoaderInterface;
 
 /**
  * Log4gModuleLoaderLoadModules:
@@ -55,11 +55,11 @@ typedef void
  * Log4gModuleLoaderInterface:
  * @load_modules: Load external modules.
  */
-struct _Log4gModuleLoaderInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gModuleLoaderLoadModules load_modules;
+struct Log4gModuleLoaderInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gModuleLoaderLoadModules load_modules;
 };
 
 GType

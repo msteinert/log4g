@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,26 +23,27 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LEVEL \
-    (log4g_level_get_type())
+	(log4g_level_get_type())
 
 #define LOG4G_LEVEL(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LEVEL, Log4gLevel))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LEVEL, Log4gLevel))
 
 #define LOG4G_IS_LEVEL(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LEVEL))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LEVEL))
 
 #define LOG4G_LEVEL_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LEVEL, Log4gLevelClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LEVEL, Log4gLevelClass))
 
 #define LOG4G_IS_LEVEL_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LEVEL))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LEVEL))
 
 #define LOG4G_LEVEL_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LEVEL, Log4gLevelClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LEVEL, \
+		Log4gLevelClass))
 
-typedef struct _Log4gLevel Log4gLevel;
+typedef struct Log4gLevel_ Log4gLevel;
 
-typedef struct _Log4gLevelClass Log4gLevelClass;
+typedef struct Log4gLevelClass_ Log4gLevelClass;
 
 /**
  * Log4gLevelInt:
@@ -56,14 +57,14 @@ typedef struct _Log4gLevelClass Log4gLevelClass;
  * @LOG4G_LEVEL_OFF_INT: OFF level integer value
  */
 typedef enum {
-    LOG4G_LEVEL_ALL_INT = G_MININT,
-    LOG4G_LEVEL_TRACE_INT = 5000,
-    LOG4G_LEVEL_DEBUG_INT = 10000,
-    LOG4G_LEVEL_INFO_INT = 20000,
-    LOG4G_LEVEL_WARN_INT = 30000,
-    LOG4G_LEVEL_ERROR_INT = 40000,
-    LOG4G_LEVEL_FATAL_INT = 50000,
-    LOG4G_LEVEL_OFF_INT = G_MAXINT
+	LOG4G_LEVEL_ALL_INT = G_MININT,
+	LOG4G_LEVEL_TRACE_INT = 5000,
+	LOG4G_LEVEL_DEBUG_INT = 10000,
+	LOG4G_LEVEL_INFO_INT = 20000,
+	LOG4G_LEVEL_WARN_INT = 30000,
+	LOG4G_LEVEL_ERROR_INT = 40000,
+	LOG4G_LEVEL_FATAL_INT = 50000,
+	LOG4G_LEVEL_OFF_INT = G_MAXINT
 } Log4gLevelInt;
 
 /**
@@ -72,9 +73,10 @@ typedef enum {
  * The <structname>Log4gLevel</structname> structure does not have any public
  * members.
  */
-struct _Log4gLevel {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gLevel_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -144,22 +146,22 @@ typedef Log4gLevel *
  *         application to abort.
  * @OFF: Has the highest possible rank and is intended to turn off logging.
  */
-struct _Log4gLevelClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    /*< public >*/
-    Log4gLevelStringToLevel string_to_level;
-    Log4gLevelStringToLevelDefault string_to_level_default;
-    Log4gLevelIntToLevel int_to_level;
-    Log4gLevelIntToLevelDefault int_to_level_default;
-    Log4gLevel *ALL;
-    Log4gLevel *TRACE;
-    Log4gLevel *DEBUG;
-    Log4gLevel *INFO;
-    Log4gLevel *WARN;
-    Log4gLevel *ERROR;
-    Log4gLevel *FATAL;
-    Log4gLevel *OFF;
+struct Log4gLevelClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	/*< public >*/
+	Log4gLevelStringToLevel string_to_level;
+	Log4gLevelStringToLevelDefault string_to_level_default;
+	Log4gLevelIntToLevel int_to_level;
+	Log4gLevelIntToLevelDefault int_to_level_default;
+	Log4gLevel *ALL;
+	Log4gLevel *TRACE;
+	Log4gLevel *DEBUG;
+	Log4gLevel *INFO;
+	Log4gLevel *WARN;
+	Log4gLevel *ERROR;
+	Log4gLevel *FATAL;
+	Log4gLevel *OFF;
 };
 
 GType log4g_level_get_type(void) G_GNUC_CONST;

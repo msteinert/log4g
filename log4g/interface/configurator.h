@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,22 +23,22 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_CONFIGURATOR \
-    (log4g_configurator_get_type())
+	(log4g_configurator_get_type())
 
 #define LOG4G_CONFIGURATOR(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_CONFIGURATOR, \
-            Log4gConfigurator))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_CONFIGURATOR, \
+		Log4gConfigurator))
 
 #define LOG4G_IS_CONFIGURATOR(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_CONFIGURATOR))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_CONFIGURATOR))
 
 #define LOG4G_CONFIGURATOR_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_CONFIGURATOR, \
-            Log4gConfiguratorInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_CONFIGURATOR, \
+		Log4gConfiguratorInterface));
 
-typedef struct _Log4gConfigurator Log4gConfigurator;
+typedef struct Log4gConfigurator_ Log4gConfigurator;
 
-typedef struct _Log4gConfiguratorInterface Log4gConfiguratorInterface;
+typedef struct Log4gConfiguratorInterface_ Log4gConfiguratorInterface;
 
 /**
  * Log4gConfiguratorDoConfigure:
@@ -54,17 +54,17 @@ typedef struct _Log4gConfiguratorInterface Log4gConfiguratorInterface;
  */
 typedef gboolean
 (*Log4gConfiguratorDoConfigure)(Log4gConfigurator *self, const char *uri,
-        Log4gLoggerRepository *repository, GError **error);
+		Log4gLoggerRepository *repository, GError **error);
 
 /**
  * Log4gConfiguratorInterface:
  * @do_configure: Perform configuration actions.
  */
-struct _Log4gConfiguratorInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gConfiguratorDoConfigure do_configure;
+struct Log4gConfiguratorInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gConfiguratorDoConfigure do_configure;
 };
 
 GType
@@ -72,7 +72,7 @@ log4g_configurator_get_type(void) G_GNUC_CONST;
 
 gboolean
 log4g_configurator_do_configure(Log4gConfigurator *self, const char *uri,
-        Log4gLoggerRepository *repository, GError **error);
+		Log4gLoggerRepository *repository, GError **error);
 
 G_END_DECLS
 

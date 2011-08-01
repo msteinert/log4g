@@ -32,14 +32,14 @@
 void
 log4g_module_load(GTypeModule *module)
 {
-    g_type_module_set_name(module, "core-appenders");
-    log4g_async_appender_register(module);
-    log4g_writer_appender_register(module);
-    log4g_console_appender_register(module);
-    log4g_counting_quiet_writer_register(module);
-    log4g_file_appender_register(module);
-    log4g_null_appender_register(module);
-    log4g_quiet_writer_register(module);
-    log4g_rolling_file_appender_register(module);
-    log4g_syslog_appender_register(module);
+	g_type_module_set_name(module, "core-appenders");
+	log4g_async_appender_register(module);
+	log4g_writer_appender_register(module);
+	log4g_console_appender_register(module);
+	log4g_counting_quiet_writer_register(module);
+	log4g_file_appender_register(module);
+	log4g_null_appender_register(module);
+	log4g_quiet_writer_register(module);
+	log4g_rolling_file_appender_register(module);
+	log4g_syslog_appender_register(module);
 }

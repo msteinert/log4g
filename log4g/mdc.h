@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,26 +23,26 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_MDC \
-    (log4g_mdc_get_type())
+	(log4g_mdc_get_type())
 
 #define LOG4G_MDC(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MDC, Log4gMDC))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MDC, Log4gMDC))
 
 #define LOG4G_IS_MDC(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MDC))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MDC))
 
 #define LOG4G_MDC_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_MDC, Log4gMDCClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_MDC, Log4gMDCClass))
 
 #define LOG4G_IS_MDC_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_MDC))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_MDC))
 
 #define LOG4G_MDC_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_MDC, Log4gMDCClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_MDC, Log4gMDCClass))
 
-typedef struct _Log4gMDC Log4gMDC;
+typedef struct Log4gMDC_ Log4gMDC;
 
-typedef struct _Log4gMDCClass Log4gMDCClass;
+typedef struct Log4gMDCClass_ Log4gMDCClass;
 
 /**
  * Log4gMDC:
@@ -50,9 +50,10 @@ typedef struct _Log4gMDCClass Log4gMDCClass;
  * The <structname>Log4gMDC</structname> structure does not have any public
  * members.
  */
-struct _Log4gMDC {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gMDC_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -61,9 +62,9 @@ struct _Log4gMDC {
  * The <structname>Log4gMDCClass</structname> structure does not have any
  * public members.
  */
-struct _Log4gMDCClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gMDCClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

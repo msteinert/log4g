@@ -21,6 +21,7 @@
 #define g_marshal_value_peek_boxed(v)    g_value_get_boxed (v)
 #define g_marshal_value_peek_pointer(v)  g_value_get_pointer (v)
 #define g_marshal_value_peek_object(v)   g_value_get_object (v)
+#define g_marshal_value_peek_variant(v)  g_value_get_variant (v)
 #else /* !G_ENABLE_DEBUG */
 /* WARNING: This code accesses GValues directly, which is UNSUPPORTED API.
  *          Do not access GValues directly in your code. Instead, use the
@@ -44,17 +45,18 @@
 #define g_marshal_value_peek_boxed(v)    (v)->data[0].v_pointer
 #define g_marshal_value_peek_pointer(v)  (v)->data[0].v_pointer
 #define g_marshal_value_peek_object(v)   (v)->data[0].v_pointer
+#define g_marshal_value_peek_variant(v)  (v)->data[0].v_pointer
 #endif /* !G_ENABLE_DEBUG */
 
 
-/* VOID:OBJECT,OBJECT (/home/mike/src/log4g/src/support/marshal.list:1) */
+/* VOID:OBJECT,OBJECT (../../log4g/marshal.list:1) */
 void
-g_cclosure_user_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
-                                             GValue       *return_value G_GNUC_UNUSED,
-                                             guint         n_param_values,
-                                             const GValue *param_values,
-                                             gpointer      invocation_hint G_GNUC_UNUSED,
-                                             gpointer      marshal_data)
+log4g_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
+                                   GValue       *return_value G_GNUC_UNUSED,
+                                   guint         n_param_values,
+                                   const GValue *param_values,
+                                   gpointer      invocation_hint G_GNUC_UNUSED,
+                                   gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__OBJECT_OBJECT) (gpointer     data1,
                                                     gpointer     arg_1,

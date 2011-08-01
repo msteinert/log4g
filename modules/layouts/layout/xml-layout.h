@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_XML_LAYOUT \
-    (log4g_xml_layout_get_type())
+	(log4g_xml_layout_get_type())
 
 #define LOG4G_XML_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_XML_LAYOUT, \
-            Log4gXMLLayout))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_XML_LAYOUT, \
+		Log4gXMLLayout))
 
 #define LOG4G_IS_XML_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_XML_LAYOUT))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_XML_LAYOUT))
 
 #define LOG4G_XML_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_XML_LAYOUT, \
-            Log4gXMLLayoutClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_XML_LAYOUT, \
+		Log4gXMLLayoutClass))
 
 #define LOG4G_IS_XML_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_XML_LAYOUT))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_XML_LAYOUT))
 
 #define LOG4G_XML_LAYOUT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_XML_LAYOUT, \
-            Log4gXMLLayoutClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_XML_LAYOUT, \
+		Log4gXMLLayoutClass))
 
-typedef struct _Log4gXMLLayout Log4gXMLLayout;
+typedef struct Log4gXMLLayout_ Log4gXMLLayout;
 
-typedef struct _Log4gXMLLayoutClass Log4gXMLLayoutClass;
+typedef struct Log4gXMLLayoutClass_ Log4gXMLLayoutClass;
 
 /**
  * Log4gXMLLayout:
@@ -53,9 +53,10 @@ typedef struct _Log4gXMLLayoutClass Log4gXMLLayoutClass;
  * The <structname>Log4gXMLLayout</structname> structure does not have any
  * public members.
  */
-struct _Log4gXMLLayout {
-    /*< private >*/
-    Log4gLayout parent_instance; /**< parent instance */
+struct Log4gXMLLayout_ {
+	/*< private >*/
+	Log4gLayout parent_instance; /**< parent instance */
+	gpointer priv;
 };
 
 /**
@@ -64,9 +65,9 @@ struct _Log4gXMLLayout {
  * The <structname>Log4gXMLLayoutClass</structname> structure does not have any
  * public members.
  */
-struct _Log4gXMLLayoutClass {
-    /*< private >*/
-    Log4gLayoutClass parent_class;
+struct Log4gXMLLayoutClass_ {
+	/*< private >*/
+	Log4gLayoutClass parent_class;
 };
 
 G_GNUC_INTERNAL GType

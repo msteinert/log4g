@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -24,29 +24,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_COUCHDB_LAYOUT \
-    (log4g_couchdb_layout_get_type())
+	(log4g_couchdb_layout_get_type())
 
 #define LOG4G_COUCHDB_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_COUCHDB_LAYOUT, \
-            Log4gCouchdbLayout))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_COUCHDB_LAYOUT, \
+		Log4gCouchdbLayout))
 
 #define LOG4G_IS_COUCHDB_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_COUCHDB_LAYOUT))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_COUCHDB_LAYOUT))
 
 #define LOG4G_COUCHDB_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_COUCHDB_LAYOUT, \
-            Log4gCouchdbLayoutClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_COUCHDB_LAYOUT, \
+		Log4gCouchdbLayoutClass))
 
 #define LOG4G_IS_COUCHDB_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_COUCHDB_LAYOUT))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_COUCHDB_LAYOUT))
 
 #define LOG4G_COUCHDB_LAYOUT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_COUCHDB_LAYOUT, \
-            Log4gCouchdbLayoutClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_COUCHDB_LAYOUT, \
+		Log4gCouchdbLayoutClass))
 
-typedef struct _Log4gCouchdbLayout Log4gCouchdbLayout;
+typedef struct Log4gCouchdbLayout_ Log4gCouchdbLayout;
 
-typedef struct _Log4gCouchdbLayoutClass Log4gCouchdbLayoutClass;
+typedef struct Log4gCouchdbLayoutClass_ Log4gCouchdbLayoutClass;
 
 /**
  * Log4gCouchdbLayout:
@@ -54,9 +54,10 @@ typedef struct _Log4gCouchdbLayoutClass Log4gCouchdbLayoutClass;
  * The <structname>Log4gCouchdbLayout</structname> structure does not have any
  * public members.
  */
-struct _Log4gCouchdbLayout {
-    /*< private >*/
-    Log4gLayout parent_instance;
+struct Log4gCouchdbLayout_ {
+	/*< private >*/
+	Log4gLayout parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -74,17 +75,17 @@ struct _Log4gCouchdbLayout {
  */
 typedef CouchdbDocument *
 (*Log4gCouchdbLayoutFormatDocument)(Log4gLayout *base,
-        Log4gLoggingEvent *event);
+		Log4gLoggingEvent *event);
 
 /**
  * Log4gCouchdbLayoutClass:
  * @format_document: Create a new CouchdbDocument object.
  */
-struct _Log4gCouchdbLayoutClass {
-    /*< private >*/
-    Log4gLayoutClass parent_class;
-    /*< public >*/
-    Log4gCouchdbLayoutFormatDocument format_document;
+struct Log4gCouchdbLayoutClass_ {
+	/*< private >*/
+	Log4gLayoutClass parent_class;
+	/*< public >*/
+	Log4gCouchdbLayoutFormatDocument format_document;
 };
 
 G_GNUC_INTERNAL GType
@@ -95,7 +96,7 @@ log4g_couchdb_layout_register(GTypeModule *module);
 
 G_GNUC_INTERNAL CouchdbDocument *
 log4g_couchdb_layout_format_document(Log4gLayout *base,
-        Log4gLoggingEvent *event);
+		Log4gLoggingEvent *event);
 
 G_END_DECLS
 

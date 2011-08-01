@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,27 +23,28 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LOGGER \
-    (log4g_logger_get_type())
+	(log4g_logger_get_type())
 
 #define LOG4G_LOGGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER, Log4gLogger))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER, \
+		Log4gLogger))
 
 #define LOG4G_IS_LOGGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER))
 
 #define LOG4G_LOGGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOGGER, Log4gLoggerClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOGGER, Log4gLoggerClass))
 
 #define LOG4G_IS_LOGGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOGGER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOGGER))
 
 #define LOG4G_LOGGER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOGGER, \
-            Log4gLoggerClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOGGER, \
+		Log4gLoggerClass))
 
-typedef struct _Log4gLogger Log4gLogger;
+typedef struct Log4gLogger_ Log4gLogger;
 
-typedef struct _Log4gLoggerClass Log4gLoggerClass;
+typedef struct Log4gLoggerClass_ Log4gLoggerClass;
 
 /**
  * Log4gLogger:
@@ -51,9 +52,10 @@ typedef struct _Log4gLoggerClass Log4gLoggerClass;
  * The <structname>Log4gLogger</structname> structure does not have any public
  * members.
  */
-struct _Log4gLogger {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gLogger_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -85,12 +87,12 @@ typedef void
  * @get_effective_level: Retrieve the effective level threshold of the logger.
  * @set_level: Set the level threshold of the logger.
  */
-struct _Log4gLoggerClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    /*< public >*/
-    Log4gLoggerGetEffectiveLevel get_effective_level;
-    Log4gLoggerSetLevel set_level;
+struct Log4gLoggerClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	/*< public >*/
+	Log4gLoggerGetEffectiveLevel get_effective_level;
+	Log4gLoggerSetLevel set_level;
 };
 
 GType
@@ -160,62 +162,63 @@ void
 log4g_logger_call_appenders(Log4gLogger *self, Log4gLoggingEvent *event);
 
 void
-_log4g_logger_assert(Log4gLogger *self, gboolean assertion,
-        const gchar *function, const gchar *file, const gchar *line,
-        const gchar *format, ...) G_GNUC_PRINTF(6, 7);
+log4g_logger_assert_(Log4gLogger *self, gboolean assertion,
+		const gchar *function, const gchar *file, const gchar *line,
+		const gchar *format, ...)
+		G_GNUC_PRINTF(6, 7);
 
 gboolean
 log4g_logger_is_trace_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_trace(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_trace_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 gboolean
 log4g_logger_is_debug_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_debug(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_debug_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 gboolean
 log4g_logger_is_info_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_info(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_info_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 gboolean
 log4g_logger_is_warn_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_warn(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_warn_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 gboolean
 log4g_logger_is_error_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_error(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_error_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 gboolean
 log4g_logger_is_fatal_enabled(Log4gLogger *self);
 
 void
-_log4g_logger_fatal(Log4gLogger *self, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(5, 6);
+log4g_logger_fatal_(Log4gLogger *self, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(5, 6);
 
 void
-_log4g_logger_log(Log4gLogger *self, Log4gLevel *level, const gchar *function,
-        const gchar *file, const gchar *line, const gchar *format, ...)
-        G_GNUC_PRINTF(6, 7);
+log4g_logger_log_(Log4gLogger *self, Log4gLevel *level, const gchar *function,
+		const gchar *file, const gchar *line, const gchar *format, ...)
+		G_GNUC_PRINTF(6, 7);
 
 Log4gLogger *
 log4g_logger_get_logger(const gchar *name);
@@ -228,8 +231,8 @@ log4g_logger_get_logger_factory(const gchar *name, gpointer factory);
 
 void
 log4g_logger_forced_log(Log4gLogger *self, Log4gLevel *level,
-        const gchar *function, const gchar *file, const gchar *line,
-        const gchar *format, va_list ap);
+		const gchar *function, const gchar *file, const gchar *line,
+		const gchar *format, va_list ap);
 
 G_END_DECLS
 

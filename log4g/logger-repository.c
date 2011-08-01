@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -58,15 +58,15 @@
 #include "config.h"
 #endif
 #include "log4g/interface/logger-repository.h"
-#include "support/marshal.h"
+#include "marshal.h"
 
 G_DEFINE_INTERFACE(Log4gLoggerRepository, log4g_logger_repository,
-        G_TYPE_INVALID)
+	G_TYPE_INVALID)
 
-enum signals_t {
-    SIGNAL_ADD_APPENDER,
-    SIGNAL_REMOVE_APPENDER,
-    SIGNAL_LAST
+enum Signals {
+	SIGNAL_ADD_APPENDER,
+	SIGNAL_REMOVE_APPENDER,
+	SIGNAL_LAST
 };
 
 static guint signals[SIGNAL_LAST] = { 0 };
@@ -74,32 +74,32 @@ static guint signals[SIGNAL_LAST] = { 0 };
 static void
 log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
 {
-    /**
-     * Log4gLoggerRepository::add-appender
-     * @logger: The logger to which an appender was added.
-     * @appender: The appender that was added.
-     *
-     * The ::add-appender signal is emitted when an appender is added to
-     * a logger.
-     */
-    signals[SIGNAL_ADD_APPENDER] =
-        g_signal_new(Q_("add-appender"), G_OBJECT_CLASS_TYPE(klass),
-                G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
-                0, NULL, NULL, g_cclosure_user_marshal_VOID__OBJECT_OBJECT,
-                G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
-    /**
-     * Log4gLoggerRepository::remove-appender
-     * @logger: The logger from which an appender was removed.
-     * @appender: The appender that was removed.
-     *
-     * The ::remove-appender signal is emitted when an appender is removed
-     * from a logger.
-     */
-    signals[SIGNAL_REMOVE_APPENDER] =
-        g_signal_new(Q_("remove-appender"), G_OBJECT_CLASS_TYPE(klass),
-                G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
-                0, NULL, NULL, g_cclosure_user_marshal_VOID__OBJECT_OBJECT,
-                G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
+	/**
+	 * Log4gLoggerRepository::add-appender
+	 * @logger: The logger to which an appender was added.
+	 * @appender: The appender that was added.
+	 *
+	 * The ::add-appender signal is emitted when an appender is added to
+	 * a logger.
+	 */
+	signals[SIGNAL_ADD_APPENDER] =
+		g_signal_new(Q_("add-appender"), G_OBJECT_CLASS_TYPE(klass),
+			G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
+			0, NULL, NULL, log4g_marshal_VOID__OBJECT_OBJECT,
+			G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
+	/**
+	 * Log4gLoggerRepository::remove-appender
+	 * @logger: The logger from which an appender was removed.
+	 * @appender: The appender that was removed.
+	 *
+	 * The ::remove-appender signal is emitted when an appender is removed
+	 * from a logger.
+	 */
+	signals[SIGNAL_REMOVE_APPENDER] =
+		g_signal_new(Q_("remove-appender"), G_OBJECT_CLASS_TYPE(klass),
+			G_SIGNAL_RUN_FIRST | G_SIGNAL_DETAILED,
+			0, NULL, NULL, log4g_marshal_VOID__OBJECT_OBJECT,
+			G_TYPE_NONE, 2, G_TYPE_OBJECT, G_TYPE_OBJECT);
 }
 
 /**
@@ -115,10 +115,10 @@ log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
 Log4gLogger *
 log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->exists(self, name);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->exists(self, name);
 }
 
 /**
@@ -133,12 +133,12 @@ log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name)
  */
 void
 log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
-        Log4gLogger *logger, Log4gAppender *appender)
+		Log4gLogger *logger, Log4gAppender *appender)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    g_signal_emit(self, signals[SIGNAL_ADD_APPENDER],
-            g_quark_from_string(log4g_logger_get_name(logger)),
-            logger, appender);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	g_signal_emit(self, signals[SIGNAL_ADD_APPENDER],
+			g_quark_from_string(log4g_logger_get_name(logger)),
+			logger, appender);
 }
 
 /**
@@ -153,13 +153,13 @@ log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
  */
 void
 log4g_logger_repository_emit_remove_appender_signal(
-        Log4gLoggerRepository *self, Log4gLogger *logger,
-        Log4gAppender *appender)
+		Log4gLoggerRepository *self, Log4gLogger *logger,
+		Log4gAppender *appender)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    g_signal_emit(self, signals[SIGNAL_REMOVE_APPENDER],
-            g_quark_from_string(log4g_logger_get_name(logger)),
-            logger, appender);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	g_signal_emit(self, signals[SIGNAL_REMOVE_APPENDER],
+			g_quark_from_string(log4g_logger_get_name(logger)),
+			logger, appender);
 }
 
 /**
@@ -176,10 +176,10 @@ log4g_logger_repository_emit_remove_appender_signal(
 const GArray *
 log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_current_loggers(self);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->get_current_loggers(self);
 }
 
 /**
@@ -195,12 +195,12 @@ log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
  */
 Log4gLogger *
 log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
-        const gchar *name)
+		const gchar *name)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_logger(self, name);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->get_logger(self, name);
 }
 
 /**
@@ -217,12 +217,12 @@ log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
  */
 Log4gLogger *
 log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
-        const gchar *name, Log4gLoggerFactory *factory)
+		const gchar *name, Log4gLoggerFactory *factory)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_logger_factory(self, name, factory);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->get_logger_factory(self, name, factory);
 }
 
 /**
@@ -238,10 +238,10 @@ log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
 Log4gLogger *
 log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_root_logger(self);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->get_root_logger(self);
 }
 
 /**
@@ -259,10 +259,10 @@ log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
 Log4gLevel *
 log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->get_threshold(self);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), NULL);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->get_threshold(self);
 }
 
 /**
@@ -281,10 +281,10 @@ log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
 gboolean
 log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), FALSE);
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    return interface->is_disabled(self, level);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self), FALSE);
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	return interface->is_disabled(self, level);
 }
 
 /**
@@ -299,10 +299,10 @@ log4g_logger_repository_is_disabled(Log4gLoggerRepository *self, gint level)
 void
 log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    interface->reset_configuration(self);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	interface->reset_configuration(self);
 }
 
 /**
@@ -319,12 +319,12 @@ log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
  */
 void
 log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
-        Log4gLevel *level)
+		Log4gLevel *level)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    interface->set_threshold(self, level);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	interface->set_threshold(self, level);
 }
 
 /**
@@ -339,12 +339,12 @@ log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
  */
 void
 log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
-        const gchar *string)
+		const gchar *string)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    interface->set_threshold_string(self, string);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	interface->set_threshold_string(self, string);
 }
 
 /**
@@ -359,10 +359,10 @@ log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
 void
 log4g_logger_repository_shutdown(Log4gLoggerRepository *self)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    interface->shutdown(self);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	interface->shutdown(self);
 }
 
 /**
@@ -377,10 +377,10 @@ log4g_logger_repository_shutdown(Log4gLoggerRepository *self)
  */
 void
 log4g_logger_repository_emit_no_appender_warning(Log4gLoggerRepository *self,
-        Log4gLogger *logger)
+		Log4gLogger *logger)
 {
-    g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
-    Log4gLoggerRepositoryInterface *interface =
-        LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
-    interface->emit_no_appender_warning(self, logger);
+	g_return_if_fail(LOG4G_IS_LOGGER_REPOSITORY(self));
+	Log4gLoggerRepositoryInterface *interface =
+		LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(self);
+	interface->emit_no_appender_warning(self, logger);
 }

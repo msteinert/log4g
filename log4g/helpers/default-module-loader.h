@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,30 +23,32 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_DEFAULT_MODULE_LOADER \
-    (log4g_default_module_loader_get_type())
+	(log4g_default_module_loader_get_type())
 
 #define LOG4G_DEFAULT_MODULE_LOADER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_DEFAULT_MODULE_LOADER, \
-            Log4gDefaultModuleLoader))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_DEFAULT_MODULE_LOADER, Log4gDefaultModuleLoader))
 
 #define LOG4G_IS_DEFAULT_MODULE_LOADER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_DEFAULT_MODULE_LOADER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_DEFAULT_MODULE_LOADER))
 
 #define LOG4G_DEFAULT_MODULE_LOADER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_DEFAULT_MODULE_LOADER, \
-            Log4gDefaultModuleLoaderClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_DEFAULT_MODULE_LOADER, \
+		Log4gDefaultModuleLoaderClass))
 
 #define LOG4G_IS_DEFAULT_MODULE_LOADER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_DEFAULT_MODULE_LOADER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_DEFAULT_MODULE_LOADER))
 
 #define LOG4G_DEFAULT_MODULE_LOADER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_DEFAULT_MODULE_LOADER, \
-            Log4gDefaultModuleLoaderClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_DEFAULT_MODULE_LOADER, \
+		Log4gDefaultModuleLoaderClass))
 
-typedef struct _Log4gDefaultModuleLoader Log4gDefaultModuleLoader;
+typedef struct Log4gDefaultModuleLoader_ Log4gDefaultModuleLoader;
 
-typedef struct _Log4gDefaultModuleLoaderClass
-    Log4gDefaultModuleLoaderClass;
+typedef struct Log4gDefaultModuleLoaderClass_
+	Log4gDefaultModuleLoaderClass;
 
 /**
  * Log4gDefaultModuleLoader:
@@ -54,9 +56,10 @@ typedef struct _Log4gDefaultModuleLoaderClass
  * The <structname>Log4gDefaultModuleLoader</structname> structure does not
  * have any public members.
  */
-struct _Log4gDefaultModuleLoader {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gDefaultModuleLoader_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -65,9 +68,9 @@ struct _Log4gDefaultModuleLoader {
  * The <structname>Log4gDefaultModuleLoaderClass</structname> structure does
  * not have any public members.
  */
-struct _Log4gDefaultModuleLoaderClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gDefaultModuleLoaderClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

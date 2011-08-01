@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_HIERARCHY \
-    (log4g_hierarchy_get_type())
+	(log4g_hierarchy_get_type())
 
 #define LOG4G_HIERARCHY(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_HIERARCHY, \
-            Log4gHierarchy))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_HIERARCHY, \
+		Log4gHierarchy))
 
 #define LOG4G_IS_HIERARCHY(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_HIERARCHY))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_HIERARCHY))
 
 #define LOG4G_HIERARCHY_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_HIERARCHY, \
-            Log4gHierarchyClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_HIERARCHY, \
+		Log4gHierarchyClass))
 
 #define LOG4G_IS_HIERARCHY_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_HIERARCHY))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_HIERARCHY))
 
 #define LOG4G_HIERARCHY_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_HIERARCHY, \
-            Log4gHierarchyClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_HIERARCHY, \
+		Log4gHierarchyClass))
 
-typedef struct _Log4gHierarchy Log4gHierarchy;
+typedef struct Log4gHierarchy_ Log4gHierarchy;
 
-typedef struct _Log4gHierarchyClass Log4gHierarchyClass;
+typedef struct Log4gHierarchyClass_ Log4gHierarchyClass;
 
 /**
  * Log4gHierarchy:
@@ -53,20 +53,21 @@ typedef struct _Log4gHierarchyClass Log4gHierarchyClass;
  * The <structname>Log4gHierarchy</structname> structure does not have any
  * public members.
  */
-struct _Log4gHierarchy {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gHierarchy_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
  * Log4gHierarchyClass:
  *
- * The <structname>Log4gHierarchyClass</structname> structure does not have any
- * public members.
+ * The <structname>Log4gHierarchyClass</structname> structure does not have
+ * any public members.
  */
-struct _Log4gHierarchyClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gHierarchyClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

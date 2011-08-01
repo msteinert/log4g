@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_FILE_APPENDER \
-    (log4g_file_appender_get_type())
+	(log4g_file_appender_get_type())
 
 #define LOG4G_FILE_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_FILE_APPENDER, \
-            Log4gFileAppender))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_FILE_APPENDER, \
+		Log4gFileAppender))
 
 #define LOG4G_IS_FILE_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_FILE_APPENDER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_FILE_APPENDER))
 
 #define LOG4G_FILE_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_FILE_APPENDER, \
-            Log4gFileAppenderClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_FILE_APPENDER, \
+		Log4gFileAppenderClass))
 
 #define LOG4G_IS_FILE_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_FILE_APPENDER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_FILE_APPENDER))
 
 #define LOG4G_FILE_APPENDER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_FILE_APPENDER, \
-            Log4gFileAppenderClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_FILE_APPENDER, \
+		Log4gFileAppenderClass))
 
-typedef struct _Log4gFileAppender Log4gFileAppender;
+typedef struct Log4gFileAppender_ Log4gFileAppender;
 
-typedef struct _Log4gFileAppenderClass Log4gFileAppenderClass;
+typedef struct Log4gFileAppenderClass_ Log4gFileAppenderClass;
 
 /**
  * Log4gFileAppender:
@@ -53,9 +53,10 @@ typedef struct _Log4gFileAppenderClass Log4gFileAppenderClass;
  * The <structname>Log4gFileAppender</structname> structure does not have any
  * public members.
  */
-struct _Log4gFileAppender {
-    /*< private >*/
-    Log4gWriterAppender parent_instance;
+struct Log4gFileAppender_ {
+	/*< private >*/
+	Log4gWriterAppender parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -74,7 +75,7 @@ struct _Log4gFileAppender {
  */
 typedef void
 (*Log4gFileAppenderSetFileFull)(Log4gAppender *base, const gchar *file,
-        gboolean append, gboolean buffered, guint size);
+		gboolean append, gboolean buffered, guint size);
 
 /**
  * Log4gFileAppenderSetQwForFiles:
@@ -95,12 +96,12 @@ typedef void
  * @set_file_full: Set the file and other options.
  * @set_qw_for_files: Set the quiet writer used for output.
  */
-struct _Log4gFileAppenderClass {
-    /*< private >*/
-    Log4gWriterAppenderClass parent_class;
-    /*< public >*/
-    Log4gFileAppenderSetFileFull set_file_full;
-    Log4gFileAppenderSetQwForFiles set_qw_for_files;
+struct Log4gFileAppenderClass_ {
+	/*< private >*/
+	Log4gWriterAppenderClass parent_class;
+	/*< public >*/
+	Log4gFileAppenderSetFileFull set_file_full;
+	Log4gFileAppenderSetQwForFiles set_qw_for_files;
 };
 
 G_GNUC_INTERNAL GType
@@ -111,7 +112,7 @@ log4g_file_appender_register(GTypeModule *module);
 
 G_GNUC_INTERNAL void
 log4g_file_appender_set_file_full(Log4gAppender *base, const gchar *file,
-        gboolean append, gboolean buffered, guint size);
+		gboolean append, gboolean buffered, guint size);
 
 G_GNUC_INTERNAL void
 log4g_file_appender_close_file(Log4gAppender *base);

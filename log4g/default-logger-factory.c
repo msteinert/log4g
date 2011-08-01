@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -31,29 +31,30 @@
 static Log4gLogger *
 make_new_logger_instance(Log4gLoggerFactory *base, const gchar *name)
 {
-    return log4g_logger_new(name);
+	return log4g_logger_new(name);
 }
     
 static void
 logger_factory_init(Log4gLoggerFactoryInterface *interface, gpointer data)
 {
-    interface->make_new_logger_instance = make_new_logger_instance;
+	interface->make_new_logger_instance = make_new_logger_instance;
 }
 
 G_DEFINE_TYPE_WITH_CODE(Log4gDefaultLoggerFactory,
-        log4g_default_logger_factory, G_TYPE_OBJECT,
-        G_IMPLEMENT_INTERFACE(LOG4G_TYPE_LOGGER_FACTORY, logger_factory_init))
+		log4g_default_logger_factory, G_TYPE_OBJECT,
+		G_IMPLEMENT_INTERFACE(LOG4G_TYPE_LOGGER_FACTORY,
+			logger_factory_init))
 
 static void
 log4g_default_logger_factory_init(Log4gDefaultLoggerFactory *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static void
 log4g_default_logger_factory_class_init(Log4gDefaultLoggerFactoryClass *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -67,5 +68,5 @@ log4g_default_logger_factory_class_init(Log4gDefaultLoggerFactoryClass *klass)
 Log4gLoggerFactory *
 log4g_default_logger_factory_new(void)
 {
-    return g_object_new(LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, NULL);
+	return g_object_new(LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, NULL);
 }

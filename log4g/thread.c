@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -40,12 +40,15 @@
 
 G_DEFINE_TYPE(Log4gThread, log4g_thread, G_TYPE_OBJECT)
 
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_THREAD, \
-            struct Log4gPrivate))
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_THREAD, \
+		struct Private))
 
-struct Log4gPrivate {
-    gchar *name;
+#define GET_PRIVATE(instance) \
+	((struct Private *)((Log4gThread *)instance)->priv)
+
+struct Private {
+	gchar *name;
 };
 
 /* Thread specific data. */
@@ -57,55 +60,54 @@ static gint counter = 0;
 static void
 log4g_thread_init(Log4gThread *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->name = NULL;
+	self->priv = ASSIGN_PRIVATE(self);
 }
 
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-    if (g_thread_supported()) {
-        static gsize once = 0;
-        if (g_once_init_enter(&once)) {
-            priv = g_private_new(g_object_unref);
-            if (!priv) {
-                return NULL;
-            }
-            g_once_init_leave(&once, 1);
-        }
-    }
-    GObject *self = g_private_get(priv);
-    if (!self) {
-        self = G_OBJECT_CLASS(log4g_thread_parent_class)->
-            constructor(type, n, params);
-        if (!self) {
-            return NULL;
-        }
-        g_private_set(priv, self);
-    } else {
-        g_object_ref(self);
-    }
-    return self;
+	if (g_thread_supported()) {
+		static gsize once = 0;
+		if (g_once_init_enter(&once)) {
+			priv = g_private_new(g_object_unref);
+			if (!priv) {
+				return NULL;
+			}
+			g_once_init_leave(&once, 1);
+		}
+	}
+	GObject *self = g_private_get(priv);
+	if (!self) {
+		self = G_OBJECT_CLASS(log4g_thread_parent_class)->
+			constructor(type, n, params);
+		if (!self) {
+			return NULL;
+		}
+		g_private_set(priv, self);
+	} else {
+		g_object_ref(self);
+	}
+	return self;
 }
 
 static void
 finalize(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    g_free(priv->name);
-    priv->name = NULL;
-    G_OBJECT_CLASS(log4g_thread_parent_class)->finalize(base);
+	struct Private *priv = GET_PRIVATE(base);
+	g_free(priv->name);
+	priv->name = NULL;
+	G_OBJECT_CLASS(log4g_thread_parent_class)->finalize(base);
 }
 
 static void
 log4g_thread_class_init(Log4gThreadClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    /* initialize GObject */
-    gobject_class->constructor = constructor;
-    gobject_class->finalize = finalize;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	/* initialize GObject */
+	object_class->constructor = constructor;
+	object_class->finalize = finalize;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**
@@ -120,11 +122,11 @@ log4g_thread_class_init(Log4gThreadClass *klass)
 static Log4gThread *
 log4g_thread_get_instance(void)
 {
-    Log4gThread *self = (Log4gThread *)g_private_get(priv);
-    if (!self) {
-        self = g_object_new(LOG4G_TYPE_THREAD, NULL);
-    }
-    return self;
+	Log4gThread *self = (Log4gThread *)g_private_get(priv);
+	if (!self) {
+		self = g_object_new(LOG4G_TYPE_THREAD, NULL);
+	}
+	return self;
 }
 
 /**
@@ -138,16 +140,17 @@ log4g_thread_get_instance(void)
 const gchar *
 log4g_thread_get_name(void)
 {
-    Log4gThread *self = log4g_thread_get_instance();
-    if (!self) {
-        return NULL;
-    }
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    if (!priv->name) {
-        g_atomic_int_inc(&counter);
-        priv->name = g_strdup_printf("thread%d", g_atomic_int_get(&counter));
-    }
-    return priv->name;
+	Log4gThread *self = log4g_thread_get_instance();
+	if (!self) {
+		return NULL;
+	}
+	struct Private *priv = GET_PRIVATE(self);
+	if (!priv->name) {
+		g_atomic_int_inc(&counter);
+		priv->name = g_strdup_printf("thread%d",
+				g_atomic_int_get(&counter));
+	}
+	return priv->name;
 }
 
 /**
@@ -161,11 +164,11 @@ log4g_thread_get_name(void)
 void
 log4g_thread_set_name(const gchar *name)
 {
-    Log4gThread *self = log4g_thread_get_instance();
-    if (!self) {
-        return;
-    }
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    g_free(priv->name);
-    priv->name = g_strdup(name);
+	Log4gThread *self = log4g_thread_get_instance();
+	if (!self) {
+		return;
+	}
+	struct Private *priv = GET_PRIVATE(self);
+	g_free(priv->name);
+	priv->name = g_strdup(name);
 }

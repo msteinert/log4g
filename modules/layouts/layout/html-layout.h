@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_HTML_LAYOUT \
-    (log4g_html_layout_get_type())
+	(log4g_html_layout_get_type())
 
 #define LOG4G_HTML_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_HTML_LAYOUT, \
-            Log4gHTMLLayout))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_HTML_LAYOUT, \
+		Log4gHTMLLayout))
 
 #define LOG4G_IS_HTML_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_HTML_LAYOUT))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_HTML_LAYOUT))
 
 #define LOG4G_HTML_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_HTML_LAYOUT, \
-            Log4gHTMLLayoutClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_HTML_LAYOUT, \
+		Log4gHTMLLayoutClass))
 
 #define LOG4G_IS_HTML_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_HTML_LAYOUT))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_HTML_LAYOUT))
 
 #define LOG4G_HTML_LAYOUT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_HTML_LAYOUT, \
-            Log4gHTMLLayoutClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_HTML_LAYOUT, \
+		Log4gHTMLLayoutClass))
 
-typedef struct _Log4gHTMLLayout Log4gHTMLLayout;
+typedef struct Log4gHTMLLayout_ Log4gHTMLLayout;
 
-typedef struct _Log4gHTMLLayoutClass Log4gHTMLLayoutClass;
+typedef struct Log4gHTMLLayoutClass_ Log4gHTMLLayoutClass;
 
 /**
  * Log4gHTMLLayout:
@@ -53,9 +53,10 @@ typedef struct _Log4gHTMLLayoutClass Log4gHTMLLayoutClass;
  * The <structname>Log4gHTMLLayout</structname> structure does not have any
  * public members.
  */
-struct _Log4gHTMLLayout {
-    /*< private >*/
-    Log4gLayout parent_instance;
+struct Log4gHTMLLayout_ {
+	/*< private >*/
+	Log4gLayout parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -64,9 +65,9 @@ struct _Log4gHTMLLayout {
  * The <structname>Log4gHTMLLayoutClass</structname> structure does not have
  * any public members.
  */
-struct _Log4gHTMLLayoutClass {
-    /*< private >*/
-    Log4gLayoutClass parent_class;
+struct Log4gHTMLLayoutClass_ {
+	/*< private >*/
+	Log4gLayoutClass parent_class;
 };
 
 G_GNUC_INTERNAL GType

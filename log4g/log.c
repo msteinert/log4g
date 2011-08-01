@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -48,20 +48,20 @@ static gboolean quiet = FALSE;
 
 static void
 log4g_log_log(FILE *stream, const gchar *prefix,
-        const gchar *format, va_list ap)
+		const gchar *format, va_list ap)
 {
 #ifdef _POSIX_THREAD_SAFE_FUNCTIONS
-        if (g_thread_supported()) {
-            flockfile(stream);
-        }
+	flockfile(stream);
+	fputs_unlocked(prefix, stream);
+#else
+	fputs(prefix, stream);
 #endif
-        fputs(prefix, stream);
-        vfprintf(stream, format, ap);
-        fputc('\n', stream);
+	vfprintf(stream, format, ap);
 #ifdef _POSIX_THREAD_SAFE_FUNCTIONS
-        if (g_thread_supported()) {
-            funlockfile(stream);
-        }
+	fputc_unlocked('\n', stream);
+	funlockfile(stream);
+#else
+	fputc('\n', stream);
 #endif
 }
 
@@ -77,15 +77,15 @@ log4g_log_log(FILE *stream, const gchar *prefix,
 void
 log4g_log_debug(const gchar *format, ...)
 {
-    if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
-        va_list ap;
-        va_start(ap, format);
+	if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
+		va_list ap;
+		va_start(ap, format);
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
 #endif
-        log4g_log_log(stdout, "log4g: ", format, ap);
-        va_end(ap);
-    }
+		log4g_log_log(stdout, "log4g: ", format, ap);
+		va_end(ap);
+	}
 }
 
 /**
@@ -100,12 +100,12 @@ log4g_log_debug(const gchar *format, ...)
 void
 log4g_log_debugv(const gchar *format, va_list ap)
 {
-    if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
+	if (g_atomic_int_get(&debug) && !g_atomic_int_get(&quiet)) {
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG, format, ap);
 #endif
-        log4g_log_log(stdout, "log4g: ", format, ap);
-    }
+		log4g_log_log(stdout, "log4g: ", format, ap);
+	}
 }
 
 /**
@@ -120,15 +120,15 @@ log4g_log_debugv(const gchar *format, va_list ap)
 void
 log4g_log_warn(const gchar *format, ...)
 {
-    if (!g_atomic_int_get(&quiet)) {
-        va_list ap;
-        va_start(ap, format);
+	if (!g_atomic_int_get(&quiet)) {
+		va_list ap;
+		va_start(ap, format);
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
 #endif
-        log4g_log_log(stderr, "log4g:WARN ", format, ap);
-        va_end(ap);
-    }
+		log4g_log_log(stderr, "log4g:WARN ", format, ap);
+		va_end(ap);
+	}
 }
 
 /**
@@ -143,12 +143,12 @@ log4g_log_warn(const gchar *format, ...)
 void
 log4g_log_warnv(const gchar *format, va_list ap) 
 {
-    if (!g_atomic_int_get(&quiet)) {
+	if (!g_atomic_int_get(&quiet)) {
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, format, ap);
 #endif
-        log4g_log_log(stderr, "log4g:WARN ", format, ap);
-    }
+		log4g_log_log(stderr, "log4g:WARN ", format, ap);
+	}
 }
 
 /**
@@ -163,15 +163,15 @@ log4g_log_warnv(const gchar *format, va_list ap)
 void
 log4g_log_error(const gchar *format, ...)
 {
-    if (!g_atomic_int_get(&quiet)) {
-        va_list ap;
-        va_start(ap, format);
+	if (!g_atomic_int_get(&quiet)) {
+		va_list ap;
+		va_start(ap, format);
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
 #endif
-        log4g_log_log(stderr, "log4g:ERROR ", format, ap);
-        va_end(ap);
-    }
+		log4g_log_log(stderr, "log4g:ERROR ", format, ap);
+		va_end(ap);
+	}
 }
 
 /**
@@ -186,12 +186,12 @@ log4g_log_error(const gchar *format, ...)
 void
 log4g_log_errorv(const gchar *format, va_list ap)
 {
-    if (!g_atomic_int_get(&quiet)) {
+	if (!g_atomic_int_get(&quiet)) {
 #if 0
-        g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
+		g_logv(G_LOG_DOMAIN, G_LOG_LEVEL_ERROR, format, ap);
 #endif
-        log4g_log_log(stderr, "log4g:ERROR ", format, ap);
-    }
+		log4g_log_log(stderr, "log4g:ERROR ", format, ap);
+	}
 }
 
 /**
@@ -208,7 +208,7 @@ log4g_log_errorv(const gchar *format, va_list ap)
 void
 log4g_set_internal_debugging(gboolean value)
 {
-    g_atomic_int_set(&debug, value);
+	g_atomic_int_set(&debug, value);
 }
 
 /**
@@ -224,5 +224,5 @@ log4g_set_internal_debugging(gboolean value)
 void
 log4g_set_quiet_mode(gboolean value)
 {
-    g_atomic_int_set(&quiet, value);
+	g_atomic_int_set(&quiet, value);
 }

@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_ROOT_LOGGER \
-    (log4g_root_logger_get_type())
+	(log4g_root_logger_get_type())
 
 #define LOG4G_ROOT_LOGGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_ROOT_LOGGER, \
-            Log4gRootLogger))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_ROOT_LOGGER, \
+		Log4gRootLogger))
 
 #define LOG4G_IS_ROOT_LOGGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_ROOT_LOGGER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_ROOT_LOGGER))
 
 #define LOG4G_ROOT_LOGGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ROOT_LOGGER, \
-            Log4gRootLoggerClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ROOT_LOGGER, \
+		Log4gRootLoggerClass))
 
 #define LOG4G_IS_ROOT_LOGGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ROOT_LOGGER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ROOT_LOGGER))
 
 #define LOG4G_ROOT_LOGGER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_ROOT_LOGGER, \
-            Log4gRootLoggerClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_ROOT_LOGGER, \
+		Log4gRootLoggerClass))
 
-typedef struct _Log4gRootLogger Log4gRootLogger;
+typedef struct Log4gRootLogger_ Log4gRootLogger;
 
-typedef struct _Log4gRootLoggerClass Log4gRootLoggerClass;
+typedef struct Log4gRootLoggerClass_ Log4gRootLoggerClass;
 
 /**
  * Log4gRootLogger:
@@ -53,9 +53,10 @@ typedef struct _Log4gRootLoggerClass Log4gRootLoggerClass;
  * The <structname>Log4gRootLogger</structname> structure does not have any
  * public members.
  */
-struct _Log4gRootLogger {
-    /*< private >*/
-    Log4gLogger parent_instance;
+struct Log4gRootLogger_ {
+	/*< private >*/
+	Log4gLogger parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -64,9 +65,9 @@ struct _Log4gRootLogger {
  * The <structname>Log4gRootLogger</structname> structure does not have any
  * public members.
  */
-struct _Log4gRootLoggerClass {
-    /*< private >*/
-    Log4gLoggerClass parent_class;
+struct Log4gRootLoggerClass_ {
+	/*< private >*/
+	Log4gLoggerClass parent_class;
 };
 
 GType

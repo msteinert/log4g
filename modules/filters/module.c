@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -27,9 +27,9 @@
 void
 log4g_module_load(GTypeModule *module)
 {
-    g_type_module_set_name(module, "core-filters");
-    log4g_deny_all_filter_register(module);
-    log4g_level_range_filter_register(module);
-    log4g_level_match_filter_register(module);
-    log4g_string_match_filter_register(module);
+	g_type_module_set_name(module, "core-filters");
+	log4g_deny_all_filter_register(module);
+	log4g_level_range_filter_register(module);
+	log4g_level_match_filter_register(module);
+	log4g_string_match_filter_register(module);
 }

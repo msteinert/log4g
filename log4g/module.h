@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,27 +23,28 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_MODULE \
-    (log4g_module_get_type())
+	(log4g_module_get_type())
 
 #define LOG4G_MODULE(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MODULE, Log4gModule))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_MODULE, \
+		Log4gModule))
 
 #define LOG4G_IS_MODULE(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MODULE))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_MODULE))
 
 #define LOG4G_MODULE_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_MODULE, Log4gModuleClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_MODULE, Log4gModuleClass))
 
 #define LOG4G_IS_MODULE_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_MODULE))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_MODULE))
 
 #define LOG4G_MODULE_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_MODULE, \
-            Log4gModuleClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_MODULE, \
+		Log4gModuleClass))
 
-typedef struct _Log4gModule Log4gModule;
+typedef struct Log4gModule_ Log4gModule;
 
-typedef struct _Log4gModuleClass Log4gModuleClass;
+typedef struct Log4gModuleClass_ Log4gModuleClass;
 
 /**
  * Log4gModule:
@@ -51,9 +52,10 @@ typedef struct _Log4gModuleClass Log4gModuleClass;
  * The <structname>Log4gModule</structname> structure does not have any public
  * members.
  */
-struct _Log4gModule {
-    /*< private >*/
-    GTypeModule parent_instance;
+struct Log4gModule_ {
+	/*< private >*/
+	GTypeModule parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -62,9 +64,9 @@ struct _Log4gModule {
  * The <structname>Log4gModuleClass</structname> structure does not have any
  * public members.
  */
-struct _Log4gModuleClass {
-    /*< private >*/
-    GTypeModuleClass parent_class;
+struct Log4gModuleClass_ {
+	/*< private >*/
+	GTypeModuleClass parent_class;
 };
 
 GType

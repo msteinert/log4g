@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,22 +23,22 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LOGGER_FACTORY \
-    (log4g_logger_factory_get_type())
+	(log4g_logger_factory_get_type())
 
 #define LOG4G_LOGGER_FACTORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER_FACTORY, \
-            Log4gLoggerFactory))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER_FACTORY, \
+		Log4gLoggerFactory))
 
 #define LOG4G_IS_LOGGER_FACTORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER_FACTORY))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER_FACTORY))
 
 #define LOG4G_LOGGER_FACTORY_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_LOGGER_FACTORY, \
-            Log4gLoggerFactoryInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_LOGGER_FACTORY, \
+		Log4gLoggerFactoryInterface));
 
-typedef struct _Log4gLoggerFactory Log4gLoggerFactory;
+typedef struct Log4gLoggerFactory_ Log4gLoggerFactory;
 
-typedef struct _Log4gLoggerFactoryInterface Log4gLoggerFactoryInterface;
+typedef struct Log4gLoggerFactoryInterface_ Log4gLoggerFactoryInterface;
 
 /**
  * Log4gLoggerFactoryMakeNewLoggerInstance:
@@ -52,17 +52,17 @@ typedef struct _Log4gLoggerFactoryInterface Log4gLoggerFactoryInterface;
  */
 typedef Log4gLogger *
 (*Log4gLoggerFactoryMakeNewLoggerInstance)(Log4gLoggerFactory *self,
-        const gchar *name);
+		const gchar *name);
 
 /**
  * Log4gLoggerFactoryInterface:
  * @make_new_logger_instance: Create a new logger object.
  */
-struct _Log4gLoggerFactoryInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gLoggerFactoryMakeNewLoggerInstance make_new_logger_instance;
+struct Log4gLoggerFactoryInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gLoggerFactoryMakeNewLoggerInstance make_new_logger_instance;
 };
 
 GType
@@ -70,7 +70,7 @@ log4g_logger_factory_get_type(void) G_GNUC_CONST;
 
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,
-        const gchar *name);
+		const gchar *name);
 
 G_END_DECLS
 

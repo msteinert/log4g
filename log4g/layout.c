@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -22,7 +22,7 @@
  * Users may extend this class to implement custom log event layouts.
  *
  * Many appenders require a layout in order to log an event. Sub-classes
- * must override the _Log4gLayoutClass::format() virtual function to implement
+ * must override the Log4gLayoutClass_::format() virtual function to implement
  * custom formatting.
  */
 
@@ -36,36 +36,36 @@ G_DEFINE_ABSTRACT_TYPE(Log4gLayout, log4g_layout, G_TYPE_OBJECT)
 static void
 log4g_layout_init(Log4gLayout *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static const gchar *
 get_content_type(Log4gLayout *self)
 {
-    return "text/plain";
+	return "text/plain";
 }
 
 static const gchar *
 get(Log4gLayout *self)
 {
-    return NULL;
+	return NULL;
 }
 
 static void
 activate_options(Log4gLayout *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 static void
 log4g_layout_class_init(Log4gLayoutClass *klass)
 {
-    /* initialize Log4gLayout class */
-    klass->format = NULL;
-    klass->get_content_type = get_content_type;
-    klass->get_header = get;
-    klass->get_footer = get;
-    klass->activate_options = activate_options;
+	/* initialize Log4gLayout class */
+	klass->format = NULL;
+	klass->get_content_type = get_content_type;
+	klass->get_header = get;
+	klass->get_footer = get;
+	klass->activate_options = activate_options;
 }
 
 /**
@@ -81,8 +81,8 @@ log4g_layout_class_init(Log4gLayoutClass *klass)
 gchar *
 log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event)
 {
-    g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
-    return LOG4G_LAYOUT_GET_CLASS(self)->format(self, event);
+	g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
+	return LOG4G_LAYOUT_GET_CLASS(self)->format(self, event);
 }
 
 /**
@@ -97,8 +97,8 @@ log4g_layout_format(Log4gLayout *self, Log4gLoggingEvent *event)
 const gchar *
 log4g_layout_get_content_type(Log4gLayout *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
-    return LOG4G_LAYOUT_GET_CLASS(self)->get_content_type(self);
+	g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
+	return LOG4G_LAYOUT_GET_CLASS(self)->get_content_type(self);
 }
 
 /**
@@ -113,8 +113,8 @@ log4g_layout_get_content_type(Log4gLayout *self)
 const gchar *
 log4g_layout_get_header(Log4gLayout *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
-    return LOG4G_LAYOUT_GET_CLASS(self)->get_header(self);
+	g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
+	return LOG4G_LAYOUT_GET_CLASS(self)->get_header(self);
 }
 
 /**
@@ -129,8 +129,8 @@ log4g_layout_get_header(Log4gLayout *self)
 const gchar *
 log4g_layout_get_footer(Log4gLayout *self)
 {
-    g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
-    return LOG4G_LAYOUT_GET_CLASS(self)->get_footer(self);
+	g_return_val_if_fail(LOG4G_IS_LAYOUT(self), NULL);
+	return LOG4G_LAYOUT_GET_CLASS(self)->get_footer(self);
 }
 
 /**
@@ -147,6 +147,6 @@ log4g_layout_get_footer(Log4gLayout *self)
 void
 log4g_layout_activate_options(Log4gLayout *self)
 {
-    g_return_if_fail(LOG4G_IS_LAYOUT(self));
-    LOG4G_LAYOUT_GET_CLASS(self)->activate_options(self);
+	g_return_if_fail(LOG4G_IS_LAYOUT(self));
+	LOG4G_LAYOUT_GET_CLASS(self)->activate_options(self);
 }

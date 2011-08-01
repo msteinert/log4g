@@ -31,13 +31,13 @@
 void
 log4g_module_load(GTypeModule *module)
 {
-    g_type_module_set_name(module, "core-layouts");
-    log4g_date_layout_register(module);
-    log4g_html_layout_register(module);
-    log4g_pattern_converter_register(module);
-    log4g_pattern_parser_register(module);
-    log4g_pattern_layout_register(module);
-    log4g_simple_layout_register(module);
-    log4g_ttcc_layout_register(module);
-    log4g_xml_layout_register(module);
+	g_type_module_set_name(module, "core-layouts");
+	log4g_date_layout_register(module);
+	log4g_html_layout_register(module);
+	log4g_pattern_converter_register(module);
+	log4g_pattern_parser_register(module);
+	log4g_pattern_layout_register(module);
+	log4g_simple_layout_register(module);
+	log4g_ttcc_layout_register(module);
+	log4g_xml_layout_register(module);
 }

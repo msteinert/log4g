@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,22 +23,22 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_ERROR_HANDLER \
-    (log4g_error_handler_get_type())
+	(log4g_error_handler_get_type())
 
 #define LOG4G_ERROR_HANDLER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_ERROR_HANDLER, \
-            Log4gErrorHandler))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_ERROR_HANDLER, \
+		Log4gErrorHandler))
 
 #define LOG4G_IS_ERROR_HANDLER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_ERROR_HANDLER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_ERROR_HANDLER))
 
 #define LOG4G_ERROR_HANDLER_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_ERROR_HANDLER, \
-            Log4gErrorHandlerInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_ERROR_HANDLER, \
+		Log4gErrorHandlerInterface));
 
-typedef struct _Log4gErrorHandler Log4gErrorHandler;
+typedef struct Log4gErrorHandler_ Log4gErrorHandler;
 
-typedef struct _Log4gErrorHandlerInterface Log4gErrorHandlerInterface;
+typedef struct Log4gErrorHandlerInterface_ Log4gErrorHandlerInterface;
 
 /**
  * Log4gErrorHandlerSetLogger:
@@ -67,8 +67,8 @@ typedef void
  * Since: 0.1
  */
 typedef void
-(*Log4gErrorHandlerError)(Log4gErrorHandler *self,
-        Log4gLoggingEvent *event, const gchar *message, va_list ap);
+(*Log4gErrorHandlerError)(Log4gErrorHandler *self, Log4gLoggingEvent *event,
+		const gchar *message, va_list ap);
 
 /**
  * Log4gErrorHandlerSetAppender:
@@ -83,7 +83,7 @@ typedef void
  */
 typedef void
 (*Log4gErrorHandlerSetAppender)(Log4gErrorHandler *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 /**
  * Log4gErrorHandlerSetBackupAppender:
@@ -96,7 +96,7 @@ typedef void
  */
 typedef void
 (*Log4gErrorHandlerSetBackupAppender)(Log4gErrorHandler *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 /**
  * Log4gErrorHandlerInterface:
@@ -105,18 +105,17 @@ typedef void
  * @set_appender: Set an appender to handle error messages.
  * @set_backup_appender: Set a backup appender in case of failure.
  */
-struct _Log4gErrorHandlerInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gErrorHandlerSetLogger set_logger;
-    /* note: this definition is here because g-ir-scanner doesn't seem
-             to like the Log4gErrorHandlerError definition */
-    void
-    (*error)(Log4gErrorHandler *self,
-            Log4gLoggingEvent *event, const gchar *message, va_list ap);
-    Log4gErrorHandlerSetAppender set_appender;
-    Log4gErrorHandlerSetBackupAppender set_backup_appender;
+struct Log4gErrorHandlerInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gErrorHandlerSetLogger set_logger;
+	/* note: this definition is here because g-ir-scanner doesn't seem
+	   to like the Log4gErrorHandlerError definition */
+	void (*error)(Log4gErrorHandler *self, Log4gLoggingEvent *event,
+			const gchar *message, va_list ap);
+	Log4gErrorHandlerSetAppender set_appender;
+	Log4gErrorHandlerSetBackupAppender set_backup_appender;
 };
 
 GType
@@ -127,15 +126,15 @@ log4g_error_handler_set_logger(Log4gErrorHandler *self, Log4gLogger *logger);
 
 void
 log4g_error_handler_error(Log4gErrorHandler *self, Log4gLoggingEvent *event,
-        const gchar *message, ...) G_GNUC_PRINTF(3, 4);
+		const gchar *message, ...) G_GNUC_PRINTF(3, 4);
 
 void
 log4g_error_handler_set_appender(Log4gErrorHandler *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 void
 log4g_error_handler_set_backup_appender(Log4gErrorHandler *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 G_END_DECLS
 

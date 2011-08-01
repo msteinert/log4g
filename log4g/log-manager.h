@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -24,29 +24,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LOG_MANAGER \
-    (log4g_log_manager_get_type())
+	(log4g_log_manager_get_type())
 
 #define LOG4G_LOG_MANAGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOG_MANAGER, \
-            Log4gLogManager))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOG_MANAGER, \
+		Log4gLogManager))
 
 #define LOG4G_IS_LOG_MANAGER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOG_MANAGER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOG_MANAGER))
 
 #define LOG4G_LOG_MANAGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOG_MANAGER, \
-            Log4gLogManagerClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOG_MANAGER, \
+		Log4gLogManagerClass))
 
 #define LOG4G_IS_LOG_MANAGER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOG_MANAGER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOG_MANAGER))
 
 #define LOG4G_LOG_MANAGER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOG_MANAGER, \
-            Log4gLogManagerClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOG_MANAGER, \
+		Log4gLogManagerClass))
 
-typedef struct _Log4gLogManager Log4gLogManager;
+typedef struct Log4gLogManager_ Log4gLogManager;
 
-typedef struct _Log4gLogManagerClass Log4gLogManagerClass;
+typedef struct Log4gLogManagerClass_ Log4gLogManagerClass;
 
 /**
  * Log4gLogManager:
@@ -54,9 +54,10 @@ typedef struct _Log4gLogManagerClass Log4gLogManagerClass;
  * The <structname>Log4gLogManager</structname> structure does not have any
  * public members.
  */
-struct _Log4gLogManager {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gLogManager_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -65,9 +66,9 @@ struct _Log4gLogManager {
  * The <structname>Log4gLogManagerClass</structname> structure does not have
  * any public members.
  */
-struct _Log4gLogManagerClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gLogManagerClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType
@@ -78,7 +79,7 @@ log4g_log_manager_remove_instance(void);
 
 void
 log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
-        GObject *guard);
+		GObject *guard);
 
 Log4gLoggerRepository *
 log4g_log_manager_get_logger_repository(void);
@@ -91,7 +92,7 @@ log4g_log_manager_get_logger(const gchar *name);
 
 Log4gLogger *
 log4g_log_manager_get_logger_factory(const gchar *name,
-        Log4gLoggerFactory *factory);
+		Log4gLoggerFactory *factory);
 
 Log4gLogger *
 log4g_log_manager_exists(const gchar *name);

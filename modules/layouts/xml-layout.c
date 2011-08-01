@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -59,18 +59,20 @@
 #endif
 #include "layout/xml-layout.h"
 
-enum _properties_t {
-    PROP_O = 0,
-    PROP_PROPERTIES,
-    PROP_LOCATION_INFO,
-    PROP_MAX
-};
-
 G_DEFINE_DYNAMIC_TYPE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT)
 
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_XML_LAYOUT, \
+		struct Private))
+
 #define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_XML_LAYOUT, \
-            struct Log4gPrivate))
+	((struct Private *)((Log4gXMLLayout *)instance)->priv)
+
+struct Private {
+	GString *string;
+	gboolean properties;
+	gboolean info;
+};
 
 /* Default string buffer size */
 #define BUF_SIZE (256)
@@ -78,190 +80,206 @@ G_DEFINE_DYNAMIC_TYPE(Log4gXMLLayout, log4g_xml_layout, LOG4G_TYPE_LAYOUT)
 /* Maximum string buffer size */
 #define MAX_CAPACITY (2048)
 
-struct Log4gPrivate {
-    GString *string;
-    gboolean properties;
-    gboolean info;
-};
-
 static void
 log4g_xml_layout_init(Log4gXMLLayout *self)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(self);
-    priv->string = g_string_sized_new(BUF_SIZE);
-    priv->properties = FALSE;
-    priv->info = FALSE;
+	self->priv = ASSIGN_PRIVATE(self);
+	struct Private *priv = GET_PRIVATE(self);
+	priv->string = g_string_sized_new(BUF_SIZE);
 }
 
 static void
 finalize(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->string) {
-        g_string_free(priv->string, TRUE);
-        priv->string = NULL;
-    }
-    G_OBJECT_CLASS(log4g_xml_layout_parent_class)->finalize(base);
+	struct Private *priv = GET_PRIVATE(base);
+	if (priv->string) {
+		g_string_free(priv->string, TRUE);
+	}
+	G_OBJECT_CLASS(log4g_xml_layout_parent_class)->finalize(base);
 }
+
+enum Properties {
+	PROP_O = 0,
+	PROP_PROPERTIES,
+	PROP_LOCATION_INFO,
+	PROP_MAX
+};
 
 static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    switch (id) {
-    case PROP_PROPERTIES:
-        priv->properties = g_value_get_boolean(value);
-        break;
-    case PROP_LOCATION_INFO:
-        priv->info = g_value_get_boolean(value);
-        break;
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
-        break;
-    }
+	struct Private *priv = GET_PRIVATE(base);
+	switch (id) {
+	case PROP_PROPERTIES:
+		priv->properties = g_value_get_boolean(value);
+		break;
+	case PROP_LOCATION_INFO:
+		priv->info = g_value_get_boolean(value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
+		break;
+	}
 }
 
 static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    Log4gLevel *level = log4g_logging_event_get_level(event);
-    GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
-    time_t t = tv->tv_sec;
-    gchar buffer[26];
-    gchar *escaped;
-    if (priv->string->len > MAX_CAPACITY) {
-        g_string_free(priv->string, TRUE);
-        priv->string = g_string_sized_new(BUF_SIZE);
-        if (!priv->string) {
-            return NULL;
-        }
-    } else {
-        g_string_set_size(priv->string, 0);
-    }
-    g_string_append(priv->string, "<log4g:event logger=\"");
-    escaped = g_strescape(log4g_logging_event_get_logger_name(event), NULL);
-    if (escaped) {
-        g_string_append(priv->string, escaped);
-        g_free(escaped);
-    }
-    g_string_append(priv->string, "\" timestamp=\"");
-    g_string_append(priv->string, ctime_r(&t, buffer));
-    g_string_append(priv->string, "\" level=\"");
-    escaped = g_strescape(log4g_level_to_string(level), NULL);
-    if (escaped) {
-        g_string_append(priv->string, escaped);
-        g_free(escaped);
-    }
-    g_string_append(priv->string, "\" thread=\"");
-    escaped = g_strescape(log4g_logging_event_get_thread_name(event), NULL);
-    if (escaped) {
-        g_string_append(priv->string, escaped);
-        g_free(escaped);
-    }
-    g_string_append(priv->string, "\">\r\n");
-    /* message */
-    g_string_append(priv->string, "<log4g:message><![CDATA[");
-    escaped =
-        g_strescape(log4g_logging_event_get_rendered_message(event), NULL);
-    if (escaped) {
-        g_string_append(priv->string, escaped);
-        g_free(escaped);
-    }
-    g_string_append(priv->string, "]]></log4g:message>\r\n");
-    if (log4g_logging_event_get_ndc(event)) {
-        /* NDC */
-        g_string_append(priv->string, "<log4g:NDC><![CDATA[");
-        escaped = g_strescape(log4g_logging_event_get_ndc(event), NULL);
-        if (escaped) {
-            g_string_append(priv->string, escaped);
-            g_free(escaped);
-        }
-        g_string_append(priv->string, "]]></log4g:NDC>\r\n");
-    }
-    if (priv->info) {
-        /* file:line */
-        g_string_append(priv->string, "<log4g:locationInfo function=\"");
-        escaped =
-            g_strescape(log4g_logging_event_get_function_name(event), NULL);
-        if (escaped) {
-            g_string_append(priv->string, escaped);
-            g_free(escaped);
-        }
-        g_string_append(priv->string, "\" file=\"");
-        escaped = g_strescape(log4g_logging_event_get_file_name(event), NULL);
-        if (escaped) {
-            g_string_append(priv->string, escaped);
-            g_free(escaped);
-        }
-        g_string_append(priv->string, "\" line=\"");
-        escaped =
-            g_strescape(log4g_logging_event_get_line_number(event), NULL);
-        if (escaped) {
-            g_string_append(priv->string, escaped);
-            g_free(escaped);
-        }
-        g_string_append(priv->string, "\" />\r\n");
-    }
-    if (priv->properties) {
-        const GArray *keyset = log4g_logging_event_get_property_key_set(event);
-        if (keyset && keyset->len) {
-            gchar *key;
-            guint i;
-            g_string_append(priv->string, "<log4g:properties>\r\n");
-            for (i = 0; i < keyset->len; ++i) {
-                key = g_array_index(keyset, gchar *, i);
-                escaped =
-                    g_strescape(log4g_logging_event_get_mdc(event, key), NULL);
-                if (escaped) {
-                    g_string_append(priv->string, "<log4g:data name=\"");
-                    key = g_strescape(key, NULL);
-                    if (key) {
-                        g_string_append(priv->string, key);
-                        g_free(key);
-                    }
-                    g_string_append(priv->string, "\" value=\"");
-                    g_string_append(priv->string, escaped);
-                    g_string_append(priv->string, "\" />\r\n");
-                    g_free(escaped);
-                }
-            }
-            g_string_append(priv->string, "</log4g:properties>\r\n");
-        }
-    }
-    g_string_append(priv->string, "</log4g:event>\r\n\r\n");
-    return priv->string->str;
+	struct Private *priv = GET_PRIVATE(base);
+	Log4gLevel *level = log4g_logging_event_get_level(event);
+	GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+	time_t t = tv->tv_sec;
+	gchar buffer[26];
+	gchar *escaped;
+	if (priv->string->len > MAX_CAPACITY) {
+		g_string_free(priv->string, TRUE);
+		priv->string = g_string_sized_new(BUF_SIZE);
+		if (!priv->string) {
+			return NULL;
+		}
+	} else {
+		g_string_set_size(priv->string, 0);
+	}
+	g_string_append(priv->string, "<log4g:event logger=\"");
+	escaped = g_strescape(log4g_logging_event_get_logger_name(event), NULL);
+	if (escaped) {
+		g_string_append(priv->string, escaped);
+		g_free(escaped);
+	}
+	g_string_append(priv->string, "\" timestamp=\"");
+	g_string_append(priv->string, ctime_r(&t, buffer));
+	g_string_append(priv->string, "\" level=\"");
+	escaped = g_strescape(log4g_level_to_string(level), NULL);
+	if (escaped) {
+		g_string_append(priv->string, escaped);
+		g_free(escaped);
+	}
+	g_string_append(priv->string, "\" thread=\"");
+	escaped = g_strescape(log4g_logging_event_get_thread_name(event), NULL);
+	if (escaped) {
+		g_string_append(priv->string, escaped);
+		g_free(escaped);
+	}
+	g_string_append(priv->string, "\">\r\n");
+	/* message */
+	g_string_append(priv->string, "<log4g:message><![CDATA[");
+	escaped =
+		g_strescape(log4g_logging_event_get_rendered_message(event),
+				NULL);
+	if (escaped) {
+		g_string_append(priv->string, escaped);
+		g_free(escaped);
+	}
+	g_string_append(priv->string, "]]></log4g:message>\r\n");
+	if (log4g_logging_event_get_ndc(event)) {
+		/* NDC */
+		g_string_append(priv->string, "<log4g:NDC><![CDATA[");
+		escaped = g_strescape(log4g_logging_event_get_ndc(event), NULL);
+		if (escaped) {
+			g_string_append(priv->string, escaped);
+			g_free(escaped);
+		}
+		g_string_append(priv->string, "]]></log4g:NDC>\r\n");
+	}
+	if (priv->info) {
+		/* file:line */
+		g_string_append(priv->string,
+				"<log4g:locationInfo function=\"");
+		escaped =
+			g_strescape(log4g_logging_event_get_function_name(event),
+					NULL);
+		if (escaped) {
+			g_string_append(priv->string, escaped);
+			g_free(escaped);
+		}
+		g_string_append(priv->string, "\" file=\"");
+		escaped = g_strescape(log4g_logging_event_get_file_name(event),
+				NULL);
+		if (escaped) {
+			g_string_append(priv->string, escaped);
+			g_free(escaped);
+		}
+		g_string_append(priv->string, "\" line=\"");
+		escaped = g_strescape(log4g_logging_event_get_line_number(event),
+				NULL);
+		if (escaped) {
+			g_string_append(priv->string, escaped);
+			g_free(escaped);
+		}
+		g_string_append(priv->string, "\" />\r\n");
+	}
+	if (priv->properties) {
+		const GArray *keyset =
+			log4g_logging_event_get_property_key_set(event);
+		if (keyset && keyset->len) {
+			gchar *key;
+			guint i;
+			g_string_append(priv->string, "<log4g:properties>\r\n");
+			for (i = 0; i < keyset->len; ++i) {
+				key = g_array_index(keyset, gchar *, i);
+				if (!key) {
+					continue;
+				}
+				const gchar *value = log4g_logging_event_get_mdc(event, key);
+				if (!value) {
+					continue;
+				}
+				escaped = g_strescape(log4g_logging_event_get_mdc(event, key), NULL);
+				if (escaped) {
+					g_string_append(priv->string,
+							"<log4g:data name=\"");
+					key = g_strescape(key, NULL);
+					if (key) {
+						g_string_append(priv->string,
+								key);
+						g_free(key);
+					}
+					g_string_append(priv->string,
+							"\" value=\"");
+					g_string_append(priv->string, escaped);
+					g_string_append(priv->string,
+							"\" />\r\n");
+					g_free(escaped);
+				}
+			}
+			g_string_append(priv->string,
+					"</log4g:properties>\r\n");
+		}
+	}
+	g_string_append(priv->string, "</log4g:event>\r\n\r\n");
+	return priv->string->str;
 }
 
 static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
 {
-    /* initialize GObject class */
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    gobject_class->finalize = finalize;
-    gobject_class->set_property = set_property;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
-    /* initialize Log4gLayout class */
-    Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
-    layout_class->format = format;
-    /* install properties */
-    g_object_class_install_property(gobject_class, PROP_PROPERTIES,
-            g_param_spec_boolean("properties", Q_("Properties"),
-                    Q_("Toggle MDC properties"), FALSE, G_PARAM_WRITABLE));
-    g_object_class_install_property(gobject_class, PROP_LOCATION_INFO,
-            g_param_spec_boolean("location-info", Q_("Location Information"),
-                    Q_("Toggle location information"),
-                    FALSE, G_PARAM_WRITABLE));
+	/* initialize GObject class */
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	object_class->finalize = finalize;
+	object_class->set_property = set_property;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
+	/* initialize Log4gLayout class */
+	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
+	layout_class->format = format;
+	/* install properties */
+	g_object_class_install_property(object_class, PROP_PROPERTIES,
+		g_param_spec_boolean("properties", Q_("Properties"),
+			Q_("Toggle MDC properties"), FALSE, G_PARAM_WRITABLE));
+	g_object_class_install_property(object_class, PROP_LOCATION_INFO,
+		g_param_spec_boolean("location-info",
+			Q_("Location Information"),
+			Q_("Toggle location information"),
+			FALSE, G_PARAM_WRITABLE));
 }
 
 static void
 log4g_xml_layout_class_finalize(Log4gXMLLayoutClass *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 void
 log4g_xml_layout_register(GTypeModule *module)
 {
-    log4g_xml_layout_register_type(module);
+	log4g_xml_layout_register_type(module);
 }

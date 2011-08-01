@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -30,8 +30,8 @@ G_BEGIN_DECLS
  * @LOG4G_ERROR_MAX: Sentinel value
  */
 typedef enum {
-    LOG4G_ERROR_FAILURE,
-    LOG4G_ERROR_MAX
+	LOG4G_ERROR_FAILURE,
+	LOG4G_ERROR_MAX
 } Log4gError;
 
 GQuark

@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LOGGING_EVENT \
-    (log4g_logging_event_get_type())
+	(log4g_logging_event_get_type())
 
 #define LOG4G_LOGGING_EVENT(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGING_EVENT, \
-            Log4gLoggingEvent))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGING_EVENT, \
+		Log4gLoggingEvent))
 
 #define LOG4G_IS_LOGGING_EVENT(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGING_EVENT))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGING_EVENT))
 
 #define LOG4G_LOGGING_EVENT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOGGING_EVENT, \
-            Log4gLoggingEventClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LOGGING_EVENT, \
+		Log4gLoggingEventClass))
 
 #define LOG4G_IS_LOGGING_EVENT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOGGING_EVENT))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LOGGING_EVENT))
 
 #define LOG4G_LOGGING_EVENT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOGGING_EVENT, \
-            Log4gLoggingEventClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LOGGING_EVENT, \
+		Log4gLoggingEventClass))
 
-typedef struct _Log4gLoggingEvent Log4gLoggingEvent;
+typedef struct Log4gLoggingEvent_ Log4gLoggingEvent;
 
-typedef struct _Log4gLoggingEventClass Log4gLoggingEventClass;
+typedef struct Log4gLoggingEventClass_ Log4gLoggingEventClass;
 
 /**
  * Log4gLoggingEvent:
@@ -53,9 +53,10 @@ typedef struct _Log4gLoggingEventClass Log4gLoggingEventClass;
  * The <structname>Log4gLoggingEvent</structname> structure does not have any
  * public members.
  */
-struct _Log4gLoggingEvent {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gLoggingEvent_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -76,12 +77,12 @@ typedef Log4gLevel *
  * Log4gLoggingEventClass:
  * @get_level: Retrieve the log level of a logging event.
  */
-struct _Log4gLoggingEventClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    glong start;
-    /*< public >*/
-    Log4gLoggingEventGetLevel get_level;
+struct Log4gLoggingEventClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	glong start;
+	/*< public >*/
+	Log4gLoggingEventGetLevel get_level;
 };
 
 GType
@@ -89,8 +90,8 @@ log4g_logging_event_get_type(void) G_GNUC_CONST;
 
 Log4gLoggingEvent *
 log4g_logging_event_new(const gchar *logger, Log4gLevel *level,
-        const gchar *function, const gchar *file, const gchar *line,
-        const gchar *message, va_list ap);
+		const gchar *function, const gchar *file, const gchar *line,
+		const gchar *message, va_list ap);
 
 Log4gLevel *
 log4g_logging_event_get_level(Log4gLoggingEvent *self);

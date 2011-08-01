@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,30 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_STRING_MATCH_FILTER \
-    (log4g_string_match_filter_get_type())
+	(log4g_string_match_filter_get_type())
 
 #define LOG4G_STRING_MATCH_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_STRING_MATCH_FILTER, \
-            Log4gStringMatchFilter))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_STRING_MATCH_FILTER, Log4gStringMatchFilter))
 
 #define LOG4G_IS_STRING_MATCH_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_STRING_MATCH_FILTER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_STRING_MATCH_FILTER))
 
 #define LOG4G_STRING_MATCH_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_STRING_MATCH_FILTER, \
-            Log4gStringMatchFilterClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_STRING_MATCH_FILTER, \
+		Log4gStringMatchFilterClass))
 
 #define LOG4G_IS_STRING_MATCH_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_STRING_MATCH_FILTER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_STRING_MATCH_FILTER))
 
 #define LOG4G_STRING_MATCH_FILTER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_STRING_MATCH_FILTER, \
-            Log4gStringMatchFilterClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_STRING_MATCH_FILTER, Log4gStringMatchFilterClass))
 
-typedef struct _Log4gStringMatchFilter Log4gStringMatchFilter;
+typedef struct Log4gStringMatchFilter_ Log4gStringMatchFilter;
 
-typedef struct _Log4gStringMatchFilterClass Log4gStringMatchFilterClass;
+typedef struct Log4gStringMatchFilterClass_ Log4gStringMatchFilterClass;
 
 /**
  * Log4gStringMatchFilter:
@@ -53,9 +54,10 @@ typedef struct _Log4gStringMatchFilterClass Log4gStringMatchFilterClass;
  * The <structname>Log4gStringMatchFilter</structname> structure does not have
  * any public members.
  */
-struct _Log4gStringMatchFilter {
-    /*< private >*/
-    Log4gFilter parent_instance;
+struct Log4gStringMatchFilter_ {
+	/*< private >*/
+	Log4gFilter parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -64,9 +66,9 @@ struct _Log4gStringMatchFilter {
  * The <structname>Log4gStringMatchFilterClass</structname> structure does not
  * have any public members.
  */
-struct _Log4gStringMatchFilterClass {
-    /*< private >*/
-    Log4gFilterClass parent_class;
+struct Log4gStringMatchFilterClass_ {
+	/*< private >*/
+	Log4gFilterClass parent_class;
 };
 
 G_GNUC_INTERNAL GType

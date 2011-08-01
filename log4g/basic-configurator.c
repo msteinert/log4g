@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -47,44 +47,45 @@
 void
 log4g_basic_configurator_configure(void)
 {
-    Log4gLayout *layout = NULL;
-    Log4gAppender *appender = NULL;
-    Log4gLogger *root = log4g_logger_get_root_logger();
-    if (!root) {
-        log4g_log_error(Q_("log4g_logger_get_root_logger() returned NULL"));
-        return;
-    }
-    GType type = g_type_from_name("Log4gTTCCLayout");
-    if (!type) {
-        log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
-        return;
-    }
-    layout = g_object_new(type, NULL);
-    if (!layout) {
-        log4g_log_error(Q_("g_object_new() returned NULL"));
-        return;
-    }
-    log4g_layout_activate_options(layout);
-    type = g_type_from_name("Log4gConsoleAppender");
-    if (!type) {
-        log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
-        goto exit;
-    }
-    appender = g_object_new(type, NULL);
-    if (!layout) {
-        log4g_log_error(Q_("g_object_new() returned NULL"));
-        goto exit;
-    }
-    log4g_appender_set_layout(appender, layout);
-    log4g_appender_activate_options(appender);
-    log4g_logger_add_appender(root, appender);
+	Log4gLayout *layout = NULL;
+	Log4gAppender *appender = NULL;
+	Log4gLogger *root = log4g_logger_get_root_logger();
+	if (!root) {
+		log4g_log_error(Q_("log4g_logger_get_root_logger() "
+					"returned NULL"));
+		return;
+	}
+	GType type = g_type_from_name("Log4gTTCCLayout");
+	if (!type) {
+		log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
+		return;
+	}
+	layout = g_object_new(type, NULL);
+	if (!layout) {
+		log4g_log_error(Q_("g_object_new() returned NULL"));
+		return;
+	}
+	log4g_layout_activate_options(layout);
+	type = g_type_from_name("Log4gConsoleAppender");
+	if (!type) {
+		log4g_log_warn(Q_("Log4gTTCCLayout: type not found"));
+		goto exit;
+	}
+	appender = g_object_new(type, NULL);
+	if (!layout) {
+		log4g_log_error(Q_("g_object_new() returned NULL"));
+		goto exit;
+	}
+	log4g_appender_set_layout(appender, layout);
+	log4g_appender_activate_options(appender);
+	log4g_logger_add_appender(root, appender);
 exit:
-    if (layout) {
-        g_object_unref(layout);
-    }
-    if (appender) {
-        g_object_unref(appender);
-    }
+	if (layout) {
+		g_object_unref(layout);
+	}
+	if (appender) {
+		g_object_unref(appender);
+	}
 }
 
 /**
@@ -98,11 +99,11 @@ exit:
 void
 log4g_basic_configurator_configure_appender(Log4gAppender *appender)
 {
-    Log4gLogger *root = log4g_logger_get_root_logger();
-    if (!root) {
-        return;
-    }
-    log4g_logger_add_appender(root, appender);
+	Log4gLogger *root = log4g_logger_get_root_logger();
+	if (!root) {
+		return;
+	}
+	log4g_logger_add_appender(root, appender);
 }
 
 /**
@@ -115,5 +116,5 @@ log4g_basic_configurator_configure_appender(Log4gAppender *appender)
 void
 log4g_basic_configurator_reset_configuration()
 {
-    log4g_log_manager_reset_configuration();
+	log4g_log_manager_reset_configuration();
 }

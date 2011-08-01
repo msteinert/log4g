@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,26 +23,26 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_NDC \
-    (log4g_ndc_get_type())
+	(log4g_ndc_get_type())
 
 #define LOG4G_NDC(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_NDC, Log4gNDC))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_NDC, Log4gNDC))
 
 #define LOG4G_IS_NDC(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_NDC))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_NDC))
 
 #define LOG4G_NDC_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_NDC, Log4gNDCClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_NDC, Log4gNDCClass))
 
 #define LOG4G_IS_NDC_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_NDC))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_NDC))
 
 #define LOG4G_NDC_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_NDC, Log4gNDCClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_NDC, Log4gNDCClass))
 
-typedef struct _Log4gNDC Log4gNDC;
+typedef struct Log4gNDC_ Log4gNDC;
 
-typedef struct _Log4gNDCClass Log4gNDCClass;
+typedef struct Log4gNDCClass_ Log4gNDCClass;
 
 /**
  * Log4gNDC:
@@ -50,9 +50,10 @@ typedef struct _Log4gNDCClass Log4gNDCClass;
  * The <structname>Log4gNDC</structname> structure does not have any public
  * members.
  */
-struct _Log4gNDC {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gNDC_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -61,9 +62,9 @@ struct _Log4gNDC {
  * The <structname>Log4gNDCClass</structname> structure does not have any
  * public members.
  */
-struct _Log4gNDCClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gNDCClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

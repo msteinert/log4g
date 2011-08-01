@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -28,46 +28,46 @@
 
 #define CLASS "/log4g/DOMConfigurator"
 
-typedef struct _Fixture {
-    GString *file;
+typedef struct Fixture_ {
+	GString *file;
 } Fixture;
 
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    const gchar *file = getenv("srcdir");
-    fixture->file = g_string_new(file ? file : "../../tests");
-    g_assert(fixture->file);
+	const gchar *file = getenv("srcdir");
+	fixture->file = g_string_new(file ? file : "../../tests");
+	g_assert(fixture->file);
 }
 
 void
 teardown(Fixture *fixture, gconstpointer data)
 {
-    g_string_free(fixture->file, TRUE);
+	g_string_free(fixture->file, TRUE);
 }
 
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    g_string_append(fixture->file, "/dom-configurator-001.xml");
-    GError *error = NULL;
-    g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
-    log4g_debug("debug message (match this string)");
-    Log4gLogger *logger = log4g_get_logger("org.gnome.test");
-    g_assert(logger);
-    log4g_logger_warn(logger, "warning message (match this string)");
+	g_string_append(fixture->file, "/dom-configurator-001.xml");
+	GError *error = NULL;
+	g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
+	log4g_debug("debug message (match this string)");
+	Log4gLogger *logger = log4g_get_logger("org.gnome.test");
+	g_assert(logger);
+	log4g_logger_warn(logger, "warning message (match this string)");
 }
 
 int
 main(int argc, char *argv[])
 {
-    g_test_init(&argc, &argv, NULL);
-    g_type_init();
+	g_test_init(&argc, &argv, NULL);
+	g_type_init();
 #ifndef G_THREADS_IMPL_NONE
-    if (!g_thread_supported()) {
-        g_thread_init(NULL);
-    }
+	if (!g_thread_supported()) {
+		g_thread_init(NULL);
+	}
 #endif
-    g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
-    return g_test_run();
+	g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
+	return g_test_run();
 }

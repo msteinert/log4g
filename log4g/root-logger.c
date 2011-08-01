@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -43,7 +43,7 @@ G_DEFINE_TYPE(Log4gRootLogger, log4g_root_logger, LOG4G_TYPE_LOGGER)
 static void
 log4g_root_logger_init(Log4gRootLogger *self)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -57,7 +57,7 @@ log4g_root_logger_init(Log4gRootLogger *self)
 static Log4gLevel *
 get_effective_level(Log4gLogger *self)
 {
-    return log4g_logger_get_level(self);
+	return log4g_logger_get_level(self);
 }
 
 /**
@@ -73,20 +73,22 @@ get_effective_level(Log4gLogger *self)
 static void
 set_level(Log4gLogger *self, Log4gLevel *level)
 {
-    if (!level) {
-        log4g_log_warn(Q_("you have tried to set a NULL level to root"));
-        return;
-    }
-    LOG4G_LOGGER_CLASS(log4g_root_logger_parent_class)->set_level(self, level);
+	if (!level) {
+		log4g_log_warn(Q_("you have tried to set a NULL "
+					"level to root"));
+		return;
+	}
+	LOG4G_LOGGER_CLASS(log4g_root_logger_parent_class)->
+		set_level(self, level);
 }
 
 static void
 log4g_root_logger_class_init(Log4gRootLoggerClass *klass)
 {
-    Log4gLoggerClass *logger_class = LOG4G_LOGGER_CLASS(klass);
-    /* initialize Log4gLogger */
-    logger_class->get_effective_level = get_effective_level;
-    logger_class->set_level = set_level;
+	Log4gLoggerClass *logger_class = LOG4G_LOGGER_CLASS(klass);
+	/* initialize Log4gLogger */
+	logger_class->get_effective_level = get_effective_level;
+	logger_class->set_level = set_level;
 }
 
 /**
@@ -101,16 +103,16 @@ log4g_root_logger_class_init(Log4gRootLoggerClass *klass)
 Log4gLogger *
 log4g_root_logger_new(Log4gLevel *level)
 {
-    g_return_val_if_fail(level, NULL);
-    Log4gLogger *self = g_object_new(LOG4G_TYPE_ROOT_LOGGER, NULL);
-    if (!self) {
-        return NULL;
-    }
-    log4g_logger_set_name(self, "root");
-    if (!log4g_logger_get_name(self)) {
-        g_object_unref(self);
-        return NULL;
-    }
-    log4g_logger_set_level(self, level);
-    return self;
+	g_return_val_if_fail(level, NULL);
+	Log4gLogger *self = g_object_new(LOG4G_TYPE_ROOT_LOGGER, NULL);
+	if (!self) {
+		return NULL;
+	}
+	log4g_logger_set_name(self, "root");
+	if (!log4g_logger_get_name(self)) {
+		g_object_unref(self);
+		return NULL;
+	}
+	log4g_logger_set_level(self, level);
+	return self;
 }

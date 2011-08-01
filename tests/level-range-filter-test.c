@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -27,97 +27,97 @@
 
 #define CLASS "/log4g/filter/LevelRangeFilter"
 
-typedef struct _Fixture {
-    Log4gLoggingEvent *event;
+typedef struct Fixture_ {
+	Log4gLoggingEvent *event;
 } Fixture;
 
 void
 setup(Fixture *fixture, gconstpointer data)
 {
-    log4g_mdc_put("foo", "bar");
-    log4g_ndc_push("baz");
-    va_list ap;
-    memset(&ap, 0, sizeof ap);
-    fixture->event =
-        log4g_logging_event_new("org.gnome.test", log4g_level_DEBUG(),
-                __func__, __FILE__, G_STRINGIFY(__LINE__), "test message", ap);
-    g_assert(fixture->event);
+	log4g_mdc_put("foo", "bar");
+	log4g_ndc_push("baz");
+	va_list ap;
+	memset(&ap, 0, sizeof ap);
+	fixture->event = log4g_logging_event_new("org.gnome.test",
+			log4g_level_DEBUG(), __func__, __FILE__,
+			G_STRINGIFY(__LINE__), "test message", ap);
+	g_assert(fixture->event);
 }
 
 void
 teardown(Fixture *fixture, gconstpointer data)
 {
-    g_object_unref(fixture->event);
+	g_object_unref(fixture->event);
 }
 
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-    GType type = g_type_from_name("Log4gLevelRangeFilter");
-    g_assert(type);
-    Log4gFilter *filter = g_object_new(type, NULL);
-    g_assert(filter);
-    log4g_filter_activate_options(filter);
-    g_assert_cmpint(LOG4G_FILTER_ACCEPT, ==,
-            log4g_filter_decide(filter, fixture->event));
-    g_object_set(filter, "accept-on-range", FALSE, NULL);
-    log4g_filter_activate_options(filter);
-    g_assert_cmpint(LOG4G_FILTER_NEUTRAL, ==,
-            log4g_filter_decide(filter, fixture->event));
-    g_object_unref(filter);
+	GType type = g_type_from_name("Log4gLevelRangeFilter");
+	g_assert(type);
+	Log4gFilter *filter = g_object_new(type, NULL);
+	g_assert(filter);
+	log4g_filter_activate_options(filter);
+	g_assert_cmpint(LOG4G_FILTER_ACCEPT, ==,
+			log4g_filter_decide(filter, fixture->event));
+	g_object_set(filter, "accept-on-range", FALSE, NULL);
+	log4g_filter_activate_options(filter);
+	g_assert_cmpint(LOG4G_FILTER_NEUTRAL, ==,
+			log4g_filter_decide(filter, fixture->event));
+	g_object_unref(filter);
 }
 
 void
 test_002(Fixture *fixture, gconstpointer data)
 {
-    GType type = g_type_from_name("Log4gLevelRangeFilter");
-    g_assert(type);
-    Log4gFilter *filter = g_object_new(type, NULL);
-    g_assert(filter);
-    g_object_set(filter, "level-min", "TRACE", NULL);
-    g_object_set(filter, "level-max", "WARN", NULL);
-    log4g_filter_activate_options(filter);
-    g_assert_cmpint(LOG4G_FILTER_ACCEPT, ==,
-            log4g_filter_decide(filter, fixture->event));
-    g_object_set(filter, "accept-on-range", FALSE, NULL);
-    log4g_filter_activate_options(filter);
-    g_assert_cmpint(LOG4G_FILTER_NEUTRAL, ==,
-            log4g_filter_decide(filter, fixture->event));
-    g_object_unref(filter);
+	GType type = g_type_from_name("Log4gLevelRangeFilter");
+	g_assert(type);
+	Log4gFilter *filter = g_object_new(type, NULL);
+	g_assert(filter);
+	g_object_set(filter, "level-min", "TRACE", NULL);
+	g_object_set(filter, "level-max", "WARN", NULL);
+	log4g_filter_activate_options(filter);
+	g_assert_cmpint(LOG4G_FILTER_ACCEPT, ==,
+			log4g_filter_decide(filter, fixture->event));
+	g_object_set(filter, "accept-on-range", FALSE, NULL);
+	log4g_filter_activate_options(filter);
+	g_assert_cmpint(LOG4G_FILTER_NEUTRAL, ==,
+			log4g_filter_decide(filter, fixture->event));
+	g_object_unref(filter);
 }
 
 void
 test_003(Fixture *fixture, gconstpointer data)
 {
-    GType type = g_type_from_name("Log4gLevelRangeFilter");
-    g_assert(type);
-    Log4gFilter *filter = g_object_new(type, NULL);
-    g_assert(filter);
-    g_object_set(filter, "level-min", "WARN", NULL);
-    g_object_set(filter, "level-max", "FATAL", NULL);
-    log4g_filter_activate_options(filter);
-    g_assert_cmpint(LOG4G_FILTER_DENY, ==,
-            log4g_filter_decide(filter, fixture->event));
-    g_object_unref(filter);
+	GType type = g_type_from_name("Log4gLevelRangeFilter");
+	g_assert(type);
+	Log4gFilter *filter = g_object_new(type, NULL);
+	g_assert(filter);
+	g_object_set(filter, "level-min", "WARN", NULL);
+	g_object_set(filter, "level-max", "FATAL", NULL);
+	log4g_filter_activate_options(filter);
+	g_assert_cmpint(LOG4G_FILTER_DENY, ==,
+			log4g_filter_decide(filter, fixture->event));
+	g_object_unref(filter);
 }
 
 int
 main(int argc, char *argv[])
 {
-    g_test_init(&argc, &argv, NULL);
-    g_type_init();
+	g_test_init(&argc, &argv, NULL);
+	g_type_init();
 #ifndef G_THREADS_IMPL_NONE
-    if (!g_thread_supported()) {
-        g_thread_init(NULL);
-    }
+	if (!g_thread_supported()) {
+		g_thread_init(NULL);
+	}
 #endif
-    GTypeModule *module =
-        log4g_module_new("../modules/filters/liblog4g-filters.la");
-    g_assert(module);
-    g_assert(g_type_module_use(module));
-    g_type_module_unuse(module);
-    g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
-    g_test_add(CLASS"/002", Fixture, NULL, setup, test_002, teardown);
-    g_test_add(CLASS"/003", Fixture, NULL, setup, test_003, teardown);
-    return g_test_run();
+	GTypeModule *module =
+		log4g_module_new("../modules/filters/liblog4g-filters.la");
+	g_assert(module);
+	g_assert(g_type_module_use(module));
+	g_type_module_unuse(module);
+	g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
+	g_test_add(CLASS"/002", Fixture, NULL, setup, test_002, teardown);
+	g_test_add(CLASS"/003", Fixture, NULL, setup, test_003, teardown);
+	return g_test_run();
 }

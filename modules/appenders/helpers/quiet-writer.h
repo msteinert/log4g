@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -24,29 +24,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_QUIET_WRITER \
-    (log4g_quiet_writer_get_type())
+	(log4g_quiet_writer_get_type())
 
 #define LOG4G_QUIET_WRITER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_QUIET_WRITER, \
-            Log4gQuietWriter))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_QUIET_WRITER, \
+		Log4gQuietWriter))
 
 #define LOG4G_IS_QUIET_WRITER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_QUIET_WRITER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_QUIET_WRITER))
 
 #define LOG4G_QUIET_WRITER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_QUIET_WRITER, \
-            Log4gQuietWriterClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_QUIET_WRITER, \
+		Log4gQuietWriterClass))
 
 #define LOG4G_IS_QUIET_WRITER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_QUIET_WRITER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_QUIET_WRITER))
 
 #define LOG4G_QUIET_WRITER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_QUIET_WRITER, \
-            Log4gQuietWriterClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_QUIET_WRITER, \
+		Log4gQuietWriterClass))
 
-typedef struct _Log4gQuietWriter Log4gQuietWriter;
+typedef struct Log4gQuietWriter_ Log4gQuietWriter;
 
-typedef struct _Log4gQuietWriterClass Log4gQuietWriterClass;
+typedef struct Log4gQuietWriterClass_ Log4gQuietWriterClass;
 
 /**
  * Log4gQuietWriter:
@@ -54,9 +54,10 @@ typedef struct _Log4gQuietWriterClass Log4gQuietWriterClass;
  * The <structname>Log4gQuietWriter</structname> structure does not have any
  * public members.
  */
-struct _Log4gQuietWriter {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gQuietWriter_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -75,11 +76,11 @@ typedef void
  * Log4gQuietWriterClass:
  * @write: Write to a stdio(3) stream.
  */
-struct _Log4gQuietWriterClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    /*< public >*/
-    Log4gQuietWriterWrite write;
+struct Log4gQuietWriterClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	/*< public >*/
+	Log4gQuietWriterWrite write;
 };
 
 G_GNUC_INTERNAL GType

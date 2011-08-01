@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,30 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LAYOUT \
-    (log4g_layout_get_type())
+	(log4g_layout_get_type())
 
 #define LOG4G_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LAYOUT, Log4gLayout))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LAYOUT, \
+		Log4gLayout))
 
 #define LOG4G_IS_LAYOUT(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LAYOUT))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LAYOUT))
 
 #define LOG4G_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LAYOUT, Log4gLayoutClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LAYOUT, Log4gLayoutClass))
 
 #define LOG4G_IS_LAYOUT_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LAYOUT))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LAYOUT))
 
 #define LOG4G_LAYOUT_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LAYOUT, \
-            Log4gLayoutClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LAYOUT, \
+		Log4gLayoutClass))
 
 #define LOG4G_LAYOUT_LINE_SEP "\n"
 
-typedef struct _Log4gLayout Log4gLayout;
+typedef struct Log4gLayout_ Log4gLayout;
 
-typedef struct _Log4gLayoutClass Log4gLayoutClass;
+typedef struct Log4gLayoutClass_ Log4gLayoutClass;
 
 /**
  * Log4gLayout:
@@ -53,9 +54,9 @@ typedef struct _Log4gLayoutClass Log4gLayoutClass;
  * The <structname>Log4gLayout</structname> structure does not have any
  * public members.
  */
-struct _Log4gLayout {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gLayout_ {
+	/*< private >*/
+	GObject parent_instance;
 };
 
 /**
@@ -132,15 +133,15 @@ typedef void
  * @get_footer: Retrieve the footer for this layout.
  * @activate_options: Activate all options set for this layout.
  */
-struct _Log4gLayoutClass {
-    /*< private >*/
-    GObjectClass parent_class;
-    /*< public >*/
-    Log4gLayoutFormat format;
-    Log4gLayoutGetContentType get_content_type;
-    Log4gLayoutGetHeader get_header;
-    Log4gLayoutGetFooter get_footer;
-    Log4gLayoutActivateOptions activate_options;
+struct Log4gLayoutClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
+	/*< public >*/
+	Log4gLayoutFormat format;
+	Log4gLayoutGetContentType get_content_type;
+	Log4gLayoutGetHeader get_header;
+	Log4gLayoutGetFooter get_footer;
+	Log4gLayoutActivateOptions activate_options;
 };
 
 GType

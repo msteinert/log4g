@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -34,7 +34,7 @@ G_DEFINE_INTERFACE(Log4gLoggerFactory, log4g_logger_factory, G_TYPE_INVALID)
 static void
 log4g_logger_factory_default_init(Log4gLoggerFactoryInterface *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -50,10 +50,10 @@ log4g_logger_factory_default_init(Log4gLoggerFactoryInterface *klass)
  */
 Log4gLogger *
 log4g_logger_factory_make_new_logger_instance(Log4gLoggerFactory *self,
-        const gchar *name)
+		const gchar *name)
 {
-    g_return_val_if_fail(LOG4G_IS_LOGGER_FACTORY(self), NULL);
-    Log4gLoggerFactoryInterface *interface =
-        LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
-    return interface->make_new_logger_instance(self, name);
+	g_return_val_if_fail(LOG4G_IS_LOGGER_FACTORY(self), NULL);
+	Log4gLoggerFactoryInterface *interface =
+		LOG4G_LOGGER_FACTORY_GET_INTERFACE(self);
+	return interface->make_new_logger_instance(self, name);
 }

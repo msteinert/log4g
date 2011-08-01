@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -24,28 +24,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_APPENDER \
-    (log4g_appender_get_type())
+	(log4g_appender_get_type())
 
 #define LOG4G_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_APPENDER, \
-            Log4gAppender))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_APPENDER, \
+		Log4gAppender))
 
 #define LOG4G_IS_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_APPENDER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_APPENDER))
 
 #define LOG4G_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_APPENDER, Log4gAppenderClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_APPENDER, \
+		Log4gAppenderClass))
 
 #define LOG4G_IS_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_APPENDER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_APPENDER))
 
 #define LOG4G_APPENDER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_APPENDER, \
-            Log4gAppenderClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_APPENDER, \
+		Log4gAppenderClass))
 
-typedef struct _Log4gAppender Log4gAppender;
+typedef struct Log4gAppender_ Log4gAppender;
 
-typedef struct _Log4gAppenderClass Log4gAppenderClass;
+typedef struct Log4gAppenderClass_ Log4gAppenderClass;
 
 /**
  * Log4gAppender:
@@ -53,9 +54,10 @@ typedef struct _Log4gAppenderClass Log4gAppenderClass;
  * The <structname>Log4gAppender</structname> structure does not have any
  * public members.
  */
-struct _Log4gAppender {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gAppender_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -255,23 +257,23 @@ typedef void
  * @requires_layout: Determine if this appender requires a layout.
  * @activate_options: Activate all options set for this appender.
  */
-struct _Log4gAppenderClass {
-    /*< private >*/
-    GObjectClass parent_interface;
-    /*< public >*/
-    Log4gAppenderAddFilter add_filter;
-    Log4gAppenderGetFilter get_filter;
-    Log4gAppenderClose close;
-    Log4gAppenderAppend append;
-    Log4gAppenderDoAppend do_append;
-    Log4gAppenderSetName set_name;
-    Log4gAppenderGetName get_name;
-    Log4gAppenderSetErrorHandler set_error_handler;
-    Log4gAppenderGetErrorHandler get_error_handler;
-    Log4gAppenderSetLayout set_layout;
-    Log4gAppenderGetLayout get_layout;
-    Log4gAppenderRequiresLayout requires_layout;
-    Log4gAppenderActivateOptions activate_options;
+struct Log4gAppenderClass_ {
+	/*< private >*/
+	GObjectClass parent_interface;
+	/*< public >*/
+	Log4gAppenderAddFilter add_filter;
+	Log4gAppenderGetFilter get_filter;
+	Log4gAppenderClose close;
+	Log4gAppenderAppend append;
+	Log4gAppenderDoAppend do_append;
+	Log4gAppenderSetName set_name;
+	Log4gAppenderGetName get_name;
+	Log4gAppenderSetErrorHandler set_error_handler;
+	Log4gAppenderGetErrorHandler get_error_handler;
+	Log4gAppenderSetLayout set_layout;
+	Log4gAppenderGetLayout get_layout;
+	Log4gAppenderRequiresLayout requires_layout;
+	Log4gAppenderActivateOptions activate_options;
 };
 
 GType

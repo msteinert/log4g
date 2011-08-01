@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,22 +23,22 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LOGGER_REPOSITORY \
-    (log4g_logger_repository_get_type())
+	(log4g_logger_repository_get_type())
 
 #define LOG4G_LOGGER_REPOSITORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER_REPOSITORY, \
-            Log4gLoggerRepository))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LOGGER_REPOSITORY, \
+		Log4gLoggerRepository))
 
 #define LOG4G_IS_LOGGER_REPOSITORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER_REPOSITORY))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LOGGER_REPOSITORY))
 
 #define LOG4G_LOGGER_REPOSITORY_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), LOG4G_TYPE_LOGGER_REPOSITORY, \
-            Log4gLoggerRepositoryInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), \
+		LOG4G_TYPE_LOGGER_REPOSITORY, Log4gLoggerRepositoryInterface));
 
-typedef struct _Log4gLoggerRepository Log4gLoggerRepository;
+typedef struct Log4gLoggerRepository_ Log4gLoggerRepository;
 
-typedef struct _Log4gLoggerRepositoryInterface Log4gLoggerRepositoryInterface;
+typedef struct Log4gLoggerRepositoryInterface_ Log4gLoggerRepositoryInterface;
 
 /**
  * Log4gLoggerRepositoryExists:
@@ -88,7 +88,7 @@ typedef const GArray *
  */
 typedef Log4gLogger *
 (*Log4gLoggerRepositoryGetLogger)(Log4gLoggerRepository *self,
-        const gchar *name);
+		const gchar *name);
 
 /**
  * Log4gLoggerRepositoryGetLoggerFactory:
@@ -106,7 +106,7 @@ typedef Log4gLogger *
  */
 typedef Log4gLogger *
 (*Log4gLoggerRepositoryGetLoggerFactory)(Log4gLoggerRepository *self,
-        const gchar *name, Log4gLoggerFactory *factory);
+		const gchar *name, Log4gLoggerFactory *factory);
 
 /**
  * Log4gLoggerRepositoryGetRootLogger:
@@ -177,7 +177,7 @@ typedef void
  */
 typedef void
 (*Log4gLoggerRepositorySetThreshold)(Log4gLoggerRepository *self,
-        Log4gLevel *level);
+		Log4gLevel *level);
 
 /**
  * Log4gLoggerRepositorySetThresholdString:
@@ -192,7 +192,7 @@ typedef void
  */
 typedef void
 (*Log4gLoggerRepositorySetThresholdString)(Log4gLoggerRepository *self,
-        const gchar *level);
+		const gchar *level);
 
 /**
  * Log4gLoggerRepositoryShutdown:
@@ -219,7 +219,7 @@ typedef void
  */
 typedef void
 (*Log4gLoggerRepositoryEmitNoAppenderWarning)(Log4gLoggerRepository *self,
-        Log4gLogger *logger);
+		Log4gLogger *logger);
 
 /**
  * Log4gLoggerRepositoryInterface:
@@ -236,22 +236,22 @@ typedef void
  * @shutdown: Shut down the logger repository.
  * @emit_no_appender_warning: Emit a warning if no appenders are attached.
  */
-struct _Log4gLoggerRepositoryInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gLoggerRepositoryExists exists;
-    Log4gLoggerRepositoryGetCurrentLoggers get_current_loggers;
-    Log4gLoggerRepositoryGetLogger get_logger;
-    Log4gLoggerRepositoryGetLoggerFactory get_logger_factory;
-    Log4gLoggerRepositoryGetRootLogger get_root_logger;
-    Log4gLoggerRepositoryGetThreshold get_threshold;
-    Log4gLoggerRepositoryIsDisabled is_disabled;
-    Log4gLoggerRepositoryResetConfiguration reset_configuration;
-    Log4gLoggerRepositorySetThreshold set_threshold;
-    Log4gLoggerRepositorySetThresholdString set_threshold_string;
-    Log4gLoggerRepositoryShutdown shutdown;
-    Log4gLoggerRepositoryEmitNoAppenderWarning emit_no_appender_warning;
+struct Log4gLoggerRepositoryInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gLoggerRepositoryExists exists;
+	Log4gLoggerRepositoryGetCurrentLoggers get_current_loggers;
+	Log4gLoggerRepositoryGetLogger get_logger;
+	Log4gLoggerRepositoryGetLoggerFactory get_logger_factory;
+	Log4gLoggerRepositoryGetRootLogger get_root_logger;
+	Log4gLoggerRepositoryGetThreshold get_threshold;
+	Log4gLoggerRepositoryIsDisabled is_disabled;
+	Log4gLoggerRepositoryResetConfiguration reset_configuration;
+	Log4gLoggerRepositorySetThreshold set_threshold;
+	Log4gLoggerRepositorySetThresholdString set_threshold_string;
+	Log4gLoggerRepositoryShutdown shutdown;
+	Log4gLoggerRepositoryEmitNoAppenderWarning emit_no_appender_warning;
 };
 
 GType
@@ -262,23 +262,23 @@ log4g_logger_repository_exists(Log4gLoggerRepository *self, const gchar *name);
 
 void
 log4g_logger_repository_emit_add_appender_signal(Log4gLoggerRepository *self,
-        Log4gLogger *logger, Log4gAppender *appender);
+		Log4gLogger *logger, Log4gAppender *appender);
 
 void
 log4g_logger_repository_emit_remove_appender_signal(
-        Log4gLoggerRepository *self, Log4gLogger *logger,
-        Log4gAppender *appender);
+		Log4gLoggerRepository *self, Log4gLogger *logger,
+		Log4gAppender *appender);
 
 const GArray *
 log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self);
 
 Log4gLogger *
 log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
-        const gchar *name);
+		const gchar *name);
 
 Log4gLogger *
 log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
-        const gchar *name, Log4gLoggerFactory *factory);
+		const gchar *name, Log4gLoggerFactory *factory);
 
 Log4gLogger *
 log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self);
@@ -294,18 +294,18 @@ log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self);
 
 void
 log4g_logger_repository_set_threshold(Log4gLoggerRepository *self,
-        Log4gLevel *level);
+		Log4gLevel *level);
 
 void
 log4g_logger_repository_set_threshold_string(Log4gLoggerRepository *self,
-        const gchar *string);
+		const gchar *string);
 
 void
 log4g_logger_repository_shutdown(Log4gLoggerRepository *self);
 
 void
 log4g_logger_repository_emit_no_appender_warning(Log4gLoggerRepository *self,
-        Log4gLogger *logger);
+		Log4gLogger *logger);
 
 G_END_DECLS
 

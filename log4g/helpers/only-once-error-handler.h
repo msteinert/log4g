@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,31 +23,31 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER \
-    (log4g_only_once_error_handler_get_type())
+	(log4g_only_once_error_handler_get_type())
 
 #define LOG4G_ONLY_ONCE_ERROR_HANDLER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), \
-            LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, Log4gOnlyOnceErrorHandler))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, Log4gOnlyOnceErrorHandler))
 
 #define LOG4G_IS_ONLY_ONCE_ERROR_HANDLER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), \
-            LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER))
 
 #define LOG4G_ONLY_ONCE_ERROR_HANDLER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, \
-            Log4gOnlyOnceErrorHandlerClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, \
+		Log4gOnlyOnceErrorHandlerClass))
 
 #define LOG4G_IS_ONLY_ONCE_ERROR_HANDLER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER))
 
 #define LOG4G_ONLY_ONCE_ERROR_HANDLER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), \
-            LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, \
-            Log4gOnlyOnceErrorHandlerClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_ONLY_ONCE_ERROR_HANDLER, \
+		Log4gOnlyOnceErrorHandlerClass))
 
-typedef struct _Log4gOnlyOnceErrorHandler Log4gOnlyOnceErrorHandler;
+typedef struct Log4gOnlyOnceErrorHandler_ Log4gOnlyOnceErrorHandler;
 
-typedef struct _Log4gOnlyOnceErrorHandlerClass Log4gOnlyOnceErrorHandlerClass;
+typedef struct Log4gOnlyOnceErrorHandlerClass_ Log4gOnlyOnceErrorHandlerClass;
 
 /**
  * Log4gOnlyOnceErrorHandler:
@@ -55,9 +55,10 @@ typedef struct _Log4gOnlyOnceErrorHandlerClass Log4gOnlyOnceErrorHandlerClass;
  * The <structname>Log4gOnlyOnceErrorHandler</structname> structure does not
  * have any public members.
  */
-struct _Log4gOnlyOnceErrorHandler {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gOnlyOnceErrorHandler_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -66,9 +67,9 @@ struct _Log4gOnlyOnceErrorHandler {
  * The <structname>Log4gOnlyOnceErrorHandlerClass</structname> structure does
  * not have any public members.
  */
-struct _Log4gOnlyOnceErrorHandlerClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gOnlyOnceErrorHandlerClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

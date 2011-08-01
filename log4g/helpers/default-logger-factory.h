@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,31 +23,32 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_DEFAULT_LOGGER_FACTORY \
-    (log4g_default_logger_factory_get_type())
+	(log4g_default_logger_factory_get_type())
 
 #define LOG4G_DEFAULT_LOGGER_FACTORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), \
-            LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, \
-            Log4gDefaultLoggerFactory))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, \
+		Log4gDefaultLoggerFactory))
 
 #define LOG4G_IS_DEFAULT_LOGGER_FACTORY(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), \
-            LOG4G_TYPE_DEFAULT_LOGGER_FACTORY))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_DEFAULT_LOGGER_FACTORY))
 
 #define LOG4G_DEFAULT_LOGGER_FACTORY_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, \
-            Log4gDefaultLoggerFactoryClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, \
+		Log4gDefaultLoggerFactoryClass))
 
 #define LOG4G_IS_DEFAULT_LOGGER_FACTORY_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_DEFAULT_LOGGER_FACTORY))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_DEFAULT_LOGGER_FACTORY))
 
 #define LOG4G_DEFAULT_LOGGER_FACTORY_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), \
-            LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, Log4gDefaultLoggerFactoryClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_DEFAULT_LOGGER_FACTORY, \
+		Log4gDefaultLoggerFactoryClass))
 
-typedef struct _Log4gDefaultLoggerFactory Log4gDefaultLoggerFactory;
+typedef struct Log4gDefaultLoggerFactory_ Log4gDefaultLoggerFactory;
 
-typedef struct _Log4gDefaultLoggerFactoryClass Log4gDefaultLoggerFactoryClass;
+typedef struct Log4gDefaultLoggerFactoryClass_ Log4gDefaultLoggerFactoryClass;
 
 /**
  * Log4gDefaultLoggerFactory:
@@ -55,9 +56,9 @@ typedef struct _Log4gDefaultLoggerFactoryClass Log4gDefaultLoggerFactoryClass;
  * The <structname>Log4gDefaultLoggerFactory</structname> structure does not
  * have any public members.
  */
-struct _Log4gDefaultLoggerFactory {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gDefaultLoggerFactory_ {
+	/*< private >*/
+	GObject parent_instance;
 };
 
 /**
@@ -66,9 +67,9 @@ struct _Log4gDefaultLoggerFactory {
  * The <structname>Log4gDefaultLoggerFactoryClass</structname> structure does
  * not have any public members.
  */
-struct _Log4gDefaultLoggerFactoryClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gDefaultLoggerFactoryClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

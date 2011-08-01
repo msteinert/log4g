@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,29 +23,31 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_ROLLING_FILE_APPENDER \
-    (log4g_rolling_file_appender_get_type())
+	(log4g_rolling_file_appender_get_type())
 
 #define LOG4G_ROLLING_FILE_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_ROLLING_FILE_APPENDER, \
-            Log4gRollingFileAppender))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_ROLLING_FILE_APPENDER, Log4gRollingFileAppender))
 
 #define LOG4G_IS_ROLLING_FILE_APPENDER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_ROLLING_FILE_APPENDER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_ROLLING_FILE_APPENDER))
 
 #define LOG4G_ROLLING_FILE_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ROLLING_FILE_APPENDER, \
-            Log4gRollingFileAppenderClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_ROLLING_FILE_APPENDER, \
+		Log4gRollingFileAppenderClass))
 
 #define LOG4G_IS_ROLLING_FILE_APPENDER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ROLLING_FILE_APPENDER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_ROLLING_FILE_APPENDER))
 
 #define LOG4G_ROLLING_FILE_APPENDER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_ROLLING_FILE_APPENDER, \
-            Log4gRollingFileAppenderClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), \
+		LOG4G_TYPE_ROLLING_FILE_APPENDER, \
+		Log4gRollingFileAppenderClass))
 
-typedef struct _Log4gRollingFileAppender Log4gRollingFileAppender;
+typedef struct Log4gRollingFileAppender_ Log4gRollingFileAppender;
 
-typedef struct _Log4gRollingFileAppenderClass Log4gRollingFileAppenderClass;
+typedef struct Log4gRollingFileAppenderClass_ Log4gRollingFileAppenderClass;
 
 /**
  * Log4gRollingFileAppender:
@@ -53,9 +55,10 @@ typedef struct _Log4gRollingFileAppenderClass Log4gRollingFileAppenderClass;
  * The <structname>Log4gRollingFileAppender</structname> structure does not
  * have any public members.
  */
-struct _Log4gRollingFileAppender {
-    /*< private >*/
-    Log4gFileAppender parent_instance;
+struct Log4gRollingFileAppender_ {
+	/*< private >*/
+	Log4gFileAppender parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -73,11 +76,11 @@ typedef void
  * Log4gRollingFileAppenderClass:
  * @roll_over: Roll the current log file over.
  */
-struct _Log4gRollingFileAppenderClass {
-    /*< private >*/
-    Log4gFileAppenderClass parent_class;
-    /*< public >*/
-    Log4gRollingFileAppenderRollOver roll_over;
+struct Log4gRollingFileAppenderClass_ {
+	/*< private >*/
+	Log4gFileAppenderClass parent_class;
+	/*< public >*/
+	Log4gRollingFileAppenderRollOver roll_over;
 };
 
 G_GNUC_INTERNAL GType

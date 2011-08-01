@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -29,13 +29,12 @@
 #endif
 #include "log4g/interface/module-loader.h"
 
-G_DEFINE_INTERFACE(Log4gModuleLoader, log4g_module_loader,
-        G_TYPE_INVALID)
+G_DEFINE_INTERFACE(Log4gModuleLoader, log4g_module_loader, G_TYPE_INVALID)
 
 static void
 log4g_module_loader_default_init(Log4gModuleLoaderInterface *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -50,8 +49,8 @@ log4g_module_loader_default_init(Log4gModuleLoaderInterface *klass)
 void
 log4g_module_loader_load_modules(Log4gModuleLoader *self)
 {
-    g_return_if_fail(LOG4G_IS_MODULE_LOADER(self));
-    Log4gModuleLoaderInterface *interface =
-        LOG4G_MODULE_LOADER_GET_INTERFACE(self);
-    return interface->load_modules(self);
+	g_return_if_fail(LOG4G_IS_MODULE_LOADER(self));
+	Log4gModuleLoaderInterface *interface =
+		LOG4G_MODULE_LOADER_GET_INTERFACE(self);
+	return interface->load_modules(self);
 }

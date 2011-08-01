@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -24,29 +24,29 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_LEVEL_MATCH_FILTER \
-    (log4g_level_match_filter_get_type())
+	(log4g_level_match_filter_get_type())
 
 #define LOG4G_LEVEL_MATCH_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
-            Log4gLevelMatchFilter))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_LEVEL_MATCH_FILTER, Log4gLevelMatchFilter))
 
 #define LOG4G_IS_LEVEL_MATCH_FILTER(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER))
 
 #define LOG4G_LEVEL_MATCH_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
-            Log4gLevelMatchFilterClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
+		Log4gLevelMatchFilterClass))
 
 #define LOG4G_IS_LEVEL_MATCH_FILTER_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LEVEL_MATCH_FILTER))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_LEVEL_MATCH_FILTER))
 
 #define LOG4G_LEVEL_MATCH_FILTER_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
-            Log4gLevelMatchFilterClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_LEVEL_MATCH_FILTER, \
+		Log4gLevelMatchFilterClass))
 
-typedef struct _Log4gLevelMatchFilter Log4gLevelMatchFilter;
+typedef struct Log4gLevelMatchFilter_ Log4gLevelMatchFilter;
 
-typedef struct _Log4gLevelMatchFilterClass Log4gLevelMatchFilterClass;
+typedef struct Log4gLevelMatchFilterClass_ Log4gLevelMatchFilterClass;
 
 /**
  * Log4gLevelMatchFilter:
@@ -54,9 +54,10 @@ typedef struct _Log4gLevelMatchFilterClass Log4gLevelMatchFilterClass;
  * The <structname>Log4gLevelMatchFilter</structname> structure does not have
  * any public members.
  */
-struct _Log4gLevelMatchFilter {
-    /*< private >*/
-    Log4gFilter parent_instance;
+struct Log4gLevelMatchFilter_ {
+	/*< private >*/
+	Log4gFilter parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -65,9 +66,9 @@ struct _Log4gLevelMatchFilter {
  * The <structname>Log4gLevelMatchFilterClass</structname> structure does not
  * have any public members.
  */
-struct _Log4gLevelMatchFilterClass {
-    /*< private >*/
-    Log4gFilterClass parent_class;
+struct Log4gLevelMatchFilterClass_ {
+	/*< private >*/
+	Log4gFilterClass parent_class;
 };
 
 G_GNUC_INTERNAL GType

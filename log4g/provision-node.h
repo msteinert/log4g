@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,50 +23,51 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_PROVISION_NODE \
-    (log4g_provision_node_get_type())
+	(log4g_provision_node_get_type())
 
 #define LOG4G_PROVISION_NODE(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_PROVISION_NODE, \
-            Log4gProvisionNode))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_PROVISION_NODE, \
+		Log4gProvisionNode))
 
 #define LOG4G_IS_PROVISION_NODE(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_PROVISION_NODE))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_PROVISION_NODE))
 
 #define LOG4G_PROVISION_NODE_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_PROVISION_NODE, \
-            Log4gProvisionNodeClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_PROVISION_NODE, \
+		Log4gProvisionNodeClass))
 
 #define LOG4G_IS_PROVISION_NODE_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_PROVISION_NODE))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_PROVISION_NODE))
 
 #define LOG4G_PROVISION_NODE_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_PROVISION_NODE, \
-            Log4gProvisionNodeClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_PROVISION_NODE, \
+		Log4gProvisionNodeClass))
 
-typedef struct _Log4gProvisionNode Log4gProvisionNode;
+typedef struct Log4gProvisionNode_ Log4gProvisionNode;
 
-typedef struct _Log4gProvisionNodeClass Log4gProvisionNodeClass;
+typedef struct Log4gProvisionNodeClass_ Log4gProvisionNodeClass;
 
 /**
  * Log4gProvisionNode:
  *
- * The <structname>Log4gProvisionNode</structname> structure does not have any
- * public members.
+ * The <structname>Log4gProvisionNode</structname> structure does not have
+ * any public members.
  */
-struct _Log4gProvisionNode {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gProvisionNode_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
  * Log4gProvisionNodeClass:
  *
- * The <structname>Log4gProvisionNodeClass</structname> structure does not have
- * any public members.
+ * The <structname>Log4gProvisionNodeClass</structname> structure does not
+ * have any public members.
  */
-struct _Log4gProvisionNodeClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gProvisionNodeClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

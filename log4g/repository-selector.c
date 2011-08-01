@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -34,12 +34,12 @@
 #include "log4g/interface/repository-selector.h"
 
 G_DEFINE_INTERFACE(Log4gRepositorySelector, log4g_repository_selector,
-        G_TYPE_INVALID)
+		G_TYPE_INVALID)
 
 static void
 log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
 {
-    /* do nothing */
+	/* do nothing */
 }
 
 /**
@@ -57,8 +57,8 @@ log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
 Log4gLoggerRepository *
 log4g_repository_selector_get_logger_repository(Log4gRepositorySelector *self)
 {
-    g_return_val_if_fail(LOG4G_IS_REPOSITORY_SELECTOR(self), NULL);
-    Log4gRepositorySelectorInterface *interface =
-        LOG4G_REPOSITORY_SELECTOR_GET_INTERFACE(self);
-    return interface->get_logger_repository(self);
+	g_return_val_if_fail(LOG4G_IS_REPOSITORY_SELECTOR(self), NULL);
+	Log4gRepositorySelectorInterface *interface =
+		LOG4G_REPOSITORY_SELECTOR_GET_INTERFACE(self);
+	return interface->get_logger_repository(self);
 }

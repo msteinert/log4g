@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -36,12 +36,15 @@
 
 G_DEFINE_TYPE(Log4gMDC, log4g_mdc, G_TYPE_OBJECT)
 
-#define GET_PRIVATE(instance) \
-    (G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_MDC, \
-            struct Log4gPrivate))
+#define ASSIGN_PRIVATE(instance) \
+	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_MDC, \
+		struct Private))
 
-struct Log4gPrivate {
-    GHashTable *table;
+#define GET_PRIVATE(instance) \
+	((struct Private *)((Log4gMDC *)instance)->priv)
+
+struct Private {
+	GHashTable *table;
 };
 
 /* Thread specific data. */
@@ -50,57 +53,59 @@ static GPrivate *priv = NULL;
 static void
 log4g_mdc_init(Log4gMDC *self)
 {
-    GET_PRIVATE(self)->table =
-        g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+	self->priv = ASSIGN_PRIVATE(self);
+	struct Private *priv = GET_PRIVATE(self);
+	priv->table = g_hash_table_new_full(g_str_hash, g_str_equal,
+			g_free, g_free);
 }
 
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-    if (g_thread_supported()) {
-        static gsize once = 0;
-        if (g_once_init_enter(&once)) {
-            priv = g_private_new(g_object_unref);
-            if (!priv) {
-                return NULL;
-            }
-            g_once_init_leave(&once, 1);
-        }
-    }
-    GObject *self = g_private_get(priv);
-    if (!self) {
-        self = G_OBJECT_CLASS(log4g_mdc_parent_class)->
-            constructor(type, n, params);
-        if (!self) {
-            return NULL;
-        }
-        g_private_set(priv, self);
-    } else {
-        g_object_ref(self);
-    }
-    return self;
+	if (g_thread_supported()) {
+		static gsize once = 0;
+		if (g_once_init_enter(&once)) {
+			priv = g_private_new(g_object_unref);
+			if (!priv) {
+				return NULL;
+			}
+			g_once_init_leave(&once, 1);
+		}
+	}
+	GObject *self = g_private_get(priv);
+	if (!self) {
+		self = G_OBJECT_CLASS(log4g_mdc_parent_class)->
+			constructor(type, n, params);
+		if (!self) {
+			return NULL;
+		}
+		g_private_set(priv, self);
+	} else {
+		g_object_ref(self);
+	}
+	return self;
 }
 
 static void
 finalize(GObject *base)
 {
-    struct Log4gPrivate *priv = GET_PRIVATE(base);
-    if (priv->table) {
-        g_hash_table_destroy(priv->table);
-        priv->table = NULL;
-    }
-    G_OBJECT_CLASS(log4g_mdc_parent_class)->finalize(base);
+	struct Private *priv = GET_PRIVATE(base);
+	if (priv->table) {
+		g_hash_table_destroy(priv->table);
+		priv->table = NULL;
+	}
+	G_OBJECT_CLASS(log4g_mdc_parent_class)->finalize(base);
 }
 
 static void
 log4g_mdc_class_init(Log4gMDCClass *klass)
 {
-    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-    /* initialize GObject */
-    gobject_class->constructor = constructor;
-    gobject_class->finalize = finalize;
-    /* initialize private data */
-    g_type_class_add_private(klass, sizeof(struct Log4gPrivate));
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	/* initialize GObject */
+	object_class->constructor = constructor;
+	object_class->finalize = finalize;
+	/* initialize private data */
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**
@@ -113,11 +118,11 @@ log4g_mdc_class_init(Log4gMDCClass *klass)
 static Log4gMDC *
 log4g_mdc_get_instance(void)
 {
-    Log4gMDC *self = g_private_get(priv);
-    if (!self) {
-        self = g_object_new(LOG4G_TYPE_MDC, NULL);
-    }
-    return self;
+	Log4gMDC *self = g_private_get(priv);
+	if (!self) {
+		self = g_object_new(LOG4G_TYPE_MDC, NULL);
+	}
+	return self;
 }
 
 /**
@@ -137,15 +142,15 @@ log4g_mdc_get_instance(void)
 void
 log4g_mdc_put(const gchar *key, const gchar *value, ...)
 {
-    Log4gMDC *self = log4g_mdc_get_instance();
-    if (!self) {
-        return;
-    }
-    va_list ap;
-    va_start(ap, value);
-    g_hash_table_insert(GET_PRIVATE(self)->table, g_strdup(key),
-            g_strdup_vprintf(value, ap));
-    va_end(ap);
+	Log4gMDC *self = log4g_mdc_get_instance();
+	if (!self) {
+		return;
+	}
+	va_list ap;
+	va_start(ap, value);
+	g_hash_table_insert(GET_PRIVATE(self)->table, g_strdup(key),
+			g_strdup_vprintf(value, ap));
+	va_end(ap);
 }
 
 /**
@@ -161,11 +166,11 @@ log4g_mdc_put(const gchar *key, const gchar *value, ...)
 const gchar *
 log4g_mdc_get(const gchar *key)
 {
-    Log4gMDC *self = log4g_mdc_get_instance();
-    if (!self) {
-        return NULL;
-    }
-    return g_hash_table_lookup(GET_PRIVATE(self)->table, key);
+	Log4gMDC *self = log4g_mdc_get_instance();
+	if (!self) {
+		return NULL;
+	}
+	return g_hash_table_lookup(GET_PRIVATE(self)->table, key);
 }
 
 /**
@@ -180,11 +185,11 @@ log4g_mdc_get(const gchar *key)
 void
 log4g_mdc_remove(const gchar *key)
 {
-    Log4gMDC *self = log4g_mdc_get_instance();
-    if (!self) {
-        return;
-    }
-    g_hash_table_remove(GET_PRIVATE(self)->table, key);
+	Log4gMDC *self = log4g_mdc_get_instance();
+	if (!self) {
+		return;
+	}
+	g_hash_table_remove(GET_PRIVATE(self)->table, key);
 }
 
 /**
@@ -201,9 +206,9 @@ log4g_mdc_remove(const gchar *key)
 const GHashTable *
 log4g_mdc_get_context(void)
 {
-    Log4gMDC *self = log4g_mdc_get_instance();
-    if (!self) {
-        return NULL;
-    }
-    return GET_PRIVATE(self)->table;
+	Log4gMDC *self = log4g_mdc_get_instance();
+	if (!self) {
+		return NULL;
+	}
+	return GET_PRIVATE(self)->table;
 }

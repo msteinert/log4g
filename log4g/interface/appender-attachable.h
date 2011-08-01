@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,23 +23,25 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_APPENDER_ATTACHABLE \
-    (log4g_appender_attachable_get_type())
+	(log4g_appender_attachable_get_type())
 
 #define LOG4G_APPENDER_ATTACHABLE(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_APPENDER_ATTACHABLE, \
-            Log4gAppenderAttachable))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE, Log4gAppenderAttachable))
 
 #define LOG4G_IS_APPENDER_ATTACHABLE(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_APPENDER_ATTACHABLE))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE))
 
 #define LOG4G_APPENDER_ATTACHABLE_GET_INTERFACE(instance) \
-    (G_TYPE_INSTANCE_GET_INTERFACE((instance), \
-            LOG4G_TYPE_APPENDER_ATTACHABLE, Log4gAppenderAttachableInterface));
+	(G_TYPE_INSTANCE_GET_INTERFACE((instance), \
+		LOG4G_TYPE_APPENDER_ATTACHABLE, \
+		Log4gAppenderAttachableInterface));
 
-typedef struct _Log4gAppenderAttachable Log4gAppenderAttachable;
+typedef struct Log4gAppenderAttachable_ Log4gAppenderAttachable;
 
-typedef struct _Log4gAppenderAttachableInterface
-                    Log4gAppenderAttachableInterface;
+typedef struct Log4gAppenderAttachableInterface_
+	Log4gAppenderAttachableInterface;
 
 /**
  * Log4gAppenderAttachableAddAppender:
@@ -52,7 +54,7 @@ typedef struct _Log4gAppenderAttachableInterface
  */
 typedef void
 (*Log4gAppenderAttachableAddAppender)(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 /**
  * Log4gAppenderAttachableGetAllAppenders:
@@ -85,7 +87,7 @@ typedef const GArray *
  */
 typedef Log4gAppender *
 (*Log4gAppenderAttachableGetAppender)(Log4gAppenderAttachable *self,
-        const gchar *name);
+		const gchar *name);
 
 /**
  * Log4gAppenderAttachableIsAttached:
@@ -100,7 +102,7 @@ typedef Log4gAppender *
  */
 typedef gboolean
 (*Log4gAppenderAttachableIsAttached)(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 /**
  * Log4gAppenderAttachableRemoveAllAppenders:
@@ -124,7 +126,7 @@ typedef void
  */
 typedef void
 (*Log4gAppenderAttachableRemoveAppender)(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 /**
  * Log4gAppenderAttachableRemoveAppenderName:
@@ -137,7 +139,7 @@ typedef void
  */
 typedef void
 (*Log4gAppenderAttachableRemoveAppenderName)(Log4gAppenderAttachable *self,
-        const gchar *name);
+		const gchar *name);
 
 /**
  * Log4gAppenderAttachableInterface:
@@ -149,17 +151,17 @@ typedef void
  * @remove_appender: Remove an appender attached to an object.
  * @remove_appender_name: Remove an appender attached to an object by name.
  */
-struct _Log4gAppenderAttachableInterface {
-    /*< private >*/
-    GTypeInterface parent_interface;
-    /*< public >*/
-    Log4gAppenderAttachableAddAppender add_appender;
-    Log4gAppenderAttachableGetAllAppenders get_all_appenders;
-    Log4gAppenderAttachableGetAppender get_appender;
-    Log4gAppenderAttachableIsAttached is_attached;
-    Log4gAppenderAttachableRemoveAllAppenders remove_all_appenders;
-    Log4gAppenderAttachableRemoveAppender remove_appender;
-    Log4gAppenderAttachableRemoveAppenderName remove_appender_name;
+struct Log4gAppenderAttachableInterface_ {
+	/*< private >*/
+	GTypeInterface parent_interface;
+	/*< public >*/
+	Log4gAppenderAttachableAddAppender add_appender;
+	Log4gAppenderAttachableGetAllAppenders get_all_appenders;
+	Log4gAppenderAttachableGetAppender get_appender;
+	Log4gAppenderAttachableIsAttached is_attached;
+	Log4gAppenderAttachableRemoveAllAppenders remove_all_appenders;
+	Log4gAppenderAttachableRemoveAppender remove_appender;
+	Log4gAppenderAttachableRemoveAppenderName remove_appender_name;
 };
 
 GType
@@ -167,29 +169,29 @@ log4g_appender_attachable_get_type(void) G_GNUC_CONST;
 
 void
 log4g_appender_attachable_add_appender(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 const GArray *
 log4g_appender_attachable_get_all_appenders(Log4gAppenderAttachable *self);
 
 Log4gAppender *
 log4g_appender_attachable_get_appender(Log4gAppenderAttachable *self,
-        const gchar *name);
+		const gchar *name);
 
 gboolean
 log4g_appender_attachable_is_attached(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 void
 log4g_appender_attachable_remove_all_appenders(Log4gAppenderAttachable *self);
 
 void
 log4g_appender_attachable_remove_appender(Log4gAppenderAttachable *self,
-        Log4gAppender *appender);
+		Log4gAppender *appender);
 
 void
 log4g_appender_attachable_remove_appender_name(Log4gAppenderAttachable *self,
-        const gchar *name);
+		const gchar *name);
 
 G_END_DECLS
 

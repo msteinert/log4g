@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -23,27 +23,28 @@
 G_BEGIN_DECLS
 
 #define LOG4G_TYPE_THREAD \
-    (log4g_thread_get_type())
+	(log4g_thread_get_type())
 
 #define LOG4G_THREAD(instance) \
-    (G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_THREAD, Log4gThread))
+	(G_TYPE_CHECK_INSTANCE_CAST((instance), LOG4G_TYPE_THREAD, \
+		Log4gThread))
 
 #define LOG4G_IS_THREAD(instance) \
-    (G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_THREAD))
+	(G_TYPE_CHECK_INSTANCE_TYPE((instance), LOG4G_TYPE_THREAD))
 
 #define LOG4G_THREAD_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_THREAD, Log4gThreadClass))
+	(G_TYPE_CHECK_CLASS_CAST((klass), LOG4G_TYPE_THREAD, Log4gThreadClass))
 
 #define LOG4G_IS_THREAD_CLASS(klass) \
-    (G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_THREAD))
+	(G_TYPE_CHECK_CLASS_TYPE((klass), LOG4G_TYPE_THREAD))
 
 #define LOG4G_THREAD_GET_CLASS(instance) \
-    (G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_THREAD, \
-            Log4gThreadClass))
+	(G_TYPE_INSTANCE_GET_CLASS((instance), LOG4G_TYPE_THREAD, \
+		Log4gThreadClass))
 
-typedef struct _Log4gThread Log4gThread;
+typedef struct Log4gThread_ Log4gThread;
 
-typedef struct _Log4gThreadClass Log4gThreadClass;
+typedef struct Log4gThreadClass_ Log4gThreadClass;
 
 /**
  * Log4gThread:
@@ -51,9 +52,10 @@ typedef struct _Log4gThreadClass Log4gThreadClass;
  * The <structname>Log4gThread</structname> structure does not have any public
  * members.
  */
-struct _Log4gThread {
-    /*< private >*/
-    GObject parent_instance;
+struct Log4gThread_ {
+	/*< private >*/
+	GObject parent_instance;
+	gpointer priv;
 };
 
 /**
@@ -62,9 +64,9 @@ struct _Log4gThread {
  * The <structname>Log4gThreadClass</structname> structure does not have any
  * public members.
  */
-struct _Log4gThreadClass {
-    /*< private >*/
-    GObjectClass parent_class;
+struct Log4gThreadClass_ {
+	/*< private >*/
+	GObjectClass parent_class;
 };
 
 GType

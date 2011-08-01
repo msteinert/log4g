@@ -1,4 +1,4 @@
-/* Copyright 2010 Michael Steinert
+/* Copyright 2010, 2011 Michael Steinert
  * This file is part of Log4g.
  *
  * Log4g is free software: you can redistribute it and/or modify it under the
@@ -29,90 +29,90 @@
 void
 teardown(gpointer *fixture, gconstpointer data)
 {
-    log4g_ndc_remove();
+	log4g_ndc_remove();
 }
 
 void
 test_001(gpointer *fixture, gconstpointer data)
 {
-    log4g_ndc_push("foo");
-    g_assert_cmpstr(log4g_ndc_peek(), == , "foo");
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
-    log4g_ndc_push("bar");
-    g_assert_cmpstr(log4g_ndc_peek(), == , "bar");
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar");
-    log4g_ndc_push("baz");
-    g_assert_cmpstr(log4g_ndc_peek(), == , "baz");
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    const gchar *string = log4g_ndc_pop();
-    g_assert(string);
-    g_assert_cmpstr(string, ==, "baz");
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar");
-    string = log4g_ndc_pop();
-    g_assert(string);
-    g_assert_cmpstr(string, ==, "bar");
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
-    string = log4g_ndc_pop();
-    g_assert(string);
-    g_assert_cmpstr(string, ==, "foo");
-    g_assert(log4g_ndc_get() == NULL);
+	log4g_ndc_push("foo");
+	g_assert_cmpstr(log4g_ndc_peek(), == , "foo");
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
+	log4g_ndc_push("bar");
+	g_assert_cmpstr(log4g_ndc_peek(), == , "bar");
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar");
+	log4g_ndc_push("baz");
+	g_assert_cmpstr(log4g_ndc_peek(), == , "baz");
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
+	const gchar *string = log4g_ndc_pop();
+	g_assert(string);
+	g_assert_cmpstr(string, ==, "baz");
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar");
+	string = log4g_ndc_pop();
+	g_assert(string);
+	g_assert_cmpstr(string, ==, "bar");
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
+	string = log4g_ndc_pop();
+	g_assert(string);
+	g_assert_cmpstr(string, ==, "foo");
+	g_assert(log4g_ndc_get() == NULL);
 }
 
 void
 test_002(gpointer *fixture, gconstpointer data)
 {
-    log4g_ndc_push("foo");
-    log4g_ndc_push("bar");
-    log4g_ndc_push("baz");
-    g_assert(log4g_ndc_size() == 3);
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    log4g_ndc_clear();
-    g_assert(log4g_ndc_size() == 0);
-    g_assert(log4g_ndc_get() == NULL);
+	log4g_ndc_push("foo");
+	log4g_ndc_push("bar");
+	log4g_ndc_push("baz");
+	g_assert(log4g_ndc_size() == 3);
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
+	log4g_ndc_clear();
+	g_assert(log4g_ndc_size() == 0);
+	g_assert(log4g_ndc_get() == NULL);
 }
 
 void
 test_003(gpointer *fixture, gconstpointer data)
 {
-    log4g_ndc_push("foo");
-    log4g_ndc_push("bar");
-    log4g_ndc_push("baz");
-    g_assert(log4g_ndc_size() == 3);
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    log4g_ndc_set_max_depth(1);
-    g_assert(log4g_ndc_size() == 1);
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
+	log4g_ndc_push("foo");
+	log4g_ndc_push("bar");
+	log4g_ndc_push("baz");
+	g_assert(log4g_ndc_size() == 3);
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
+	log4g_ndc_set_max_depth(1);
+	g_assert(log4g_ndc_size() == 1);
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo");
 }
 
 void
 test_004(gpointer *fixture, gconstpointer data)
 {
-    log4g_ndc_push("foo");
-    log4g_ndc_push("bar");
-    log4g_ndc_push("baz");
-    g_assert(log4g_ndc_size() == 3);
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
-    GArray *ndc = log4g_ndc_clone();
-    g_assert(ndc);
-    log4g_ndc_remove();
-    log4g_ndc_inherit(ndc);
-    g_assert(log4g_ndc_size() == 3);
-    g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
+	log4g_ndc_push("foo");
+	log4g_ndc_push("bar");
+	log4g_ndc_push("baz");
+	g_assert(log4g_ndc_size() == 3);
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
+	GArray *ndc = log4g_ndc_clone();
+	g_assert(ndc);
+	log4g_ndc_remove();
+	log4g_ndc_inherit(ndc);
+	g_assert(log4g_ndc_size() == 3);
+	g_assert_cmpstr(log4g_ndc_get(), ==, "foo bar baz");
 }
 
 int
 main(int argc, char *argv[])
 {
-    g_test_init(&argc, &argv, NULL);
-    g_type_init();
+	g_test_init(&argc, &argv, NULL);
+	g_type_init();
 #ifndef G_THREADS_IMPL_NONE
-    if (!g_thread_supported()) {
-        g_thread_init(NULL);
-    }
+	if (!g_thread_supported()) {
+		g_thread_init(NULL);
+	}
 #endif
-    g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, teardown);
-    g_test_add(CLASS"/002", gpointer, NULL, NULL, test_002, teardown);
-    g_test_add(CLASS"/003", gpointer, NULL, NULL, test_003, teardown);
-    g_test_add(CLASS"/004", gpointer, NULL, NULL, test_004, teardown);
-    return g_test_run();
+	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, teardown);
+	g_test_add(CLASS"/002", gpointer, NULL, NULL, test_002, teardown);
+	g_test_add(CLASS"/003", gpointer, NULL, NULL, test_003, teardown);
+	g_test_add(CLASS"/004", gpointer, NULL, NULL, test_004, teardown);
+	return g_test_run();
 }
