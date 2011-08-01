@@ -92,12 +92,13 @@ static void
 log4g_only_once_error_handler_init(Log4gOnlyOnceErrorHandler *self)
 {
 	self->priv = ASSIGN_PRIVATE(self);
+	struct Private *priv = GET_PRIVATE(self);
+	priv->first = TRUE;
 }
 
 static void
 log4g_only_once_error_handler_class_init(Log4gOnlyOnceErrorHandlerClass *klass)
 {
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

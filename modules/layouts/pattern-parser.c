@@ -77,6 +77,9 @@ log4g_pattern_parser_init(Log4gPatternParser *self)
 	struct Private *priv = GET_PRIVATE(self);
 	priv->buffer = g_string_sized_new(32);
 	formatting_info_reset_(&priv->formatting);
+	priv->length = 0;
+	priv->i = 0;
+	priv->head = priv->tail = NULL;
 	priv->state = LITERAL_STATE;
 }
 
@@ -106,10 +109,8 @@ static void
 log4g_pattern_parser_class_init(Log4gPatternParserClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
@@ -167,8 +168,7 @@ log4g_pattern_parser_add_to_list(Log4gPatternParser *self,
 {
 	struct Private *priv = GET_PRIVATE(self);
 	if (!priv->head) {
-		g_object_ref(pc);
-		priv->head = priv->tail = pc;
+		priv->head = priv->tail = g_object_ref(pc);
 	} else {
 		log4g_pattern_converter_set_next(priv->tail, pc);
 		priv->tail = pc;

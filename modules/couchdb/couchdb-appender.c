@@ -266,19 +266,16 @@ activate_options(Log4gAppender *base)
 static void
 log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
 {
-	/* initialize GObjectClass */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gAppenderClass */
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->append = append;
 	appender_class->close = close_;
 	appender_class->requires_layout = requires_layout;
 	appender_class->activate_options = activate_options;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_URI,
 		g_param_spec_string("uri", Q_("CouchDB server URI"),

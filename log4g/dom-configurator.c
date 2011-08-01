@@ -801,8 +801,6 @@ log4g_dom_configurator_init(Log4gDOMConfigurator *self)
 {
 	self->priv = ASSIGN_PRIVATE(self);
 	struct Private *priv = GET_PRIVATE(self);
-	memset(priv, 0, sizeof *priv);
-	/* allocate resources */
 	priv->ctx = xmlNewParserCtxt();
 	priv->appenders = g_hash_table_new_full(g_str_hash, g_str_equal,
 				xmlFree, g_object_unref);
@@ -833,10 +831,8 @@ log4g_dom_configurator_finalize(GObject *base)
 static void
 log4g_dom_configurator_class_init(Log4gDOMConfiguratorClass *klass)
 {
-	/* initialize GObject */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = log4g_dom_configurator_finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

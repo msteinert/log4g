@@ -411,17 +411,14 @@ static void
 log4g_async_appender_class_init(Log4gAsyncAppenderClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObjectClass */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gAppenderClass */
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->append = append;
 	appender_class->close = close_;
 	appender_class->requires_layout = requires_layout;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_BLOCKING,
 		g_param_spec_boolean("blocking", Q_("Blocking"),

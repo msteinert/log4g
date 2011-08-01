@@ -122,15 +122,12 @@ activate_options(Log4gLayout *base)
 static void
 log4g_date_layout_class_init(Log4gDateLayoutClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayoutClass */
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
 	layout_class->activate_options = activate_options;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_DATE_FORMAT,
 		g_param_spec_string("date-format", Q_("Date Format"),

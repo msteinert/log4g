@@ -272,10 +272,8 @@ static void
 log4g_ndc_class_init(Log4gNDCClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->constructor = constructor;
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

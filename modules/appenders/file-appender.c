@@ -215,22 +215,17 @@ exit:
 static void
 log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 {
-	/* initialize GObjectClass */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gAppenderClass */
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->activate_options = activate_options;
-	/* initialize Log4gWriterAppenderClass */
 	Log4gWriterAppenderClass *writer_class =
 		LOG4G_WRITER_APPENDER_CLASS(klass);
 	writer_class->reset = reset;
-	/* initialize Log4gFileAppenderClass */
 	klass->set_file_full = set_file_full;
 	klass->set_qw_for_files = set_qw_for_files;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_FILE,
 		g_param_spec_string("file", Q_("File"),

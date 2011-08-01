@@ -182,22 +182,17 @@ roll_over(Log4gAppender *base)
 static void
 log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gWriterAppender class */
 	Log4gWriterAppenderClass *writer_class =
 		LOG4G_WRITER_APPENDER_CLASS(klass);
 	writer_class->sub_append = sub_append;
-	/* initialize Log4gaFileAppender class */
 	Log4gFileAppenderClass *file_class =
 		LOG4G_FILE_APPENDER_CLASS(klass);
 	file_class->set_file_full = set_file_full;
 	file_class->set_qw_for_files = set_qw_for_files;
-	/* initialize Log4gRollingFileAppender class */
 	klass->roll_over = roll_over;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_MAX_BACKUP_INDEX,
 		g_param_spec_uint("max-backup-index",

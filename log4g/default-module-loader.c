@@ -172,9 +172,7 @@ static void
 log4g_default_module_loader_class_init(Log4gDefaultModuleLoaderClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObjectClass */
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

@@ -77,15 +77,12 @@ static void
 log4g_level_class_init(Log4gLevelClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* intialize Log4gLevel */
 	klass->string_to_level = log4g_level_string_to_level;
 	klass->string_to_level_default = log4g_level_string_to_level_default;
 	klass->int_to_level = log4g_level_int_to_level;
 	klass->int_to_level_default = log4g_level_int_to_level_default;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* initialize default log levels */
 	klass->ALL = log4g_level_new(LOG4G_LEVEL_ALL_INT, "ALL", LOG_DEBUG);
 	klass->TRACE =

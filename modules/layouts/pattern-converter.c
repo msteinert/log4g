@@ -132,13 +132,10 @@ static void
 log4g_pattern_converter_class_init(Log4gPatternConverterClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gPatternConverter */
 	klass->convert = NULL;
 	klass->format = format;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 static void
@@ -269,7 +266,8 @@ static void
 log4g_basic_pattern_converter_init(Log4gBasicPatternConverter *self)
 {
 	self->priv = ASSIGN_BASIC_PRIVATE(self);
-	GET_BASIC_PRIVATE(self)->type = INVALID_CONVERTER;
+	struct BasicPrivate *priv = GET_BASIC_PRIVATE(self);
+	priv->type = INVALID_CONVERTER;
 }
 
 static const gchar *
@@ -308,10 +306,8 @@ log4g_basic_pattern_converter_class_init(Log4gBasicPatternConverterClass *klass)
 {
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct BasicPrivate));
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = basic_pattern_converter_convert;
+	g_type_class_add_private(klass, sizeof(struct BasicPrivate));
 }
 
 static void
@@ -367,6 +363,8 @@ static void
 log4g_literal_pattern_converter_init(Log4gLiteralPatternConverter *self)
 {
 	self->priv = ASSIGN_LITERAL_PRIVATE(self);
+	struct LiteralPrivate *priv = GET_LITERAL_PRIVATE(self);
+	priv->literal = NULL;
 }
 
 static void
@@ -402,13 +400,10 @@ log4g_literal_pattern_converter_class_init(
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct LiteralPrivate));
-	/* initialize GObject class */
 	object_class->finalize = literal_pattern_converter_finalize;
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = literal_pattern_converter_convert;
 	pc_class->format = literal_pattern_converter_format;
+	g_type_class_add_private(klass, sizeof(struct LiteralPrivate));
 }
 
 static void
@@ -464,7 +459,9 @@ struct DatePrivate {
 static void
 log4g_date_pattern_converter_init(Log4gDatePatternConverter *self)
 {
-	self->priv = ASSIGN_PRIVATE(self);
+	self->priv = ASSIGN_DATE_PRIVATE(self);
+	struct DatePrivate *priv = GET_DATE_PRIVATE(self);
+	priv->format = NULL;
 }
 
 static void
@@ -505,12 +502,9 @@ log4g_date_pattern_converter_class_init(Log4gDatePatternConverterClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize GObject class */
 	object_class->finalize = date_pattern_converter_finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct DatePrivate));
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = date_pattern_converter_convert;
+	g_type_class_add_private(klass, sizeof(struct DatePrivate));
 }
 
 static void
@@ -567,6 +561,8 @@ static void
 log4g_mdc_pattern_converter_init(Log4gMDCPatternConverter *self)
 {
 	self->priv = ASSIGN_MDC_PRIVATE(self);
+	struct MDCPrivate *priv = GET_MDC_PRIVATE(self);
+	priv->key = NULL;
 }
 
 static void
@@ -591,12 +587,9 @@ log4g_mdc_pattern_converter_class_init(Log4gMDCPatternConverterClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize GObject class */
 	object_class->finalize = mdc_pattern_converter_finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct MDCPrivate));
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = mdc_pattern_converter_convert;
+	g_type_class_add_private(klass, sizeof(struct MDCPrivate));
 }
 
 static void
@@ -678,10 +671,8 @@ log4g_location_pattern_converter_class_init(
 {
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct LocationPrivate));
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = location_pattern_converter_convert;
+	g_type_class_add_private(klass, sizeof(struct LocationPrivate));
 }
 
 static void
@@ -770,10 +761,8 @@ log4g_category_pattern_converter_class_init(
 {
 	Log4gPatternConverterClass *pc_class =
 		LOG4G_PATTERN_CONVERTER_CLASS(klass);
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct CategoryPrivate));
-	/* initialize Log4gPatternConverter class */
 	pc_class->convert = category_pattern_converter_convert;
+	g_type_class_add_private(klass, sizeof(struct CategoryPrivate));
 }
 
 static void

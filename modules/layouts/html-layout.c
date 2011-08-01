@@ -296,6 +296,7 @@ get_header(Log4gLayout *base)
 	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
 	g_string_append(priv->string, Q_("Log session start time "));
 	g_string_append(priv->string, ctime_r(&t, buffer));
+	g_string_erase(priv->string, priv->string->len - 1, 1);
 	g_string_append(priv->string, "<br />");
 	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
 	g_string_append(priv->string, "<br />");
@@ -343,16 +344,13 @@ log4g_html_layout_class_init(Log4gHTMLLayoutClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
-	/* initialize GObject class */
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	layout_class->format = format;
 	layout_class->get_content_type = get_content_type;
 	layout_class->get_header = get_header;
 	layout_class->get_footer = get_footer;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_TITLE,
 		g_param_spec_string("title", Q_("Title"),

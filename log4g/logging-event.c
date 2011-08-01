@@ -105,15 +105,12 @@ static void
 log4g_logging_event_class_init(Log4gLoggingEventClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize class data */
 	GTimeVal start;
 	g_get_current_time(&start);
 	klass->start = (start.tv_sec * 1000) + (start.tv_usec * 0.001);
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**

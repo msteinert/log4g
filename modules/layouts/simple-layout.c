@@ -84,14 +84,11 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 static void
 log4g_simple_layout_class_init(Log4gSimpleLayoutClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
 	layout_class->format = format;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 static void

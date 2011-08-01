@@ -83,10 +83,8 @@ static void
 log4g_provision_node_class_init(Log4gProvisionNodeClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

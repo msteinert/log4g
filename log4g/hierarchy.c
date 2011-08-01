@@ -377,10 +377,9 @@ log4g_hierarchy_init(Log4gHierarchy *self)
 	priv->threshold_int = 0;
 	priv->warning = FALSE;
 	priv->loggers = NULL;
+	priv->lock = NULL;
 	if (g_thread_supported()) {
 		priv->lock = g_mutex_new();
-	} else {
-		priv->lock = NULL;
 	}
 }
 
@@ -426,10 +425,8 @@ static void
 log4g_hierarchy_class_init(Log4gHierarchyClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

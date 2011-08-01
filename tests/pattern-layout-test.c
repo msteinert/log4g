@@ -57,8 +57,8 @@ test_001(Fixture *fixture, gconstpointer data)
 	g_assert(type);
 	Log4gLayout *layout = g_object_new(type,
 			"conversion-pattern",
-			"[%d{%c}] [%t] [%.7c{2}] %M(%F:%L) "
-			"[%.5m] [%20p] [%r] [%X{foo}] [%x] %m%n",
+				"[%d{%c}] [%t] [%.7c{2}] %M(%F:%L) "
+				"[%.5m] [%20p] [%r] [%X{foo}] [%x] %m%n",
 			NULL);
 	g_assert(layout);
 	log4g_layout_activate_options(layout);

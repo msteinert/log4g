@@ -89,13 +89,10 @@ static void
 log4g_filter_class_init(Log4gFilterClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gFilter class */
 	klass->decide = NULL;
 	klass->activate_options = activate_options;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**

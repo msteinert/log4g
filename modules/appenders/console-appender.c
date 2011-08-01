@@ -173,20 +173,16 @@ close_writer(Log4gAppender *base)
 static void
 log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
 {
-	/* initialize GObject */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gAppenderClass */
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->close = close_;
 	appender_class->activate_options = activate_options;
-	/* initialize Log4gWriterAppenderClass */
 	Log4gWriterAppenderClass *writer_class =
 		LOG4G_WRITER_APPENDER_CLASS(klass);
 	writer_class->close_writer = close_writer;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_TARGET,
 		g_param_spec_string("target", Q_("Target"),

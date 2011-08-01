@@ -40,12 +40,16 @@ setup(Fixture *fixture, gconstpointer data)
 	g_assert(root);
 	GType type = g_type_from_name("Log4gTTCCLayout");
 	g_assert(type);
-	Log4gLayout *layout = g_object_new(type, "date-format", "%c", NULL);
+	Log4gLayout *layout = g_object_new(type,
+			"date-format", "%c",
+			NULL);
 	g_assert(layout);
 	log4g_layout_activate_options(layout);
 	type = g_type_from_name("Log4gConsoleAppender");
 	g_assert(type);
-	Log4gAppender *appender = g_object_new(type, "target", "stdout", NULL);
+	Log4gAppender *appender = g_object_new(type,
+			"target", "stdout",
+			NULL);
 	g_assert(appender);
 	log4g_appender_set_layout(appender, layout);
 	log4g_appender_activate_options(appender);
@@ -69,7 +73,6 @@ test_001(Fixture *fixture, gconstpointer data)
 	Log4gLogger *logger = log4g_logger_repository_get_logger(
 			fixture->repository, "org.gnome.test");
 	g_assert(logger);
-	log4g_logger_debug(logger, "test message");
 }
 
 int

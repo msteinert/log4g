@@ -248,15 +248,11 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
-	/* initialize GObject class */
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	layout_class->format = format;
 	layout_class->activate_options = activate_options;
-	/* initialize Log4gCouchdbLayout class */
 	klass->format_document = format_document;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 static void

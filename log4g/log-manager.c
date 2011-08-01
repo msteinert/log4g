@@ -119,12 +119,10 @@ finalize(GObject *base)
 static void
 log4g_log_manager_class_init(Log4gLogManagerClass *klass)
 {
-	/* initialize GObjectClass */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->constructor = constructor;
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
 	g_type_class_add_private(klass, sizeof(struct Private));
 }
 

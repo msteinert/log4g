@@ -54,8 +54,13 @@ log4g_appender_init(Log4gAppender *self)
 {
 	self->priv = ASSIGN_PRIVATE(self);
 	struct Private *priv = GET_PRIVATE(self);
+	priv->layout = NULL;
+	priv->name = NULL;
+	priv->threshold = NULL;
 	priv->error = log4g_only_once_error_handler_new();
+	priv->head = priv->tail = NULL;
 	priv->closed = FALSE;
+	priv->lock = NULL;
 	if (g_thread_supported()) {
 		priv->lock = g_mutex_new();
 	}
@@ -232,14 +237,10 @@ activate_options(Log4gAppender *self)
 static void
 log4g_appender_class_init(Log4gAppenderClass *klass)
 {
-	/* initialize GObjectClass */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gAppenderClass */
 	klass->add_filter = add_filter;
 	klass->get_filter = get_filter;
 	klass->close = NULL;
@@ -252,6 +253,7 @@ log4g_appender_class_init(Log4gAppenderClass *klass)
 	klass->set_name = set_name;
 	klass->requires_layout = NULL;
 	klass->activate_options = activate_options;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/**
 	 * Log4gAppender:threshold:
 	 *

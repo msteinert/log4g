@@ -60,7 +60,6 @@ activate_options(Log4gLayout *self)
 static void
 log4g_layout_class_init(Log4gLayoutClass *klass)
 {
-	/* initialize Log4gLayout class */
 	klass->format = NULL;
 	klass->get_content_type = get_content_type;
 	klass->get_header = get;

@@ -78,7 +78,7 @@ couchdb_layout_test_SOURCES = couchdb-layout-test.c
 couchdb_appender_test_SOURCES = couchdb-appender-test.c
 endif
 TESTS_ENVIRONMENT = \
-	LOG4G_MODULE_SYSTEM_PATH=""
+	LOG4G_MODULE_SYSTEM_PATH="" \
 	LOG4G_MODULE_PATH=$(LOG4G_MODULE_PATH)
 TESTS = $(check_PROGRAMS)
 # generate XML report

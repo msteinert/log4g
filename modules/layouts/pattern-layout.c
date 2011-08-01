@@ -470,18 +470,14 @@ create_pattern_parser(Log4gLayout *base, const gchar *pattern)
 static void
 log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
 	layout_class->format = format;
-	/* initialize Log4gPatternLayout class */
 	klass->create_pattern_parser = create_pattern_parser;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_CONVERSION_PATTERN,
 		g_param_spec_string("conversion-pattern",

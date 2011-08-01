@@ -134,13 +134,10 @@ log4g_level_match_filter_class_init(Log4gLevelMatchFilterClass *klass)
 {
 	Log4gFilterClass *filter_class = LOG4G_FILTER_CLASS(klass);
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gFilter class */
 	filter_class->decide = decide;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_LEVEL_TO_MATCH,
 		g_param_spec_string("level-to-match", Q_("Level to Match"),

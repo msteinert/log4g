@@ -80,10 +80,8 @@ requires_layout(Log4gAppender *self)
 static void
 log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 {
-	/* initialize GObjectClass */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->constructor = constructor;
-	/* initialize Log4gAppenderClass */
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->append = append;
 	appender_class->do_append = do_append;

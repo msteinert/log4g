@@ -61,10 +61,8 @@ static void
 log4g_counting_quiet_writer_class_init(Log4gCountingQuietWriterClass *klass)
 {
 	Log4gQuietWriterClass *qw_class = LOG4G_QUIET_WRITER_CLASS(klass);
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gQuietWriter class */
 	qw_class->write = write_;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 static void

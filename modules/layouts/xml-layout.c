@@ -148,6 +148,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 	}
 	g_string_append(priv->string, "\" timestamp=\"");
 	g_string_append(priv->string, ctime_r(&t, buffer));
+	g_string_erase(priv->string, priv->string->len - 1, 1);
 	g_string_append(priv->string, "\" level=\"");
 	escaped = g_strescape(log4g_level_to_string(level), NULL);
 	if (escaped) {
@@ -220,7 +221,8 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 				if (!key) {
 					continue;
 				}
-				const gchar *value = log4g_logging_event_get_mdc(event, key);
+				const gchar *value =
+					log4g_logging_event_get_mdc(event, key);
 				if (!value) {
 					continue;
 				}
@@ -252,15 +254,12 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 
 static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
 	layout_class->format = format;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_PROPERTIES,
 		g_param_spec_boolean("properties", Q_("Properties"),

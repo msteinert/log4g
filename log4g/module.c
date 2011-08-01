@@ -124,16 +124,13 @@ unload(GTypeModule *base)
 static void
 log4g_module_class_init(Log4gModuleClass *klass)
 {
-	/* initialize GObject */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize GTypeModule */
 	GTypeModuleClass *module_class = G_TYPE_MODULE_CLASS(klass);
 	module_class->load = load;
 	module_class->unload = unload;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/**
 	 * Log4gModule:filename:
 	 *

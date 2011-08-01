@@ -32,9 +32,6 @@ void
 test_001(gpointer *fixture, gconstpointer data)
 {
 	log4g_error("log4g-test: logging message (match this string)");
-	log4g_logger_error(log4g_get_logger("org.gnome.test"),
-			"log4g-test: another logging message "
-			"(match this string)");
 }
 
 void

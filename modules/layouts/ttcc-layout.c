@@ -163,15 +163,12 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 static void
 log4g_ttcc_layout_class_init(Log4gTTCCLayoutClass *klass)
 {
-	/* initialize GObject class */
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLayout class */
 	Log4gLayoutClass *layout_class = LOG4G_LAYOUT_CLASS(klass);
 	layout_class->format = format;
+	g_type_class_add_private(klass, sizeof(struct Private));
 	/* install properties */
 	g_object_class_install_property(object_class, PROP_THREAD_PRINTING,
 		g_param_spec_boolean("thread-printing", Q_("Thread Printing"),

@@ -87,13 +87,10 @@ static void
 log4g_quiet_writer_class_init(Log4gQuietWriterClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize QuietWriter class */
 	klass->write = write_;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 static void

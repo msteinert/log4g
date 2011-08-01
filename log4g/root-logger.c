@@ -86,7 +86,6 @@ static void
 log4g_root_logger_class_init(Log4gRootLoggerClass *klass)
 {
 	Log4gLoggerClass *logger_class = LOG4G_LOGGER_CLASS(klass);
-	/* initialize Log4gLogger */
 	logger_class->get_effective_level = get_effective_level;
 	logger_class->set_level = set_level;
 }

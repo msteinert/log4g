@@ -142,14 +142,11 @@ static void
 log4g_logger_class_init(Log4gLoggerClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	/* initialize GObject */
 	object_class->dispose = dispose;
 	object_class->finalize = finalize;
-	/* initialize private data */
-	g_type_class_add_private(klass, sizeof(struct Private));
-	/* initialize Log4gLoggerClass */
 	klass->get_effective_level = get_effective_level;
 	klass->set_level = set_level;
+	g_type_class_add_private(klass, sizeof(struct Private));
 }
 
 /**
