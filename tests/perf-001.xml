@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
-    "http://www.gnome.org/log4g/1.0/log4g.dtd">
+	"http://www.gnome.org/log4g/1.0/log4g.dtd">
 <log4g:configuration debug="true" reset="true">
-    <appender type="Log4gFileAppender" name="A1">
-        <property name="file" value="perf-001.txt" />
-        <property name="append" value="false" />
-        <property name="buffered-io" value="false" />
-        <layout type="Log4gPatternLayout">
-            <property name="conversion-pattern" value="%m%n" />
-        </layout>
-    </appender>
-    <root>
-        <level value="ALL" />
-        <appender name="A1" />
-    </root>
+	<appender type="Log4gFileAppender" name="A1">
+		<property name="file" value="perf-001.txt" />
+		<property name="append" value="false" />
+		<property name="buffered-io" value="false" />
+		<layout type="Log4gPatternLayout">
+			<property name="conversion-pattern" value="%m%n" />
+		</layout>
+	</appender>
+	<root>
+		<level value="ALL" />
+		<appender name="A1" />
+	</root>
 </log4g:configuration>

@@ -29,10 +29,10 @@ for debug is NULL, meaning that the internal settings are not changed.
 The reset attribute causes the logger hierarchy to be reset before
 configuration is performed. -->
 <!ATTLIST log4g:configuration
-    xmlns:log4g CDATA #FIXED "http://www.gnome.org/log4g/1.0/"
-    threshold (all|trace|debug|info|warn|error|fatal|off|null) "null"
-    debug (true|false|null) "null"
-    reset (true|false) "false"
+	xmlns:log4g CDATA #FIXED "http://www.gnome.org/log4g/1.0/"
+	threshold (all|trace|debug|info|warn|error|fatal|off|null) "null"
+	debug (true|false|null) "null"
+	reset (true|false) "false"
 >
 <!-- Appenders must have a name, a type, or both. If only the name is defined
 then the this appender is treated as a reference to a previously defined
@@ -42,45 +42,45 @@ literally defined inside a logger definition.
 -->
 <!ELEMENT appender (property*|layout?|filter*|appender*)*>
 <!ATTLIST appender
-    type CDATA #IMPLIED
-    name CDATA #IMPLIED
+	type CDATA #IMPLIED
+	name CDATA #IMPLIED
 >
 <!-- Layouts are only valid within appender definitions. Refer to the specific
 layout documentation for the properties that can be set. -->
 <!ELEMENT layout (property*)>
 <!-- Layouts must have a type. -->
 <!ATTLIST layout
-    type CDATA #REQUIRED
+	type CDATA #REQUIRED
 >
 <!-- Filters are only valid within appender definitions. Refer to the specific
 filter documentation for the properties that can be set. -->
 <!ELEMENT filter (property*)>
 <!-- Filters must have a type. -->
 <!ATTLIST filter
-    type CDATA #REQUIRED
+	type CDATA #REQUIRED
 >
 <!-- The property element is used to set a GObject property. -->
 <!ELEMENT property EMPTY>
 <!-- Properties must have a name and a value. -->
 <!ATTLIST property
-    name CDATA #REQUIRED
-    value CDATA #REQUIRED
+	name CDATA #REQUIRED
+	value CDATA #REQUIRED
 >
 <!-- The object element is used to create any type of GObject. GObjects are
 stored so that they may be assigned as properties. -->
 <!ELEMENT object (property*)>
 <!-- Objects must have a name and a type. -->
 <!ATTLIST object
-    name CDATA #REQUIRED
-    type CDATA #REQUIRED
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
 >
 <!-- Levels are used to define the log threshold for loggers. -->
 <!ELEMENT level (property*)>
 <!-- The implied type for levels is log4g_level. The value property is a
 string representation of a level. -->
 <!ATTLIST level
-    type CDATA #IMPLIED
-    value CDATA #REQUIRED
+	type CDATA #IMPLIED
+	value CDATA #REQUIRED
 >
 <!-- Loggers may contain levels and appenders. The implied level threshold
 is NULL (refer to the logger documentation). In order for a logger to output
@@ -92,8 +92,8 @@ separated class definition.
 The additivity property determines if a logger will inherit the appenders of
 its ancestors. -->
 <!ATTLIST logger
-    name CDATA #REQUIRED
-    additivity (true|false) "true"
+	name CDATA #REQUIRED
+	additivity (true|false) "true"
 >
 <!-- The root logger may be assigned a level and any number of appenders.
 The default root logger implementation does not support any GObject
