@@ -1,13 +1,13 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/log4g-@log4g_series@
-moduledir=@libdir@/log4g-@log4g_series@
+includedir=@includedir@/log4g-@series@
+moduledir=@libdir@/log4g-@series@
 
 Name: Log4g
 Description: A GObject-based logging utility
 URL: http://msteinert.github.com/log4g/
 Version: @VERSION@
-Requires.private: @log4g_glib_version@ @log4g_gmodule_version@ @log4g_gobject_version@ @log4g_gthread_version@ @log4g_libxml_version@ 
-Libs: -L${libdir} -llog4g-@log4g_series@
+Requires.private: @glib_version@ @gmodule_version@ @gobject_version@ @gthread_version@ @libxml_version@ 
+Libs: -L${libdir} -llog4g-@series@
 CFlags: -I${includedir}

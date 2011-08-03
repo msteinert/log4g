@@ -86,7 +86,7 @@ GTKDOC_CFLAGS = \
 	$(LIBXML2_CFLAGS)
 
 GTKDOC_LIBS = \
-	$(top_builddir)/log4g/liblog4g-@log4g_series_major@.@log4g_series_minor@.la
+	$(top_builddir)/log4g/liblog4g-@series_major@.@series_minor@.la
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
 include $(top_srcdir)/docs/gtk-doc.make

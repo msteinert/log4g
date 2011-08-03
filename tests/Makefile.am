@@ -8,7 +8,7 @@ INCLUDES = \
 	$(GTHREAD_CFLAGS)
 # add libraries
 LIBS = \
-	$(top_builddir)/log4g/liblog4g-$(log4g_series).la \
+	$(top_builddir)/log4g/liblog4g-$(series).la \
 	$(GLIB_LIBS) $(GTHREAD_LIBS)
 # add unit tests
 check_PROGRAMS = \

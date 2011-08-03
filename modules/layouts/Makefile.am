@@ -27,6 +27,6 @@ liblog4g_layouts_la_CFLAGS = \
 	$(GOBJECT_CFLAGS)
 liblog4g_layouts_la_LDFLAGS = \
 	-avoid-version -shared \
-	$(top_builddir)/log4g/liblog4g-$(log4g_series).la \
+	$(top_builddir)/log4g/liblog4g-$(series).la \
 	$(GLIB_LIBS) \
 	$(GOBJECT_LIBS)

@@ -5,16 +5,16 @@
 AC_PREREQ([2.64])
 # Library versioning
 # Making releases:
-#   log4g_micro_version += 1
-#   log4g_interface_age += 1
+#   micro_version += 1
+#   interface_age += 1
 # If functions have been added or backward-compatibility has been broken:
-#   log4g_interface_age = 0
-m4_define([log4g_major_version], [0])
-m4_define([log4g_minor_version], [1])
-m4_define([log4g_micro_version], [2])
-m4_define([log4g_interface_age], [0])
+#   interface_age = 0
+m4_define([major_version], [0])
+m4_define([minor_version], [1])
+m4_define([micro_version], [2])
+m4_define([interface_age], [0])
 # Initialize autoconf & automake
-AC_INIT([Log4g], [log4g_major_version.log4g_minor_version.log4g_micro_version],
+AC_INIT([Log4g], [major_version.minor_version.micro_version],
 	[http://github.com/msteinert/log4g/issues/], [log4g],
 	[http://msteinert.github.com/log4g/])
 AC_CONFIG_MACRO_DIR([m4])
@@ -43,42 +43,42 @@ AX_TRY_CFLAGS([-Wcast-align], [AX_CFLAGS([-Wcast-align])])
 AX_TRY_CFLAGS([-fno-common], [AX_CFLAGS([-fno-common])])
 AX_TRY_CFLAGS([-g], [AX_CFLAGS([-g])])
 # Pkg-config versioning
-log4g_series_major=1
-log4g_series_minor=0
-log4g_series=$log4g_series_major.$log4g_series_minor
-AC_SUBST([log4g_series_major])
-AC_SUBST([log4g_series_minor])
-AC_SUBST([log4g_series])
+series_major=1
+series_minor=0
+series=$series_major.$series_minor
+AC_SUBST([series_major])
+AC_SUBST([series_minor])
+AC_SUBST([series])
 # Libtool versioning
-LT_CURRENT=m4_eval(100 * log4g_minor_version + log4g_micro_version - log4g_interface_age)
-LT_REVISION=log4g_interface_age
-LT_AGE=m4_eval(m4_eval(100 * log4g_minor_version + log4g_micro_version) - log4g_interface_age)
+LT_CURRENT=m4_eval(100 * minor_version + micro_version - interface_age)
+LT_REVISION=interface_age
+LT_AGE=m4_eval(m4_eval(100 * minor_version + micro_version) - interface_age)
 AC_SUBST([LT_CURRENT])
 AC_SUBST([LT_REVISION])
 AC_SUBST([LT_AGE])
 # Checks for dependencies
-log4g_glib_minimum_version=2.24
-log4g_glib_version="glib-2.0 >= $log4g_glib_minimum_version"
-AC_SUBST([log4g_glib_version])
-PKG_CHECK_MODULES([GLIB], [$log4g_glib_version])
-log4g_gmodule_version="gmodule-2.0 >= $log4g_glib_minimum_version"
-AC_SUBST([log4g_gmodule_version])
-PKG_CHECK_MODULES([GMODULE], [$log4g_gmodule_version])
-log4g_gobject_version="gobject-2.0 >= $log4g_glib_minimum_version"
-AC_SUBST([log4g_gobject_version])
-PKG_CHECK_MODULES([GOBJECT], [$log4g_gobject_version])
-log4g_gthread_version="gthread-2.0 >= $log4g_glib_minimum_version"
-AC_SUBST([log4g_gthread_version])
-PKG_CHECK_MODULES([GTHREAD], [$log4g_gthread_version])
-log4g_libxml_minimum_version=2.6
-log4g_libxml_version="libxml-2.0 >= $log4g_libxml_minimum_version"
-AC_SUBST([log4g_libxml_version])
-PKG_CHECK_MODULES([LIBXML2], [$log4g_libxml_version])
+glib_minimum_version=2.24
+glib_version="glib-2.0 >= $glib_minimum_version"
+AC_SUBST([glib_version])
+PKG_CHECK_MODULES([GLIB], [$glib_version])
+gmodule_version="gmodule-2.0 >= $glib_minimum_version"
+AC_SUBST([gmodule_version])
+PKG_CHECK_MODULES([GMODULE], [$gmodule_version])
+gobject_version="gobject-2.0 >= $glib_minimum_version"
+AC_SUBST([gobject_version])
+PKG_CHECK_MODULES([GOBJECT], [$gobject_version])
+gthread_version="gthread-2.0 >= $glib_minimum_version"
+AC_SUBST([gthread_version])
+PKG_CHECK_MODULES([GTHREAD], [$gthread_version])
+libxml_minimum_version=2.6
+libxml_version="libxml-2.0 >= $libxml_minimum_version"
+AC_SUBST([libxml_version])
+PKG_CHECK_MODULES([LIBXML2], [$libxml_version])
 # Check for glib-genmarshal
 AC_ARG_VAR([GLIB_GENMARSHAL], [path to the glib-genmarshal(1) utility])
 AS_IF([test "x$GLIB_GENMARSHAL" = "x"],
-	[PKG_CHECK_EXISTS([$log4g_glib_version],
-		[GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal $log4g_glib_version`])])
+	[PKG_CHECK_EXISTS([$glib_version],
+		[GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal $glib_version`])])
 # Appenders option
 AC_ARG_WITH(appenders,
 	[AC_HELP_STRING([--with-appenders],
@@ -129,7 +129,7 @@ AM_CONDITIONAL([LOG4G_WITH_COUCHDB],
 # Configure module options
 AC_SUBST([LOG4G_CONFIGURED_MODULES])
 # Configure module directory
-moduledir="\$(libdir)/log4g-$log4g_series"
+moduledir="\$(libdir)/log4g-$series"
 AC_SUBST(moduledir)
 # Add configuration
 AC_DEFINE([ENABLE_NLS], [1],
