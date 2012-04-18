@@ -39,7 +39,7 @@ G_BEGIN_DECLS
  *
  * This macro is meant to used internally.
  *
- * @See: log4g_get_logger()
+ * See: log4g_get_logger()
  *
  * Returns: A logger instance.
  * Since: 0.1
@@ -56,7 +56,7 @@ G_BEGIN_DECLS
  *
  * This macro is meant to used internally.
  *
- * @See: log4g_get_logger(), log4g_get_root_logger()
+ * See: log4g_get_logger(), log4g_get_root_logger()
  *
  * Returns: The root logger.
  * Since: 0.1
@@ -83,7 +83,7 @@ log4g_get_option_group(void);
  * If the named logger exists in the repository that instance is returned. If
  * the named logger does not exist it will be created.
  *
- * @See: #Log4gLoggerClass, log4g_logger_get_logger()
+ * See: #Log4gLoggerClass, log4g_logger_get_logger()
  *
  * Returns: The logger named @name.
  * Since: 0.1
@@ -96,7 +96,7 @@ log4g_get_option_group(void);
  *
  * Retrieve the root logger.
  *
- * @See: #Log4gRootLoggerClass
+ * See: #Log4gRootLoggerClass
  *
  * Returns: The root logger.
  * Since: 0.1
@@ -118,7 +118,7 @@ log4g_get_option_group(void);
  * log4g_assert((pointer != NULL), "%s: pointer is NULL!", "ERROR");
  * ]|
  *
- * @See: log4g_logger_assert(), log4g_logger_assert_()
+ * See: log4g_logger_assert(), log4g_logger_assert_()
  *
  * Since: 0.1
  */
@@ -143,7 +143,7 @@ log4g_get_option_group(void);
  *     (NULL != pointer), "%s: pointer is NULL!", "ERROR");
  * ]|
  *
- * @See: log4g_assert(), log4g_logger_assert_()
+ * See: log4g_assert(), log4g_logger_assert_()
  *
  * Since: 0.1
  */
@@ -172,7 +172,7 @@ log4g_get_option_group(void);
  * A similar macro exists for all of the default log levels.
  * </para></note>
  *
- * @See: log4g_logger_is_trace_enabled(), log4g/level.h
+ * See: log4g_logger_is_trace_enabled(), log4g/level.h
  *
  * Returns: %TRUE if trace is enabled, %FALSE otherwise.
  * Since: 0.1
@@ -193,7 +193,7 @@ log4g_get_option_group(void);
  * log4g_trace("example %s message", "TRACE");
  * ]|
  *
- * @See: log4g_logger_trace(), log4g_logger_trace_()
+ * See: log4g_logger_trace(), log4g_logger_trace_()
  *
  * Since: 0.1
  */
@@ -217,7 +217,7 @@ log4g_get_option_group(void);
  *     "example %s message", "TRACE");
  * ]|
  *
- * @See: log4g_trace(), log4g_logger_trace_()
+ * See: log4g_trace(), log4g_logger_trace_()
  *
  * Since: 0.1
  */
@@ -230,7 +230,7 @@ log4g_get_option_group(void);
  *
  * Check if the debug level is enabled.
  *
- * @See: log4g_logger_is_debug_enabled(), #Log4gLevelClass,
+ * See: log4g_logger_is_debug_enabled(), #Log4gLevelClass,
  *       log4g_is_trace_enabled()
  *
  * Returns: %TRUE if debug is enabled, %FALSE otherwise.
@@ -252,7 +252,7 @@ log4g_get_option_group(void);
  * log4g_debug("example %s message", "DEBUG");
  * ]|
  *
- * @See: log4g_logger_debug(), log4g_logger_debug_()
+ * See: log4g_logger_debug(), log4g_logger_debug_()
  *
  * Since: 0.1
  */
@@ -276,7 +276,7 @@ log4g_get_option_group(void);
  *     "example %s message", "DEBUG");
  * ]|
  *
- * @See: log4g_debug(), log4g_logger_debug_()
+ * See: log4g_debug(), log4g_logger_debug_()
  *
  * Since: 0.1
  */
@@ -289,7 +289,7 @@ log4g_get_option_group(void);
  *
  * Check if the info level is enabled.
  *
- * @See: log4g_logger_is_info_enabled(), #Log4gLevelClass,
+ * See: log4g_logger_is_info_enabled(), #Log4gLevelClass,
 *        log4g_is_trace_enabled()
  *
  * Returns: %TRUE if info is enabled, %FALSE otherwise.
@@ -311,7 +311,7 @@ log4g_get_option_group(void);
  * log4g_info("example %s message", "INFO");
  * ]|
  *
- * @See: log4g_logger_info(), log4g_logger_info_()
+ * See: log4g_logger_info(), log4g_logger_info_()
  *
  * Since: 0.1
  */
@@ -335,7 +335,7 @@ log4g_get_option_group(void);
  *     "example %s message", "INFO");
  * ]|
  *
- * @See: log4g_info(), log4g_logger_info_()
+ * See: log4g_info(), log4g_logger_info_()
  *
  * Since: 0.1
  */
@@ -348,7 +348,7 @@ log4g_get_option_group(void);
  *
  * Check if the warn level is enabled.
  *
- * @See: log4g_logger_is_warn_enabled(), #Log4gLevelClass,
+ * See: log4g_logger_is_warn_enabled(), #Log4gLevelClass,
  *       log4g_is_trace_enabled()
  *
  * Returns: %TRUE if warn is enabled, %FALSE otherwise.
@@ -370,7 +370,7 @@ log4g_get_option_group(void);
  * log4g_warn("example %s message", "WARN");
  * ]|
  *
- * @See: log4g_logger_warn(), log4g_logger_warn_()
+ * See: log4g_logger_warn(), log4g_logger_warn_()
  *
  * Since: 0.1
  */
@@ -394,7 +394,7 @@ log4g_get_option_group(void);
  *     "example %s message", "WARN");
  * ]|
  *
- * @See: log4g_warn(), log4g_logger_warn_()
+ * See: log4g_warn(), log4g_logger_warn_()
  *
  * Since: 0.1
  */
@@ -407,7 +407,7 @@ log4g_get_option_group(void);
  *
  * Check if the error level is enabled.
  *
- * @See: log4g_logger_is_error_enabled(), #Log4gLevelClass,
+ * See: log4g_logger_is_error_enabled(), #Log4gLevelClass,
  *       log4g_is_trace_enabled()
  *
  * Returns: %TRUE if error is enabled, %FALSE otherwise.
@@ -429,7 +429,7 @@ log4g_get_option_group(void);
  * log4g_error("example %s message", "ERROR");
  * ]|
  *
- * @See: log4g_logger_error(), log4g_logger_error_()
+ * See: log4g_logger_error(), log4g_logger_error_()
  *
  * Since: 0.1
  */
@@ -453,7 +453,7 @@ log4g_get_option_group(void);
  *     "example %s message", "ERROR");
  * ]|
  *
- * @See: log4g_error(), log4g_logger_error_()
+ * See: log4g_error(), log4g_logger_error_()
  *
  * Since: 0.1
  */
@@ -466,7 +466,7 @@ log4g_get_option_group(void);
  *
  * Check if the fatal level is enabled.
  *
- * @See: log4g_logger_is_fatal_enabled(), #Log4gLevelClass,
+ * See: log4g_logger_is_fatal_enabled(), #Log4gLevelClass,
  *      log4g_is_trace_enabled()
  *
  * Returns: %TRUE if fatal is enabled, %FALSE otherwise.
@@ -488,7 +488,7 @@ log4g_get_option_group(void);
  * log4g_fatal("example %s message", "FATAL");
  * ]|
  *
- * @See: log4g_logger_fatal(), log4g_logger_fatal_()
+ * See: log4g_logger_fatal(), log4g_logger_fatal_()
  *
  * Since: 0.1
  */
@@ -512,7 +512,7 @@ log4g_get_option_group(void);
  *     "example %s message", "FATAL");
  * ]|
  *
- * @See: log4g_fatal(), log4g_logger_fatal_()
+ * See: log4g_fatal(), log4g_logger_fatal_()
  *
  * Since: 0.1
  */

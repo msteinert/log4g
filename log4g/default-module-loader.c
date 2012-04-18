@@ -138,7 +138,8 @@ load_modules(Log4gModuleLoader *base)
 }
 
 static void
-module_loader_init(Log4gModuleLoaderInterface *interface, gpointer data)
+module_loader_init(Log4gModuleLoaderInterface *interface,
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->load_modules = load_modules;
 }
@@ -181,7 +182,7 @@ log4g_default_module_loader_class_init(Log4gDefaultModuleLoaderClass *klass)
  *
  * Create a new default module loader object.
  *
- * Returns: A new default module loader object.
+ * Returns: (transfer full): A new default module loader object.
  * Since: 0.1
  */
 Log4gModuleLoader *

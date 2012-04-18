@@ -127,7 +127,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	Log4gLevel *level = log4g_logging_event_get_level(event);
-	GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+	const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 	time_t t = tv->tv_sec;
 	gchar buffer[26];
 	gchar *escaped;
@@ -272,7 +272,7 @@ static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
 }
 
 static void
-log4g_xml_layout_class_finalize(Log4gXMLLayoutClass *klass)
+log4g_xml_layout_class_finalize(G_GNUC_UNUSED Log4gXMLLayoutClass *klass)
 {
 	/* do nothing */
 }

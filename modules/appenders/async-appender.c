@@ -171,7 +171,7 @@ struct Private {
 	GHashTable *summary; /* Summary of discarded events */
 	GThreadPool *pool; /* Worker thread pool */
 	gboolean blocking; /* Indicates if logging thread should block */
-	gint size; /* Maximum size of the event queue */
+	gsize size; /* Maximum size of the event queue */
 	GMutex *lock; /* Synchronizes access to \e appenders */
 	GMutex *discard; /* Synchronizes access to \e summary */
 };
@@ -208,7 +208,7 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED(Log4gAsyncAppender, log4g_async_appender,
 	((struct Private *)((Log4gAsyncAppender *)instance)->priv)
 
 static void
-discarded_(gpointer key, gpointer value, gpointer user_data)
+discarded_(G_GNUC_UNUSED gpointer key, gpointer value, gpointer user_data)
 {
 	struct Private *priv = (struct Private *)user_data;
 	Log4gLoggingEvent *event = log4g_discard_summary_create_event(value);
@@ -402,7 +402,7 @@ close_(Log4gAppender *base)
 }
 
 static gboolean
-requires_layout(Log4gAppender *self)
+requires_layout(G_GNUC_UNUSED Log4gAppender *self)
 {
 	return FALSE;
 }
@@ -431,7 +431,8 @@ log4g_async_appender_class_init(Log4gAsyncAppenderClass *klass)
 }
 
 static void
-log4g_async_appender_class_finalize(Log4gAsyncAppenderClass *klass)
+log4g_async_appender_class_finalize(
+		G_GNUC_UNUSED Log4gAsyncAppenderClass *klass)
 {
 	/* do nothing */
 }

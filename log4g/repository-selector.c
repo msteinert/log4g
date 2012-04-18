@@ -37,7 +37,8 @@ G_DEFINE_INTERFACE(Log4gRepositorySelector, log4g_repository_selector,
 		G_TYPE_INVALID)
 
 static void
-log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
+log4g_repository_selector_default_init(
+		G_GNUC_UNUSED Log4gRepositorySelectorInterface *klass)
 {
 	/* do nothing */
 }
@@ -49,9 +50,10 @@ log4g_repository_selector_default_init(Log4gRepositorySelectorInterface *klass)
  * Call the @get_logger_repository function from the
  * #Log4gRepositorySelectorInterface of @self.
  *
- * @See: #Log4gLoggerRepositoryInterface
+ * See: #Log4gLoggerRepositoryInterface
  *
- * Returns: The logger repository for the current application context.
+ * Returns: (transfer none): The logger repository for the current application
+ *          context.
  * Since: 0.1
  */
 Log4gLoggerRepository *

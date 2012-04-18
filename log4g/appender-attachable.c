@@ -33,7 +33,8 @@ G_DEFINE_INTERFACE(Log4gAppenderAttachable, log4g_appender_attachable,
 		G_TYPE_INVALID)
 
 static void
-log4g_appender_attachable_default_init(Log4gAppenderAttachableInterface *klass)
+log4g_appender_attachable_default_init(
+		G_GNUC_UNUSED Log4gAppenderAttachableInterface *klass)
 {
 	/* do nothing */
 }
@@ -85,7 +86,7 @@ log4g_appender_attachable_get_all_appenders(Log4gAppenderAttachable *self)
  * Call the @get_appender function from the #Log4gAppenderAttachableInterface
  * of @self.
  *
- * Returns: The appender named @name, or %NULL if not found.
+ * Returns: (transfer none): The appender named @name, or %NULL if not found.
  * Since: 0.1
  */
 Log4gAppender *

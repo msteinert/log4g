@@ -219,7 +219,7 @@ log4g_level_to_int(Log4gLevel *self)
  *
  * Calls the @string_to_level function from the #Log4gLevelClass of @self.
  *
- * Returns: The level represented by @string.
+ * Returns: (transfer none): The level represented by @string.
  * Since: 0.1
  */
 Log4gLevel *
@@ -243,7 +243,8 @@ log4g_level_string_to_level(const gchar *level)
  * Calls the @string_to_level_default function of the #Log4gLevelClass of
  * @self.
  *
- * Returns: The level represented by @string or @def if the conversion failed.
+ * Returns: (transfer none): The level represented by @string or @def if the
+ *          conversion failed.
  * Since: 0.1
  */
 Log4gLevel *
@@ -283,7 +284,7 @@ log4g_level_string_to_level_default(const gchar *level, Log4gLevel *def)
  *
  * Calls the @int_to_level function from the #Log4gLevelClass of @self.
  *
- * Returns: The level represented by @level.
+ * Returns: (transfer none): The level represented by @level.
  * Since: 0.1
  */
 Log4gLevel *
@@ -301,7 +302,8 @@ log4g_level_int_to_level(gint level)
  *
  * Calls the @int_to_level_default from the #Log4gLevelClass of @self.
  *
- * Returns: The level represented by @level or @def if the conversion failed.
+ * Returns: (transfer none): The level represented by @level or @def if the
+ *         conversion failed.
  * Since: 0.1
  */
 Log4gLevel *
@@ -350,7 +352,7 @@ log4g_level_int_to_level_default(gint level, Log4gLevel *def)
  *
  * Retrieve the log level #Log4gLevelClass.ALL.
  *
- * Returns: The log level #Log4gLevelClass.ALL.
+ * Returns: (transfer none): The log level #Log4gLevelClass.ALL.
  * Since: 0.1
  */
 Log4gLevel *
@@ -370,7 +372,7 @@ log4g_level_ALL(void)
  *
  * Retrieve the log level #Log4gLevelClass.TRACE.
  *
- * Returns: The log level #Log4gLevelClass.TRACE.
+ * Returns: (transfer none): The log level #Log4gLevelClass.TRACE.
  * Since: 0.1
  */
 Log4gLevel *
@@ -390,7 +392,7 @@ log4g_level_TRACE(void)
  *
  * Retrieve the log level #Log4gLevelClass.DEBUG.
  *
- * Returns: The log level #Log4gLevelClass.DEBUG.
+ * Returns: (transfer none): The log level #Log4gLevelClass.DEBUG.
  * Since: 0.1
  */
 Log4gLevel *
@@ -410,7 +412,7 @@ log4g_level_DEBUG(void)
  *
  * Retrieve the log level #Log4gLevelClass.INFO.
  *
- * Returns: The log level #Log4gLevelClass.INFO.
+ * Returns: (transfer none): The log level #Log4gLevelClass.INFO.
  * Since: 0.1
  */
 Log4gLevel *
@@ -430,7 +432,7 @@ log4g_level_INFO(void)
  *
  * Retrieve the log level #Log4gLevelClass.WARN.
  *
- * Returns: The log level #Log4gLevelClass.WARN.
+ * Returns: (transfer none): The log level #Log4gLevelClass.WARN.
  * Since: 0.1
  */
 Log4gLevel *
@@ -450,7 +452,7 @@ log4g_level_WARN(void)
  *
  * Retrieve the log level #Log4gLevelClass.ERROR.
  *
- * Returns: The log level #Log4gLevelClass.ERROR.
+ * Returns: (transfer none): The log level #Log4gLevelClass.ERROR.
  * Since: 0.1
  */
 Log4gLevel *
@@ -470,7 +472,7 @@ log4g_level_ERROR(void)
  *
  * Retrieve the log level #Log4gLevelClass.FATAL.
  *
- * Returns: The log level #Log4gLevelClass.FATAL.
+ * Returns: (transfer none): The log level #Log4gLevelClass.FATAL.
  * Since: 0.1
  */
 Log4gLevel *
@@ -490,7 +492,7 @@ log4g_level_FATAL(void)
  *
  * Retrieve the log level #Log4gLevelClass.OFF.
  *
- * Returns: The log level #Log4gLevelClass.OFF.
+ * Returns: (transfer none): The log level #Log4gLevelClass.OFF.
  * Since: 0.1
  */
 Log4gLevel *

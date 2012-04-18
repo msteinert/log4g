@@ -170,7 +170,7 @@ error:
  *
  * Calls the @get_level function from the #Log4gLoggingEventClass of @self.
  *
- * Returns: The log level of @self.
+ * Returns: (transfer none): The log level of @self.
  * Since: 0.1
  */
 Log4gLevel *
@@ -201,7 +201,7 @@ log4g_logging_event_get_logger_name(Log4gLoggingEvent *self)
  *
  * Retrieve the rendered logging message.
  *
- * @See: log4g_logging_event_get_message()
+ * See: log4g_logging_event_get_message()
  *
  * Returns: The rendered logging message.
  * Since: 0.1
@@ -236,7 +236,7 @@ log4g_logging_event_get_message(Log4gLoggingEvent *self)
  *
  * Retrieve a mapped data context value for a logging event.
  *
- * @See: #Log4gMDC
+ * See: #Log4gMDC
  *
  * Returns: The MDC value for @key.
  * Since: 0.1
@@ -263,10 +263,10 @@ log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key)
  *
  * Retrieve the timestamp of a logging event.
  *
- * Returns: The timestamp of @self.
+ * Returns: (transfer none): The timestamp of @self.
  * Since: 0.1
  */
-GTimeVal *
+const GTimeVal *
 log4g_logging_event_get_time_stamp(Log4gLoggingEvent *self)
 {
 	return &GET_PRIVATE(self)->timestamp;
@@ -300,7 +300,7 @@ log4g_logging_event_get_thread_name(Log4gLoggingEvent *self)
  *
  * Retrieve the nested data context for a logging event.
  *
- * @See: #Log4gNDC
+ * See: #Log4gNDC
  *
  * Returns: The rendered NDC string for @self.
  * Since: 0.1
@@ -327,7 +327,7 @@ log4g_logging_event_get_ndc(Log4gLoggingEvent *self)
  * Callback for g_hash_table_foreach().
  */
 static void
-get_keys_(gpointer key, gpointer value, gpointer user_data)
+get_keys_(gpointer key, G_GNUC_UNUSED gpointer value, gpointer user_data)
 {
 	g_array_append_val((GArray *)user_data, key);
 }
@@ -363,7 +363,7 @@ get_property_key_set_(Log4gLoggingEvent *self, GHashTable *mdc)
  *
  * Get the MDC keys (if any) for this event.
  *
- * @See: #Log4gMDC
+ * See: #Log4gMDC
  *
  * Returns: An array of keys, or %NULL if no keys exist.
  * Since: 0.1
@@ -407,7 +407,7 @@ mdc_copy_(gpointer key, gpointer value, gpointer user_data)
  *
  * Asynchronous appenders should call this function.
  *
- * @See: #Log4gThreadClass
+ * See: #Log4gThreadClass
  */
 void
 log4g_logging_event_get_thread_copy(Log4gLoggingEvent *self)
@@ -428,7 +428,7 @@ log4g_logging_event_get_thread_copy(Log4gLoggingEvent *self)
  *
  * Asynchronous appenders should call this function.
  *
- * @See #Log4gMDC
+ * See #Log4gMDC
  *
  * Since: 0.1
  */
@@ -461,7 +461,7 @@ log4g_logging_event_get_mdc_copy(Log4gLoggingEvent *self)
  *
  * Asynchronous appenders should call this function.
  *
- * @See #Log4gNDC
+ * See #Log4gNDC
  *
  * Since: 0.1
  */

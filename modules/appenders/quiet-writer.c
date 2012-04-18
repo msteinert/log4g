@@ -94,7 +94,7 @@ log4g_quiet_writer_class_init(Log4gQuietWriterClass *klass)
 }
 
 static void
-log4g_quiet_writer_class_finalize(Log4gQuietWriterClass *klass)
+log4g_quiet_writer_class_finalize(G_GNUC_UNUSED Log4gQuietWriterClass *klass)
 {
 	/* do nothing */
 }

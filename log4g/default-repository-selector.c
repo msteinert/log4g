@@ -47,7 +47,7 @@ get_logger_repository(Log4gRepositorySelector *base)
 
 static void
 repository_selector_init(Log4gRepositorySelectorInterface *interface,
-		gpointer data)
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->get_logger_repository = get_logger_repository;
 }
@@ -92,7 +92,7 @@ log4g_default_repository_selector_class_init(
  *
  * Create a new default repository selector object.
  *
- * Returns: A new default repository selector object.
+ * Returns: (transfer full): A new default repository selector object.
  * Since: 0.1
  */
 Log4gRepositorySelector *

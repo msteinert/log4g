@@ -32,7 +32,8 @@
 G_DEFINE_INTERFACE(Log4gLoggerFactory, log4g_logger_factory, G_TYPE_INVALID)
 
 static void
-log4g_logger_factory_default_init(Log4gLoggerFactoryInterface *klass)
+log4g_logger_factory_default_init(
+		G_GNUC_UNUSED Log4gLoggerFactoryInterface *klass)
 {
 	/* do nothing */
 }
@@ -45,7 +46,7 @@ log4g_logger_factory_default_init(Log4gLoggerFactoryInterface *klass)
  * Call the @make_new_logger_instance function from the
  * #Log4gLoggerFactoryInterface of @self.
  *
- * Returns: A new logger named \e name.
+ * Returns: (transfer none): A new logger named \e name.
  * Since: 0.1
  */
 Log4gLogger *

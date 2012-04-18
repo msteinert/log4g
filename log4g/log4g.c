@@ -115,7 +115,8 @@ options_destroy(gpointer object)
 }
 
 static gboolean
-log4g_arg_configuration_cb(const gchar *key, const gchar *value, gpointer data)
+log4g_arg_configuration_cb(G_GNUC_UNUSED const gchar *key, const gchar *value,
+		gpointer data)
 {
 	Options *opt = (Options *)data;
 	opt->configuration = g_strdup(value);
@@ -126,7 +127,8 @@ log4g_arg_configuration_cb(const gchar *key, const gchar *value, gpointer data)
 }
 
 static gboolean
-log4g_arg_flags_cb(const gchar *key, const gchar *value, gpointer data)
+log4g_arg_flags_cb(G_GNUC_UNUSED const gchar *key, const gchar *value,
+		gpointer data)
 {
 	Options *opt = (Options *)data;
 	opt->flags |= g_parse_debug_string(value, flags, G_N_ELEMENTS(flags));
@@ -134,7 +136,8 @@ log4g_arg_flags_cb(const gchar *key, const gchar *value, gpointer data)
 }
 
 static gboolean
-log4g_arg_main_thread_cb(const gchar *key, const gchar *value, gpointer data)
+log4g_arg_main_thread_cb(G_GNUC_UNUSED const gchar *key, const gchar *value,
+		gpointer data)
 {
 	Options *opt = (Options *)data;
 	opt->thread = g_strdup(value);
@@ -154,12 +157,13 @@ static const GOptionEntry const log4g_args[] = {
 	{ "log4g-main-thread", '\0', 0,
 		G_OPTION_ARG_CALLBACK, log4g_arg_main_thread_cb,
 		N_("Set the name of the main thread"), N_("NAME") },
-	{ NULL }
+	{ NULL, '\0', 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
 };
 
 static gboolean
-pre_parse_hook(GOptionContext *context, GOptionGroup *group,
-		gpointer data, GError **error)
+pre_parse_hook(G_GNUC_UNUSED GOptionContext *context,
+		G_GNUC_UNUSED GOptionGroup *group,
+		gpointer data, G_GNUC_UNUSED GError **error)
 {
 	Options *opt = (Options *)data;
 	if (initialized) {
@@ -181,8 +185,9 @@ pre_parse_hook(GOptionContext *context, GOptionGroup *group,
 }
 
 static gboolean
-post_parse_hook(GOptionContext *context, GOptionGroup *group,
-		gpointer data, GError **error)
+post_parse_hook(G_GNUC_UNUSED GOptionContext *context,
+		G_GNUC_UNUSED GOptionGroup *group,
+		gpointer data, G_GNUC_UNUSED GError **error)
 {
 	Options *opt = (Options *)data;
 	if (initialized) {
@@ -217,7 +222,7 @@ post_parse_hook(GOptionContext *context, GOptionGroup *group,
 }
 
 /**
- * log4g_get_option_group:
+ * log4g_get_option_group: (skip):
  *
  * Retrieve the option group used by the Log4g package.
  *

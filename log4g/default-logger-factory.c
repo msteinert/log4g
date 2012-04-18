@@ -29,13 +29,15 @@
 #include "log4g/helpers/default-logger-factory.h"
 
 static Log4gLogger *
-make_new_logger_instance(Log4gLoggerFactory *base, const gchar *name)
+make_new_logger_instance(G_GNUC_UNUSED Log4gLoggerFactory *base,
+		const gchar *name)
 {
 	return log4g_logger_new(name);
 }
-    
+
 static void
-logger_factory_init(Log4gLoggerFactoryInterface *interface, gpointer data)
+logger_factory_init(Log4gLoggerFactoryInterface *interface,
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->make_new_logger_instance = make_new_logger_instance;
 }
@@ -46,13 +48,15 @@ G_DEFINE_TYPE_WITH_CODE(Log4gDefaultLoggerFactory,
 			logger_factory_init))
 
 static void
-log4g_default_logger_factory_init(Log4gDefaultLoggerFactory *self)
+log4g_default_logger_factory_init(
+		G_GNUC_UNUSED Log4gDefaultLoggerFactory *self)
 {
 	/* do nothing */
 }
 
 static void
-log4g_default_logger_factory_class_init(Log4gDefaultLoggerFactoryClass *klass)
+log4g_default_logger_factory_class_init(
+		G_GNUC_UNUSED Log4gDefaultLoggerFactoryClass *klass)
 {
 	/* do nothing */
 }
@@ -62,7 +66,7 @@ log4g_default_logger_factory_class_init(Log4gDefaultLoggerFactoryClass *klass)
  *
  * Create a new default logger factory object.
  *
- * Returns: A new default logger factory object.
+ * Returns: (transfer full): A new default logger factory object.
  * Since: 0.1
  */
 Log4gLoggerFactory *

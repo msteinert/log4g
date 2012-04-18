@@ -185,7 +185,7 @@ log4g_ttcc_layout_class_init(Log4gTTCCLayoutClass *klass)
 }
 
 static void
-log4g_ttcc_layout_class_finalize(Log4gTTCCLayoutClass *klass)
+log4g_ttcc_layout_class_finalize(G_GNUC_UNUSED Log4gTTCCLayoutClass *klass)
 {
 	/* do nothing */
 }

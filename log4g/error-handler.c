@@ -31,7 +31,8 @@
 G_DEFINE_INTERFACE(Log4gErrorHandler, log4g_error_handler, 0)
 
 static void
-log4g_error_handler_default_init(Log4gErrorHandlerInterface *klass)
+log4g_error_handler_default_init(
+		G_GNUC_UNUSED Log4gErrorHandlerInterface *klass)
 {
 	/* do nothing */
 }

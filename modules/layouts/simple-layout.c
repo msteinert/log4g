@@ -92,7 +92,7 @@ log4g_simple_layout_class_init(Log4gSimpleLayoutClass *klass)
 }
 
 static void
-log4g_simple_layout_class_finalize(Log4gSimpleLayoutClass *klass)
+log4g_simple_layout_class_finalize(G_GNUC_UNUSED Log4gSimpleLayoutClass *klass)
 {
 	/* do nothing */
 }

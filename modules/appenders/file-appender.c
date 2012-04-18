@@ -244,7 +244,8 @@ log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 }
 
 static void
-log4g_file_appender_class_finalize(Log4gFileAppenderClass *klass)
+log4g_file_appender_class_finalize(
+		G_GNUC_UNUSED Log4gFileAppenderClass *klass)
 {
 	/* do nothing */
 }

@@ -109,7 +109,8 @@ log4g_logger_repository_default_init(Log4gLoggerRepositoryInterface *klass)
  *
  * Call the @exists function from the #Log4gLoggerRepositoryInterface of @self.
  *
- * Returns: The logger named @name or %NULL if it does not exist.
+ * Returns: (transfer none): The logger named @name or %NULL if it does not
+ *          exist.
  * Since: 0.1
  */
 Log4gLogger *
@@ -190,7 +191,7 @@ log4g_logger_repository_get_current_loggers(Log4gLoggerRepository *self)
  * Call the @get_logger function from the #Log4gLoggerRepositoryInterface
  * of @self.
  *
- * Returns: The logger named @name.
+ * Returns: (transfer none): The logger named @name.
  * Since: 0.1
  */
 Log4gLogger *
@@ -212,7 +213,7 @@ log4g_logger_repository_get_logger(Log4gLoggerRepository *self,
  * Call the @get_logger_factory function from the
  * #Log4gLoggerRepositoryInterface of @self.
  *
- * Returns: The logger named @name.
+ * Returns: (transfer none): The logger named @name.
  * Since: 0.1
  */
 Log4gLogger *
@@ -232,7 +233,7 @@ log4g_logger_repository_get_logger_factory(Log4gLoggerRepository *self,
  * Call the @get_root_logger function from the #Log4gLoggerRepositoryInterface
  * of @self.
  *
- * Returns: The root logger.
+ * Returns: (transfer none): The root logger.
  * Since: 0.1
  */
 Log4gLogger *
@@ -251,9 +252,9 @@ log4g_logger_repository_get_root_logger(Log4gLoggerRepository *self)
  * Call the @get_threshold function from the #Log4gLoggerRepositoryInterface
  * of @self.
  *
- * @See: #Log4gLevelClass
+ * See: #Log4gLevelClass
  *
- * Returns: The threshold level for @self.
+ * Returns: (transfer none): The threshold level for @self.
  * Since: 0.1
  */
 Log4gLevel *
@@ -273,7 +274,7 @@ log4g_logger_repository_get_threshold(Log4gLoggerRepository *self)
  * Call the @is_disabled function from the #Log4gLoggerRepositoryInterface
  * of @self.
  *
- * @See: #Log4gLevelClass
+ * See: #Log4gLevelClass
  *
  * Returns: %TRUE if @self is disabled for @level, %FALSE otherwise.
  * Since: 0.1
@@ -313,7 +314,7 @@ log4g_logger_repository_reset_configuration(Log4gLoggerRepository *self)
  * Call the @set_threshold function from the #Log4gLoggerRepositoryInterface
  * of @self.
  *
- * @See: #Log4gLevelClass
+ * See: #Log4gLevelClass
  *
  * Since: 0.1
  */

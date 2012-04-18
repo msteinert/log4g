@@ -131,7 +131,7 @@ close_(Log4gAppender *base)
 }
 
 static gboolean
-requires_layout(Log4gAppender *self)
+requires_layout(G_GNUC_UNUSED Log4gAppender *self)
 {
 	return TRUE;
 }
@@ -170,7 +170,8 @@ log4g_syslog_appender_class_init(Log4gSyslogAppenderClass *klass)
 }
 
 static void
-log4g_syslog_appender_class_finalize(Log4gSyslogAppenderClass *klass)
+log4g_syslog_appender_class_finalize(
+		G_GNUC_UNUSED Log4gSyslogAppenderClass *klass)
 {
 	/* do nothing */
 }

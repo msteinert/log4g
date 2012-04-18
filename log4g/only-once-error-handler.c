@@ -46,13 +46,14 @@ struct Private {
 };
 
 static void
-set_logger(Log4gErrorHandler *base, Log4gLogger *logger)
+set_logger(G_GNUC_UNUSED Log4gErrorHandler *base,
+		G_GNUC_UNUSED Log4gLogger *logger)
 {
 	/* do nothing */
 }
 
 static void
-error(Log4gErrorHandler *base, Log4gLoggingEvent *event,
+error(Log4gErrorHandler *base, G_GNUC_UNUSED Log4gLoggingEvent *event,
 		const char *message, va_list ap)
 {
 	struct Private *priv = GET_PRIVATE(base);
@@ -63,19 +64,22 @@ error(Log4gErrorHandler *base, Log4gLoggingEvent *event,
 }
 
 static void
-set_appender(Log4gErrorHandler *base, Log4gAppender *appender)
+set_appender(G_GNUC_UNUSED Log4gErrorHandler *base,
+		G_GNUC_UNUSED Log4gAppender *appender)
 {
 	/* do nothing */
 }
 
 static void
-set_backup_appender(Log4gErrorHandler *base, Log4gAppender *appender)
+set_backup_appender(G_GNUC_UNUSED Log4gErrorHandler *base,
+		G_GNUC_UNUSED Log4gAppender *appender)
 {
 	/* do nothing */
 }
-    
+
 static void
-error_handler_init(Log4gErrorHandlerInterface *interface, gpointer data)
+error_handler_init(Log4gErrorHandlerInterface *interface,
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->set_logger = set_logger;
 	interface->error = error;
@@ -107,7 +111,7 @@ log4g_only_once_error_handler_class_init(Log4gOnlyOnceErrorHandlerClass *klass)
  *
  * Create a new only once error handler object.
  *
- * Returns: A new only once error handler object.
+ * Returns: (transfer full): A new only once error handler object.
  * Since: 0.1
  */
 Log4gErrorHandler *

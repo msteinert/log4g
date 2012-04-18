@@ -462,7 +462,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 }
 
 static Log4gPatternParser *
-create_pattern_parser(Log4gLayout *base, const gchar *pattern)
+create_pattern_parser(G_GNUC_UNUSED Log4gLayout *base, const gchar *pattern)
 {
 	return log4g_pattern_parser_new(pattern);
 }
@@ -487,7 +487,8 @@ log4g_pattern_layout_class_init(Log4gPatternLayoutClass *klass)
 }
 
 static void
-log4g_pattern_layout_class_finalize(Log4gPatternLayoutClass *klass)
+log4g_pattern_layout_class_finalize(
+		G_GNUC_UNUSED Log4gPatternLayoutClass *klass)
 {
 	/* do nothing */
 }

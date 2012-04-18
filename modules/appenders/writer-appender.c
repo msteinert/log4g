@@ -144,7 +144,7 @@ close_(Log4gAppender *base)
 }
 
 static gboolean
-requires_layout(Log4gAppender *self)
+requires_layout(G_GNUC_UNUSED Log4gAppender *self)
 {
 	return TRUE;
 }
@@ -208,7 +208,8 @@ log4g_writer_appender_class_init(Log4gWriterAppenderClass *klass)
 }
 
 static void
-log4g_writer_appender_class_finalize(Log4gWriterAppenderClass *klass)
+log4g_writer_appender_class_finalize(
+		G_GNUC_UNUSED Log4gWriterAppenderClass *klass)
 {
 	/* do nothing */
 }

@@ -110,7 +110,7 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	const gchar *message = log4g_logging_event_get_rendered_message(event);
-	if (!message || !priv->string) { 
+	if (!message || !priv->string) {
 		return LOG4G_FILTER_NEUTRAL;
 	}
 	if (!g_strstr_len(message, -1, priv->string)) {
@@ -140,7 +140,8 @@ log4g_string_match_filter_class_init(Log4gStringMatchFilterClass *klass)
 }
 
 static void
-log4g_string_match_filter_class_finalize(Log4gStringMatchFilterClass *klass)
+log4g_string_match_filter_class_finalize(
+		G_GNUC_UNUSED Log4gStringMatchFilterClass *klass)
 {
 	/* do nothing */
 }

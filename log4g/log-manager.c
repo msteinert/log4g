@@ -210,9 +210,9 @@ log4g_log_manager_set_repository_selector(Log4gRepositorySelector *selector,
  *
  * Retrieve the current logger repository.
  *
- * @See: log4g/interface/logger-repository.h
+ * See: log4g/interface/logger-repository.h
  *
- * Returns: The current logger repository.
+ * Returns: (transfer none): The current logger repository.
  * Since: 0.1
  */
 Log4gLoggerRepository *
@@ -231,7 +231,7 @@ log4g_log_manager_get_logger_repository(void)
  *
  * Retrieve the root logger.
  *
- * Returns: The root logger.
+ * Returns: (transfer none): The root logger.
  * Since: 0.1
  */
 Log4gLogger *
@@ -253,7 +253,7 @@ log4g_log_manager_get_root_logger(void)
  *
  * If the named logger does not exist it will be created.
  *
- * Returns: A logger instance.
+ * Returns: (transfer none): A logger instance.
  * Since: 0.1
  */
 Log4gLogger *
@@ -277,8 +277,9 @@ log4g_log_manager_get_logger(const gchar *name)
  * If the named logger does not exist it will be created using the provided
  * logger factory.
  *
- * @See: log4g/interface/logger-factory.h
+ * See: log4g/interface/logger-factory.h
  *
+ * Returns: (transfer none): The named logger.
  * Since: 0.1
  */
 Log4gLogger *
@@ -302,7 +303,8 @@ log4g_log_manager_get_logger_factory(const gchar *name,
  *
  * If @name does not exist it will not be created.
  *
- * Returns: A logger named @name or %NULL if @name does not exist.
+ * Returns: (transfer none): A logger named @name or %NULL if @name does not
+ *          exist.
  * Since: 0.1
  */
 Log4gLogger *

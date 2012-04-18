@@ -34,7 +34,7 @@ G_DEFINE_DYNAMIC_TYPE(Log4gNullAppender, log4g_null_appender,
 static GObject *singleton = NULL;
 
 static void
-log4g_null_appender_init(Log4gNullAppender *self)
+log4g_null_appender_init(G_GNUC_UNUSED Log4gNullAppender *self)
 {
 	/* do nothing */
 }
@@ -54,25 +54,27 @@ constructor(GType type, guint n, GObjectConstructParam *params)
 }
 
 static void
-append(Log4gAppender *base, Log4gLoggingEvent *event)
+append(G_GNUC_UNUSED Log4gAppender *base,
+		G_GNUC_UNUSED Log4gLoggingEvent *event)
 {
 	/* do nothing */
 }
 
 static void
-do_append(Log4gAppender *base, Log4gLoggingEvent *event)
+do_append(G_GNUC_UNUSED Log4gAppender *base,
+		G_GNUC_UNUSED Log4gLoggingEvent *event)
 {
 	/* do nothing */
 }
 
 static void
-close_(Log4gAppender *base)
+close_(G_GNUC_UNUSED Log4gAppender *base)
 {
 	/* do nothing */
 }
 
 static gboolean
-requires_layout(Log4gAppender *self)
+requires_layout(G_GNUC_UNUSED Log4gAppender *self)
 {
 	return FALSE;
 }
@@ -90,7 +92,7 @@ log4g_null_appender_class_init(Log4gNullAppenderClass *klass)
 }
 
 static void
-log4g_null_appender_class_finalize(Log4gNullAppenderClass *klass)
+log4g_null_appender_class_finalize(G_GNUC_UNUSED Log4gNullAppenderClass *klass)
 {
 	/* do nothing */
 }

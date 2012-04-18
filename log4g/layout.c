@@ -34,25 +34,25 @@
 G_DEFINE_ABSTRACT_TYPE(Log4gLayout, log4g_layout, G_TYPE_OBJECT)
 
 static void
-log4g_layout_init(Log4gLayout *self)
+log4g_layout_init(G_GNUC_UNUSED Log4gLayout *self)
 {
 	/* do nothing */
 }
 
 static const gchar *
-get_content_type(Log4gLayout *self)
+get_content_type(G_GNUC_UNUSED Log4gLayout *self)
 {
 	return "text/plain";
 }
 
 static const gchar *
-get(Log4gLayout *self)
+get(G_GNUC_UNUSED Log4gLayout *self)
 {
 	return NULL;
 }
 
 static void
-activate_options(Log4gLayout *self)
+activate_options(G_GNUC_UNUSED Log4gLayout *self)
 {
 	/* do nothing */
 }

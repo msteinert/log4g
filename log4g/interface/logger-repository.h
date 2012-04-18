@@ -126,7 +126,7 @@ typedef Log4gLogger *
  *
  * Retrieve the repository threshold.
  *
- * @See: #Log4gLevelClass, #Log4gLoggerRepositoryInterface.set_threshold
+ * See: #Log4gLevelClass, #Log4gLoggerRepositoryInterface.set_threshold
  *
  * Returns: The threshold level for @self.
  * Since: 0.1
@@ -171,7 +171,7 @@ typedef void
  * By default the threshold is set to @ALL, which has the lowest
  * possible rank.
  *
- * @See: #Log4gLevelClass
+ * See: #Log4gLevelClass
  *
  * Since: 0.1
  */
@@ -186,7 +186,7 @@ typedef void
  *
  * Set the repository threshold from a string.
  *
- * @See: #Log4gLevelClass
+ * See: #Log4gLevelClass
  *
  * Since: 0.1
  */

@@ -41,7 +41,7 @@
 G_DEFINE_TYPE(Log4gRootLogger, log4g_root_logger, LOG4G_TYPE_LOGGER)
 
 static void
-log4g_root_logger_init(Log4gRootLogger *self)
+log4g_root_logger_init(G_GNUC_UNUSED Log4gRootLogger *self)
 {
 	/* do nothing */
 }

@@ -657,7 +657,7 @@ error_handler(void *ctx, const char *format, ...)
 
 static gboolean
 do_configure(Log4gConfigurator *base, const char *uri,
-        Log4gLoggerRepository *repository, GError **error)
+        G_GNUC_UNUSED Log4gLoggerRepository *repository, GError **error)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	gboolean status = TRUE;
@@ -787,7 +787,8 @@ exit:
 }
 
 static void
-configurator_init(Log4gConfiguratorInterface *interface, gpointer data)
+configurator_init(Log4gConfiguratorInterface *interface,
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->do_configure = do_configure;
 }
@@ -841,7 +842,7 @@ log4g_dom_configurator_class_init(Log4gDOMConfiguratorClass *klass)
  *
  * Create a new DOM configurator.
  *
- * Returns: A new DOM configurator object.
+ * Returns: (transfer none): A new DOM configurator object.
  * Since: 0.1
  */
 Log4gConfigurator *

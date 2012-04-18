@@ -31,7 +31,8 @@
 G_DEFINE_INTERFACE(Log4gConfigurator, log4g_configurator, G_TYPE_INVALID)
 
 static void
-log4g_configurator_default_init(Log4gConfiguratorInterface *klass)
+log4g_configurator_default_init(
+		G_GNUC_UNUSED Log4gConfiguratorInterface *klass)
 {
 	/* do nothing */
 }

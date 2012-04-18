@@ -65,7 +65,7 @@ struct Log4gLoggingEvent_ {
  *
  * Retrieve the log level of a logging event.
  *
- * @See: log4g/level.h
+ * See: log4g/level.h
  *
  * Returns: The log level of @self.
  * Since: 0.1
@@ -108,7 +108,7 @@ log4g_logging_event_get_message(Log4gLoggingEvent *self);
 const gchar *
 log4g_logging_event_get_mdc(Log4gLoggingEvent *self, const gchar *key);
 
-GTimeVal *
+const GTimeVal *
 log4g_logging_event_get_time_stamp(Log4gLoggingEvent *self);
 
 const gchar *

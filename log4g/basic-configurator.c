@@ -40,7 +40,7 @@
  * This function adds a console appender to the root logger that uses the
  * TTCC layout and prints to stdout.
  *
- * @See: #Log4gRootLogger, #Log4gTTCCLayout
+ * See: #Log4gRootLogger, #Log4gTTCCLayout
  *
  * Since: 0.1
  */

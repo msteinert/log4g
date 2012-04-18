@@ -139,7 +139,8 @@ log4g_pattern_converter_class_init(Log4gPatternConverterClass *klass)
 }
 
 static void
-log4g_pattern_converter_class_finalize(Log4gPatternConverterClass *klass)
+log4g_pattern_converter_class_finalize(
+		G_GNUC_UNUSED Log4gPatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -232,7 +233,8 @@ log4g_pattern_converter_set_next(Log4gPatternConverter *self,
  * Since: 0.1
  */
 void
-log4g_pattern_converter_space_pad(const Log4gPatternConverter *self,
+log4g_pattern_converter_space_pad(
+		G_GNUC_UNUSED const Log4gPatternConverter *self,
 		GString *buffer, gint length)
 {
 	static gchar *SPACES[] = {
@@ -279,7 +281,7 @@ basic_pattern_converter_convert(Log4gPatternConverter *base,
 	switch (priv->type) {
 	case RELATIVE_TIME_CONVERTER: {
 		glong start = log4g_logging_event_get_start_time();
-		GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+		const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 		glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
 		g_snprintf(priv->buffer, sizeof priv->buffer, "%ld",
 				time - start);
@@ -312,7 +314,7 @@ log4g_basic_pattern_converter_class_init(Log4gBasicPatternConverterClass *klass)
 
 static void
 log4g_basic_pattern_converter_class_finalize(
-		Log4gBasicPatternConverterClass *klass)
+		G_GNUC_UNUSED Log4gBasicPatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -378,14 +380,14 @@ literal_pattern_converter_finalize(GObject *base)
 
 static const gchar *
 literal_pattern_converter_convert(Log4gPatternConverter *base,
-		Log4gLoggingEvent *event)
+		G_GNUC_UNUSED Log4gLoggingEvent *event)
 {
 	return GET_LITERAL_PRIVATE(base)->literal;
 }
 
 static void
 literal_pattern_converter_format(Log4gPatternConverter *base, GString *string,
-		Log4gLoggingEvent *event)
+		G_GNUC_UNUSED Log4gLoggingEvent *event)
 {
 	struct LiteralPrivate *priv = GET_LITERAL_PRIVATE(base);
 	if (priv->literal) {
@@ -408,7 +410,7 @@ log4g_literal_pattern_converter_class_init(
 
 static void
 log4g_literal_pattern_converter_class_finalize(
-		Log4gLiteralPatternConverterClass *klass)
+		G_GNUC_UNUSED Log4gLiteralPatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -479,7 +481,7 @@ date_pattern_converter_convert(Log4gPatternConverter *base,
 		Log4gLoggingEvent *event)
 {
 	struct DatePrivate *priv = GET_DATE_PRIVATE(base);
-	GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+	const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 	if (!tv) {
 		return NULL;
 	}
@@ -509,7 +511,7 @@ log4g_date_pattern_converter_class_init(Log4gDatePatternConverterClass *klass)
 
 static void
 log4g_date_pattern_converter_class_finalize(
-		Log4gDatePatternConverterClass *klass)
+		G_GNUC_UNUSED Log4gDatePatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -593,7 +595,8 @@ log4g_mdc_pattern_converter_class_init(Log4gMDCPatternConverterClass *klass)
 }
 
 static void
-log4g_mdc_pattern_converter_class_finalize(Log4gMDCPatternConverterClass *klass)
+log4g_mdc_pattern_converter_class_finalize(
+		G_GNUC_UNUSED Log4gMDCPatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -677,7 +680,7 @@ log4g_location_pattern_converter_class_init(
 
 static void
 log4g_location_pattern_converter_class_finalize(
-		Log4gLocationPatternConverterClass *klass)
+		G_GNUC_UNUSED Log4gLocationPatternConverterClass *klass)
 {
 	/* do nothing */
 }
@@ -767,7 +770,7 @@ log4g_category_pattern_converter_class_init(
 
 static void
 log4g_category_pattern_converter_class_finalize(
-		Log4gCategoryPatternConverterClass *klass)
+		G_GNUC_UNUSED Log4gCategoryPatternConverterClass *klass)
 {
 	/* do nothing */
 }

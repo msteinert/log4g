@@ -184,7 +184,8 @@ log4g_level_range_filter_class_init(Log4gLevelRangeFilterClass *klass)
 }
 
 static void
-log4g_level_range_filter_class_finalize(Log4gLevelRangeFilterClass *klass)
+log4g_level_range_filter_class_finalize(
+		G_GNUC_UNUSED Log4gLevelRangeFilterClass *klass)
 {
 	/* do nothing */
 }

@@ -229,7 +229,7 @@ set_name(Log4gAppender *self, const gchar *name)
 }
 
 static void
-activate_options(Log4gAppender *self)
+activate_options(G_GNUC_UNUSED Log4gAppender *self)
 {
 	/* do nothing */
 }
@@ -258,7 +258,7 @@ log4g_appender_class_init(Log4gAppenderClass *klass)
 	 * Log4gAppender:threshold:
 	 *
 	 * The level threshold for this appender.
-	 * @See: #Log4gLevel
+	 * See: #Log4gLevel
 	 *
 	 * Since: 0.1
 	 */
@@ -309,7 +309,7 @@ log4g_appender_add_filter(Log4gAppender *self, Log4gFilter *filter)
  *
  * Calls the @get_filter function from the #Log4gAppenderClass of @self.
  *
- * Returns: The first filter in the filter chain.
+ * Returns: (transfer none): The first filter in the filter chain.
  * Since: 0.1
  */
 Log4gFilter *
@@ -389,7 +389,7 @@ log4g_appender_set_error_handler(Log4gAppender *self, gpointer handler)
  *
  * Calls the @get_error_handler function from the #Log4gAppenderClass of @self.
  *
- * Returns: The error handler object used by @self.
+ * Returns: (transfer none): The error handler object used by @self.
  * Since: 0.1
  */
 gpointer
@@ -421,7 +421,7 @@ log4g_appender_set_layout(Log4gAppender *self, Log4gLayout *layout)
  *
  * Calls the @get_layout function from the #Log4gAppenderClass of @self.
  *
- * Returns: The layout set for @self.
+ * Returns: (transfer none): The layout set for @self.
  * Since: 0.1
  */
 Log4gLayout *
@@ -499,7 +499,8 @@ log4g_appender_append(Log4gAppender *self, Log4gLoggingEvent *event)
  *
  * Retrieve the first filter in the filter chain.
  *
- * Returns: The first filter in the filter chain, or %NULL if there is none.
+ * Returns: (transfer none): The first filter in the filter chain, or %NULL
+ *          if there is none.
  * Since: 0.1
  */
 Log4gFilter *
@@ -564,7 +565,7 @@ log4g_appender_set_threshold(Log4gAppender *self, const gchar *threshold)
  *
  * Retrieve the threshold property.
  *
- * Returns: The threshold value for this appender.
+ * Returns: (transfer none): The threshold value for this appender.
  * Since: 0.1
  */
 Log4gLevel *

@@ -30,7 +30,7 @@ m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99],
 	AX_TRY_CFLAGS([-std=c99], [AX_FLAGS([-std=c99])])])
 PKG_PROG_PKG_CONFIG([0.17])
 # Glib/Gtk stuff
-GOBJECT_INTROSPECTION_CHECK([0.6.8])
+GOBJECT_INTROSPECTION_CHECK([1.30.0])
 m4_ifdef([GTK_DOC_CHECK], [
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 ], [
@@ -38,6 +38,7 @@ AM_CONDITIONAL([ENABLE_GTK_DOC], false)
 ])
 # Enable compiler flags
 AX_TRY_CFLAGS([-Wall], [AX_CFLAGS([-Wall])])
+AX_TRY_CFLAGS([-Wextra], [AX_CFLAGS([-Wextra])])
 AX_TRY_CFLAGS([-Wstrict-prototypes], [AX_CFLAGS([-Wstrict-prototypes])])
 AX_TRY_CFLAGS([-Wcast-align], [AX_CFLAGS([-Wcast-align])])
 AX_TRY_CFLAGS([-fno-common], [AX_CFLAGS([-fno-common])])
@@ -115,8 +116,8 @@ AM_CONDITIONAL([LOG4G_WITH_LAYOUTS],
 # CouchDB option
 AC_ARG_WITH(couchdb,
 	[AC_HELP_STRING([--with-couchdb],
-		[enable CouchDB appender & layout @<:@default=auto@:>@])],,
-	[with_couchdb=auto])
+		[enable CouchDB appender & layout @<:@default=no@:>@])],,
+	[with_couchdb=no])
 AS_IF([test "x$with_couchdb" != "xno"],
 	[PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"],
 		[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES couchdb"

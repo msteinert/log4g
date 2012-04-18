@@ -35,13 +35,13 @@ G_DEFINE_DYNAMIC_TYPE(Log4gDenyAllFilter, log4g_deny_all_filter,
 		LOG4G_TYPE_FILTER)
 
 static void
-log4g_deny_all_filter_init(Log4gDenyAllFilter *self)
+log4g_deny_all_filter_init(G_GNUC_UNUSED Log4gDenyAllFilter *self)
 {
 	/* do nothing */
 }
 
 static Log4gFilterDecision
-decide(Log4gFilter *self, Log4gLoggingEvent *event)
+decide(G_GNUC_UNUSED Log4gFilter *self, G_GNUC_UNUSED Log4gLoggingEvent *event)
 {
 	return LOG4G_FILTER_DENY;
 }
@@ -54,7 +54,8 @@ log4g_deny_all_filter_class_init(Log4gDenyAllFilterClass *klass)
 }
 
 static void
-log4g_deny_all_filter_class_finalize(Log4gDenyAllFilterClass *klass)
+log4g_deny_all_filter_class_finalize(
+		G_GNUC_UNUSED Log4gDenyAllFilterClass *klass)
 {
 	/* do nothing */
 }

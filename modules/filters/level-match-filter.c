@@ -118,7 +118,7 @@ decide(Log4gFilter *base, Log4gLoggingEvent *event)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	Log4gLevel *level;
-	if (!priv->level) { 
+	if (!priv->level) {
 		return LOG4G_FILTER_NEUTRAL;
 	}
 	level = log4g_logging_event_get_level(event);
@@ -149,7 +149,8 @@ log4g_level_match_filter_class_init(Log4gLevelMatchFilterClass *klass)
 }
 
 static void
-log4g_level_match_filter_class_finalize(Log4gLevelMatchFilterClass *klass)
+log4g_level_match_filter_class_finalize(
+		G_GNUC_UNUSED Log4gLevelMatchFilterClass *klass)
 {
 	/* do nothing */
 }

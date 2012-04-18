@@ -119,7 +119,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	Log4gLevel *level = log4g_logging_event_get_level(event);
-	GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+	const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 	gchar *escaped;
 	glong start = log4g_logging_event_get_start_time();
 	glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
@@ -244,7 +244,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 }
 
 static const gchar *
-get_content_type(Log4gLayout *base)
+get_content_type(G_GNUC_UNUSED Log4gLayout *base)
 {
 	return "text/html";
 }
@@ -364,7 +364,7 @@ log4g_html_layout_class_init(Log4gHTMLLayoutClass *klass)
 }
 
 static void
-log4g_html_layout_class_finalize(Log4gHTMLLayoutClass *klass)
+log4g_html_layout_class_finalize(G_GNUC_UNUSED Log4gHTMLLayoutClass *klass)
 {
 	/* do nothing */
 }

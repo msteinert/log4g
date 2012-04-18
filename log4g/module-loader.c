@@ -32,7 +32,8 @@
 G_DEFINE_INTERFACE(Log4gModuleLoader, log4g_module_loader, G_TYPE_INVALID)
 
 static void
-log4g_module_loader_default_init(Log4gModuleLoaderInterface *klass)
+log4g_module_loader_default_init(
+		G_GNUC_UNUSED Log4gModuleLoaderInterface *klass)
 {
 	/* do nothing */
 }
@@ -52,5 +53,5 @@ log4g_module_loader_load_modules(Log4gModuleLoader *self)
 	g_return_if_fail(LOG4G_IS_MODULE_LOADER(self));
 	Log4gModuleLoaderInterface *interface =
 		LOG4G_MODULE_LOADER_GET_INTERFACE(self);
-	return interface->load_modules(self);
+	interface->load_modules(self);
 }

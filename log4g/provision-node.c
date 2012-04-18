@@ -148,7 +148,7 @@ log4g_provision_node_size(Log4gProvisionNode *self)
  *
  * Retrieve an indexed element from a provision node.
  *
- * Returns: The object at @index or %NULL if none exists.
+ * Returns: (transfer none): The object at @index or %NULL if none exists.
  * Since: 0.1
  */
 gpointer

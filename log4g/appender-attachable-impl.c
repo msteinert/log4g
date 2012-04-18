@@ -166,7 +166,8 @@ remove_appender_name(Log4gAppenderAttachable *base, const gchar *name)
 
 static void
 log4g_appender_attachable_impl_interface_init(
-		Log4gAppenderAttachableInterface *interface, gpointer data)
+		Log4gAppenderAttachableInterface *interface,
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->add_appender = add_appender;
 	interface->get_all_appenders = get_all_appenders;
@@ -231,7 +232,7 @@ log4g_appender_attachable_impl_class_init(
  *
  * Create a new appender attachable implementation object.
  *
- * Returns: A new appender attachable implementation object.
+ * Returns: (transfer none): A new appender attachable implementation object.
  * Since: 0.1
  */
 Log4gAppenderAttachable *

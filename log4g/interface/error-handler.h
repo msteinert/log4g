@@ -101,7 +101,7 @@ typedef void
 /**
  * Log4gErrorHandlerInterface:
  * @set_logger: Add a reference to a logger with an attached that failed.
- * @error: Handle the error (@See: #Log4gErrorHandlerError).
+ * @error: Handle the error (See: #Log4gErrorHandlerError).
  * @set_appender: Set an appender to handle error messages.
  * @set_backup_appender: Set a backup appender in case of failure.
  */

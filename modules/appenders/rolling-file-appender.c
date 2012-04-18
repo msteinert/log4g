@@ -208,7 +208,7 @@ log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 
 static void
 log4g_rolling_file_appender_class_finalize(
-		Log4gRollingFileAppenderClass *klass)
+		G_GNUC_UNUSED Log4gRollingFileAppenderClass *klass)
 {
 	/* do nothing */
 }

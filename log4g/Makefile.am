@@ -119,7 +119,8 @@ introspection_files = \
 	$(interfaceinclude_HEADERS)
 Log4g-$(series).gir: $(INTROSPECTION_SCANNER) liblog4g-$(series).la Makefile
 Log4g_@series_major@_@series_minor@_gir_SCANNERFLAGS = \
-	--strip-prefix=Log4g
+	--identifier-prefix=Log4g \
+	--warn-all
 Log4g_@series_major@_@series_minor@_gir_INCLUDES = \
 	GObject-2.0 GModule-2.0 libxml2-2.0
 Log4g_@series_major@_@series_minor@_gir_CFLAGS = \

@@ -80,7 +80,7 @@ dispose(GObject *base)
 }
 
 static void
-activate_options(Log4gFilter *base)
+activate_options(G_GNUC_UNUSED Log4gFilter *base)
 {
 	/* do nothing */
 }
@@ -139,7 +139,8 @@ log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event)
  * Filters are chained together. This function returns the next filter in
  * the chain, or %NULL if there are no more.
  *
- * Returns: The next filter in the chain, or \e NULL if there are no more.
+ * Returns: (transfer none): The next filter in the chain, or \e NULL if
+ *          there are no more.
  * Since: 0.1
  */
 Log4gFilter *

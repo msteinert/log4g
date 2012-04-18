@@ -138,7 +138,7 @@ log4g_date_layout_class_init(Log4gDateLayoutClass *klass)
 }
 
 static void
-log4g_date_layout_class_finalize(Log4gDateLayoutClass *klass)
+log4g_date_layout_class_finalize(G_GNUC_UNUSED Log4gDateLayoutClass *klass)
 {
 	/* do nothing */
 }
@@ -164,7 +164,7 @@ log4g_date_layout_date_format(Log4gLayout *base, GString *string,
 		Log4gLoggingEvent *event)
 {
 	g_return_if_fail(LOG4G_IS_DATE_LAYOUT(base));
-	GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
+	const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 	if (!tv) {
 		return;
 	}

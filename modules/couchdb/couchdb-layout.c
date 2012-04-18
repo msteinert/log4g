@@ -193,8 +193,10 @@ format_document(Log4gLayout *base, Log4gLoggingEvent *event)
 		if (mdc) {
 			for (gint i = 0; i < keys->len; ++i) {
 				string = g_array_index(keys, const gchar *, i);
-				couchdb_struct_field_set_string_field(mdc, string,
-						log4g_logging_event_get_mdc(event, string));
+				couchdb_struct_field_set_string_field(
+						mdc, string,
+						log4g_logging_event_get_mdc(
+							event, string));
 			}
 			couchdb_document_set_struct_field(document, "mdc", mdc);
 		}
@@ -238,7 +240,7 @@ format_document(Log4gLayout *base, Log4gLoggingEvent *event)
 }
 
 static void
-activate_options(Log4gLayout *base)
+activate_options(G_GNUC_UNUSED Log4gLayout *base)
 {
 	/* do nothing */
 }
@@ -256,7 +258,8 @@ log4g_couchdb_layout_class_init(Log4gCouchdbLayoutClass *klass)
 }
 
 static void
-log4g_couchdb_layout_class_finalize(Log4gCouchdbLayoutClass *klass)
+log4g_couchdb_layout_class_finalize(
+		G_GNUC_UNUSED Log4gCouchdbLayoutClass *klass)
 {
 	/* do nothing */
 }

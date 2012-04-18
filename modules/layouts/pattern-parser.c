@@ -115,7 +115,8 @@ log4g_pattern_parser_class_init(Log4gPatternParserClass *klass)
 }
 
 static void
-log4g_pattern_parser_class_finalize(Log4gPatternParserClass *klass)
+log4g_pattern_parser_class_finalize(
+		G_GNUC_UNUSED Log4gPatternParserClass *klass)
 {
 	/* do nothing */
 }
@@ -125,7 +126,7 @@ log4g_pattern_parser_register(GTypeModule *module)
 {
 	log4g_pattern_parser_register_type(module);
 }
-    
+
 /**
  * log4g_pattern_parser_new:
  * @pattern: The conversion pattern to parse.

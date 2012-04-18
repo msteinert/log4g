@@ -52,7 +52,7 @@ typedef struct Log4gRepositorySelectorInterface_
  * Implementors must assure that a valid (non-%NULL) logger repository
  * is returned.
  *
- * @See: #Log4gLoggerRepositoryInterface
+ * See: #Log4gLoggerRepositoryInterface
  *
  * Returns: The logger repository for the current application context.
  * Since: 0.1

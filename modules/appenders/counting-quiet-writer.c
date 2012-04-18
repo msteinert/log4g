@@ -66,7 +66,8 @@ log4g_counting_quiet_writer_class_init(Log4gCountingQuietWriterClass *klass)
 }
 
 static void
-log4g_counting_quiet_writer_class_finalize(Log4gCountingQuietWriterClass *klass)
+log4g_counting_quiet_writer_class_finalize(
+		G_GNUC_UNUSED Log4gCountingQuietWriterClass *klass)
 {
 	/* do nothing */
 }

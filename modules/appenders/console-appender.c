@@ -195,7 +195,8 @@ log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
 }
 
 static void
-log4g_console_appender_class_finalize(Log4gConsoleAppenderClass *klass)
+log4g_console_appender_class_finalize(
+		G_GNUC_UNUSED Log4gConsoleAppenderClass *klass)
 {
 	/* do nothing */
 }

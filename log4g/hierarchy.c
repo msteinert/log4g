@@ -70,7 +70,8 @@ exists(Log4gLoggerRepository *base, const gchar *name)
 }
 
 static void
-foreach_current_logger(gpointer key, gpointer value, gpointer user_data)
+foreach_current_logger(G_GNUC_UNUSED gpointer key, gpointer value,
+		gpointer user_data)
 {
 	GArray *loggers = (GArray *)user_data;
 	if (LOG4G_IS_LOGGER(value)) {
@@ -150,7 +151,7 @@ exit:
 }
 
 static gboolean
-update_children(Log4gHierarchy *self, Log4gProvisionNode *node,
+update_children(G_GNUC_UNUSED Log4gHierarchy *self, Log4gProvisionNode *node,
 		Log4gLogger *logger)
 {
 	guint last = log4g_provision_node_size(node);
@@ -344,7 +345,7 @@ emit_no_appender_warning(Log4gLoggerRepository *base, Log4gLogger *logger)
 
 static void
 logger_repository_init(Log4gLoggerRepositoryInterface *interface,
-		gpointer data)
+		G_GNUC_UNUSED gpointer data)
 {
 	interface->exists = exists;
 	interface->get_current_loggers = get_current_loggers;
@@ -436,7 +437,7 @@ log4g_hierarchy_class_init(Log4gHierarchyClass *klass)
  *
  * Create a new logger hierarchy.
  *
- * Returns: A new logger hierarchy.
+ * Returns: (transfer none): A new logger hierarchy.
  * Since: 0.1
  */
 Log4gLoggerRepository *

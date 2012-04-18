@@ -310,7 +310,7 @@ log4g_ndc_clear(void)
  * for the returned value.
  * </para></note>
  *
- * Returns: A clone of the current nested data context.
+ * Returns: (transfer container): A clone of the current nested data context.
  * Since: 0.1
  */
 GArray *
@@ -356,7 +356,7 @@ error:
  * After calling this function the caller should no longer reference @stack.
  * </para></note>
  *
- * @See: log4g_ndc_clone()
+ * See: log4g_ndc_clone()
  *
  * Since: 0.1
  */

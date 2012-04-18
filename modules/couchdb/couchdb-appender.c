@@ -194,7 +194,7 @@ close_(Log4gAppender *base)
 }
 
 static gboolean
-requires_layout(Log4gAppender *self)
+requires_layout(G_GNUC_UNUSED Log4gAppender *self)
 {
 	return FALSE;
 }
@@ -292,7 +292,8 @@ log4g_couchdb_appender_class_init(Log4gCouchdbAppenderClass *klass)
 }
 
 static void
-log4g_couchdb_appender_class_finalize(Log4gCouchdbAppenderClass *klass)
+log4g_couchdb_appender_class_finalize(
+		G_GNUC_UNUSED Log4gCouchdbAppenderClass *klass)
 {
 	/* do nothing */
 }
