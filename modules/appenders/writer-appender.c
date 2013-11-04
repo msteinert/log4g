@@ -50,7 +50,7 @@ G_DEFINE_DYNAMIC_TYPE(Log4gWriterAppender, log4g_writer_appender,
 struct Private {
 	gboolean flush;
 	Log4gQuietWriter *writer;
-	GMutex *lock;
+	GMutex lock;
 };
 
 static void
@@ -60,10 +60,7 @@ log4g_writer_appender_init(Log4gWriterAppender *self)
 	struct Private *priv = GET_PRIVATE(self);
 	priv->flush = TRUE;
 	priv->writer = NULL;
-	priv->lock = NULL;
-	if (g_thread_supported()) {
-		priv->lock = g_mutex_new();
-	}
+	g_mutex_init(&priv->lock);
 }
 
 static void
@@ -82,9 +79,7 @@ finalize(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	log4g_appender_close(LOG4G_APPENDER(base));
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-	}
+	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_writer_appender_parent_class)->finalize(base);
 }
 
@@ -104,7 +99,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 		priv->flush = g_value_get_boolean(value);
 		break;
 	case PROP_WRITER:
-		g_mutex_lock(priv->lock);
+		g_mutex_lock(&priv->lock);
 		log4g_writer_appender_reset(LOG4G_APPENDER(base));
 		FILE *file = g_value_get_pointer(value);
 		GObject *error = log4g_appender_get_error_handler(
@@ -113,7 +108,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 		if (priv->writer) {
 			log4g_writer_appender_write_header(LOG4G_APPENDER(base));
 		}
-		g_mutex_unlock(priv->lock);
+		g_mutex_unlock(&priv->lock);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
@@ -135,11 +130,11 @@ close_(Log4gAppender *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	if (!log4g_appender_get_closed(base)) {
-		g_mutex_lock(priv->lock);
+		g_mutex_lock(&priv->lock);
 		log4g_appender_set_closed(base, TRUE);
 		log4g_writer_appender_write_footer(base);
 		log4g_writer_appender_reset(base);
-		g_mutex_unlock(priv->lock);
+		g_mutex_unlock(&priv->lock);
 	}
 }
 

@@ -27,7 +27,7 @@
 #define CLASS "/log4g/Module"
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GTypeModule *module =
 		log4g_module_new("modules/appenders/liblog4g-appenders.la");
@@ -44,7 +44,7 @@ test_001(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_002(gpointer *fixture, gconstpointer data)
+test_002(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GTypeModule *module =
 		log4g_module_new("modules/filters/liblog4g-filters.la");
@@ -58,7 +58,7 @@ test_002(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_003(gpointer *fixture, gconstpointer data)
+test_003(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GTypeModule *module =
 		log4g_module_new("modules/layouts/liblog4g-layouts.la");
@@ -76,12 +76,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 #ifdef LOG4G_WITH_APPENDERS
 	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
 #endif

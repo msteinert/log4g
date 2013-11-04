@@ -32,7 +32,7 @@ typedef struct Fixture_ {
 } Fixture;
 
 void
-setup(Fixture *fixture, gconstpointer data)
+setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_mdc_put("foo", "bar");
 	log4g_ndc_push("baz");
@@ -45,13 +45,13 @@ setup(Fixture *fixture, gconstpointer data)
 }
 
 void
-teardown(Fixture *fixture, gconstpointer data)
+teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	g_object_unref(fixture->event);
 }
 
 void
-test_001(Fixture *fixture, gconstpointer data)
+test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GType type = g_type_from_name("Log4gLevelRangeFilter");
 	g_assert(type);
@@ -68,7 +68,7 @@ test_001(Fixture *fixture, gconstpointer data)
 }
 
 void
-test_002(Fixture *fixture, gconstpointer data)
+test_002(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GType type = g_type_from_name("Log4gLevelRangeFilter");
 	g_assert(type);
@@ -87,7 +87,7 @@ test_002(Fixture *fixture, gconstpointer data)
 }
 
 void
-test_003(Fixture *fixture, gconstpointer data)
+test_003(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GType type = g_type_from_name("Log4gLevelRangeFilter");
 	g_assert(type);
@@ -105,12 +105,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	GTypeModule *module =
 		log4g_module_new("modules/filters/liblog4g-filters.la");
 	g_assert(module);

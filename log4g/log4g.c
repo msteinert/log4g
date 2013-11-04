@@ -193,7 +193,6 @@ post_parse_hook(G_GNUC_UNUSED GOptionContext *context,
 	if (initialized) {
 		return TRUE;
 	}
-	g_type_init();
 	if (opt->flags & LOG4G_FLAG_DEBUG) {
 		log4g_set_internal_debugging(TRUE);
 	}

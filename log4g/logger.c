@@ -67,17 +67,15 @@ struct Private {
 	Log4gLogger *parent; /* The parent of the logger */
 	Log4gLoggerRepository *repository; /* Owner of this logger */
 	Log4gAppenderAttachable *aai; /* Appenders attached to this logger */
-	GMutex *lock; /* Synchronizes access to 'aai' */
+	GMutex lock; /* Synchronizes access to 'aai' */
 };
 
 static void
 log4g_logger_init(Log4gLogger *self)
 {
 	self->priv = ASSIGN_PRIVATE(self);
-	if (g_thread_supported()) {
-		struct Private *priv = GET_PRIVATE(self);
-		priv->lock = g_mutex_new();
-	}
+	struct Private *priv = GET_PRIVATE(self);
+	g_mutex_init(&priv->lock);
 }
 
 static void
@@ -107,9 +105,7 @@ finalize(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	g_free(priv->name);
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-	}
+	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_logger_parent_class)->finalize(base);
 }
 
@@ -392,7 +388,7 @@ void
 log4g_logger_add_appender(Log4gLogger *self, Log4gAppender *appender)
 {
 	struct Private *priv = GET_PRIVATE(self);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	if (!priv->aai) {
 		priv->aai = log4g_appender_attachable_impl_new();
 		if (!priv->aai) {
@@ -403,7 +399,7 @@ log4g_logger_add_appender(Log4gLogger *self, Log4gAppender *appender)
 	log4g_logger_repository_emit_add_appender_signal(priv->repository,
 			self, appender);
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -425,10 +421,10 @@ log4g_logger_get_all_appenders(Log4gLogger *self)
 	if (!g_atomic_pointer_get(&priv->aai)) {
 		return NULL;
 	}
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	const GArray *appenders =
 		log4g_appender_attachable_get_all_appenders(priv->aai);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return appenders;
 }
 
@@ -452,10 +448,10 @@ log4g_logger_get_appender(Log4gLogger *self, const gchar *name)
 	if (!priv->aai) {
 		return NULL;
 	}
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	Log4gAppender *appender =
 		log4g_appender_attachable_get_appender(priv->aai, name);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return appender;
 }
 
@@ -498,7 +494,7 @@ log4g_logger_remove_all_appenders(Log4gLogger *self)
 	if (!g_atomic_pointer_get(&priv->aai)) {
 		return;
 	}
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	const GArray *appenders =
 		log4g_appender_attachable_get_all_appenders(priv->aai);
 	if (!appenders) {
@@ -527,7 +523,7 @@ log4g_logger_remove_all_appenders(Log4gLogger *self)
 	g_object_unref(priv->aai);
 	priv->aai = NULL;
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -550,7 +546,7 @@ log4g_logger_remove_appender(Log4gLogger *self, Log4gAppender *appender)
 	if (!g_atomic_pointer_get(&priv->aai)) {
 		return;
 	}
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	gboolean attached =
 		log4g_appender_attachable_is_attached(priv->aai, appender);
 	if (attached) {
@@ -558,7 +554,7 @@ log4g_logger_remove_appender(Log4gLogger *self, Log4gAppender *appender)
 		log4g_logger_repository_emit_remove_appender_signal(
 				priv->repository, self, appender);
 	}
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -581,7 +577,7 @@ log4g_logger_remove_appender_name(Log4gLogger *self, const gchar *name)
 	if (!g_atomic_pointer_get(&priv->aai)) {
 		return;
 	}
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	Log4gAppender *appender =
 		log4g_appender_attachable_get_appender(priv->aai, name);
 	if (appender) {
@@ -591,7 +587,7 @@ log4g_logger_remove_appender_name(Log4gLogger *self, const gchar *name)
 				priv->repository, self, appender);
 		g_object_unref(appender);
 	}
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -613,7 +609,7 @@ log4g_logger_close_nested_appenders(Log4gLogger *self)
 		return;
 	}
 	struct Private *priv = GET_PRIVATE(self);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	for (guint i = 0; i < appenders->len; ++i) {
 		Log4gAppender *appender = g_array_index(appenders,
 				Log4gAppender *, i);
@@ -621,7 +617,7 @@ log4g_logger_close_nested_appenders(Log4gLogger *self)
 			log4g_appender_close(appender);
 		}
 	}
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -643,16 +639,16 @@ log4g_logger_call_appenders(Log4gLogger *self, Log4gLoggingEvent *event)
 	Log4gLogger *logger = self;
 	while (logger) {
 		priv = GET_PRIVATE(logger);
-		g_mutex_lock(priv->lock);
+		g_mutex_lock(&priv->lock);
 		if (priv->aai) {
 			writes += log4g_appender_attachable_impl_append_loop_on_appenders(
 					priv->aai, event);
 		}
 		if (!priv->additive) {
-			g_mutex_unlock(priv->lock);
+			g_mutex_unlock(&priv->lock);
 			break;
 		}
-		g_mutex_unlock(priv->lock);
+		g_mutex_unlock(&priv->lock);
 		logger = priv->parent;
 	}
 	if (!writes) {

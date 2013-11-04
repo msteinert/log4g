@@ -33,7 +33,7 @@ typedef struct Fixture_ {
 } Fixture;
 
 void
-setup(Fixture *fixture, gconstpointer data)
+setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	const gchar *file = getenv("srcdir");
 	fixture->file = g_string_new(file ? file : "../../tests");
@@ -41,13 +41,13 @@ setup(Fixture *fixture, gconstpointer data)
 }
 
 void
-teardown(Fixture *fixture, gconstpointer data)
+teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	g_string_free(fixture->file, TRUE);
 }
 
 void
-test_001(Fixture *fixture, gconstpointer data)
+test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	g_string_append(fixture->file, "tests/dom-configurator-001.xml");
 	GError *error = NULL;
@@ -62,12 +62,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
 	return g_test_run();
 }

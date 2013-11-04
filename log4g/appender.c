@@ -46,7 +46,7 @@ struct Private {
 	Log4gFilter *head;
 	Log4gFilter *tail;
 	gboolean closed;
-	GMutex *lock;
+	GMutex lock;
 };
 
 static void
@@ -60,10 +60,7 @@ log4g_appender_init(Log4gAppender *self)
 	priv->error = log4g_only_once_error_handler_new();
 	priv->head = priv->tail = NULL;
 	priv->closed = FALSE;
-	priv->lock = NULL;
-	if (g_thread_supported()) {
-		priv->lock = g_mutex_new();
-	}
+	g_mutex_init(&priv->lock);
 }
 
 static void
@@ -94,9 +91,7 @@ finalize(GObject *self)
 {
 	struct Private *priv = GET_PRIVATE(self);
 	g_free(priv->name);
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-	}
+	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_appender_parent_class)->finalize(self);
 }
 
@@ -143,7 +138,7 @@ static void
 do_append(Log4gAppender *self, Log4gLoggingEvent *event)
 {
 	struct Private *priv = GET_PRIVATE(self);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	if (priv->closed) {
 		log4g_log_error(Q_("attempted to append to closed "
 					"appender named [%s]"), priv->name);
@@ -168,7 +163,7 @@ do_append(Log4gAppender *self, Log4gLoggingEvent *event)
 	}
 	log4g_appender_append(self, event);
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static const gchar *
@@ -181,7 +176,7 @@ static void
 set_error_handler(Log4gAppender *self, gpointer error)
 {
 	struct Private *priv = GET_PRIVATE(self);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	if (G_UNLIKELY(!error)) {
 		log4g_log_warn(Q_("attemped to set a NULL error-handler"));
 	} else {
@@ -191,7 +186,7 @@ set_error_handler(Log4gAppender *self, gpointer error)
 		g_object_ref(error);
 		priv->error = error;
 	}
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static gpointer

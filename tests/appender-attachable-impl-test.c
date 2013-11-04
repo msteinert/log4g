@@ -28,7 +28,7 @@
 #define CLASS "/log4g/helpers/AppenderAttachableImpl"
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	Log4gAppenderAttachable *aai = log4g_appender_attachable_impl_new();
 	g_assert(aai);
@@ -39,12 +39,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
 	return g_test_run();
 }

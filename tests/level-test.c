@@ -27,7 +27,7 @@
 #define CLASS "/log4g/Level"
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	Log4gLevel *warn = log4g_level_WARN();
 	g_assert(warn);
@@ -42,7 +42,7 @@ test_001(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_002(gpointer *fixture, gconstpointer data)
+test_002(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	Log4gLevel *level = log4g_level_new(10, "FOO", 2);
 	g_assert(level);
@@ -58,12 +58,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, NULL);
 	g_test_add(CLASS"/002", gpointer, NULL, NULL, test_002, NULL);
 	return g_test_run();

@@ -27,13 +27,13 @@
 #define CLASS "/log4g/NDC"
 
 void
-teardown(gpointer *fixture, gconstpointer data)
+teardown(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_ndc_remove();
 }
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_ndc_push("foo");
 	g_assert_cmpstr(log4g_ndc_peek(), == , "foo");
@@ -59,7 +59,7 @@ test_001(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_002(gpointer *fixture, gconstpointer data)
+test_002(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_ndc_push("foo");
 	log4g_ndc_push("bar");
@@ -72,7 +72,7 @@ test_002(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_003(gpointer *fixture, gconstpointer data)
+test_003(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_ndc_push("foo");
 	log4g_ndc_push("bar");
@@ -85,7 +85,7 @@ test_003(gpointer *fixture, gconstpointer data)
 }
 
 void
-test_004(gpointer *fixture, gconstpointer data)
+test_004(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_ndc_push("foo");
 	log4g_ndc_push("bar");
@@ -104,12 +104,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	g_test_add(CLASS"/001", gpointer, NULL, NULL, test_001, teardown);
 	g_test_add(CLASS"/002", gpointer, NULL, NULL, test_002, teardown);
 	g_test_add(CLASS"/003", gpointer, NULL, NULL, test_003, teardown);

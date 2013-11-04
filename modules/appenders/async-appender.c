@@ -172,8 +172,8 @@ struct Private {
 	GThreadPool *pool; /* Worker thread pool */
 	gboolean blocking; /* Indicates if logging thread should block */
 	gsize size; /* Maximum size of the event queue */
-	GMutex *lock; /* Synchronizes access to \e appenders */
-	GMutex *discard; /* Synchronizes access to \e summary */
+	GMutex lock; /* Synchronizes access to \e appenders */
+	GMutex discard; /* Synchronizes access to \e summary */
 };
 
 static void
@@ -225,19 +225,19 @@ static void
 run_(gpointer data, gpointer user_data)
 {
 	struct Private *priv = GET_PRIVATE(user_data);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	log4g_appender_attachable_impl_append_loop_on_appenders(
 			priv->appenders, LOG4G_LOGGING_EVENT(data));
 	g_object_unref(data);
 	if (g_atomic_int_get(&priv->blocking)) {
-		g_mutex_lock(priv->discard);
+		g_mutex_lock(&priv->discard);
 		if (priv->summary && g_hash_table_size(priv->summary)) {
 			g_hash_table_foreach(priv->summary, discarded_, priv);
 			g_hash_table_remove_all(priv->summary);
 		}
-		g_mutex_unlock(priv->discard);
+		g_mutex_unlock(&priv->discard);
 	}
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static void
@@ -245,23 +245,14 @@ log4g_async_appender_init(Log4gAsyncAppender *self)
 {
 	self->priv = ASSIGN_PRIVATE(self);
 	struct Private *priv = GET_PRIVATE(self);
+	GError *error = NULL;
 	priv->appenders = log4g_appender_attachable_impl_new();
 	priv->blocking = TRUE;
 	priv->size = 128;
-	if (g_thread_supported()) {
-		GError *error = NULL;
-		priv->pool = g_thread_pool_new(run_, self, 1, TRUE, &error);
-		if (error) {
-			log4g_log_warn("g_thread_pool_new(): %s",
-					error->message);
-			g_error_free(error);
-		}
-		priv->lock = g_mutex_new();
-		priv->discard = g_mutex_new();
-	} else {
-		log4g_log_warn("you must call g_thread_init() before "
-				"log4g_init() if you plan to use "
-				"Log4gAsyncAppender");
+	priv->pool = g_thread_pool_new(run_, self, 1, TRUE, &error);
+	if (error) {
+		log4g_log_warn("g_thread_pool_new(): %s", error->message);
+		g_error_free(error);
 	}
 }
 
@@ -285,12 +276,8 @@ static void
 finalize(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-	}
-	if (priv->discard) {
-		g_mutex_free(priv->discard);
-	}
+	g_mutex_clear(&priv->lock);
+	g_mutex_clear(&priv->discard);
 	G_OBJECT_CLASS(log4g_async_appender_parent_class)->finalize(base);
 }
 
@@ -309,7 +296,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 	switch (id) {
 	case PROP_BLOCKING:
 		blocking = g_value_get_boolean(value);
-		g_mutex_lock(priv->discard);
+		g_mutex_lock(&priv->discard);
 		if (blocking) {
 			if (!priv->summary) {
 				priv->summary = g_hash_table_new_full(
@@ -323,7 +310,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 			}
 		}
 		g_atomic_int_set(&priv->blocking, blocking);
-		g_mutex_unlock(priv->discard);
+		g_mutex_unlock(&priv->discard);
 		break;
 	case PROP_BUFFER_SIZE:
 		priv->size = g_value_get_int(value);
@@ -372,7 +359,7 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 	if (G_UNLIKELY(discard)) {
 		Log4gDiscardSummary *summary;
 		const gchar *name = log4g_logging_event_get_logger_name(event);
-		g_mutex_lock(priv->discard);
+		g_mutex_lock(&priv->discard);
 		summary = g_hash_table_lookup(priv->summary, name);
 		if (!summary) {
 			summary = log4g_discard_summary_new(event);
@@ -384,7 +371,7 @@ append(Log4gAppender *base, Log4gLoggingEvent *event)
 		} else {
 			log4g_discard_summary_add(summary, event);
 		}
-		g_mutex_unlock(priv->discard);
+		g_mutex_unlock(&priv->discard);
 	}
 }
 
@@ -463,9 +450,9 @@ log4g_async_appender_add_appender(Log4gAppender *base, Log4gAppender *appender)
 	struct Private *priv;
 	g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
 	priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	log4g_appender_attachable_add_appender(priv->appenders, appender);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -486,10 +473,10 @@ log4g_async_appender_get_all_appenders(Log4gAppender *base)
 {
 	g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), NULL);
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	const GArray *appenders =
 		log4g_appender_attachable_get_all_appenders(priv->appenders);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return appenders;
 }
 
@@ -510,10 +497,10 @@ log4g_async_appender_get_appender(Log4gAppender *base, const gchar *name)
 {
 	g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), NULL);
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	Log4gAppender *appender =
 		log4g_appender_attachable_get_appender(priv->appenders, name);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return appender;
 }
 
@@ -534,10 +521,10 @@ log4g_async_appender_is_attached(Log4gAppender *base, Log4gAppender *appender)
 {
 	g_return_val_if_fail(LOG4G_IS_ASYNC_APPENDER(base), FALSE);
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	gboolean attached = log4g_appender_attachable_is_attached(
 			priv->appenders, appender);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return attached;
 }
 
@@ -556,9 +543,9 @@ log4g_async_appender_remove_all_appenders(Log4gAppender *base)
 {
 	g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	log4g_appender_attachable_remove_all_appenders(priv->appenders);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -578,9 +565,9 @@ log4g_async_appender_remove_appender(Log4gAppender *base,
 {
 	g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	log4g_appender_attachable_remove_appender(priv->appenders, appender);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 /**
@@ -600,7 +587,7 @@ log4g_async_appender_remove_appender_name(Log4gAppender *base,
 {
 	g_return_if_fail(LOG4G_IS_ASYNC_APPENDER(base));
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	log4g_appender_attachable_remove_appender_name(priv->appenders, name);
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }

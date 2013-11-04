@@ -66,16 +66,6 @@ log4g_thread_init(Log4gThread *self)
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-	if (g_thread_supported()) {
-		static gsize once = 0;
-		if (g_once_init_enter(&once)) {
-			priv = g_private_new(g_object_unref);
-			if (!priv) {
-				return NULL;
-			}
-			g_once_init_leave(&once, 1);
-		}
-	}
 	GObject *self = g_private_get(priv);
 	if (!self) {
 		self = G_OBJECT_CLASS(log4g_thread_parent_class)->

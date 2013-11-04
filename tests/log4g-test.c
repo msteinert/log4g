@@ -29,13 +29,13 @@
 #define CLASS "/log4g"
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	log4g_error("log4g-test: logging message (match this string)");
 }
 
 void
-perf_001(gpointer *fixture, gconstpointer data)
+perf_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	gint log = 1000000;
 	g_test_timer_start();
@@ -48,7 +48,7 @@ perf_001(gpointer *fixture, gconstpointer data)
 }
 
 void
-perf_002(gpointer *fixture, gconstpointer data)
+perf_002(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	gint log = 1000000;
 	g_test_timer_start();
@@ -61,7 +61,7 @@ perf_002(gpointer *fixture, gconstpointer data)
 }
 
 void
-perf_003(gpointer *fixture, gconstpointer data)
+perf_003(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	gint log = 1000000;
 	FILE *file = fopen("tests/file.txt", "w");
@@ -77,19 +77,13 @@ perf_003(gpointer *fixture, gconstpointer data)
 int
 main(int argc, char *argv[])
 {
-	g_test_init(&argc, &argv, NULL);
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	GOptionContext *context =
 		g_option_context_new("- test Log4g initialization");
 	if (!context) {
 		return EXIT_FAILURE;
 	}
 	GOptionEntry entries[] = {
-		{ NULL }
+		{ NULL, '\0', 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
 	};
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	g_option_context_add_group(context, log4g_get_option_group());

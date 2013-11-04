@@ -64,7 +64,7 @@ struct Private {
 	gchar *file;
 	gboolean buffered;
 	guint size;
-	GMutex *lock;
+	GMutex lock;
 };
 
 static void
@@ -74,9 +74,7 @@ log4g_file_appender_init(Log4gFileAppender *self)
 	struct Private *priv = GET_PRIVATE(self);
 	priv->append = TRUE;
 	priv->size = 8 * 1024;
-	if (g_thread_supported()) {
-		priv->lock = g_mutex_new();
-	}
+	g_mutex_init(&priv->lock);
 }
 
 static void
@@ -85,9 +83,7 @@ finalize(GObject *base)
 	struct Private *priv = GET_PRIVATE(base);
 	log4g_appender_close(LOG4G_APPENDER(base));
 	g_free(priv->file);
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-	}
+	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_file_appender_parent_class)->finalize(base);
 }
 
@@ -107,7 +103,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 	gboolean buffered;
 	switch (id) {
 	case PROP_FILE:
-		g_mutex_lock(priv->lock);
+		g_mutex_lock(&priv->lock);
 		g_free(priv->file);
 		priv->file = NULL;
 		const gchar *file = g_value_get_string(value);
@@ -117,7 +113,7 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 				g_strstrip(priv->file);
 			}
 		}
-		g_mutex_unlock(priv->lock);
+		g_mutex_unlock(&priv->lock);
 		break;
 	case PROP_APPEND:
 		priv->append = g_value_get_boolean(value);
@@ -148,11 +144,11 @@ set_file_full(Log4gAppender *base, const gchar *file, gboolean append,
 	}
 	log4g_writer_appender_reset(base);
 	g_object_set(base, "file", file, NULL);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	priv->append = append;
 	priv->buffered = buffered;
 	priv->size = size;
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	log4g_appender_activate_options(base);
 }
 
@@ -182,7 +178,7 @@ static void
 activate_options(Log4gAppender *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	if (G_UNLIKELY(!priv->file)) {
 		log4g_log_warn(Q_("file option not set for appender [%s]"),
 				log4g_appender_get_name(LOG4G_APPENDER(base)));
@@ -209,7 +205,7 @@ activate_options(Log4gAppender *base)
 	log4g_file_appender_set_qw_for_files(LOG4G_APPENDER(base), ostream);
 	log4g_writer_appender_write_header(LOG4G_APPENDER(base));
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static void

@@ -34,7 +34,7 @@ typedef struct Fixture_ {
 } Fixture;
 
 void
-setup(Fixture *fixture, gconstpointer data)
+setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	Log4gLogger *root = log4g_root_logger_new(log4g_level_DEBUG());
 	g_assert(root);
@@ -62,13 +62,13 @@ setup(Fixture *fixture, gconstpointer data)
 }
 
 void
-teardown(Fixture *fixture, gconstpointer data)
+teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	g_object_unref(fixture->repository);
 }
 
 void
-test_001(Fixture *fixture, gconstpointer data)
+test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	Log4gLogger *logger = log4g_logger_repository_get_logger(
 			fixture->repository, "org.gnome.test");
@@ -79,12 +79,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	GTypeModule *module =
 		log4g_module_new("modules/layouts/liblog4g-layouts.la");
 	g_assert(module);

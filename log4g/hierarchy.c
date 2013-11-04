@@ -60,7 +60,7 @@ struct Private {
 	gint threshold_int;
 	gboolean warning;
 	GArray *loggers;
-	GMutex *lock; /* Synchronizes 'table' */
+	GMutex lock; /* Synchronizes 'table' */
 };
 
 static Log4gLogger *
@@ -177,7 +177,7 @@ get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
 {
 	struct Private *priv = GET_PRIVATE(base);
 	Log4gLogger *logger = NULL;
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	GObject *object = g_hash_table_lookup(priv->table, name);
 	if (!object) {
 		gchar *key;
@@ -227,7 +227,7 @@ get_logger_factory(Log4gLoggerRepository *base, const gchar *name,
 		/* should be unreachable */
 	}
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 	return logger;
 }
 
@@ -274,7 +274,7 @@ shutdown(Log4gLoggerRepository *base)
 	Log4gLogger *root = log4g_logger_get_root_logger();
 	/* close all appenders */
 	log4g_logger_close_nested_appenders(root);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	const GArray *loggers =
 		log4g_logger_repository_get_current_loggers(base);
 	if (!loggers) {
@@ -292,7 +292,7 @@ shutdown(Log4gLoggerRepository *base)
 		log4g_logger_remove_all_appenders(logger);
 	}
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static void
@@ -303,7 +303,7 @@ reset_configuration(Log4gLoggerRepository *base)
 			log4g_level_DEBUG());
 	log4g_logger_repository_set_threshold(base, log4g_level_ALL());
 	log4g_logger_repository_shutdown(base);
-	g_mutex_lock(priv->lock);
+	g_mutex_lock(&priv->lock);
 	const GArray *loggers =
 		log4g_logger_repository_get_current_loggers(base);
 	if (!loggers) {
@@ -316,7 +316,7 @@ reset_configuration(Log4gLoggerRepository *base)
 		log4g_logger_set_additivity(logger, TRUE);
 	}
 exit:
-	g_mutex_unlock(priv->lock);
+	g_mutex_unlock(&priv->lock);
 }
 
 static void
@@ -378,10 +378,7 @@ log4g_hierarchy_init(Log4gHierarchy *self)
 	priv->threshold_int = 0;
 	priv->warning = FALSE;
 	priv->loggers = NULL;
-	priv->lock = NULL;
-	if (g_thread_supported()) {
-		priv->lock = g_mutex_new();
-	}
+	g_mutex_init(&priv->lock);
 }
 
 static void
@@ -415,10 +412,7 @@ finalize(GObject *base)
 		g_array_free(priv->loggers, TRUE);
 		priv->loggers = NULL;
 	}
-	if (priv->lock) {
-		g_mutex_free(priv->lock);
-		priv->lock = NULL;
-	}
+	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_hierarchy_parent_class)->finalize(base);
 }
 

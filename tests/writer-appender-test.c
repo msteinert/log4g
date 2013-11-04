@@ -29,7 +29,7 @@
 #define CLASS "/log4g/appender/WriterAppender"
 
 void
-test_001(gpointer *fixture, gconstpointer data)
+test_001(G_GNUC_UNUSED gpointer *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	FILE *file = fopen("tests/writer-appender-test.txt", "w");
 	g_assert(file);
@@ -61,12 +61,6 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
-	g_type_init();
-#ifndef G_THREADS_IMPL_NONE
-	if (!g_thread_supported()) {
-		g_thread_init(NULL);
-	}
-#endif
 	GTypeModule *module =
 		log4g_module_new("modules/layouts/liblog4g-layouts.la");
 	g_assert(module);
