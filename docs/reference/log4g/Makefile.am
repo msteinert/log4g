@@ -80,7 +80,7 @@ GTKDOC_CFLAGS = \
 	-I$(top_srcdir) \
 	$(GLIB_CFLAGS) \
 	$(GOBJECT_CFLAGS) \
-	$(LIBXML2_CFLAGS)
+	$(LIBXML_CFLAGS)
 
 GTKDOC_LIBS = \
 	$(top_builddir)/log4g/liblog4g-@series_major@.@series_minor@.la

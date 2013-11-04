@@ -8,6 +8,6 @@ Name: Log4g
 Description: A GObject-based logging utility
 URL: http://msteinert.github.com/log4g/
 Version: @VERSION@
-Requires.private: @glib_version@ @gmodule_version@ @gobject_version@ @gthread_version@ @libxml_version@ 
+Requires.private: @glib_version@ @gmodule_version@ @gobject_version@ @libxml_version@
 Libs: -L${libdir} -llog4g-@series@
 CFlags: -I${includedir}

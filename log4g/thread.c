@@ -52,7 +52,7 @@ struct Private {
 };
 
 /* Thread specific data. */
-static GPrivate *priv = NULL;
+static GPrivate priv = G_PRIVATE_INIT(g_object_unref);
 
 /* Count the number of thread name requests. */
 static gint counter = 0;
@@ -66,14 +66,14 @@ log4g_thread_init(Log4gThread *self)
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-	GObject *self = g_private_get(priv);
+	GObject *self = g_private_get(&priv);
 	if (!self) {
 		self = G_OBJECT_CLASS(log4g_thread_parent_class)->
 			constructor(type, n, params);
 		if (!self) {
 			return NULL;
 		}
-		g_private_set(priv, self);
+		g_private_set(&priv, self);
 	} else {
 		g_object_ref(self);
 	}
@@ -93,6 +93,7 @@ static void
 log4g_thread_class_init(Log4gThreadClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	g_private_set(&priv, NULL);
 	object_class->constructor = constructor;
 	object_class->finalize = finalize;
 	g_type_class_add_private(klass, sizeof(struct Private));
@@ -110,7 +111,7 @@ log4g_thread_class_init(Log4gThreadClass *klass)
 static Log4gThread *
 log4g_thread_get_instance(void)
 {
-	Log4gThread *self = (Log4gThread *)g_private_get(priv);
+	Log4gThread *self = (Log4gThread *)g_private_get(&priv);
 	if (!self) {
 		self = g_object_new(LOG4G_TYPE_THREAD, NULL);
 	}

@@ -65,7 +65,7 @@ AC_SUBST([LT_REVISION])
 AC_SUBST([LT_AGE])
 
 # Check for dependencies
-glib_minimum_version=2.24
+glib_minimum_version=2.36
 glib_version="glib-2.0 >= $glib_minimum_version"
 AC_SUBST([glib_version])
 PKG_CHECK_MODULES([GLIB], [$glib_version])
@@ -78,14 +78,10 @@ gobject_version="gobject-2.0 >= $glib_minimum_version"
 AC_SUBST([gobject_version])
 PKG_CHECK_MODULES([GOBJECT], [$gobject_version])
 
-gthread_version="gthread-2.0 >= $glib_minimum_version"
-AC_SUBST([gthread_version])
-PKG_CHECK_MODULES([GTHREAD], [$gthread_version])
-
 libxml_minimum_version=2.6
 libxml_version="libxml-2.0 >= $libxml_minimum_version"
 AC_SUBST([libxml_version])
-PKG_CHECK_MODULES([LIBXML2], [$libxml_version])
+PKG_CHECK_MODULES([LIBXML], [$libxml_version])
 
 # Check for glib-genmarshal
 AC_ARG_VAR([GLIB_GENMARSHAL], [path to the glib-genmarshal(1) utility])

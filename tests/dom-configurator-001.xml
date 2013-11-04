@@ -26,7 +26,7 @@
 		<level value="TRACE" />
 		<appender type="Log4gFileAppender">
 			<property name="file"
-				value="dom-configurator-001.txt" />
+				value="tests/dom-configurator-001.txt" />
 		<layout type="Log4gTTCCLayout" />
 		</appender>
 	</logger>

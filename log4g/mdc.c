@@ -48,7 +48,7 @@ struct Private {
 };
 
 /* Thread specific data. */
-static GPrivate *priv = NULL;
+static GPrivate priv = G_PRIVATE_INIT(g_object_unref);
 
 static void
 log4g_mdc_init(Log4gMDC *self)
@@ -62,14 +62,14 @@ log4g_mdc_init(Log4gMDC *self)
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-	GObject *self = g_private_get(priv);
+	GObject *self = g_private_get(&priv);
 	if (!self) {
 		self = G_OBJECT_CLASS(log4g_mdc_parent_class)->
 			constructor(type, n, params);
 		if (!self) {
 			return NULL;
 		}
-		g_private_set(priv, self);
+		g_private_set(&priv, self);
 	} else {
 		g_object_ref(self);
 	}
@@ -91,6 +91,7 @@ static void
 log4g_mdc_class_init(Log4gMDCClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	g_private_set(&priv, NULL);
 	object_class->constructor = constructor;
 	object_class->finalize = finalize;
 	g_type_class_add_private(klass, sizeof(struct Private));
@@ -106,7 +107,7 @@ log4g_mdc_class_init(Log4gMDCClass *klass)
 static Log4gMDC *
 log4g_mdc_get_instance(void)
 {
-	Log4gMDC *self = g_private_get(priv);
+	Log4gMDC *self = g_private_get(&priv);
 	if (!self) {
 		self = g_object_new(LOG4G_TYPE_MDC, NULL);
 	}

@@ -36,7 +36,8 @@ void
 setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	const gchar *file = getenv("srcdir");
-	fixture->file = g_string_new(file ? file : "../../tests");
+	g_assert(file);
+	fixture->file = g_string_new(file);
 	g_assert(fixture->file);
 }
 
@@ -49,7 +50,7 @@ teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 void
 test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
-	g_string_append(fixture->file, "tests/dom-configurator-001.xml");
+	g_string_append(fixture->file, "/tests/dom-configurator-001.xml");
 	GError *error = NULL;
 	g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
 	log4g_debug("debug message (match this string)");

@@ -172,7 +172,7 @@ error:
 }
 
 /** Thread specific data */
-static GPrivate *priv = NULL;
+static GPrivate priv = G_PRIVATE_INIT(g_object_unref);
 
 static void
 log4g_ndc_init(Log4gNDC *self)
@@ -183,14 +183,14 @@ log4g_ndc_init(Log4gNDC *self)
 static GObject *
 constructor(GType type, guint n, GObjectConstructParam *params)
 {
-	GObject *self = g_private_get(priv);
+	GObject *self = g_private_get(&priv);
 	if (!self) {
 		self = G_OBJECT_CLASS(log4g_ndc_parent_class)->
 			constructor(type, n, params);
 		if (!self) {
 			return NULL;
 		}
-		g_private_set(priv, self);
+		g_private_set(&priv, self);
 	} else {
 		g_object_ref(self);
 	}
@@ -234,7 +234,7 @@ finalize(GObject *base)
 static Log4gNDC *
 log4g_ndc_get_instance(void)
 {
-	Log4gNDC *self = g_private_get(priv);
+	Log4gNDC *self = g_private_get(&priv);
 	if (!self) {
 		self = g_object_new(LOG4G_TYPE_NDC, NULL);
 	}
@@ -262,6 +262,7 @@ static void
 log4g_ndc_class_init(Log4gNDCClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	g_private_set(&priv, NULL);
 	object_class->constructor = constructor;
 	object_class->finalize = finalize;
 	g_type_class_add_private(klass, sizeof(struct Private));
@@ -537,10 +538,10 @@ void
 log4g_ndc_remove(void)
 {
 	if (g_atomic_pointer_get(&priv)) {
-		Log4gNDC *self = g_private_get(priv);
+		Log4gNDC *self = g_private_get(&priv);
 		if (self) {
 			g_object_unref(self);
-			g_private_set(priv, NULL);
+			g_private_set(&priv, NULL);
 		}
 	}
 }

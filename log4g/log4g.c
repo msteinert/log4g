@@ -245,7 +245,6 @@ post_parse_hook(G_GNUC_UNUSED GOptionContext *context,
  *     GOptionEntry entries[] = {
  *         { NULL }
  *     };
- *     g_thread_init(NULL);
  *     context = g_option_context_new("- demonstrate Log4g initialization");
  *     if (!context) {
  *         return EXIT_FAILURE;
@@ -339,7 +338,6 @@ log4g_get_option_group(void)
  * int
  * main(int argc, char **argv)
  * {
- *     g_thread_init(NULL);
  *     log4g_init(&argc, &argv);
  *     log4g_info("Log4g is initialized & ready to go!");
  *     return EXIT_SUCCESS;
@@ -417,7 +415,6 @@ log4g_init(int *argc, char ***argv)
  * int
  * main(int argc, char **argv)
  * {
- *     g_thread_init(NULL);
  *     log4g_init(&argc, &argv);
  *     log4g_info("Log4g is initialized & ready to go!");
  *     log4g_finalize();
