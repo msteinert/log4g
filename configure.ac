@@ -20,7 +20,7 @@ AC_INIT([Log4g], [major_version.minor_version.micro_version],
 	[http://github.com/msteinert/log4g/issues/], [log4g],
 	[http://msteinert.github.com/log4g/])
 AC_CONFIG_MACRO_DIR([m4])
-AM_INIT_AUTOMAKE([1.9 foreign -Wno-portability])
+AM_INIT_AUTOMAKE([1.9 subdir-objects foreign -Wno-portability])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_SRCDIR([log4g/log4g.h])
 
@@ -35,7 +35,6 @@ m4_ifdef([AC_PROG_CC_C99], [AC_PROG_CC_C99],
 PKG_PROG_PKG_CONFIG([0.17])
 
 # Glib/Gtk stuff
-GOBJECT_INTROSPECTION_CHECK([1.30.0])
 m4_ifdef([GTK_DOC_CHECK], [
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 ], [
@@ -130,24 +129,6 @@ AS_IF([test "x$with_layouts" != "xno"],
 AM_CONDITIONAL([LOG4G_WITH_LAYOUTS],
 	[test "x$with_layouts" != "xno"])
 
-# CouchDB option
-AC_ARG_WITH(couchdb,
-	[AC_HELP_STRING([--with-couchdb],
-		[enable CouchDB appender & layout @<:@default=no@:>@])],,
-	[with_couchdb=no])
-AS_IF([test "x$with_couchdb" != "xno"],
-	[PKG_CHECK_MODULES([COUCHDB_GLIB], ["couchdb-glib-1.0"],
-		[LOG4G_CONFIGURED_MODULES="$LOG4G_CONFIGURED_MODULES couchdb"
-		AC_DEFINE([LOG4G_WITH_COUCHDB], [1],
-			[Define to 1 if Couchdb is enabled])
-		with_couchdb=yes],
-		[with_couchdb=no])])
-AM_CONDITIONAL([LOG4G_WITH_COUCHDB],
-	[test "x$with_couchdb" != "xno"])
-
-# Configure module options
-AC_SUBST([LOG4G_CONFIGURED_MODULES])
-
 # Configure module directory
 moduledir="\$(libdir)/log4g-$series"
 AC_SUBST(moduledir)
@@ -171,18 +152,11 @@ AH_BOTTOM(
 # Output files
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
-	docs/Makefile
-	docs/reference/Makefile
-	docs/reference/log4g/Makefile
-	log4g/Makefile
 	Makefile
-	modules/Makefile
-	modules/appenders/Makefile
-	modules/couchdb/Makefile
-	modules/filters/Makefile
-	modules/layouts/Makefile
-	resources/log4g.pc
-	tests/Makefile
+	log4g.pc
+        docs/Makefile
+        docs/reference/Makefile
+        docs/reference/log4g/Makefile
 ])
 AC_OUTPUT
 AC_MSG_RESULT([
@@ -190,5 +164,4 @@ Log4g build options:
 	Host: $host
 	Version: $VERSION
 	Modules:$LOG4G_CONFIGURED_MODULES
-	Introspection: $found_introspection
 ])

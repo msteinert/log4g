@@ -49,7 +49,7 @@ teardown(Fixture *fixture, gconstpointer data)
 void
 test_001(Fixture *fixture, gconstpointer data)
 {
-	g_string_append(fixture->file, "/dom-configurator-001.xml");
+	g_string_append(fixture->file, "tests/dom-configurator-001.xml");
 	GError *error = NULL;
 	g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
 	log4g_debug("debug message (match this string)");

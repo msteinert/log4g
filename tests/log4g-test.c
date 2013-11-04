@@ -64,7 +64,7 @@ void
 perf_003(gpointer *fixture, gconstpointer data)
 {
 	gint log = 1000000;
-	FILE *file = fopen("file.txt", "w");
+	FILE *file = fopen("tests/file.txt", "w");
 	g_test_timer_start();
 	for (gint i = 0; i < log; ++i) {
 		fprintf(file, "%d log this message\n", i);

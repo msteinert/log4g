@@ -74,7 +74,7 @@ main(int argc, char *argv[])
 	}
 #endif
 	GTypeModule *module =
-		log4g_module_new("../modules/filters/liblog4g-filters.la");
+		log4g_module_new("modules/filters/liblog4g-filters.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);

@@ -30,7 +30,7 @@ void
 test_001(gpointer *fixture, gconstpointer data)
 {
 	GTypeModule *module =
-		log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+		log4g_module_new("modules/appenders/liblog4g-appenders.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);
@@ -47,7 +47,7 @@ void
 test_002(gpointer *fixture, gconstpointer data)
 {
 	GTypeModule *module =
-		log4g_module_new("../modules/filters/liblog4g-filters.la");
+		log4g_module_new("modules/filters/liblog4g-filters.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);
@@ -61,7 +61,7 @@ void
 test_003(gpointer *fixture, gconstpointer data)
 {
 	GTypeModule *module =
-		log4g_module_new("../modules/layouts/liblog4g-layouts.la");
+		log4g_module_new("modules/layouts/liblog4g-layouts.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);
@@ -70,18 +70,6 @@ test_003(gpointer *fixture, gconstpointer data)
 	g_assert(g_type_from_name("Log4gPatternLayout"));
 	g_assert(g_type_from_name("Log4gSimpleLayout"));
 	g_assert(g_type_from_name("Log4gXMLLayout"));
-}
-
-void
-test_004(gpointer *fixture, gconstpointer data)
-{
-	GTypeModule *module =
-		log4g_module_new("../modules/couchdb/liblog4g-couchdb.la");
-	g_assert(module);
-	g_assert(g_type_module_use(module));
-	g_type_module_unuse(module);
-	g_assert(g_type_from_name("Log4gCouchdbAppender"));
-	g_assert(g_type_from_name("Log4gCouchdbLayout"));
 }
 
 int
@@ -102,9 +90,6 @@ main(int argc, char *argv[])
 #endif
 #ifdef LOG4G_WITH_LAYOUTS
 	g_test_add(CLASS"/003", gpointer, NULL, NULL, test_003, NULL);
-#endif
-#ifdef LOG4G_WITH_COUCHDB
-	g_test_add(CLASS"/004", gpointer, NULL, NULL, test_004, NULL);
 #endif
 	return g_test_run();
 }

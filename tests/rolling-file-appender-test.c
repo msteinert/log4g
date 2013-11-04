@@ -39,7 +39,7 @@ test_001(gpointer *fixture, gconstpointer data)
 	type = g_type_from_name("Log4gRollingFileAppender");
 	g_assert(type);
 	Log4gAppender *appender = g_object_new(type,
-			"file", "rolling-file-appender-test.txt",
+			"file", "tests/rolling-file-appender-test.txt",
 			"max-backup-index", 4,
 			"maximum-file-size", 10,
 			NULL);
@@ -73,11 +73,11 @@ main(int argc, char *argv[])
 	}
 #endif
 	GTypeModule *module =
-		log4g_module_new("../modules/layouts/liblog4g-layouts.la");
+		log4g_module_new("modules/layouts/liblog4g-layouts.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);
-	module = log4g_module_new("../modules/appenders/liblog4g-appenders.la");
+	module = log4g_module_new("modules/appenders/liblog4g-appenders.la");
 	g_assert(module);
 	g_assert(g_type_module_use(module));
 	g_type_module_unuse(module);

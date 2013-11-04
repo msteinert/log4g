@@ -15,11 +15,14 @@ more details.
 You should have received a copy of the GNU Lesser General Public License
 along with Log4g. If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <!-- Author: Michael Steinert -->
 <!-- Version: 1.0 -->
+
 <!-- configuration elements may contain appender elements, logger elements
 and an optional root logger element. -->
 <!ELEMENT log4g:configuration (appender*, logger*, root?)>
+
 <!-- The threshold attribute sets the level threshold for the entire logger
 hierarchy.
 
@@ -34,6 +37,7 @@ configuration is performed. -->
 	debug (true|false|null) "null"
 	reset (true|false) "false"
 >
+
 <!-- Appenders must have a name, a type, or both. If only the name is defined
 then the this appender is treated as a reference to a previously defined
 appender. If both are defined then this is an appender definition and is
@@ -45,47 +49,59 @@ literally defined inside a logger definition.
 	type CDATA #IMPLIED
 	name CDATA #IMPLIED
 >
+
 <!-- Layouts are only valid within appender definitions. Refer to the specific
 layout documentation for the properties that can be set. -->
 <!ELEMENT layout (property*)>
+
 <!-- Layouts must have a type. -->
 <!ATTLIST layout
 	type CDATA #REQUIRED
 >
+
 <!-- Filters are only valid within appender definitions. Refer to the specific
 filter documentation for the properties that can be set. -->
 <!ELEMENT filter (property*)>
+
 <!-- Filters must have a type. -->
 <!ATTLIST filter
 	type CDATA #REQUIRED
 >
+
 <!-- The property element is used to set a GObject property. -->
 <!ELEMENT property EMPTY>
+
 <!-- Properties must have a name and a value. -->
 <!ATTLIST property
 	name CDATA #REQUIRED
 	value CDATA #REQUIRED
 >
+
 <!-- The object element is used to create any type of GObject. GObjects are
 stored so that they may be assigned as properties. -->
 <!ELEMENT object (property*)>
+
 <!-- Objects must have a name and a type. -->
 <!ATTLIST object
 	name CDATA #REQUIRED
 	type CDATA #REQUIRED
 >
+
 <!-- Levels are used to define the log threshold for loggers. -->
 <!ELEMENT level (property*)>
+
 <!-- The implied type for levels is log4g_level. The value property is a
 string representation of a level. -->
 <!ATTLIST level
 	type CDATA #IMPLIED
 	value CDATA #REQUIRED
 >
+
 <!-- Loggers may contain levels and appenders. The implied level threshold
 is NULL (refer to the logger documentation). In order for a logger to output
 log events it must have one or more appender definitions. -->
 <!ELEMENT logger (level?|appender*)*>
+
 <!-- The name parameter defines the logger class and should be a dot (.)
 separated class definition.
 
@@ -95,6 +111,7 @@ its ancestors. -->
 	name CDATA #REQUIRED
 	additivity (true|false) "true"
 >
+
 <!-- The root logger may be assigned a level and any number of appenders.
 The default root logger implementation does not support any GObject
 properties. -->

@@ -130,14 +130,6 @@
             <xi:include href="xml/pattern-converter.xml" />
             <xi:include href="xml/pattern-parser.xml" />
         </chapter>
-        <chapter id="log4g-couchdb">
-            <title>CouchDB</title>
-            <para>
-<!-- TODO -->
-            </para>
-            <xi:include href="xml/couchdb-appender.xml" />
-            <xi:include href="xml/couchdb-layout.xml" />
-        </chapter>
     </part>
     <index id="api-index-full">
         <title>Index</title>
