@@ -78,24 +78,21 @@ load_directory(Log4gModuleLoader *base, const gchar *dirname)
 			continue;
 		}
 		gchar *file = g_build_filename(dirname, basename, NULL);
-		if (file) {
-			GTypeModule *module = log4g_module_new(file);
-			if (module) {
-				if (g_type_module_use(module)) {
-					log4g_log_debug("loaded module: %s",
-							module->name);
-					priv->modules =
-						g_slist_append(priv->modules,
-								module);
-					g_type_module_unuse(module);
-				} else {
-					log4g_log_error("failed to load "
-							"module: %s", file);
-					g_object_unref(module);
-				}
+		GTypeModule *module = log4g_module_new(file);
+		if (module) {
+			if (g_type_module_use(module)) {
+				log4g_log_debug("loaded module: %s",
+						module->name);
+				priv->modules =
+					g_slist_append(priv->modules, module);
+				g_type_module_unuse(module);
+			} else {
+				log4g_log_error("failed to load module: %s",
+						file);
+				g_object_unref(module);
 			}
-			g_free(file);
 		}
+		g_free(file);
 	}
 	g_dir_close(dir);
 }

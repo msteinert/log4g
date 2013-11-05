@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/msteinert/log4g.png?branch=master)](https://travis-ci.org/msteinert/log4g)
+
 # Log4g - A GObject-based logging utility
 
 This is [Log4g][1], a port of [Log4j][2] to the GObject framework.
