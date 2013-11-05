@@ -180,7 +180,7 @@
  * <entry align="left">
  * <para>
  * Output the number of milliseconds elapsed from the initialization of the
- * Log4g environment until the create of the log event.
+ * Log4g environment until the creation of the log event.
  * </para>
  * </entry>
  * </row>
@@ -225,7 +225,7 @@
  * <entry><emphasis>\%</emphasis></entry>
  * <entry align="left">
  * <para>
- * The sequence <emphasis>\%</emphasis> outputs a single percent sign.
+ * The sequence <emphasis>\%\%</emphasis> outputs a single percent sign.
  * </para>
  * </entry>
  * </row>
