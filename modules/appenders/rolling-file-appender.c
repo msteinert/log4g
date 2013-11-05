@@ -203,7 +203,7 @@ log4g_rolling_file_appender_class_init(Log4gRollingFileAppenderClass *klass)
 		g_param_spec_ulong("maximum-file-size",
 			Q_("Maximum File Size"),
 			Q_("Maximum size a log file may grow to"),
-			0, G_MAXLONG, 10 * 1024 * 1024, G_PARAM_WRITABLE));
+			0, G_MAXULONG, 10 * 1024 * 1024, G_PARAM_WRITABLE));
 }
 
 static void

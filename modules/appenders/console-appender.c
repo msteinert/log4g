@@ -90,7 +90,6 @@ static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
 	struct Private *priv = GET_PRIVATE(base);
-	Log4gConsoleAppenderClass *klass;
 	gchar *target;
 	switch (id) {
 	case PROP_TARGET:
@@ -99,7 +98,6 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 			break;
 		}
 		g_strstrip(target);
-		klass = LOG4G_CONSOLE_APPENDER_GET_CLASS(base);
 		if (g_ascii_strcasecmp(target, SYSTEM_OUT)) {
 			priv->target = SYSTEM_OUT;
 		} else if (g_ascii_strcasecmp(target, SYSTEM_ERR)) {

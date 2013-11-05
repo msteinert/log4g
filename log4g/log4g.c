@@ -78,7 +78,7 @@ typedef enum {
 } Log4gFlag;
 
 /* Option flag definitions */
-static const GDebugKey const flags[] = {
+static const GDebugKey flags[] = {
 	{ "debug", LOG4G_FLAG_DEBUG },
 	{ "quiet", LOG4G_FLAG_QUIET }
 };
@@ -147,7 +147,7 @@ log4g_arg_main_thread_cb(G_GNUC_UNUSED const gchar *key, const gchar *value,
 	return TRUE;
 }
 
-static const GOptionEntry const log4g_args[] = {
+static const GOptionEntry log4g_args[] = {
 	{ "log4g-configuration", '\0', G_OPTION_FLAG_FILENAME,
 		G_OPTION_ARG_CALLBACK, log4g_arg_configuration_cb,
 		N_("Configuration file to load"), N_("FILE.xml") },
