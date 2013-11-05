@@ -86,6 +86,9 @@ main(int argc, char *argv[])
 		{ NULL, '\0', 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
 	};
 	g_test_init(&argc, &argv, NULL);
+#if !GLIB_CHECK_VERSION(2, 36, 0)
+	g_type_init();
+#endif
 	g_option_context_add_main_entries(context, entries, GETTEXT_PACKAGE);
 	g_option_context_add_group(context, log4g_get_option_group());
 	GError *error = NULL;

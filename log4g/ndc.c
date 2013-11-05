@@ -537,12 +537,10 @@ log4g_ndc_push(const char *message, ...)
 void
 log4g_ndc_remove(void)
 {
-	if (g_atomic_pointer_get(&priv)) {
-		Log4gNDC *self = g_private_get(&priv);
-		if (self) {
-			g_object_unref(self);
-			g_private_set(&priv, NULL);
-		}
+	Log4gNDC *self = g_private_get(&priv);
+	if (self) {
+		g_object_unref(self);
+		g_private_set(&priv, NULL);
 	}
 }
 

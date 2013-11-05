@@ -79,6 +79,9 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
+#if !GLIB_CHECK_VERSION(2, 36, 0)
+	g_type_init();
+#endif
 	GTypeModule *module =
 		log4g_module_new("modules/filters/liblog4g-filters.la");
 	g_assert(module);

@@ -63,6 +63,9 @@ int
 main(int argc, char *argv[])
 {
 	g_test_init(&argc, &argv, NULL);
+#if !GLIB_CHECK_VERSION(2, 36, 0)
+	g_type_init();
+#endif
 	g_test_add(CLASS"/001", Fixture, NULL, setup, test_001, teardown);
 	return g_test_run();
 }

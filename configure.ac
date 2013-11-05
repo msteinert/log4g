@@ -65,7 +65,7 @@ AC_SUBST([LT_REVISION])
 AC_SUBST([LT_AGE])
 
 # Check for dependencies
-glib_minimum_version=2.36
+glib_minimum_version=2.32
 glib_version="glib-2.0 >= $glib_minimum_version"
 AC_SUBST([glib_version])
 PKG_CHECK_MODULES([GLIB], [$glib_version])

@@ -12,6 +12,8 @@
 *.swp
 *.typelib
 *~
+.deps
+.dirstamp
 .libs
 .scons*
 .svn
