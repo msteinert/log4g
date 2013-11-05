@@ -89,6 +89,12 @@ AS_IF([test "x$GLIB_GENMARSHAL" = "x"],
 	[PKG_CHECK_EXISTS([$glib_version],
 		[GLIB_GENMARSHAL=`$PKG_CONFIG --variable=glib_genmarshal $glib_version`])])
 
+# Check for glib-mkenums
+AC_ARG_VAR([GLIB_MKENUMS], [path to the glib-mkenums(1) utility])
+AS_IF([test "x$GLIB_MKENUMS" = "x"],
+	[PKG_CHECK_EXISTS([$glib_version],
+		[GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums $glib_version`])])
+
 # Appenders option
 AC_ARG_WITH(appenders,
 	[AC_HELP_STRING([--with-appenders],

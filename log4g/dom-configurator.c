@@ -217,6 +217,8 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
 			goto exit;
 		}
 		g_object_set(object, (const gchar *)name, o, NULL);
+	} else if (G_TYPE_ENUM == spec->value_type) {
+		g_object_set(object, (const gchar *)name, (const gchar *)value, NULL);
 	} else {
 		log4g_log_warn(Q_("%s: property cannot be set via DOM "
 					"configuration"), name);

@@ -1,0 +1,36 @@
+/*** BEGIN file-header ***/
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+#include "log4g/enum-types.h"
+#include "@filename@"
+
+/*** END file-header ***/
+
+/*** BEGIN file-production ***/
+/* enumerations from "@filename@" */
+/*** END file-production ***/
+
+/*** BEGIN value-header ***/
+GType
+@enum_name@_get_type (void)
+{
+	static GType enum_type = 0;
+	if (G_UNLIKELY(enum_type == 0)) {
+		const char *name;
+		static const G@Type@Value values[] = {
+/*** END value-header ***/
+
+/*** BEGIN value-production ***/
+			{ @VALUENAME@, "@VALUENAME@", "@valuenick@" },
+/*** END value-production ***/
+
+/*** BEGIN value-tail ***/
+			{ 0, NULL, NULL }
+		};
+		name = g_intern_static_string("@EnumName@");
+		enum_type = g_@type@_register_static(name, values);
+	}
+	return enum_type;
+}
+/*** END value-tail ***/

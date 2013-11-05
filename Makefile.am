@@ -11,6 +11,21 @@ $(top_srcdir)/log4g/marshal.h: log4g/marshal.list
 $(top_srcdir)/log4g/marshal.c: log4g/marshal.list
 	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=log4g_marshal --body $< > $@
 
+# generate enumeration types
+$(top_srcdir)/log4g/enum-types.h: log4g/filter.h log4g/enum-types.h.template
+	$(AM_V_GEN)$(GLIB_MKENUMS) \
+		--template log4g/enum-types.h.template \
+		--identifier-prefix Log4g \
+		--symbol-prefix log4g \
+		log4g/filter.h > $@
+
+$(top_srcdir)/log4g/enum-types.c: log4g/filter.h log4g/enum-types.c.template
+	$(AM_V_GEN)$(GLIB_MKENUMS) \
+		--template log4g/enum-types.c.template \
+		--identifier-prefix Log4g \
+		--symbol-prefix log4g \
+		log4g/filter.h > $@
+
 # library definition
 lib_LTLIBRARIES = log4g/liblog4g-@series_major@.@series_minor@.la
 log4g_liblog4g_@series_major@_@series_minor@_la_SOURCES = \
@@ -23,6 +38,7 @@ log4g_liblog4g_@series_major@_@series_minor@_la_SOURCES = \
 	log4g/default-module-loader.c \
 	log4g/default-repository-selector.c \
 	log4g/dom-configurator.c \
+	log4g/enum-types.c \
 	log4g/error.c \
 	log4g/error-handler.c \
 	log4g/filter.c \
@@ -51,7 +67,9 @@ log4g_liblog4g_@series_major@_@series_minor@_la_SOURCES = \
 
 BUILT_SOURCES = \
 	log4g/marshal.c \
-	log4g/marshal.h
+	log4g/marshal.h \
+	log4g/enum-types.c \
+	log4g/enum-types.h
 
 # include directories & compiler switches
 log4g_liblog4g_@series_major@_@series_minor@_la_CFLAGS = \
@@ -425,6 +443,10 @@ dtddir = $(datadir)/log4g/dtd/$(series)
 dtd_DATA = log4g/log4g.dtd
 
 CLEANFILES = \
+	log4g/marshal.c \
+	log4g/marshal.h \
+	log4g/enum-types.c \
+	log4g/enum-types.h \
 	tests/log4g.xml \
 	tests/dom-configurator-*.txt \
 	tests/*-test.txt \
@@ -438,6 +460,10 @@ DISTCLEANFILES = \
 
 EXTRA_DIST = \
 	README.md \
+	log4g/marshal.c \
+	log4g/marshal.h \
+	log4g/enum-types.c \
+	log4g/enum-types.h \
 	log4g/log4g.dtd \
 	log4g/marshal.list \
 	tests/dom-configurator-001.xml \

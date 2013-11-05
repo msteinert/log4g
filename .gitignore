@@ -50,6 +50,7 @@ gtk-doc.make
 install-sh
 libtool
 log4g-*.tar.gz
+log4g/enum-types.[ch]
 log4g/marshal.[ch]
 ltmain.sh
 m4/gtk-doc.m4
