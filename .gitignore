@@ -15,10 +15,7 @@
 .deps
 .dirstamp
 .libs
-.scons*
-.svn
 /config.h.in
-Doxyfile
 INSTALL
 Makefile
 Makefile.in
@@ -49,8 +46,6 @@ docs/reference/log4g/log4g.signals
 docs/reference/log4g/log4g.stamp
 docs/reference/log4g/sgml.stamp
 docs/reference/log4g/xml
-doltcompile
-doltlibtool
 gtk-doc.make
 install-sh
 libtool
@@ -63,7 +58,10 @@ m4/lt*.m4
 missing
 stamp-h1
 test-driver
+test-suite.log
 tests/*-test
 tests/*.html
+tests/*.log
+tests/*.trs
 tests/*.txt
 tests/*.txt.*
