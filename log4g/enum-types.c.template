@@ -3,7 +3,7 @@
 #include "config.h"
 #endif
 #include "log4g/enum-types.h"
-#include "@filename@"
+#include "log4g/@basename@"
 
 /*** END file-header ***/
 

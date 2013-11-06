@@ -19,8 +19,9 @@
 #include "config.h"
 #endif
 #include "filter/deny-all-filter.h"
-#include "filter/level-range-filter.h"
 #include "filter/level-match-filter.h"
+#include "filter/level-range-filter.h"
+#include "filter/regex-filter.h"
 #include "filter/string-match-filter.h"
 #include "log4g/module.h"
 
@@ -29,7 +30,8 @@ log4g_module_load(GTypeModule *module)
 {
 	g_type_module_set_name(module, "core-filters");
 	log4g_deny_all_filter_register(module);
-	log4g_level_range_filter_register(module);
 	log4g_level_match_filter_register(module);
+	log4g_level_range_filter_register(module);
+	log4g_regex_filter_register(module);
 	log4g_string_match_filter_register(module);
 }

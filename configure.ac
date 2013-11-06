@@ -156,8 +156,6 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
 	Makefile
 	log4g.pc
-        docs/Makefile
-        docs/reference/Makefile
         docs/reference/log4g/Makefile
 ])
 AC_OUTPUT

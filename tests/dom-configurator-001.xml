@@ -12,10 +12,9 @@
 			<property name="conversion-pattern"
 				value="%r %-5p [%t] %c{2} (%F:%L) - %m%n" />
 		</layout>
-		<filter type="Log4gStringMatchFilter">
-			<property name="string-to-match"
-				value="match this string" />
-			<property name="accept-on-match" value="true" />
+		<filter type="Log4gRegexFilter">
+			<property name="regex" value="match" />
+			<property name="on-mismatch" value="neutral" />
 		</filter>
 		<filter type="Log4gDenyAllFilter" />
 	</appender>

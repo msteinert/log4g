@@ -90,6 +90,29 @@ struct Private {
 	GHashTable *objects; /**< store named objects */
 };
 
+static GEnumValue *
+get_enum_value (GEnumClass *enum_class, const gchar *string)
+{
+	guint64 value;
+	GEnumValue *enum_value;
+	enum_value = g_enum_get_value_by_name(enum_class, string);
+	if (enum_value) {
+		goto exit;
+	}
+	enum_value = g_enum_get_value_by_nick(enum_class, string);
+	if (enum_value) {
+		goto exit;
+	}
+	errno = 0;
+	value = g_ascii_strtoll(string, NULL, 10);
+	if (errno) {
+		goto exit;
+	}
+	enum_value = g_enum_get_value(enum_class, value);
+exit:
+	return enum_value;
+}
+
 static void
 parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
 {
@@ -217,8 +240,16 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
 			goto exit;
 		}
 		g_object_set(object, (const gchar *)name, o, NULL);
-	} else if (G_TYPE_ENUM == spec->value_type) {
-		g_object_set(object, (const gchar *)name, (const gchar *)value, NULL);
+	} else if (g_type_is_a(spec->value_type, G_TYPE_ENUM)) {
+		GParamSpecEnum *enum_spec = G_PARAM_SPEC_ENUM(spec);
+		GEnumValue *enum_value;
+		enum_value = get_enum_value(enum_spec->enum_class,
+				(const gchar *)value);
+		if (!enum_value) {
+			log4g_log_error(Q_("%s: invalid value"), value);
+			goto exit;
+		}
+		g_object_set(object, (const gchar *)name, enum_value->value, NULL);
 	} else {
 		log4g_log_warn(Q_("%s: property cannot be set via DOM "
 					"configuration"), name);

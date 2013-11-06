@@ -96,23 +96,6 @@ log4g_filter_class_init(Log4gFilterClass *klass)
 }
 
 /**
- * log4g_filter_decide:
- * @self: A #Log4gFilter object.
- * @event: A logging event.
- *
- * Calls the @decide function from the #Log4gFilterClass of @self.
- *
- * Returns: A filter decision based upon the logging event.
- * Since: 0.1
- */
-void
-log4g_filter_activate_options(Log4gFilter *self)
-{
-	g_return_if_fail(LOG4G_IS_FILTER(self));
-	LOG4G_FILTER_GET_CLASS(self)->activate_options(self);
-}
-
-/**
  * log4g_filter_activate_options:
  * @self: A #Log4gFilter object.
  *
@@ -123,10 +106,27 @@ log4g_filter_activate_options(Log4gFilter *self)
  *
  * Since: 0.1
  */
+void
+log4g_filter_activate_options(Log4gFilter *self)
+{
+	g_return_if_fail(LOG4G_IS_FILTER(self));
+	LOG4G_FILTER_GET_CLASS(self)->activate_options(self);
+}
+
+/**
+ * log4g_filter_decide:
+ * @self: A #Log4gFilter object.
+ * @event: A logging event.
+ *
+ * Calls the @decide function from the #Log4gFilterClass of @self.
+ *
+ * Returns: A filter decision based upon the logging event.
+ * Since: 0.1
+ */
 Log4gFilterDecision
 log4g_filter_decide(Log4gFilter *self, Log4gLoggingEvent *event)
 {
-	g_return_val_if_fail(LOG4G_IS_FILTER(self), 0);
+	g_return_val_if_fail(LOG4G_IS_FILTER(self), LOG4G_FILTER_NEUTRAL);
 	return LOG4G_FILTER_GET_CLASS(self)->decide(self, event);
 }
 

@@ -1,7 +1,7 @@
 #                                        -*- Automake -*-
 # Process this file with automake to produce Makefile.in.
 
-SUBDIRS = . docs
+SUBDIRS = . docs/reference/log4g
 ACLOCAL_AMFLAGS = -I m4
 
 # generate marshalling routines
@@ -14,17 +14,17 @@ $(top_srcdir)/log4g/marshal.c: log4g/marshal.list
 # generate enumeration types
 $(top_srcdir)/log4g/enum-types.h: log4g/filter.h log4g/enum-types.h.template
 	$(AM_V_GEN)$(GLIB_MKENUMS) \
-		--template log4g/enum-types.h.template \
+		--template $(top_srcdir)/log4g/enum-types.h.template \
 		--identifier-prefix Log4g \
 		--symbol-prefix log4g \
-		log4g/filter.h > $@
+		$(top_srcdir)/log4g/filter.h > $@
 
 $(top_srcdir)/log4g/enum-types.c: log4g/filter.h log4g/enum-types.c.template
 	$(AM_V_GEN)$(GLIB_MKENUMS) \
-		--template log4g/enum-types.c.template \
+		--template $(top_srcdir)/log4g/enum-types.c.template \
 		--identifier-prefix Log4g \
 		--symbol-prefix log4g \
-		log4g/filter.h > $@
+		$(top_srcdir)/log4g/filter.h > $@
 
 # library definition
 lib_LTLIBRARIES = log4g/liblog4g-@series_major@.@series_minor@.la
@@ -39,6 +39,7 @@ log4g_liblog4g_@series_major@_@series_minor@_la_SOURCES = \
 	log4g/default-repository-selector.c \
 	log4g/dom-configurator.c \
 	log4g/enum-types.c \
+	log4g/enum-types.h \
 	log4g/error.c \
 	log4g/error-handler.c \
 	log4g/filter.c \
@@ -293,12 +294,14 @@ module_LTLIBRARIES += modules/filters/liblog4g-filters.la
 modules_filters_liblog4g_filters_la_SOURCES = \
 	modules/filters/deny-all-filter.c \
 	modules/filters/filter/deny-all-filter.h \
-	modules/filters/filter/level-range-filter.h \
 	modules/filters/filter/level-match-filter.h \
+	modules/filters/filter/level-range-filter.h \
+	modules/filters/filter/regex-filter.h \
 	modules/filters/filter/string-match-filter.h \
-	modules/filters/level-range-filter.c \
 	modules/filters/level-match-filter.c \
+	modules/filters/level-range-filter.c \
 	modules/filters/module.c \
+	modules/filters/regex-filter.c \
 	modules/filters/string-match-filter.c
 
 modules_filters_liblog4g_filters_la_CFLAGS = \
@@ -334,6 +337,12 @@ tests_level_range_filter_test_SOURCES = tests/level-range-filter-test.c
 tests_level_range_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
 tests_level_range_filter_test_LDFLAGS = $(GLIB_LIBS)
 tests_level_range_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
+
+check_PROGRAMS += tests/regex-filter-test
+tests_regex_filter_test_SOURCES = tests/regex-filter-test.c
+tests_regex_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
+tests_regex_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_regex_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/string-match-filter-test
 tests_string_match_filter_test_SOURCES = tests/string-match-filter-test.c
@@ -415,6 +424,7 @@ endif
 LOG4G_MODULE_PATH = $(top_builddir)/modules/appenders/.libs:$(top_builddir)/modules/filters/.libs:$(top_builddir)/modules/layouts/.libs
 
 TESTS_ENVIRONMENT = \
+	srcdir=@srcdir@ \
 	LOG4G_MODULE_SYSTEM_PATH="" \
 	LOG4G_MODULE_PATH=$(LOG4G_MODULE_PATH)
 
@@ -443,10 +453,6 @@ dtddir = $(datadir)/log4g/dtd/$(series)
 dtd_DATA = log4g/log4g.dtd
 
 CLEANFILES = \
-	log4g/marshal.c \
-	log4g/marshal.h \
-	log4g/enum-types.c \
-	log4g/enum-types.h \
 	tests/log4g.xml \
 	tests/dom-configurator-*.txt \
 	tests/*-test.txt \
@@ -460,13 +466,17 @@ DISTCLEANFILES = \
 
 EXTRA_DIST = \
 	README.md \
+	log4g/enum-types.c \
+	log4g/enum-types.c.template \
+	log4g/enum-types.h \
+	log4g/enum-types.h.template \
+	log4g/log4g.dtd \
 	log4g/marshal.c \
 	log4g/marshal.h \
-	log4g/enum-types.c \
-	log4g/enum-types.h \
-	log4g/log4g.dtd \
 	log4g/marshal.list \
 	tests/dom-configurator-001.xml \
 	tests/perf-001.xml
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
+include $(top_srcdir)/m4/check.mk
