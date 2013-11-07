@@ -78,6 +78,13 @@ log4g_file_appender_init(Log4gFileAppender *self)
 }
 
 static void
+dispose(GObject *base)
+{
+	log4g_appender_close(LOG4G_APPENDER(base));
+	G_OBJECT_CLASS(log4g_file_appender_parent_class)->dispose(base);
+}
+
+static void
 finalize(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
@@ -212,6 +219,7 @@ static void
 log4g_file_appender_class_init(Log4gFileAppenderClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	object_class->dispose = dispose;
 	object_class->finalize = finalize;
 	object_class->set_property = set_property;
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);

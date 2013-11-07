@@ -67,6 +67,7 @@ static void
 dispose(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
+	log4g_appender_close(LOG4G_APPENDER(base));
 	if (priv->writer) {
 		g_object_unref(priv->writer);
 		priv->writer = NULL;
@@ -78,7 +79,6 @@ static void
 finalize(GObject *base)
 {
 	struct Private *priv = GET_PRIVATE(base);
-	log4g_appender_close(LOG4G_APPENDER(base));
 	g_mutex_clear(&priv->lock);
 	G_OBJECT_CLASS(log4g_writer_appender_parent_class)->finalize(base);
 }
@@ -131,8 +131,8 @@ close_(Log4gAppender *base)
 	struct Private *priv = GET_PRIVATE(base);
 	if (!log4g_appender_get_closed(base)) {
 		g_mutex_lock(&priv->lock);
-		log4g_appender_set_closed(base, TRUE);
 		log4g_writer_appender_write_footer(base);
+		log4g_appender_set_closed(base, TRUE);
 		log4g_writer_appender_reset(base);
 		g_mutex_unlock(&priv->lock);
 	}

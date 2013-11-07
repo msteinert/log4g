@@ -56,7 +56,7 @@ typedef struct Log4gHTMLLayoutClass_ Log4gHTMLLayoutClass;
 struct Log4gHTMLLayout_ {
 	/*< private >*/
 	Log4gLayout parent_instance;
-	gpointer priv;
+	struct Private *priv;
 };
 
 /**

@@ -43,10 +43,6 @@
 
 G_DEFINE_DYNAMIC_TYPE(Log4gHTMLLayout, log4g_html_layout, LOG4G_TYPE_LAYOUT)
 
-#define ASSIGN_PRIVATE(instance) \
-	(G_TYPE_INSTANCE_GET_PRIVATE(instance, LOG4G_TYPE_HTML_LAYOUT, \
-		struct Private))
-
 #define GET_PRIVATE(instance) \
 	((struct Private *)((Log4gHTMLLayout *)instance)->priv)
 
@@ -68,19 +64,19 @@ struct Private {
 static void
 log4g_html_layout_init(Log4gHTMLLayout *self)
 {
-	self->priv = ASSIGN_PRIVATE(self);
-	struct Private *priv = GET_PRIVATE(self);
-	priv->title = g_strdup(Q_(LOG4G_HTML_LAYOUT_TITLE));
-	priv->string = g_string_sized_new(BUF_SIZE);
+	self->priv = G_TYPE_INSTANCE_GET_PRIVATE(self, LOG4G_TYPE_HTML_LAYOUT,
+						 struct Private);
+	self->priv->title = g_strdup(Q_(LOG4G_HTML_LAYOUT_TITLE));
+	self->priv->string = g_string_sized_new(BUF_SIZE);
 }
 
 static void
 finalize(GObject *base)
 {
-	struct Private *priv = GET_PRIVATE(base);
-	g_free(priv->title);
-	if (priv->string) {
-		g_string_free(priv->string, TRUE);
+	Log4gHTMLLayout *self = LOG4G_HTML_LAYOUT(base);
+	g_free(self->priv->title);
+	if (self->priv->string) {
+		g_string_free(self->priv->string, TRUE);
 	}
 	G_OBJECT_CLASS(log4g_html_layout_parent_class)->finalize(base);
 }
@@ -95,18 +91,18 @@ enum Properties {
 static void
 set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 {
-	struct Private *priv = GET_PRIVATE(base);
+	Log4gHTMLLayout *self = LOG4G_HTML_LAYOUT(base);
 	gchar *title;
 	switch (id) {
 	case PROP_TITLE:
 		title = g_value_dup_string(value);
 		if (title) {
-			g_free(priv->title);
-			priv->title = g_strdup(title);
+			g_free(self->priv->title);
+			self->priv->title = g_strdup(title);
 		}
 		break;
 	case PROP_LOCATION_INFO:
-		priv->info = g_value_get_boolean(value);
+		self->priv->info = g_value_get_boolean(value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(base, id, pspec);
@@ -117,130 +113,130 @@ set_property(GObject *base, guint id, const GValue *value, GParamSpec *pspec)
 static gchar *
 format(Log4gLayout *base, Log4gLoggingEvent *event)
 {
-	struct Private *priv = GET_PRIVATE(base);
+	Log4gHTMLLayout *self = LOG4G_HTML_LAYOUT(base);
 	Log4gLevel *level = log4g_logging_event_get_level(event);
 	const GTimeVal *tv = log4g_logging_event_get_time_stamp(event);
 	gchar *escaped;
 	glong start = log4g_logging_event_get_start_time();
 	glong time = (tv->tv_sec * 1000) + (tv->tv_usec * 0.001);
-	if (priv->string->len > MAX_CAPACITY) {
-		g_string_free(priv->string, TRUE);
-		priv->string = g_string_sized_new(BUF_SIZE);
-		if (!priv->string) {
+	if (self->priv->string->len > MAX_CAPACITY) {
+		g_string_free(self->priv->string, TRUE);
+		self->priv->string = g_string_sized_new(BUF_SIZE);
+		if (!self->priv->string) {
 			return NULL;
 		}
 	} else {
-		g_string_set_size(priv->string, 0);
+		g_string_set_size(self->priv->string, 0);
 	}
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<tr>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<tr>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	/* time */
-	g_string_append(priv->string, "<td>");
-	g_string_append_printf(priv->string, "%ld", time - start);
-	g_string_append(priv->string, "</td>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<td>");
+	g_string_append_printf(self->priv->string, "%ld", time - start);
+	g_string_append(self->priv->string, "</td>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	/* thread */
 	escaped = g_strescape(log4g_logging_event_get_thread_name(event), NULL);
 	if (escaped) {
-		g_string_append_printf(priv->string, "<td title=\"%s\">",
+		g_string_append_printf(self->priv->string, "<td title=\"%s\">",
 				escaped);
-		g_string_append(priv->string, escaped);
+		g_string_append(self->priv->string, escaped);
 		g_free(escaped);
 	} else {
-		g_string_append(priv->string, "<td>");
-		g_string_append(priv->string, "&nbsp;");
+		g_string_append(self->priv->string, "<td>");
+		g_string_append(self->priv->string, "&nbsp;");
 	}
-	g_string_append(priv->string, "</td>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</td>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	/* level */
-	g_string_append(priv->string, "<td title=\"Level\">");
+	g_string_append(self->priv->string, "<td title=\"Level\">");
 	escaped = g_strescape(log4g_level_to_string(level), NULL);
 	if (escaped) {
 		if (log4g_level_equals(level, log4g_level_DEBUG())) {
-			g_string_append(priv->string,
+			g_string_append(self->priv->string,
 					"<font color=\"#339933\"><strong>");
-			g_string_append(priv->string, escaped);
-			g_string_append(priv->string, "</strong></font>");
+			g_string_append(self->priv->string, escaped);
+			g_string_append(self->priv->string, "</strong></font>");
 		} else if (log4g_level_is_greater_or_equal(level,
 					log4g_level_WARN())) {
-			g_string_append(priv->string,
+			g_string_append(self->priv->string,
 					"<font color=\"#993300\"><strong>");
-			g_string_append(priv->string, escaped);
-			g_string_append(priv->string, "</strong></font>");
+			g_string_append(self->priv->string, escaped);
+			g_string_append(self->priv->string, "</strong></font>");
 		} else {
-			g_string_append(priv->string, escaped);
+			g_string_append(self->priv->string, escaped);
 		}
 		g_free(escaped);
 	} else {
-		g_string_append(priv->string, "&nbsp;");
+		g_string_append(self->priv->string, "&nbsp;");
 	}
-	g_string_append(priv->string, "</td>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</td>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	/* category */
 	escaped = g_strescape(log4g_logging_event_get_logger_name(event), NULL);
 	if (escaped) {
-		g_string_append_printf(priv->string, "<td title=\"%s\">",
+		g_string_append_printf(self->priv->string, "<td title=\"%s\">",
 				escaped);
-		g_string_append(priv->string, escaped);
+		g_string_append(self->priv->string, escaped);
 		g_free(escaped);
 	} else {
-		g_string_append(priv->string, "<td>");
-		g_string_append(priv->string, "&nbsp;");
+		g_string_append(self->priv->string, "<td>");
+		g_string_append(self->priv->string, "&nbsp;");
 	}
-	g_string_append(priv->string, "</td>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	if (priv->info) {
+	g_string_append(self->priv->string, "</td>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	if (self->priv->info) {
 		/* file:line */
-		g_string_append(priv->string, "<td>");
+		g_string_append(self->priv->string, "<td>");
 		escaped = g_strescape(log4g_logging_event_get_file_name(event), NULL);
 		if (escaped) {
-			g_string_append(priv->string, escaped);
+			g_string_append(self->priv->string, escaped);
 			g_free(escaped);
 		}
-		g_string_append_c(priv->string, ':');
+		g_string_append_c(self->priv->string, ':');
 		escaped =
 			g_strescape(log4g_logging_event_get_line_number(event), NULL);
 		if (escaped) {
-			g_string_append(priv->string, escaped);
+			g_string_append(self->priv->string, escaped);
 			g_free(escaped);
 		}
-		g_string_append(priv->string, "</td>");
-		g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+		g_string_append(self->priv->string, "</td>");
+		g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	}
 	/* message */
-	g_string_append_printf(priv->string, "<td title=\"%s\">",
+	g_string_append_printf(self->priv->string, "<td title=\"%s\">",
 			Q_("Message"));
 	escaped = g_strescape(log4g_logging_event_get_rendered_message(event),
 			NULL);
 	if (escaped) {
-		g_string_append(priv->string, escaped);
+		g_string_append(self->priv->string, escaped);
 		g_free(escaped);
 	} else {
-		g_string_append(priv->string, "&nbsp;");
+		g_string_append(self->priv->string, "&nbsp;");
 	}
-	g_string_append(priv->string, "</td>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "</tr>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</td>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</tr>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 	/* NDC */
 	if (log4g_logging_event_get_ndc(event)) {
 		escaped = g_strescape(log4g_logging_event_get_ndc(event), NULL);
 		if (escaped) {
-			g_string_append_printf(priv->string,
+			g_string_append_printf(self->priv->string,
 					"<tr><td bgcolor=\"#eeeeee\" "
 					"style=\"font-size : xx-small;\" "
 					"colspan=\"%d\" title=\"%s\">",
-					(priv->info ? 6 : 5),
+					(self->priv->info ? 6 : 5),
 					Q_("Nested Diagnostic Context"));
-			g_string_append(priv->string, "NDC: ");
-			g_string_append(priv->string, escaped);
-			g_string_append(priv->string, "</td></tr>");
-			g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
+			g_string_append(self->priv->string, "NDC: ");
+			g_string_append(self->priv->string, escaped);
+			g_string_append(self->priv->string, "</td></tr>");
+			g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
 			g_free(escaped);
 		}
 	}
-	return priv->string->str;
+	return self->priv->string->str;
 }
 
 static const gchar *
@@ -252,91 +248,88 @@ get_content_type(G_GNUC_UNUSED Log4gLayout *base)
 static const gchar *
 get_header(Log4gLayout *base)
 {
-	time_t t;
+	Log4gHTMLLayout *self = LOG4G_HTML_LAYOUT(base);
 	gchar buffer[26];
-	struct Private *priv = GET_PRIVATE(base);
+	time_t t;
 	time(&t);
-	g_string_set_size(priv->string, 0);
-	g_string_append(priv->string,
+	g_string_set_size(self->priv->string, 0);
+	g_string_append(self->priv->string,
 			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 "
 			"Transitional//EN "
 			"\"http://www.w3.org/TR/html4/loose.dtd\">");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<html>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<head>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<title>");
-	g_string_append(priv->string, priv->title);
-	g_string_append(priv->string, "</title>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<style type=\"text/css\">");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<!--");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string,
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<html>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<head>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<title>");
+	g_string_append(self->priv->string, self->priv->title);
+	g_string_append(self->priv->string, "</title>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<style type=\"text/css\">");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<!--");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string,
 			"body, table {font-family: arial,sans-serif; "
 			"font-size: x-small;}");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string,
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string,
 			"th {background: #336699; color: #ffffff; "
 			"text-align: left;}");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "-->");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "</style>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "</head>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string,
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "-->");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</style>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "</head>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string,
 			"<body bgcolor=\"#ffffff\" topmargin=\"6\" "
 			"leftmargin=\"6\">");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<hr size=\"1\" noshade />");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, Q_("Log session start time "));
-	g_string_append(priv->string, ctime_r(&t, buffer));
-	g_string_erase(priv->string, priv->string->len - 1, 1);
-	g_string_append(priv->string, "<br />");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<br />");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string,
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<hr size=\"1\" noshade />");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, Q_("Log session start time "));
+	g_string_append(self->priv->string, ctime_r(&t, buffer));
+	g_string_erase(self->priv->string, self->priv->string->len - 1, 1);
+	g_string_append(self->priv->string, "<br />");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<br />");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string,
 			"<table cellspacing=\"0\" cellpadding=\"4\" "
 			"border=\"1\" bordercolor=\"#224466\" "
 			"width=\"100%\">");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<tr>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append_printf(priv->string, "<th>%s</th>%s",
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append(self->priv->string, "<tr>");
+	g_string_append(self->priv->string, LOG4G_LAYOUT_LINE_SEP);
+	g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 			Q_("Time"), LOG4G_LAYOUT_LINE_SEP);
-	g_string_append_printf(priv->string, "<th>%s</th>%s",
+	g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 			Q_("Thread"), LOG4G_LAYOUT_LINE_SEP);
-	g_string_append_printf(priv->string, "<th>%s</th>%s",
+	g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 			Q_("Level"), LOG4G_LAYOUT_LINE_SEP);
-	g_string_append_printf(priv->string, "<th>%s</th>%s",
+	g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 			Q_("Category"), LOG4G_LAYOUT_LINE_SEP);
-	if (priv->info) {
-		g_string_append_printf(priv->string, "<th>%s</th>%s",
+	if (self->priv->info) {
+		g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 				Q_("File:Line"), LOG4G_LAYOUT_LINE_SEP);
 	}
-	g_string_append_printf(priv->string, "<th>%s</th>%s",
+	g_string_append_printf(self->priv->string, "<th>%s</th>%s",
 			Q_("Message"), LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "</tr>");
-	return priv->string->str;
+	g_string_append(self->priv->string, "</tr>");
+	return self->priv->string->str;
 }
 
 static const gchar *
-get_footer(Log4gLayout *base)
+get_footer(G_GNUC_UNUSED Log4gLayout *base)
 {
-	struct Private *priv = GET_PRIVATE(base);
-	g_string_set_size(priv->string, 0);
-	g_string_append(priv->string, "</table>");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "<br />");
-	g_string_append(priv->string, LOG4G_LAYOUT_LINE_SEP);
-	g_string_append(priv->string, "</body></html>");
-	return priv->string->str;
+	return "</table>"
+		LOG4G_LAYOUT_LINE_SEP
+		"<br />"
+		LOG4G_LAYOUT_LINE_SEP
+		"</body></html>";
 }
 
 static void

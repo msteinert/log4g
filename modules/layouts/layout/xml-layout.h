@@ -56,7 +56,7 @@ typedef struct Log4gXMLLayoutClass_ Log4gXMLLayoutClass;
 struct Log4gXMLLayout_ {
 	/*< private >*/
 	Log4gLayout parent_instance; /**< parent instance */
-	gpointer priv;
+	struct Private *priv;
 };
 
 /**

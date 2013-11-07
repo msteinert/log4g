@@ -73,10 +73,10 @@ log4g_console_appender_init(Log4gConsoleAppender *self)
 }
 
 static void
-finalize(GObject *base)
+dispose(GObject *base)
 {
 	log4g_appender_close(LOG4G_APPENDER(base));
-	G_OBJECT_CLASS(log4g_console_appender_parent_class)->finalize(base);
+	G_OBJECT_CLASS(log4g_console_appender_parent_class)->dispose(base);
 }
 
 enum Properties {
@@ -172,7 +172,7 @@ static void
 log4g_console_appender_class_init(Log4gConsoleAppenderClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	object_class->finalize = finalize;
+	object_class->dispose = dispose;
 	object_class->set_property = set_property;
 	Log4gAppenderClass *appender_class = LOG4G_APPENDER_CLASS(klass);
 	appender_class->close = close_;
