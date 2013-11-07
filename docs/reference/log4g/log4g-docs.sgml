@@ -114,6 +114,7 @@
             <xi:include href="xml/deny-all-filter.xml" />
             <xi:include href="xml/level-match-filter.xml" />
             <xi:include href="xml/level-range-filter.xml" />
+            <xi:include href="xml/regex-filter.xml" />
             <xi:include href="xml/string-match-filter.xml" />
         </chapter>
         <chapter id="log4g-layouts">
@@ -123,6 +124,7 @@
             </para>
             <xi:include href="xml/date-layout.xml" />
             <xi:include href="xml/html-layout.xml" />
+            <xi:include href="xml/json-layout.xml" />
             <xi:include href="xml/pattern-layout.xml" />
             <xi:include href="xml/simple-layout.xml" />
             <xi:include href="xml/ttcc-layout.xml" />

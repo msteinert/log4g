@@ -356,18 +356,20 @@ module_LTLIBRARIES += modules/layouts/liblog4g-layouts.la
 
 modules_layouts_liblog4g_layouts_la_SOURCES = \
 	modules/layouts/date-layout.c \
+	modules/layouts/helpers/pattern-converter.h \
+	modules/layouts/helpers/pattern-parser.h \
 	modules/layouts/html-layout.c \
+	modules/layouts/json-layout.c \
 	modules/layouts/layout/date-layout.h \
 	modules/layouts/layout/html-layout.h \
+	modules/layouts/layout/json-layout.h \
+	modules/layouts/layout/pattern-layout.h \
 	modules/layouts/layout/simple-layout.h \
 	modules/layouts/layout/ttcc-layout.h \
 	modules/layouts/layout/xml-layout.h \
 	modules/layouts/module.c \
 	modules/layouts/pattern-converter.c \
 	modules/layouts/pattern-layout.c \
-	modules/layouts/helpers/pattern-converter.h \
-	modules/layouts/helpers/pattern-parser.h \
-	modules/layouts/layout/pattern-layout.h \
 	modules/layouts/pattern-parser.c \
 	modules/layouts/simple-layout.c \
 	modules/layouts/ttcc-layout.c \
@@ -394,6 +396,12 @@ tests_html_layout_test_SOURCES = tests/html-layout-test.c
 tests_html_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
 tests_html_layout_test_LDFLAGS = $(GLIB_LIBS)
 tests_html_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
+
+check_PROGRAMS += tests/json-layout-test
+tests_json_layout_test_SOURCES = tests/json-layout-test.c
+tests_json_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
+tests_json_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_json_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/pattern-layout-test
 tests_pattern_layout_test_SOURCES = tests/pattern-layout-test.c

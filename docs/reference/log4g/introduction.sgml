@@ -98,6 +98,7 @@ Log4g ships with the following layouts:
 <para>
 <itemizedlist>
 <listitem><para>HTML layout</para></listitem>
+<listitem><para>JSON layout</para></listitem>
 <listitem><para>Pattern layout</para></listitem>
 <listitem><para>Simple layout</para></listitem>
 <listitem><para>TTCC layout</para></listitem>
@@ -120,6 +121,7 @@ Log4g ships with the following filters:
 <listitem><para>Deny all filter</para></listitem>
 <listitem><para>Level match filter</para></listitem>
 <listitem><para>Level range filter</para></listitem>
+<listitem><para>Regex filter</para></listitem>
 <listitem><para>String match filter</para></listitem>
 </itemizedlist>
 </para>

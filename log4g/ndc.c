@@ -78,10 +78,12 @@ struct Private {
  * @message: The current diagnostic context
  * @full: The complete diagnostic context
  */
-typedef struct Log4gDiagnosticContext_ {
+typedef struct Log4gDiagnosticContext_ Log4gDiagnosticContext;
+
+struct Log4gDiagnosticContext_ {
 	gchar *message;
 	gchar *full;
-} Log4gDiagnosticContext;
+};
 
 /**
  * log4g_diagnostic_context_destroy:

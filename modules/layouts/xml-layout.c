@@ -224,7 +224,7 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 				if (!value) {
 					continue;
 				}
-				escaped = g_strescape(log4g_logging_event_get_mdc(event, key), NULL);
+				escaped = g_strescape(value, NULL);
 				if (escaped) {
 					g_string_append(self->priv->string,
 							"<log4g:data name=\"");
@@ -297,7 +297,7 @@ static void log4g_xml_layout_class_init(Log4gXMLLayoutClass *klass)
 			Q_("Location Information"),
 			Q_("Toggle location information"),
 			FALSE, G_PARAM_WRITABLE));
-	g_object_class_install_property(object_class, PROP_LOCATION_INFO,
+	g_object_class_install_property(object_class, PROP_COMPLETE,
 		g_param_spec_boolean("complete",
 			Q_("Complete Document"),
 			Q_("Toggle writing a complete document"),

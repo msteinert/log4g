@@ -70,6 +70,8 @@ log4g_logging_event_init(Log4gLoggingEvent *self)
 	self->priv = ASSIGN_PRIVATE(self);
 	struct Private *priv = GET_PRIVATE(self);
 	priv->thread_lookup_required = TRUE;
+	priv->ndc_lookup_required = TRUE;
+	priv->mdc_lookup_required = TRUE;
 }
 
 static void

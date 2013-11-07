@@ -22,6 +22,7 @@
 #include "helpers/pattern-parser.h"
 #include "layout/date-layout.h"
 #include "layout/html-layout.h"
+#include "layout/json-layout.h"
 #include "layout/pattern-layout.h"
 #include "layout/simple-layout.h"
 #include "layout/ttcc-layout.h"
@@ -34,6 +35,7 @@ log4g_module_load(GTypeModule *module)
 	g_type_module_set_name(module, "core-layouts");
 	log4g_date_layout_register(module);
 	log4g_html_layout_register(module);
+	log4g_json_layout_register(module);
 	log4g_pattern_converter_register(module);
 	log4g_pattern_parser_register(module);
 	log4g_pattern_layout_register(module);
