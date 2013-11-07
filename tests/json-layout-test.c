@@ -28,32 +28,49 @@
 #define CLASS "/log4g/layout/JsonLayout"
 
 typedef struct Fixture_ {
-	Log4gLoggingEvent *event;
+	Log4gLoggingEvent *event0;
+	Log4gLoggingEvent *event1;
 } Fixture;
 
 void
 setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
-	log4g_mdc_put("foo", "bar");
+	log4g_mdc_put("foo", "FOO");
+	log4g_mdc_put("bar", "BAR");
+	log4g_mdc_put("baz", "BAZ");
+	log4g_ndc_push("foo");
+	log4g_ndc_push("bar");
 	log4g_ndc_push("baz");
 	va_list ap;
 	memset(&ap, 0, sizeof ap);
-	fixture->event = log4g_logging_event_new("org.gnome.test",
+	fixture->event0 = log4g_logging_event_new("org.gnome.test",
 			log4g_level_DEBUG(), __func__, __FILE__,
-			G_STRINGIFY(__LINE__), "test message", ap);
-	g_assert(fixture->event);
+			G_STRINGIFY(__LINE__),
+			"The quick brown fox jumps over the lazy dog", ap);
+	g_assert(fixture->event0);
+	fixture->event1 = log4g_logging_event_new("org.gnome.test",
+			log4g_level_WARN(), __func__, __FILE__,
+			G_STRINGIFY(__LINE__),
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit", ap);
+	g_assert(fixture->event1);
 }
 
 void
 teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
-	g_object_unref(fixture->event);
+	log4g_mdc_remove("foo");
+	log4g_mdc_remove("bar");
+	log4g_mdc_remove("baz");
+	log4g_ndc_remove();
+	g_object_unref(fixture->event0);
+	g_object_unref(fixture->event1);
 }
 
 void
 test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	GType type = g_type_from_name("Log4gJsonLayout");
+	gchar *s0, *s1;
 	g_assert(type);
 	Log4gLayout *layout = g_object_new(type,
 			"properties", TRUE,
@@ -61,7 +78,14 @@ test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 			NULL);
 	g_assert(layout);
 	log4g_layout_activate_options(layout);
-	g_message("%s", log4g_layout_format(layout, fixture->event));
+	s0 = g_strdup(log4g_layout_format(layout, fixture->event0));
+	s1 = g_strdup(log4g_layout_format(layout, fixture->event1));
+	g_message("%s%s%s%s",
+			log4g_layout_get_header(layout),
+			s0, s1,
+			log4g_layout_get_footer(layout));
+	g_free(s0);
+	g_free(s1);
 	g_object_unref(layout);
 }
 

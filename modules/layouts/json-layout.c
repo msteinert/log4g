@@ -272,12 +272,12 @@ format(Log4gLayout *base, Log4gLoggingEvent *event)
 				g_string_append_printf(self->priv->string,
 						"      {\n"
 						"        \"name\": \"%s\",\n"
-						"        \"value\": \"%s\",\n"
+						"        \"value\": \"%s\"\n"
 						"      }",
 						key, escaped);
 				g_free(key);
 				g_free(escaped);
-				if (i < keyset->len) {
+				if (i + 1 < keyset->len) {
 					g_string_append_c(self->priv->string, ',');
 				}
 				g_string_append_c(self->priv->string, '\n');
