@@ -32,7 +32,7 @@ for debug is NULL, meaning that the internal settings are not changed.
 The reset attribute causes the logger hierarchy to be reset before
 configuration is performed. -->
 <!ATTLIST log4g:configuration
-	xmlns:log4g CDATA #FIXED "http://www.gnome.org/log4g/1.0/"
+	xmlns:log4g CDATA #FIXED "http://mike.steinert.ca/log4g/1.0/"
 	threshold (all|trace|debug|info|warn|error|fatal|off|null) "null"
 	debug (true|false|null) "null"
 	reset (true|false) "false"

@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
-    "http://www.gnome.org/log4g/1.0/log4g.dtd">
-<!--
--->
-<log4g:configuration debug="true" reset="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<log4g:configuration debug="true" reset="true"
+	xmlns:log4g="http://mike.steinert.ca/log4g/1.0/">
 	<!-- comment -->
 	<appender type="Log4gConsoleAppender" name="A1">
 		<property name="follow" value="false" />

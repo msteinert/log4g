@@ -33,10 +33,8 @@
  * The following configuration provides a cut-and-paste example:
  *
  * |[
- * &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
- * &lt;!DOCTYPE log4g:configuration PUBLIC "-//GNOME//DTD LOG4G 1.0//EN"
- *     "http://www.gnome.org/log4g/1.0/log4g.dtd"&gt;
- * &lt;log4g:configuration&gt;
+ * &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+ * &lt;log4g:configuration xmlns:log4g=http://mike.steinert.ca/log4g/1.0/""&gt;
  *     &lt;appender name="A1" type="Log4gConsoleAppender"&gt;
  *         &lt;layout type="Log4gPatternLayout"&gt;
  *             &lt;property name="conversion-pattern"
@@ -251,8 +249,8 @@ parse_property(Log4gConfigurator *base, xmlNodePtr node, gpointer object)
 		}
 		g_object_set(object, (const gchar *)name, enum_value->value, NULL);
 	} else {
-		log4g_log_warn(Q_("%s: property cannot be set via DOM "
-					"configuration"), name);
+		log4g_log_warn(Q_("%s: property cannot be set via DOM configuration"),
+				name);
 		goto exit;
 	}
 exit:
@@ -444,8 +442,8 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
 			goto exit;
 		}
 		if (!LOG4G_IS_APPENDER(appender)) {
-			log4g_log_error(Q_("%s: not an instance of "
-						"Log4gAppender"), type);
+			log4g_log_error(Q_("%s: not an instance of Log4gAppender"),
+					type);
 			g_object_unref(appender);
 			appender = NULL;
 			goto exit;
@@ -469,8 +467,7 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
 			}
 			g_object_ref(appender);
 		} else {
-			log4g_log_error(Q_("appenders without a `type' must "
-						"have a `name'"));
+			log4g_log_error(Q_("appenders without a `type' must have a `name'"));
 			goto exit;
 		}
 	}
@@ -501,8 +498,7 @@ parse_appender(Log4gConfigurator *base, xmlNodePtr node)
 					g_object_unref(child);
 				}
 			} else {
-				log4g_log_error(Q_("%s: does not implement "
-							"log4g_appender_attachable"),
+				log4g_log_error(Q_("%s: does not implement log4g_appender_attachable"),
 						type);
 			}
 		} else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
@@ -561,8 +557,7 @@ parse_level(Log4gConfigurator *base, xmlNodePtr node, Log4gLogger *logger)
 		goto exit;
 	}
 	if (!klass->string_to_level) {
-		log4g_log_error(Q_("Log4gLevel virtual function "
-					"string_to_level() is NULL"));
+		log4g_log_error(Q_("Log4gLevel virtual function string_to_level() is NULL"));
 		goto exit;
 	}
 	level = klass->string_to_level((gchar *)value);
@@ -611,8 +606,8 @@ parse_logger(Log4gConfigurator *base, xmlNodePtr node)
 		} else if (!xmlStrcmp(additivity , (const xmlChar *)"false")) {
 			log4g_logger_set_additivity(logger, FALSE);
 		} else {
-			log4g_log_error(Q_("%s: `additivity' must be "
-						"a boolean value"), additivity);
+			log4g_log_error(Q_("%s: `additivity' must be a boolean value"),
+					additivity);
 		}
 		xmlFree(additivity);
 	} else {
@@ -689,8 +684,10 @@ error_handler(void *ctx, const char *format, ...)
 }
 
 static gboolean
-do_configure(Log4gConfigurator *base, const char *uri,
-        G_GNUC_UNUSED Log4gLoggerRepository *repository, GError **error)
+do_configure(Log4gConfigurator *base,
+	     const char *uri,
+	     G_GNUC_UNUSED Log4gLoggerRepository *repository,
+	     GError **error)
 {
 	struct Private *priv = GET_PRIVATE(base);
 	gboolean status = TRUE;
@@ -724,8 +721,7 @@ do_configure(Log4gConfigurator *base, const char *uri,
 	}
 	if (xmlStrcmp(node->name, (const xmlChar *)"configuration")) {
 		g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
-				Q_("%s: invalid root element (expected "
-					"log4g:configuration)"),
+				Q_("%s: invalid root element (expected configuration)"),
 				node->name);
 		status = FALSE;
 		goto exit;
@@ -741,8 +737,8 @@ do_configure(Log4gConfigurator *base, const char *uri,
 			log4g_log_warn(Q_("%s: ignoring `debug' attribute"),
 					att);
 		} else {
-			log4g_log_error(Q_("%s: invalid value for attribute "
-						"`debug'"), att);
+			log4g_log_error(Q_("%s: invalid value for attribute `debug'"),
+					att);
 		}
 		xmlFree(att);
 	}
@@ -917,8 +913,7 @@ log4g_dom_configurator_configure(const gchar *uri, GError **error)
 		log4g_log_manager_get_logger_repository();
 	if (!repository) {
 		g_set_error(error, LOG4G_ERROR, LOG4G_ERROR_FAILURE,
-				"log4g_log_manager_get_logger_repository() "
-				"returned NULL");
+				"log4g_log_manager_get_logger_repository() returned NULL");
 		g_object_unref(self);
 		return FALSE;
 	}

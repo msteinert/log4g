@@ -36,8 +36,12 @@ void
 setup(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
 	const gchar *file = getenv("srcdir");
-	g_assert(file);
-	fixture->file = g_string_new(file);
+	if (file) {
+		fixture->file = g_string_new(file);
+	} else {
+		fixture->file = g_string_new(".");
+	}
+	g_string_append(fixture->file, "/tests/dom-configurator-001.xml");
 	g_assert(fixture->file);
 }
 
@@ -50,9 +54,15 @@ teardown(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 void
 test_001(Fixture *fixture, G_GNUC_UNUSED gconstpointer data)
 {
-	g_string_append(fixture->file, "/tests/dom-configurator-001.xml");
 	GError *error = NULL;
-	g_assert(log4g_dom_configurator_configure(fixture->file->str, &error));
+	gboolean ok;
+	ok = log4g_dom_configurator_configure(fixture->file->str, &error);
+	if (! ok) {
+		g_warning("log4g_dom_configurator_configure(): %s",
+				error->message);
+		g_error_free(error);
+		g_assert(ok);
+	}
 	log4g_debug("debug message (match this string)");
 	Log4gLogger *logger = log4g_get_logger("org.gnome.test");
 	g_assert(logger);

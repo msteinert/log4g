@@ -138,74 +138,74 @@ check_PROGRAMS =
 
 check_PROGRAMS += tests/appender-attachable-impl-test
 tests_appender_attachable_impl_test_SOURCES = tests/appender-attachable-impl-test.c
-tests_appender_attachable_impl_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_appender_attachable_impl_test_LDFLAGS = $(GLIB_LIBS)
+tests_appender_attachable_impl_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_appender_attachable_impl_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_appender_attachable_impl_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/basic-configurator-test
 tests_basic_configurator_test_SOURCES = tests/basic-configurator-test.c
-tests_basic_configurator_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_basic_configurator_test_LDFLAGS = $(GLIB_LIBS)
+tests_basic_configurator_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_basic_configurator_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_basic_configurator_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/dom-configurator-test
 tests_dom_configurator_test_SOURCES = tests/dom-configurator-test.c
-tests_dom_configurator_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_dom_configurator_test_LDFLAGS = $(GLIB_LIBS)
+tests_dom_configurator_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_dom_configurator_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_dom_configurator_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/hierarchy-test
 tests_hierarchy_test_SOURCES = tests/hierarchy-test.c
-tests_hierarchy_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_hierarchy_test_LDFLAGS = $(GLIB_LIBS)
+tests_hierarchy_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_hierarchy_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_hierarchy_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/level-test
 tests_level_test_SOURCES = tests/level-test.c
-tests_level_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_level_test_LDFLAGS = $(GLIB_LIBS)
+tests_level_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_level_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_level_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/log4g-test
 tests_log4g_test_SOURCES = tests/log4g-test.c
-tests_log4g_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_log4g_test_LDFLAGS = $(GLIB_LIBS)
+tests_log4g_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_log4g_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_log4g_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/logger-test
 tests_logger_test_SOURCES = tests/logger-test.c
-tests_logger_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_logger_test_LDFLAGS = $(GLIB_LIBS)
+tests_logger_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_logger_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_logger_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/mdc-test
 tests_mdc_test_SOURCES = tests/mdc-test.c
-tests_mdc_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_mdc_test_LDFLAGS = $(GLIB_LIBS)
+tests_mdc_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_mdc_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_mdc_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/module-test
 tests_module_test_SOURCES = tests/module-test.c
-tests_module_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_module_test_LDFLAGS = $(GLIB_LIBS)
+tests_module_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_module_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_module_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/ndc-test
 tests_ndc_test_SOURCES = tests/ndc-test.c
-tests_ndc_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_ndc_test_LDFLAGS = $(GLIB_LIBS)
+tests_ndc_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_ndc_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_ndc_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/only-once-error-handler-test
 tests_only_once_error_handler_test_SOURCES = tests/only-once-error-handler-test.c
-tests_only_once_error_handler_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_only_once_error_handler_test_LDFLAGS = $(GLIB_LIBS)
+tests_only_once_error_handler_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_only_once_error_handler_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_only_once_error_handler_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/provision-node-test
 tests_provision_node_test_SOURCES = tests/provision-node-test.c
-tests_provision_node_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_provision_node_test_LDFLAGS = $(GLIB_LIBS)
+tests_provision_node_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_provision_node_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_provision_node_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 # Module definitions
@@ -253,38 +253,38 @@ modules_appenders_liblog4g_appenders_la_LIBADD = \
 # configure tests
 check_PROGRAMS += tests/async-appender-test
 tests_async_appender_test_SOURCES = tests/async-appender-test.c
-tests_async_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_async_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_async_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_async_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_async_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/console-appender-test
 tests_console_appender_test_SOURCES = tests/console-appender-test.c
-tests_console_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_console_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_console_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_console_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_console_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/file-appender-test
 tests_file_appender_test_SOURCES = tests/file-appender-test.c
-tests_file_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_file_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_file_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_file_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_file_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/syslog-appender-test
 tests_syslog_appender_test_SOURCES = tests/syslog-appender-test.c
-tests_syslog_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_syslog_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_syslog_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_syslog_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_syslog_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/writer-appender-test
 tests_writer_appender_test_SOURCES = tests/writer-appender-test.c
-tests_writer_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_writer_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_writer_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_writer_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_writer_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/rolling-file-appender-test
 tests_rolling_file_appender_test_SOURCES = tests/rolling-file-appender-test.c
-tests_rolling_file_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_rolling_file_appender_test_LDFLAGS = $(GLIB_LIBS)
+tests_rolling_file_appender_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_rolling_file_appender_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_rolling_file_appender_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 endif
 
@@ -322,32 +322,32 @@ modules_filters_liblog4g_filters_la_LIBADD = \
 # configure tests
 check_PROGRAMS += tests/deny-all-filter-test
 tests_deny_all_filter_test_SOURCES = tests/deny-all-filter-test.c
-tests_deny_all_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_deny_all_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_deny_all_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_deny_all_filter_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_deny_all_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/level-match-filter-test
 tests_level_match_filter_test_SOURCES = tests/level-match-filter-test.c
-tests_level_match_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_level_match_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_level_match_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_level_match_filter_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_level_match_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/level-range-filter-test
 tests_level_range_filter_test_SOURCES = tests/level-range-filter-test.c
-tests_level_range_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_level_range_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_level_range_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_level_range_filter_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_level_range_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/regex-filter-test
 tests_regex_filter_test_SOURCES = tests/regex-filter-test.c
-tests_regex_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_regex_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_regex_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_regex_filter_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_regex_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/string-match-filter-test
 tests_string_match_filter_test_SOURCES = tests/string-match-filter-test.c
-tests_string_match_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_string_match_filter_test_LDFLAGS = $(GLIB_LIBS)
+tests_string_match_filter_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_string_match_filter_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_string_match_filter_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 endif
 
@@ -393,38 +393,38 @@ modules_layouts_liblog4g_layouts_la_LIBADD = \
 # configure tests
 check_PROGRAMS += tests/html-layout-test
 tests_html_layout_test_SOURCES = tests/html-layout-test.c
-tests_html_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_html_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_html_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_html_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_html_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/json-layout-test
 tests_json_layout_test_SOURCES = tests/json-layout-test.c
-tests_json_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_json_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_json_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_json_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_json_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/pattern-layout-test
 tests_pattern_layout_test_SOURCES = tests/pattern-layout-test.c
-tests_pattern_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_pattern_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_pattern_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_pattern_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_pattern_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/simple-layout-test
 tests_simple_layout_test_SOURCES = tests/simple-layout-test.c
-tests_simple_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_simple_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_simple_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_simple_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_simple_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/ttcc-layout-test
 tests_ttcc_layout_test_SOURCES = tests/ttcc-layout-test.c
-tests_ttcc_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_ttcc_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_ttcc_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_ttcc_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_ttcc_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 
 check_PROGRAMS += tests/xml-layout-test
 tests_xml_layout_test_SOURCES = tests/xml-layout-test.c
-tests_xml_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
-tests_xml_layout_test_LDFLAGS = $(GLIB_LIBS)
+tests_xml_layout_test_CFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
+tests_xml_layout_test_LDFLAGS = $(GLIB_LIBS) $(GOBJECT_LIBS)
 tests_xml_layout_test_LDADD = $(top_builddir)/log4g/liblog4g-$(series).la
 endif
 
